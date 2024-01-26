@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
+    "target": "esnext",
     "useDefineForClassFields": true,
-    "module": "ESNext",
+    "esModuleInterop": true,
+    "module": "esnext",
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
 
@@ -12,6 +13,7 @@
     "noEmit": true,
     "jsx": "preserve",
     "types": ["reflect-metadata"],
+    "forceConsistentCasingInFileNames": true,
 
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,

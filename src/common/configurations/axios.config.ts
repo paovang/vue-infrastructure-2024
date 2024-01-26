@@ -23,7 +23,7 @@ export class AxiosApi {
           }
         }
 
-        config.headers['Authorization'] = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTg4LjE2Ni4yNDUuMTMvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3MDMyNjA3NjIsImV4cCI6MTcwMzg2NTU2MiwibmJmIjoxNzAzMjYwNzYyLCJqdGkiOiJBc0F0eDBpUnZMMmhCdjhWIiwic3ViIjoiOCIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.b-wJsxaZEDf_7awKm4yVeeynhdX2CRMJcadxe5JBMb4`;
+        config.headers['Authorization'] = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTg4LjE2Ni4yNDUuMTMvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3MDYyNjE1OTYsImV4cCI6MTcwNjg2NjM5NiwibmJmIjoxNzA2MjYxNTk2LCJqdGkiOiJMN1NmTXdJYVB1aHhtYkl3Iiwic3ViIjoiOCIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.ryKNBZqwAY342sHnI2ZMSYwKWFIcvIYKFvrMVPKa648`;
 
         return config
       },

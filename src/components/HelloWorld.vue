@@ -40,16 +40,12 @@
     <br>
       <div>
         <input
-          :type="type"
-          :id="id"
-          placeholder="ກະລຸນາປ້ອນກ່ອນ..."
+          placeholder="ກະລຸນາປ້ອນກ່ອນລະຫັດກ່ອນ..."
           v-model="form.id"
           class="mt-1 p-2 border rounded-md w-full"
         />
          <input
-          :type="type"
-          :id="id"
-          placeholder="ກະລຸນາປ້ອນກ່ອນ..."
+          placeholder="ກະລຸນາປ້ອນຊື່ກ່ອນ..."
           v-model="form.name"
           class="mt-1 p-2 border rounded-md w-full"
         />

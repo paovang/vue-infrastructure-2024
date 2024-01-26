@@ -1,6 +1,6 @@
-import { IUseCase } from './../../../common/interfaces/use-case.interface';
+import type { IUseCase } from './../../../common/interfaces/use-case.interface';
 import { CustomerApi } from '../repositories/customer.repository';
-import { ICustomerApi } from './../interfaces/user.interface';
+import type { ICustomerApi } from './../interfaces/user.interface';
 import { injectable, inject } from 'tsyringe';
 
 @injectable()
@@ -12,17 +12,17 @@ export class GetAllCustomerUseCase implements IUseCase {
     }
 
     async execute(): Promise<any> {
-        try {
-            const result = await this._api.getAll();
-            
-            return result
-          } catch (error: any) {
-            let messages = undefined
-            if (error.response.status === 422) {
-              messages = Object.keys(error.response.data.errors)
-                .map((key) => `${key}: ${error.response.data.errors[key].join(', ')}`)
-                .join('; ')
-            }
-          }
+      try {
+        const result = await this._api.getAll();
+        return result;
+      } catch (error: any) {
+        if (error.response.status === 422) {
+          const messages = Object.keys(error.response.data.errors)
+            .map((key) => `${key}: ${error.response.data.errors[key].join(', ')}`)
+            .join('; ');
+          // Handle or log the 'messages' if needed
+          console.error(messages);
+        }
+      }      
     }
 }

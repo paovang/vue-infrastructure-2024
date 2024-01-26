@@ -10,15 +10,11 @@
         <br>
         <div>
             <input
-                :type="type"
-                :id="id"
                 placeholder="ກະລຸນາປ້ອນຊື່ກ່ອນ..."
                 v-model="form.name"
                 class="mt-1 p-2 border rounded-md w-full"
             />
             <input
-                :type="type"
-                :id="id"
                 v-model="form.email"
                 placeholder="ກະລຸນາປ້ອນອີເມວກ່ອນ..."
                 class="mt-1 p-2 border rounded-md w-full"
@@ -50,11 +46,10 @@
     </div>
 </template>
 <script setup lang="ts">
-    import { ref } from 'vue';
     import { customerStore } from '../stores/customer.store';
     import FileUpload from '@/modules/customer/components/upload-file.vue';
     
-    const { register, getOne, getAll, form } = customerStore();
+    const { register, getAll, form } = customerStore();
 
     async function registerCustomer(): Promise<any> {
         await register();

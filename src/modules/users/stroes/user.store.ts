@@ -1,8 +1,13 @@
 import { defineStore } from 'pinia';
 import { reactive } from 'vue';
 
+interface User {
+  id: string;
+  name: string;
+}
+
 export const userCounterStore = defineStore('user-store', () => {
-    const items = reactive([]); 
+    const items = reactive<User[]>([]); // Explicitly define the type of items
     const form = reactive({
         id: '',
         name: '',
@@ -15,7 +20,7 @@ export const userCounterStore = defineStore('user-store', () => {
     });
 
     function addUser() {
-        const newItem = {
+        const newItem: User = { // Explicitly define the type of newItem
             id: form.id,
             name: form.name,
         };

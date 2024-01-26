@@ -1,6 +1,6 @@
-import { IUseCase } from '@/common/interfaces/use-case.interface';
+import type { IUseCase } from '@/common/interfaces/use-case.interface';
 import { CustomerApi } from '../repositories/customer.repository';
-import { ICustomerApi } from './../interfaces/user.interface';
+import type { ICustomerApi } from './../interfaces/user.interface';
 import { CustomerEntity } from './../entities/customer.entity';
 import { injectable, inject } from 'tsyringe';
 
@@ -18,9 +18,8 @@ export class CreateCustomerUseCase implements IUseCase {
             
             return result
           } catch (error: any) {
-            let messages = undefined;
             if (error.response.status === 422) {
-              messages = Object.keys(error.response.data.errors)
+              Object.keys(error.response.data.errors)
                 .map((key) => `${key}: ${error.response.data.errors[key].join(', ')}`)
                 .join('; ')
             }

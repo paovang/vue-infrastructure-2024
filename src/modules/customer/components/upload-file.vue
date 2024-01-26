@@ -24,9 +24,8 @@
     <p v-if="fileError">{{ fileError }}</p>
 </template>
 <script setup lang="ts">
-    import { ref, defineProps, defineEmits } from "vue";
+    import { ref, defineEmits } from "vue";
     
-    const props = defineProps(['modelValue']);
     const emits = defineEmits(["update:modelValue"]);
 
     const imageUrl = ref('https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1361&q=80');
