@@ -1,5 +1,5 @@
 import { IUseCase } from '@/common/interfaces/use-case.interface';
-import { CustomerApi } from '../repositories/customer.api';
+import { CustomerApi } from '../repositories/customer.repository';
 import { ICustomerApi } from './../interfaces/user.interface';
 import { CustomerEntity } from './../entities/customer.entity';
 import { injectable, inject } from 'tsyringe';
