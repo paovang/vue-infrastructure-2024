@@ -21,7 +21,7 @@ export class CustomerApi implements ICustomerApi {
         // });
 
         const result = await this._api.axios({
-            url: 'branch/list-products'
+            url: 'list/users'
         });
 
         console.log(result);
