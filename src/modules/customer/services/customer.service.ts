@@ -5,7 +5,7 @@ import { inject, injectable } from 'tsyringe'
 
 @injectable()
 export class CustomerService {
-     constructor(
+    constructor(
         @inject(CreateCustomerUseCase) private _create: CreateCustomerUseCase,
         @inject(GetAllCustomerUseCase) private _getAll: GetAllCustomerUseCase
     ) {

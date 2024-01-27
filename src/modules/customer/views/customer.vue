@@ -1,7 +1,7 @@
 <template>
     <div>
         <p class="text-3xl font-bold underline" style="font-size: 24px">
-            ຂໍ້ມູນ ລູກຄ້າ
+            ລົງທະບຽນ ລູກຄ້າ
         </p>
         <br>
             <FileUpload v-model="form.image" />
