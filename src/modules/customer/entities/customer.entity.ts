@@ -1,6 +1,6 @@
 export interface CustomerEntity {
     id?: string
-    name: string
+    name?: string
     email: string
     phone?: string
     address?: string
