@@ -28,7 +28,7 @@
 
         <div class="card">
             <h2 class="mb-3">
-                ລາຍການບໍລິສັດ
+                ລາຍການ ປະເທດທັງໝົດ
             </h2>
             <DataTable 
                 :value="state.data.props" 
