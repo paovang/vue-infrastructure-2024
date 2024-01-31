@@ -6,7 +6,7 @@ import Tooltip from 'primevue/tooltip';
 import Ripple from 'primevue/ripple';
 import StyleClass from 'primevue/styleclass';
 import ConfirmationService from 'primevue/confirmationservice';
-// import './style.css'
+import ToastService from 'primevue/toastservice'
 import App from './App.vue'
 import router from './router/index';
 
@@ -21,6 +21,7 @@ import 'primeflex/primeflex.css'
 
 const app = createApp(App)
 app.use(PrimeVue, { ripple: true });
+app.use(ToastService)
 app.use(ConfirmationService);
 app.directive('tooltip', Tooltip);
 app.directive('ripple', Ripple)

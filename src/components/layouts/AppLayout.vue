@@ -2,6 +2,7 @@
 import AppSidebar from './AppSidebar.vue'
 import AppFooter from './AppFooter.vue'
 import AppTopbar from './AppTopbar.vue'
+import LoadingComponent from '../customComponents/LoadingComponent.vue'
 import { ref } from 'vue';
 
 const toggle = ref<boolean>(true)
@@ -18,7 +19,16 @@ const toggle = ref<boolean>(true)
     >
       <AppTopbar @toggle-sidebar="() => (toggle = !toggle)" />
       <main class="layout-main-container surface-ground">
-        <router-view />
+        <router-view v-slot="{Component}" >
+          <template v-if="Component">
+            <Suspense>
+              <component :is="Component"></component>
+              <template #fallback>
+                <loading-component />
+              </template>
+            </Suspense>
+          </template>
+        </router-view>
       </main>
       <AppFooter />
     </div>

@@ -130,5 +130,14 @@
     //   const endIndex = startIndex + rowsPerPage.value;
     //   return products.value.slice(startIndex, endIndex);
     // });
+
+
+  // watchEffect(() => {
+  //   if (selectedProduct.value) {
+  //     const selectedProductId = selectedProduct.value;
+  //     console.log(`Selected Product ID: ${selectedProductId}`);
+  //     // Do whatever you need with the selectedProductId
+  //   }
+  // });
   </script>
   

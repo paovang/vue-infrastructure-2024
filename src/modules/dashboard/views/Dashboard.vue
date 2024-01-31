@@ -2,17 +2,17 @@
   <div class="card">
     <h2 class="mb-3">ລາຍການບໍລິສັດ</h2>
     <data-table
-      :first="first"
-      dataKey="id"
-      v-model:selection="selectedProduct" 
-      tableStyle="min-width: 50rem"
-      :value="products"
-      :loading="isLoading"
-      lazy
-      :totalRecords="totalPage"
-      @page="onPageChange"
-      paginator
-      :rows="rowsPerPage"
+    dataKey="id"
+    v-model:selection="selectedProduct" 
+    tableStyle="min-width: 50rem"
+    :value="products"
+    :loading="isLoading"
+    lazy
+    :totalRecords="totalPage"
+    @page="onPageChange"
+    paginator
+    :first="first"
+    :rows="rowsPerPage"
       paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
       :rowsPerPageOptions="[5, 10, 25]"
       currentPageReportTemplate="ສະແດງ {first} ຫາ {last} ຈາກ {totalRecords} ແຖວ"
@@ -33,14 +33,14 @@
             />
           </span>
           <div class="w-full sm:w-auto flex-order-0 sm:flex-order-1 mb-4 sm:mb-0">
-              <button
+              <Button
                   type="button"
-                  class="p-button p-button-success"
-                  @click="addCompany"
+                  severity="warning" 
+                  @click="createForm.visible = true"
               >
-                  <i class="pi pi-plus" style="margin-right: 8px;"></i>
+                  <i class="pi pi-plus-circle" style="margin-right: 8px;"></i>
                   ເພີ່ມບໍລິສັດ
-              </button>
+              </Button>
           </div>
 
         </div>
@@ -64,27 +64,54 @@
       <Column field="referal_code" header="ເລກອ້າງອີງ"></Column>
       <Column field="email" header="ອີເມວ"></Column>
       <Column field="phone" header="ເບີໂທລະສັບ"></Column>
+      <Column headerStyle="width: 10rem">
+        <template #body="{ data }">
+            <div class="flex flex-wrap gap-2">
+                <Button 
+                  type="button" 
+                  icon="pi pi-pencil" 
+                  rounded 
+                  severity="warning"  
+                  style="color: white;" 
+                  @click="editItem(data)"
+                />
+                <Button type="button" icon="pi pi-trash" rounded severity="danger" />
+            </div>
+        </template>
+      </Column>
     </data-table>
 
-    <Dialog v-model:visible="visible" maximizable modal header="Header" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
-        <p class="m-0">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </p>
-    </Dialog>
+    <FormDialog 
+      ref="createForm"
+      :id="false"
+      :on-submit="submitData"
+      :form="form"
+      :is-loading="btnLoading"
+      @on-success="clearForm"
+    />
+
+    <FormDialog 
+      ref="editForm"
+      id
+      :on-submit="editSubmitData"
+      :form="form"
+      :is-loading="btnLoading"
+      @on-success="clearForm"
+    />
+    
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, reactive, computed } from 'vue';
 import DataTable, { type DataTablePageEvent } from 'primevue/datatable';
 import Column from 'primevue/column';
 import Image from 'primevue/image'
 import InputText from 'primevue/inputtext'
-import Dialog from 'primevue/dialog';
+import FormDialog from '../components/FormDialog.vue'
 import Button from 'primevue/button'
 import axios from 'axios';
-
+import { useRoute, useRouter } from 'vue-router'
 
   const search = ref<string>('')
   const products = ref<any>([]);
@@ -93,54 +120,102 @@ import axios from 'axios';
   const isLoading = ref<boolean>(true);
   const totalPage = ref<number>();
   const selectedProduct = ref();
-  const first = ref(0);
-  const visible = ref<boolean>(false);
+  const createForm = ref();
+  const editForm = ref();
+  const btnLoading = ref(false);
+  const { push } = useRouter()
+   const { query } = useRoute()
 
-  async function onSearch() {
-    const searchTerm = search.value.toLowerCase();
-    if (searchTerm.trim() !== '') {
-      products.value = products.value.filter((product: { name: string }) =>
-        product.name.toLowerCase().includes(searchTerm)
-      );
-    } else {
-      fetchData();
+  const form = reactive<any>({
+    id: '',
+    referal_code: '',
+  })
+
+  async function initComponent() {
+    if (Object.keys(query).length !== 0) {
+      currentPage.value = query.page ? Number(query.page) : 1
+      rowsPerPage.value = query.limit ? Number(query.limit) : 10
+      search.value = query.search ? (query.search as string) : '';
+
+      if (search.value === '') {
+        push({ query: { page: currentPage.value, limit: rowsPerPage.value, search: undefined } })
+      } else {
+        push({
+          query: {
+            page: currentPage.value,
+            limit: rowsPerPage.value,
+            search: search.value,
+          }
+        })
+      }
     }
+
+    await getAffiliateProducts()
   }
 
-  async function  addCompany() {
-    const selectedProducts = selectedProduct.value || [];
-
-    const ids = selectedProducts.map((product: any) => product.id);
-    console.log(ids);
-
-    visible.value = true;
-
-    console.log(visible.value);
-  }
-
-  // watchEffect(() => {
-  //   if (selectedProduct.value) {
-  //     const selectedProductId = selectedProduct.value;
-  //     console.log(`Selected Product ID: ${selectedProductId}`);
-  //     // Do whatever you need with the selectedProductId
-  //   }
-  // });
-
-  async function onClearSearch(e: any) {
-    console.log(e)
-  }
-
+  await initComponent()
+  
   async function onPageChange(event: DataTablePageEvent) {
     currentPage.value = event.page + 1;
     rowsPerPage.value = event.rows;
 
+    push({ query: { page: currentPage.value, limit: rowsPerPage.value } })
+
     getAffiliateProducts();
   }
   
+  const first = computed(() => {
+    let result: number = 0
+    if(currentPage.value && rowsPerPage.value){
+      result = (currentPage.value - 1) * rowsPerPage.value
+    }
+    return result
+  })
 
-  onMounted(async () => {
-    getAffiliateProducts()
-  });
+  
+  async function editItem(item: any) {
+    form.id = item.id;
+    form.referal_code = item.referal_code;
+    editForm.value.visible = true;
+  }
+
+  async function clearForm() {
+    form.referal_code = '';
+    console.log('clear....')
+  }
+
+  async function onSearch() {
+    if (search.value !== undefined) {
+      push({ query: { page: currentPage.value, limit: rowsPerPage.value, search: search.value } })
+    } 
+      
+    getAffiliateProducts();
+  }
+
+  async function  submitData() {
+    console.log('paovang: submit 2024')
+    // const selectedProducts = selectedProduct.value || [];
+
+    // const ids = selectedProducts.map((product: any) => product.id);
+
+    // btnLoading.value = true
+    // setTimeout(() => {
+    //   createForm.value.visible = false
+    //   btnLoading.value = false;
+    // }, 2000);
+  }
+
+  async function editSubmitData() {
+    btnLoading.value = true
+    setTimeout(() => {
+      editForm.value.visible = false
+      btnLoading.value = false
+    }, 2000);
+  }
+
+  async function onClearSearch(e: any) {
+    console.log(e)
+  }
 
   const axiosInstance = axios.create({
     headers: {
@@ -153,54 +228,21 @@ import axios from 'axios';
     setTimeout(async () => {
       const response = await axiosInstance.get('https://hal-test.hal-logistics.la/api/admin/list-affiliate-products', {
         params: {
-          status: '',
-          q: '',
+          q: search.value,
           page: currentPage.value,
           per_page: rowsPerPage.value
         }
       });
 
-      // console.log(response.data.data.pagination.total);
       if (response) {
         isLoading.value = false;
 
         totalPage.value = response.data.data.pagination.total;
         products.value = response.data.data.data;
-        
+        // rowsPerPage.value = Number(response.data.data.pagination.per_page)
       }
     }, 500);
   }
-
-
-  async function fetchData() {
-    const data = [
-      {
-        id: '1',
-        name: 'ABC Inc.',
-        email: 'abc@example.com',
-        logo: 'https://images.crunchbase.com/image/upload/c_lpad,f_auto,q_auto:eco,dpr_1/ttisypccwnhufcnlpayy'
-      },
-      {
-        id: '2',
-        name: 'DEF Corporation',
-        email: 'def@example.com',
-        phone: '555-123-4567',
-        address: '789 Elm Rd',
-        logo: 'https://lapnet.com.la/storage/members/June2020/LDB_1.png'
-      },
-    ]
-
-    for (let i = 0; i < 10; i++) {
-      const repeatedData = data.map(item => ({ ...item, id: `${i + 1}` }));
-      products.value.push(...repeatedData);
-    }
-  }
-
-  // const displayedProducts = computed(() => {
-  //   const startIndex = (currentPage.value - 1) * rowsPerPage.value;
-  //   const endIndex = startIndex + rowsPerPage.value;
-  //   return products.value.slice(startIndex, endIndex);
-  // });
 </script>
 
 <!-- https://flowbite.com/docs/components/sidebar/ -->
