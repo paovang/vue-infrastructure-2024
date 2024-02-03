@@ -1,5 +1,6 @@
 export interface IGState<Entity> {
     data: Entity
-    isLoading: boolean
+    isLoading: boolean,
+    btnLoading: boolean,
     error: any
 }

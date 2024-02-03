@@ -124,7 +124,7 @@ import { useRoute, useRouter } from 'vue-router'
   const editForm = ref();
   const btnLoading = ref(false);
   const { push } = useRouter()
-   const { query } = useRoute()
+  const { query } = useRoute()
 
   const form = reactive<any>({
     id: '',

@@ -1,23 +1,23 @@
-import { CountryEntity } from './../entities/country.entity';
+import { DistrictEntity } from './../entities/district.entity';
 import { AxiosApi } from '../../../common/configurations/axios.config';
-import { ICountryRepository } from '../interfaces/country.interface';
+import { IDistrictRepository } from '../interfaces/district.interface';
 import { injectable, inject } from 'tsyringe';
 import { IGPaginate, IGPaginated } from '@/common/interfaces/pagination.interface';
 import { IResponse } from '@/common/interfaces/response.interface';
 
 @injectable()
-export class CountryRepository implements ICountryRepository {
+export class DistrictRepository implements IDistrictRepository {
     constructor(
         @inject(AxiosApi) private _api: AxiosApi
     ) {}
 
-    async create(input: CountryEntity): Promise<IResponse<CountryEntity>> {
+    async create(input: DistrictEntity): Promise<IResponse<DistrictEntity>> {
         const response = await this._api.axios({
             method: 'post',
-            url: '/admin/country',
+            url: '/admin/district',
             params: {
                 name: input.name,
-                currency: input.currency,
+                province_id: input.province_id,
             },
         });
         
@@ -28,13 +28,12 @@ export class CountryRepository implements ICountryRepository {
         }
     }
 
-    async update(input: CountryEntity): Promise<IResponse<CountryEntity>> {
+    async update(input: DistrictEntity): Promise<IResponse<DistrictEntity>> {
         const response = await this._api.axios({
             method: 'put',
-            url: '/admin/country/' + input.id,
+            url: '/admin/district/' + input.id,
             params: {
-                name: input.name,
-                currency: input.currency
+                name: input.name
             },
         });
         
@@ -45,10 +44,10 @@ export class CountryRepository implements ICountryRepository {
         }
     }
 
-    async delete(id: CountryEntity): Promise<IResponse<CountryEntity>> {
+    async delete(id: DistrictEntity): Promise<IResponse<DistrictEntity>> {
         const response = await this._api.axios({
             method: 'delete',
-            url: `/admin/country/${id}`
+            url: `/admin/district/${id}`
         });
         
         return {
@@ -59,10 +58,10 @@ export class CountryRepository implements ICountryRepository {
     }
 
     async getAll(
-        args: IGPaginate<Pick<CountryEntity, 'name'>>
-      ): Promise<IResponse<IGPaginated<CountryEntity>>> {
+        args: IGPaginate<Pick<DistrictEntity, 'name'>>
+      ): Promise<IResponse<IGPaginated<DistrictEntity>>> {
         const response = await this._api.axios({
-            url: '/admin/country',
+            url: '/admin/district',
             params: {
                 page: args.page,
                 per_page: args.limit,

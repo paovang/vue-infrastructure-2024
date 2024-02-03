@@ -1,6 +1,5 @@
 <template>
     <div>
-        <!-- Right Card -->
         <div class="card card-first">
             <form @submit.prevent="isEditing ? onUpdate() : onSubmit()" class="flex flex-column gap-3 h-full">
                 <div class="col-12 md:col-12 flex flex-row">
@@ -18,12 +17,14 @@
                     </div>
                     <div class="col-12 md:col-5">
                         <div class="flex flex-column h-full">
-                            <my-input-text 
-                                name="currency" 
-                                label="ຊື່" 
-                                required 
-                                placeholder="ກະລຸນາປ້ອນກ່ອນ..." 
-                                class="h-full" 
+                            <Dropdown 
+                                v-model="form.country_id" 
+                                :options="stateProvince.data.props" 
+                                optionLabel="name" 
+                                placeholder="ກະລຸນາເລືອກກ່ອນ..." 
+                                optionValue="id"
+                                :highlightOnSelect="true" 
+                                class="w-full md:w-14rem" 
                             />
                         </div>
                     </div>
@@ -34,19 +35,18 @@
                             :loading="state.btnLoading"
                         >
                             <i :class="`${isEditing ? 'pi pi-pencil' : 'pi pi-plus-circle'}`" style="margin-right: 8px;"></i>
-                            {{ isEditing ? 'ເເກ້ໄຂ' : 'ບັນທຶກ' }} ປະເທດ
+                            {{ isEditing ? 'ເເກ້ໄຂ' : 'ບັນທຶກ' }} ເເຂວງ
                         </Button>
                     </div>
                 </div>
             </form>
         </div>
 
-
         <div class="card">
             <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
                 <span class="p-input-icon-left w-full sm:w-20rem flex-order-1 sm:flex-order-0">
                     <h2 class="mb-3">
-                        ລາຍການ ປະເທດທັງໝົດ
+                        ລາຍການ ເເຂວງທັງໝົດ
                     </h2>
                 </span>
                 <span class="w-full sm:w-auto flex-order-0 sm:flex-order-1 mb-4 sm:mb-0">
@@ -93,8 +93,8 @@
                             {{ item.index + 1 }}
                         </template>
                     </Column>
-                <Column field="name" header="ຊື່ປະເທດ" style="width: 25%"></Column>
-                <Column field="currency" header="ສະກຸນເງີນ" style="width: 25%"></Column>
+                <Column field="name" header="ຊື່ເເຂວງ" style="width: 25%"></Column>
+                <Column field="country.name" header="ຊື່ປະເທດ" style="width: 25%"></Column>
                 <Column headerStyle="width: 10rem">
                     <template #body="{ data }">
                         <div class="flex flex-wrap gap-2 btn-right">
@@ -125,16 +125,18 @@
     import { ref, onMounted, computed } from 'vue';
     import DataTable, { type DataTablePageEvent } from 'primevue/datatable';
     import Column from 'primevue/column';
-    import InputText from 'primevue/inputtext'
-    import Button from 'primevue/button'
+    import InputText from 'primevue/inputtext';
+    import Button from 'primevue/button';
+    import { provinceStore } from '../stores/province.store';
     import { countryStore } from '../stores/country.store';
     import { useToast } from "primevue/usetoast";
-    import { useForm } from 'vee-validate'
-    import { createCountrySchema } from '../schema/country.shema'
-    import MyInputText from '../../../components/customComponents/FormInputText.vue'
-    import { useRoute, useRouter } from 'vue-router'
-    import { CountryEntity } from '../entities/country.entity';
+    import { useForm } from 'vee-validate';
+    import { createProvinceSchema } from '../schema/province.shema';
+    import MyInputText from '../../../components/customComponents/FormInputText.vue';
+    import { useRoute, useRouter } from 'vue-router';
+    import { ProvinceEntity } from '../entities/province.entity';
     import { useConfirm } from "primevue/useconfirm";
+    import Dropdown from 'primevue/dropdown';
     
     const toast = useToast();
     const confirm = useConfirm();
@@ -144,10 +146,11 @@
     const { push } = useRouter()
     const { query } = useRoute()
 
-    const { register, update, remove, getAll, form, state, setStateFilter } = countryStore();
+    const { register, update, remove, getAll, form, state, setStateFilter } = provinceStore();
+    const { getAll: getAllCountry, state: stateProvince, setStateFilter: setStateCountyFilter } = countryStore();
 
     const { handleSubmit, handleReset, setFieldValue } = useForm<any>({
-        validationSchema: createCountrySchema
+        validationSchema: createProvinceSchema
     })
 
     const RefreshData = async() => {
@@ -160,50 +163,51 @@
         
         await handleReset();
         await initComponent();
+        await fetchCountry();
         state.btnLoading = false;
     }
 
-    const deleteItem = async (id: CountryEntity) => {
+    const deleteItem = async (id: ProvinceEntity) => {
         await remove(id);
+        await handleReset();
+        await fetchCountry();
     }
 
-    const editItem = async (value: CountryEntity) => {
+    const editItem = async (value: ProvinceEntity) => {
         isEditing.value = true;
-
+        form.country_id = value.country?.id;
         setFieldValue('id', value.id);
         setFieldValue('name', value.name);
-        setFieldValue('currency', value.currency);
-        
-        scrollToInput();
+        await scrollToInput();
     }
 
     const onUpdate = handleSubmit(async(values) => {
         form.id = values.id;
         form.name = values.name;
-        form.currency = values.currency;
 
         await update();
 
         if (state.error) {
             showWarningValidateBackend();
         } else {
-            showToastSuccess();
-            handleReset();
+            await showToastSuccess();
+            await handleReset();
+            await fetchCountry();
             isEditing.value = false;
         }
     });
     
     const onSubmit = handleSubmit(async (values) => {
         form.name = values.name;
-        form.currency = values.currency;
 
         await register();
         
         if (state.error) {
-            showWarningValidateBackend();
+            await showWarningValidateBackend();
         } else {
-            showToastSuccess();
-            handleReset();
+            await showToastSuccess();
+            await handleReset();
+            await fetchCountry();
         }
     })
 
@@ -212,7 +216,7 @@
         setStateFilter.limit = event.rows;
 
         const { page, limit, filter } = setStateFilter
-        push({ name: 'country', query: { page, limit, search: filter?.name ? filter.name : undefined } })
+        push({ name: 'province', query: { page, limit, search: filter?.name ? filter.name : undefined } })
 
         await getAll();
     }
@@ -226,7 +230,7 @@
         return result
     })
 
-    const confirmDelete = async (id: CountryEntity) => {
+    const confirmDelete = async (id: ProvinceEntity) => {
         confirm.require({
             message: 'ທ່ານຕ້ອງການລຶບບັນທຶກນີ້ບໍ?',
             header: 'ຢືນຢັນການລຶບຂໍ້ມູນ',
@@ -246,11 +250,11 @@
     }
 
     const showToastSuccess = () => {
-        toast.add({ severity: 'success', summary: 'Success Message', detail: 'Message Content', life: 3000 });
+        toast.add({ severity: 'success', summary: 'ສຳເລັດເເລ້ວ.', detail: 'ການດຳເນີນສຳເລັດເເລ້ວ', life: 3000 });
     }
 
     const showWarningValidateBackend = () => {
-        toast.add({ severity: 'error', summary: 'Error Message', detail: `${state.error}`, life: 3000 });
+        toast.add({ severity: 'error', summary: 'ເກີດຂໍ້ຜິດພາດ.', detail: `${state.error}`, life: 3000 });
     }
 
     async function initComponent() {
@@ -275,10 +279,18 @@
     }
 
     
+
+
     onMounted(async () => {
-        setStateFilter.limit = 10;
         await initComponent();
+        await fetchCountry();
     })
+
+    const fetchCountry = async () => {
+        setStateCountyFilter.limit = 200;
+        await getAllCountry();
+        form.country_id = stateProvince.data.props.length > 0 ? stateProvince.data.props[0].id : undefined;
+    }
 
     const filteredName = computed<string>({
         get: () => setStateFilter.filter!.name,
@@ -342,5 +354,11 @@
     .btn-right {
         display: flex;
         justify-content: flex-end;
+    }
+    .md\:w-20rem {
+        width: auto !important;
+    }
+    .md\:w-14rem {
+        width: auto !important;
     }
 </style>

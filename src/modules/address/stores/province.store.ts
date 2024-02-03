@@ -1,15 +1,15 @@
 import { reactive } from 'vue';
-import { CountryEntity } from './../entities/country.entity';
-import { CountryService } from './../services/country.service';
+import { ProvinceEntity } from './../entities/province.entity';
+import { ProvinceService } from './../services/province.service';
 import { defineStore } from 'pinia'
 import { container } from 'tsyringe'
 import { IGState } from '@/common/interfaces/state.interface';
 import { IGPaginate, IGPaginated } from '@/common/interfaces/pagination.interface';
 
-export const countryStore = defineStore('country-store', () => {
-    const countryService = container.resolve<CountryService>(CountryService);
+export const provinceStore = defineStore('province-store', () => {
+    const provinceService = container.resolve<ProvinceService>(ProvinceService);
     
-    const state = reactive<IGState<IGPaginated<CountryEntity>>>({
+    const state = reactive<IGState<IGPaginated<ProvinceEntity>>>({
         data: {
           props: [],
           total: 0
@@ -19,16 +19,16 @@ export const countryStore = defineStore('country-store', () => {
         error: ''
     })
     
-    const setStateFilter = reactive<IGPaginate<Pick<CountryEntity, 'name'>>>({
+    const setStateFilter = reactive<IGPaginate<Pick<ProvinceEntity, 'name'>>>({
         page: 1,
         limit: 10,
         filter: { name: '' }
     })
 
-    const form = reactive<CountryEntity>({
+    const form = reactive<ProvinceEntity>({
         id: '',
         name: '',
-        currency: ''
+        country_id: ''
     });
 
     /** My Function */
@@ -37,7 +37,7 @@ export const countryStore = defineStore('country-store', () => {
         state.btnLoading = true; 
 
         try {
-            await countryService.register(form);
+            await provinceService.register(form);
             await getAll();
 
             state.error = '';
@@ -60,7 +60,7 @@ export const countryStore = defineStore('country-store', () => {
         state.btnLoading = true; 
 
         try {
-            await countryService.update(form);
+            await provinceService.update(form);
             await getAll();
 
             state.error = '';
@@ -78,11 +78,11 @@ export const countryStore = defineStore('country-store', () => {
         state.btnLoading = false; 
     }
 
-    async function remove(id: CountryEntity) {
+    async function remove(id: ProvinceEntity) {
         state.isLoading = true; 
         
         try {
-            await countryService.delete(id);
+            await provinceService.delete(id);
             await getAll();
 
             state.error = '';
@@ -105,13 +105,13 @@ export const countryStore = defineStore('country-store', () => {
 
     async function getAll() {
         state.isLoading = true; 
-        const results =  await countryService.getAll({
+        const results =  await provinceService.getAll({
             page: setStateFilter.page,
             limit: setStateFilter.limit,
             filter: setStateFilter.filter
         });
-        
-        if (results && results.data && results?.status == 'success') {
+
+        if (results && results.data && results.status == 'success') {
             state.data.props = results.data.props;
             state.data.total = results.data.total;
             state.isLoading = false;
