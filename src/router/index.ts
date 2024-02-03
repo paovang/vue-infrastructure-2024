@@ -1,4 +1,4 @@
-import { customerRoute } from './../modules/customer/router/index';
+import { customerRoute } from './../modules/rent_house/customer/routers/index';
 import { userRoute } from '../modules/users/router/index.route';
 import { dashboardRoute } from '../modules/dashboard/router/dashboard.route'
 import { addressRoute } from '../modules/address/router/address.route';

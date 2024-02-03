@@ -8,7 +8,8 @@
     label?: string
     required?: boolean
     placeholder?: string
-    value?: string
+    value?: string,
+    isEditing?: boolean
   }>()
 
   const { value, errorMessage } = useField<string>(() => props.name)

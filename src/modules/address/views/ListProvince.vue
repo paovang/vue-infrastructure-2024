@@ -19,7 +19,7 @@
                         <div class="flex flex-column h-full">
                             <Dropdown 
                                 v-model="form.country_id" 
-                                :options="stateProvince.data.props" 
+                                :options="stateCountry.data.props" 
                                 optionLabel="name" 
                                 placeholder="ກະລຸນາເລືອກກ່ອນ..." 
                                 optionValue="id"
@@ -147,7 +147,7 @@
     const { query } = useRoute()
 
     const { register, update, remove, getAll, form, state, setStateFilter } = provinceStore();
-    const { getAll: getAllCountry, state: stateProvince, setStateFilter: setStateCountyFilter } = countryStore();
+    const { getAll: getAllCountry, state: stateCountry, setStateFilter: setStateCountyFilter } = countryStore();
 
     const { handleSubmit, handleReset, setFieldValue } = useForm<any>({
         validationSchema: createProvinceSchema
@@ -289,7 +289,7 @@
     const fetchCountry = async () => {
         setStateCountyFilter.limit = 200;
         await getAllCountry();
-        form.country_id = stateProvince.data.props.length > 0 ? stateProvince.data.props[0].id : undefined;
+        form.country_id = stateCountry.data.props.length > 0 ? stateCountry.data.props[0].id : undefined;
     }
 
     const filteredName = computed<string>({

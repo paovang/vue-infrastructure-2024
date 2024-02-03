@@ -94,7 +94,26 @@
         <img src="../../assets/images/logo.png" style="width: 38px" />
         <span class="font-bold text-3xl">HalTech</span>
       </div>
+      <br/>
         <div class="overflow-y-auto">
+            <ul class="list-none p-0 m-0 overflow-hidden">
+              <li>
+                <router-link
+                    to="customer"
+                    class="border-round no-underline"
+                  >
+                    <a 
+                      :class="{ 'bg-highlight': router.currentRoute.value.name === 'customer' }"
+                      v-ripple 
+                      class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
+                    >
+                        <i class="pi pi-users mr-2"></i>
+                        <span class="font-medium">ລູກຄ້າ</span>
+                    </a>
+                  </router-link>
+              </li>
+            </ul>
+
             <ul class="list-none p-0 m-0 overflow-hidden">
               <li v-for="item in menu" :key="item.key">
                   <div
