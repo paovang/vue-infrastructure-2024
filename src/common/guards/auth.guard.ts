@@ -1,35 +1,27 @@
 import type { Router } from 'vue-router'
-// import { useAuthStore } from '../../modules/auth/stores/auth.store'
 
 export function authGuard(router: Router) {
   router.beforeEach(async (to, from, next) => {
-    // const { state, getAuth } = useAuthStore()
     const token = localStorage.getItem('token')
-
-    // if (token) await getAuth()
-
-    if (token && to.name !== 'login') {
-      next({ name: 'login' });
+    console.log(from)
+    if (token) {
+      // Token exists
+      if (to.name === 'login') {
+        // If token exists and user navigates to login route, redirect to customer route
+        next({ name: 'customer' });
+      } else {
+        // Token exists and user is not navigating to login route
+        next();
+      }
     } else {
-      next();
+      // Token doesn't exist
+      if (to.name !== 'login') {
+        // If no token and user is not navigating to login route, redirect to login
+        next({ name: 'login' });
+      } else {
+        // No token but user is navigating to login route
+        next();
+      }
     }
   })
 }
-
-// import type { Router } from 'vue-router'
-// import { useAuthStore } from '../../modules/auth/stores/auth.store'
-
-// export function authGuard(router: Router) {
-//   router.beforeEach(async (to, from, next) => {
-//     const { state, getAuth } = useAuthStore()
-//     const token = localStorage.getItem('token')
-
-//     if (token) await getAuth()
-
-//     if (!state.data && !token && to.name !== 'login') {
-//       next({ name: 'login' })
-//     } else {
-//       next()
-//     }
-//   })
-// }

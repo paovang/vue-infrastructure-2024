@@ -41,7 +41,7 @@
           </div>
         </a>
       </li>
-      <li>
+      <li @click="logout()">
         <a
           class="cursor-pointer flex surface-border mb-3 p-3 align-items-center border-1 surface-border border-round hover:surface-hover transition-colors transition-duration-150"
         >
@@ -61,6 +61,9 @@
   import Sidebar from 'primevue/sidebar'
   import { ref, onMounted } from "vue";
   import { RouteLocationNormalizedLoaded, onBeforeRouteUpdate, useRoute } from 'vue-router';
+  import { useAuthStore } from '../../modules/auth/stores/auth.store'
+
+  const { logout } = useAuthStore();
 
   const breadcrumbItems = ref<Array<string>>([]);
   const visibleRight = ref(false);

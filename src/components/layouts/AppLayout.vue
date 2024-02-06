@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import AppSidebar from './AppSidebar.vue'
-import AppFooter from './AppFooter.vue'
-import AppTopbar from './AppTopbar.vue'
-import LoadingComponent from '../customComponents/LoadingComponent.vue'
-import { ref } from 'vue';
-
-const toggle = ref<boolean>(true)
-
-
+  import AppSidebar from './AppSidebar.vue'
+  import AppFooter from './AppFooter.vue'
+  import AppTopbar from './AppTopbar.vue'
+  import LoadingComponent from '../customComponents/LoadingComponent.vue'
+  import { ref } from 'vue';
+  const toggle = ref<boolean>(true)
 </script>
 
 <template>

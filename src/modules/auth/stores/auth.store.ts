@@ -26,22 +26,40 @@ export const useAuthStore = defineStore('auth', () => {
     });
 
   async function login(item: any) {
-    state.isLoading = true
-    state.errorMessage = ''
+    state.isLoading = true;
 
-    const result = await authService.login(item)
-
-    if (result) {
-      if (result.status === 'success' && result.data) {
-        state.data = result.data.user
-        router.push({ name: 'dashboard' })
-      } else {
-        state.errorMessage = result.message ? result.message : ''
-      }
+    try {
+        const result = await authService.login(item);
+        if (result.status === 'success' && result.data) {
+            localStorage.setItem('token', result.data.access_token);
+            localStorage.setItem('roles', result.data.authUser.role);
+            state.errorMessage = '';
+            router.push({ name: 'customer' });
+        } else {
+            state.errorMessage = result.message ? result.message : '';
+        }
+    } catch (error: any) {
+        let responseError = '';
+        if (error.response.status === 422) {
+            responseError = Object.keys(error.response.data.errors)
+                .map((key) => `${key}: ${error.response.data.errors[key].join(', ')}`)
+                .join('; ')
+        } else if (error.response.status === 401) {
+            responseError = 'ອີເມວ ຫຼື ລະຫັດຜ່ານບໍ່ຖືກຕ້ອງ.'
+        } else {
+            responseError = error.response.data.error;
+        }
+        state.errorMessage = responseError;
     }
-
-    state.isLoading = false
+    state.isLoading = false;
   }
 
-  return { state, form, login }
+  async function logout(): Promise<void> {
+    localStorage.removeItem('token');
+    localStorage.removeItem('roles');
+    
+    router.push({ name: 'login' });
+  }
+
+  return { state, form, login, logout }
 })

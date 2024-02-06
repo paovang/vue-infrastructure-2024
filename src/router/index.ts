@@ -4,6 +4,7 @@ import { dashboardRoute } from '../modules/dashboard/router/dashboard.route'
 import { addressRoute } from '../modules/address/router/address.route';
 import { createRouter, createWebHistory } from 'vue-router'
 import { authRoute } from '@/modules/auth/routers/index';
+import { homeRoute } from '@/modules/homepage/routers/index';
 import { authGuard } from '@/common/guards/auth.guard';
 
 
@@ -11,7 +12,7 @@ const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
-            path: '/',
+            path: '/admin',
             component: () => import('@/components/layouts/AppLayout.vue'),
             children: [
                 ...dashboardRoute,
@@ -20,10 +21,11 @@ const router = createRouter({
                 ...addressRoute
             ]
         },
-        ...authRoute
+        ...authRoute,
+        ...homeRoute
     ],
   })
 
-  authGuard(router)
+//   authGuard(router)
 
 export default router
