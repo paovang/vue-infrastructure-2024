@@ -5,6 +5,6 @@ export const customerRoute: RouteRecordRaw[] = [
     path: '/customer',
     name: 'customer',
     component: () => import('../views/ListCustomer.vue'),
-    // meta: { label: 'ລູກຄ້າ' }
+    meta: { label: 'ລູກຄ້າ' }
   }
 ]

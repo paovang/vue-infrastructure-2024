@@ -3,6 +3,8 @@ import { userRoute } from '../modules/users/router/index.route';
 import { dashboardRoute } from '../modules/dashboard/router/dashboard.route'
 import { addressRoute } from '../modules/address/router/address.route';
 import { createRouter, createWebHistory } from 'vue-router'
+import { authRoute } from '@/modules/auth/routers/index';
+import { authGuard } from '@/common/guards/auth.guard';
 
 
 const router = createRouter({
@@ -17,8 +19,11 @@ const router = createRouter({
                 ...customerRoute,
                 ...addressRoute
             ]
-        }
+        },
+        ...authRoute
     ],
   })
+
+  authGuard(router)
 
 export default router

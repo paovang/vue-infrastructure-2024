@@ -133,7 +133,7 @@
                     <Button 
                         :icon="isCardVisible ? 'pi pi-chevron-up' : 'pi pi-user-plus'"
                         rounded 
-                        severity="info" 
+                        :severity="isCardVisible ? 'warning' : 'info'" 
                         @click="toggleIsCardVisible"
                         :loading="state.btnLoading"
                     />
@@ -382,7 +382,7 @@
         setStateFilter.limit = event.rows;
 
         const { page, limit, filter } = setStateFilter
-        push({ name: 'province', query: { page, limit, search: filter?.name ? filter.name : undefined } })
+        push({ name: 'customer', query: { page, limit, search: filter?.name ? filter.name : undefined } })
 
         await getAll();
     }
@@ -549,5 +549,12 @@
     }
     .custom-button {
         margin-left: 8px;
+    }
+
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity 0.5s;
+    }
+    .fade-enter, .fade-leave-to {
+        opacity: 0;
     }
 </style>

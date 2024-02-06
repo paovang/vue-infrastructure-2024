@@ -8,15 +8,14 @@
             >
                 <i class="pi pi-bars font-bold" style="font-size: 1rem"></i>
             </div>
-            ບໍລິສັດ
-            <!-- <Breadcrumb
+            <Breadcrumb
                 :model="items"
                 :pt="{
                 root: { class: 'surface-ground border-none' },
                 icon: { class: 'text-indigo-500' },
                 label: { class: 'font-bold text-400' }
                 }"
-            /> -->
+            />
         </div>
         <div>
             <a class="cursor-pointer" @click="visibleRight = true">
@@ -58,9 +57,36 @@
 </template>
 
 <script setup lang="ts">
-import Sidebar from 'primevue/sidebar'
-import { ref } from "vue";
+  import Breadcrumb from 'primevue/breadcrumb'
+  import Sidebar from 'primevue/sidebar'
+  import { ref, onMounted } from "vue";
+  import { RouteLocationNormalizedLoaded, onBeforeRouteUpdate, useRoute } from 'vue-router';
 
-    const visibleRight = ref(false)
-    const emit = defineEmits<{ (e: 'toggleSidebar'): void }>()
+  const breadcrumbItems = ref<Array<string>>([]);
+  const visibleRight = ref(false);
+  const emit = defineEmits<{ (e: 'toggleSidebar'): void }>();
+  const items = ref();
+  const route = useRoute();
+
+  function getBreadcrumbItems(to: RouteLocationNormalizedLoaded) {
+    breadcrumbItems.value = []
+
+    to.matched.forEach((matched, idx) => {
+      if (idx !== 0) {
+        breadcrumbItems.value.push(matched.meta['label'] as string)
+      }
+    })
+
+    items.value = breadcrumbItems.value.map((item) => {
+      return { label: item }
+    })
+  }
+
+  onBeforeRouteUpdate((to) => {
+    getBreadcrumbItems(to)
+  })
+
+  onMounted(async () => {
+    getBreadcrumbItems(route)
+  })
 </script>

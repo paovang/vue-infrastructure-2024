@@ -11,12 +11,12 @@ export const addressRoute: RouteRecordRaw[] = [
     path: '/province',
     name: 'province',
     component: () => import('../views/ListProvince.vue'),
-    meta: { label: 'ປະເທດ' }
+    meta: { label: 'ເເຂວງ' }
   },
   {
     path: '/district',
     name: 'district',
     component: () => import('../views/ListDistrict.vue'),
-    meta: { label: 'ປະເທດ' }
+    meta: { label: 'ເມືອງ' }
   }
 ]
