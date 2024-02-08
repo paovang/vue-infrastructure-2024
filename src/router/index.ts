@@ -6,6 +6,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { authRoute } from '@/modules/auth/routers/index';
 import { homeRoute } from '@/modules/homepage/routers/index';
 import { authGuard } from '@/common/guards/auth.guard';
+import { realEstateServiceRoute } from '@/modules/rent_house/memberServices/routers';
 
 
 const router = createRouter({
@@ -18,7 +19,8 @@ const router = createRouter({
                 ...dashboardRoute,
                 ...userRoute,
                 ...customerRoute,
-                ...addressRoute
+                ...addressRoute,
+                ...realEstateServiceRoute
             ]
         },
         ...authRoute,
@@ -26,6 +28,6 @@ const router = createRouter({
     ],
   })
 
-//   authGuard(router)
+  authGuard(router)
 
 export default router

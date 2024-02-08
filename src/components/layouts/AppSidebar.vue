@@ -53,13 +53,13 @@
           color: 'text-red-500',
           to: 'district',
         },
-        // {
-        //   key: '4',
-        //   label: 'ບ້ານ',
-        //   icon: 'pi pi-chart-line',
-        //   color: 'text-red-500',
-        //   to: 'province',
-        // }
+        {
+          key: '5',
+          label: 'ຄ່າບໍລິການ',
+          icon: 'pi pi-chart-line',
+          color: 'text-red-500',
+          to: 'real.estate.services',
+        }
       ]
     },
     // {
@@ -133,7 +133,7 @@
                   </div>
                   <ul 
                     class="list-none py-0 pl-3 pr-0 m-0 overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out"
-                    :class="{ 'hidden': !['province', 'country', 'district'].includes(String(router.currentRoute.value.name)) }"
+                    :class="{ 'hidden': !['province', 'country', 'district', 'real.estate.services'].includes(String(router.currentRoute.value.name)) }"
                   >
                     <li v-for="children in item.children" :key="item.key">
                       <router-link

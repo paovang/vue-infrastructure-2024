@@ -8,8 +8,13 @@ export const homeRoute: RouteRecordRaw[] = [
     children: [
       {
         path: '',
-        name: 'home.house',
+        name: 'house',
         component: () => import('../views/ListHouse.vue'), 
+      },
+      {
+        path: '/detail/:id',
+        name: 'detail.house',
+        component: () => import('../views/DetailHouse.vue'), 
       },
     ]
   }

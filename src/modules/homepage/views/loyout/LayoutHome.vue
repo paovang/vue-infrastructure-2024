@@ -1,7 +1,9 @@
 <template>
-    <div class="layout-home-page">
+    <div>
         <HomePage />
-        <router-view></router-view> 
+        <div class="home-view">
+            <router-view></router-view> 
+        </div>
     </div>
 </template>  
 
@@ -10,7 +12,15 @@
 </script>
 
 <style scoped>
-    .layout-home-page {
-        padding: 0px 100px 0px 100px;
+    .home-view {
+        margin-top: 80px;
+        padding: 0px 80px 0px 80px;
+    }
+
+    @media only screen and (max-width: 767px) {
+        .home-view {
+            margin-top: 50px;
+            padding: 30px;
+        }
     }
 </style>
