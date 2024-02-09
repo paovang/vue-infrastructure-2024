@@ -1,0 +1,49 @@
+{
+    "sidebar": {
+        "settings": "ຕັ້ງຄ່າ ທົ່ວໄປ",
+        "customer": "ລູກຄ້າ",
+        "country": "ປະເທດ",
+        "province": "ເເຂວງ",
+        "district": "ເມືອງ",
+        "service": "ຄ່າບໍລິການ"
+    },
+    "placeholder": {
+        "inputText": "ກະລຸນາປ້ອນກ່ອນ...",
+        "textSearch": "ຄົ້ນຫາ..."
+    },
+    "table": {
+        "title": {
+            "country": "ລາຍການ ປະເທດທັງໝົດ",
+            "province": "ລາຍການ ເເຂວງທັງໝົດ",
+            "district": "ລາຍການ ເມືອງທັງໝົດ",
+            "customer": "ລາຍການ ລູກຄ້າທັງໝົດ",
+            "service": "ລາຍການ ຄ່າບໍລິການທັງໝົດ"
+        },
+        "header": {
+            "index": "ລຳດັບ",
+            "country": "ຊື່ປະເທດ",
+            "province": "ຊື່ເເຂວງ",
+            "district": "ຊື່ເມືອງ",
+            "customer": "ຊື່ລູກຄ້າ",
+            "currency": "ສະກຸນເງີນ"
+        },
+        "pagination": {
+            "show": "ສະເເດງ",
+            "to": "ຫາ",
+            "from": "ຈາກ",
+            "row": "ເເຖວ"
+        }
+    },
+    "button": {
+        "save": "ບັນທຶກ",
+        "edit": "ເເກ້ໄຂ",
+        "delete": "ລຶບ"
+    },
+    "messages": {
+        "country": "ປະເທດ",
+        "province": "ເເຂວງ",
+        "district": "ເມືອງ",
+        "customer": "ລູກຄ້າ",
+        "service": "ບໍລິການ"
+    }
+}

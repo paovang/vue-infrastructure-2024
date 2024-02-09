@@ -5,18 +5,18 @@ export const addressRoute: RouteRecordRaw[] = [
     path: '/country',
     name: 'country',
     component: () => import('../views/ListCountry.vue'),
-    meta: { label: 'ປະເທດ' }
+    meta: { label: 'sidebar.country' }
   },
   {
     path: '/province',
     name: 'province',
     component: () => import('../views/ListProvince.vue'),
-    meta: { label: 'ເເຂວງ' }
+    meta: { label: 'sidebar.province' }
   },
   {
     path: '/district',
     name: 'district',
     component: () => import('../views/ListDistrict.vue'),
-    meta: { label: 'ເມືອງ' }
+    meta: { label: 'sidebar.district' }
   }
 ]

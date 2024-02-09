@@ -11,11 +11,22 @@
             <Breadcrumb
                 :model="items"
                 :pt="{
-                root: { class: 'surface-ground border-none' },
-                icon: { class: 'text-indigo-500' },
-                label: { class: 'font-bold text-400' }
+                  root: { class: 'surface-ground border-none' },
+                  icon: { class: 'text-indigo-500' },
+                  label: { class: 'font-bold text-400' }
                 }"
             />
+        </div>
+        <div>
+          <Dropdown 
+            v-model="selectedLocale" 
+            :options="locales" 
+            optionLabel="name" 
+            class="w-full" 
+            optionValue="code"
+            :highlightOnSelect="true" 
+            @change="setLocale"
+          />
         </div>
         <div>
             <a class="cursor-pointer" @click="visibleRight = true">
@@ -62,7 +73,11 @@
   import { ref, onMounted } from "vue";
   import { RouteLocationNormalizedLoaded, onBeforeRouteUpdate, useRoute } from 'vue-router';
   import { useAuthStore } from '../../modules/auth/stores/auth.store'
+  import Dropdown from 'primevue/dropdown';
+  import { useI18n } from 'vue-i18n';
 
+  const { t } = useI18n();
+  
   const { logout } = useAuthStore();
 
   const breadcrumbItems = ref<Array<string>>([]);
@@ -70,6 +85,17 @@
   const emit = defineEmits<{ (e: 'toggleSidebar'): void }>();
   const items = ref();
   const route = useRoute();
+
+  const selectedLocale = ref();
+  const locales = ref([
+      { name: 'ລາວ', code: 'la' },
+      { name: 'English', code: 'en' },
+  ]);
+
+  const setLocale = async () => {
+    await localStorage.setItem('locale', selectedLocale.value);
+    window.location.reload();
+  }
 
   function getBreadcrumbItems(to: RouteLocationNormalizedLoaded) {
     breadcrumbItems.value = []
@@ -81,7 +107,7 @@
     })
 
     items.value = breadcrumbItems.value.map((item) => {
-      return { label: item }
+      return { label: t(item) }
     })
   }
 
@@ -90,6 +116,19 @@
   })
 
   onMounted(async () => {
+    const locale = localStorage.getItem('locale') || 'en';
+    selectedLocale.value = locale;
+
     getBreadcrumbItems(route)
   })
 </script>
+
+<style scoped>
+  .md\:w-14rem {
+    width: 80px !important;
+  }
+  .p-dropdown {
+    border: none !important;
+    /* background: none !important; */
+  }
+</style>

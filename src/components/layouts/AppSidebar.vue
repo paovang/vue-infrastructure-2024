@@ -2,9 +2,16 @@
   import { useRouter } from 'vue-router'
   import { countryStore } from '../../modules/address/stores/country.store';
   import { provinceStore } from '../../modules/address/stores/province.store';
+  import { realEstateServiceStore } from '../../modules/rent_house/memberServices/stores/real-estate-service.store';
+  import { districtStore } from '../../modules/address/stores/district.store';
+  import { useI18n } from 'vue-i18n';
 
+  const { t } = useI18n();
+  
+  const { setStateFilter: setStateDistrictFilter } = districtStore();
   const { setStateFilter: setStateProvinceFilter } = provinceStore();
   const { setStateFilter } = countryStore();
+  const { setStateFilter: setStateRealEstateServiceFilter } = realEstateServiceStore();
 
 
   export interface menuItem {
@@ -19,43 +26,41 @@
     ]
   }
 
-  // const handleLogoClick = () => {
-  //     window.location.reload(); // Force a reload of the current page
-  // };
+  
 
   const router = useRouter()
   const menu: Array<any> = [
     {
       key: '1',
-      label: 'ຕັ້ງຄ່າ',
+      label: t('sidebar.settings'),
       icon: 'pi pi-cog',
       color: 'text-black-500',
       to: 'settings',
       children: [
         {
           key: '1',
-          label: 'ປະເທດ',
+          label:  t('sidebar.country'),
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'country',
         },
         {
           key: '2',
-          label: 'ເເຂວງ',
+          label: t('sidebar.province'),
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'province',
         },
         {
           key: '3',
-          label: 'ເມືອງ',
+          label: t('sidebar.district'),
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'district',
         },
         {
           key: '5',
-          label: 'ຄ່າບໍລິການ',
+          label: t('sidebar.service'),
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'real.estate.services',
@@ -71,17 +76,29 @@
     // },
   ]
 
-  const routeNames = ['province', 'country'];
+  const routeNames = ['province', 'country', 'district', 'real.estate.services'];
 
   const clearStateAll = async (routeName: string) => {
     if (routeNames.includes(routeName)) {
       setStateFilter.page = 1;
       setStateFilter.limit = 10;
 
+      setStateDistrictFilter.page = 1;
+      setStateDistrictFilter.limit = 10;
+
       setStateProvinceFilter.page = 1;
       setStateProvinceFilter.limit = 10;
+
+      setStateRealEstateServiceFilter.page = 1;
+      setStateRealEstateServiceFilter.limit = 10;
     }
   }
+
+  const goToRoute = async (routeName: string) => {
+    await clearStateAll(routeName);
+    router.push({ name: routeName});
+  }
+
 </script>
 
 <template>
@@ -98,19 +115,15 @@
         <div class="overflow-y-auto">
             <ul class="list-none p-0 m-0 overflow-hidden">
               <li>
-                <router-link
-                    to="customer"
-                    class="border-round no-underline"
+                  <a 
+                    @click="goToRoute('customer')"
+                    :class="{ 'bg-highlight': router.currentRoute.value.name === 'customer' }"
+                    v-ripple 
+                    class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
                   >
-                    <a 
-                      :class="{ 'bg-highlight': router.currentRoute.value.name === 'customer' }"
-                      v-ripple 
-                      class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
-                    >
-                        <i class="pi pi-users mr-2"></i>
-                        <span class="font-medium">ລູກຄ້າ</span>
-                    </a>
-                  </router-link>
+                      <i class="pi pi-users mr-2"></i>
+                      <span class="font-medium">{{ $t('sidebar.customer')}}</span>
+                  </a>
               </li>
             </ul>
 
@@ -136,12 +149,8 @@
                     :class="{ 'hidden': !['province', 'country', 'district', 'real.estate.services'].includes(String(router.currentRoute.value.name)) }"
                   >
                     <li v-for="children in item.children" :key="item.key">
-                      <router-link
-                        :to="{ name: children.to }"
-                        class="border-round no-underline"
-                        @click="clearStateAll(children.to)"
-                      >
                         <a 
+                          @click="goToRoute(children.to)"
                           :class="{ 'bg-highlight': router.currentRoute.value.name === children.to }"
                           v-ripple 
                           class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
@@ -153,7 +162,6 @@
                               3
                             </span> -->
                         </a>
-                      </router-link>
                     </li>
                   </ul>
                 </li>

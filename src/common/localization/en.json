@@ -1,0 +1,49 @@
+{
+    "sidebar": {
+        "settings": "Setting",
+        "customer": "Customer",
+        "country": "Country",
+        "province": "Province",
+        "district": "District",
+        "service": "Service"
+    },
+    "placeholder": {
+        "inputText": "Please Enter...",
+        "textSearch": "Search..."
+    },
+    "table": {
+        "title": {
+            "country": "All Country",
+            "province": "All Province",
+            "district": "All District",
+            "customer": "All Customer",
+            "service": "All Service"
+        },
+        "header": {
+            "index": "Number",
+            "country": "Country",
+            "province": "Province",
+            "district": "District",
+            "customer": "Customer",
+            "currency": "Currency"
+        },
+        "pagination": {
+            "show": "show",
+            "to": "to",
+            "from": "from",
+            "row": "rows"
+        }
+    },
+    "button": {
+        "save": "Save",
+        "edit": "Edit",
+        "delete": "Delete"
+    },
+    "messages": {
+        "country": "Country",
+        "province": "Province",
+        "district": "District",
+        "customer": "Customer",
+        "service": "Service"
+    }
+}
