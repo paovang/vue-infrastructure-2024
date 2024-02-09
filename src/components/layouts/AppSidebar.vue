@@ -108,8 +108,8 @@
         @click="router.push({ name: 'dashboard' })"
         class="flex align-items-center justify-content-center pt-3 overflow-hidden cursor-pointer"
       >
-        <img src="../../assets/images/logo.png" style="width: 38px" />
-        <span class="font-bold text-3xl">HalTech</span>
+        <img src="https://logomaker.designfreelogoonline.com/media/productdesigner/logo/resized/1286_bird-01.png" style="width: 38px" />
+        <span class="font-bold text-3xl" style="margin-left: 10px">UK LAO</span>
       </div>
       <br/>
         <div class="overflow-y-auto">

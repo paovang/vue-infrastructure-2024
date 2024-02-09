@@ -11,8 +11,8 @@
           class="flex flex-column border-1 border-100 border-round-md p-5 shadow-1 lg:border-none lg:shadow-none"
         >
           <div class="flex flex-column align-items-center">
-            <img src="/logo.png" style="width: 5rem" />
-            <span class="font-bold text-3xl">HalTech</span>
+            <img src="https://logomaker.designfreelogoonline.com/media/productdesigner/logo/resized/1286_bird-01.png" style="width: 5rem" />
+            <span class="font-bold text-3xl">UK LAOS</span>
           </div>
           <form @submit.prevent="loginUser()" class="mt-3">
             <div class="flex flex-column gap-3 mb-3">
@@ -45,7 +45,7 @@
           </form>
         </div>
         <span class="white-space-nowrap font-medium ml-2 text-color"
-          >&#9400;2023 Haltech | All Rights Reserved</span
+          >&#9400;2023 Uk Laos | All Rights Reserved</span
         >
       </div>
     </div>
@@ -90,7 +90,7 @@
 
 <style>
     .backgroundImage {
-        background: url('/1hal.png');
+        background: url('https://www.journeyera.com/wp-content/uploads/2022/01/luxury-5-star-hotels-kathmandu-thamel-251085752.jpg');
     }
     .p-input-icon-right > .p-inputtext {
         width: 100% !important;

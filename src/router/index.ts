@@ -5,6 +5,7 @@ import { addressRoute } from '../modules/address/router/address.route';
 import { createRouter, createWebHistory } from 'vue-router'
 import { authRoute } from '@/modules/auth/routers/index';
 import { homeRoute } from '@/modules/homepage/routers/index';
+import { ownerHouseRoute } from '@/modules/owner/house/routers/index'
 import { authGuard } from '@/common/guards/auth.guard';
 import { realEstateServiceRoute } from '@/modules/rent_house/memberServices/routers';
 
@@ -20,7 +21,8 @@ const router = createRouter({
                 ...userRoute,
                 ...customerRoute,
                 ...addressRoute,
-                ...realEstateServiceRoute
+                ...realEstateServiceRoute,
+                ...ownerHouseRoute
             ]
         },
         ...authRoute,
