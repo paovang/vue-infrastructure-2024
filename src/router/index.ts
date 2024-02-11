@@ -28,8 +28,8 @@ const router = createRouter({
         ...authRoute,
         ...homeRoute
     ],
-  })
+})
 
-  authGuard(router)
+authGuard(router)
 
 export default router

@@ -33,8 +33,16 @@ export const useAuthStore = defineStore('auth', () => {
         if (result.status === 'success' && result.data) {
             localStorage.setItem('token', result.data.access_token);
             localStorage.setItem('roles', result.data.authUser.role);
+            // localStorage.setItem('roles', JSON.stringify(result.data.authUser.role));
             state.errorMessage = '';
-            router.push({ name: 'customer' });
+
+            const roleUsers = result.data.authUser.role;
+            
+            if (roleUsers.includes('SuperAdmin', 'User')) {
+                  router.push({ name: 'customer' });
+            } else if (roleUsers.includes('Admin')) {
+                router.push({ name: 'owner.house' })
+            }
         } else {
             state.errorMessage = result.message ? result.message : '';
         }

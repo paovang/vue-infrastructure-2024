@@ -254,7 +254,6 @@
     import { houseStore } from '../../../owner/house/stores/house.store'
     import { provinceStore } from '../../../address/stores/province.store';
     import { districtStore } from '../../../address/stores/district.store';
-    import { HouseEntity } from '../entities/house.entity';
     import { useRouter, useRoute } from 'vue-router';
     import { useToast } from "primevue/usetoast";
 
@@ -372,7 +371,6 @@
             await showWarningValidateBackend();
         } else {
             await showToastSuccess();
-            await initComponent();
         }
     })
 

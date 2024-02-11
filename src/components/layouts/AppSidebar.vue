@@ -26,8 +26,6 @@
     ]
   }
 
-  
-
   const router = useRouter()
   const menu: Array<any> = [
     {
@@ -43,6 +41,7 @@
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'country',
+          roles: ['SuperAdmin']
         },
         {
           key: '2',
@@ -50,6 +49,7 @@
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'province',
+          roles: ['SuperAdmin']
         },
         {
           key: '3',
@@ -57,6 +57,7 @@
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'district',
+          roles: ['SuperAdmin']
         },
         {
           key: '5',
@@ -64,6 +65,7 @@
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'real.estate.services',
+          roles: ['SuperAdmin']
         },
         {
           key: '6',
@@ -71,6 +73,7 @@
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'owner.house',
+          roles: ['Admin']
         }
       ]
     },
@@ -106,6 +109,9 @@
     router.push({ name: routeName});
   }
 
+  const roleSuperAdmin = ['SuperAdmin'];
+  const currentRoles = localStorage.getItem('roles') || '';
+
 </script>
 
 <template>
@@ -120,7 +126,7 @@
       </div>
       <br/>
         <div class="overflow-y-auto">
-            <ul class="list-none p-0 m-0 overflow-hidden">
+            <ul class="list-none p-0 m-0 overflow-hidden" v-if="roleSuperAdmin.includes(currentRoles)">
               <li>
                   <a 
                     @click="goToRoute('customer')"
@@ -157,6 +163,7 @@
                   >
                     <li v-for="children in item.children" :key="item.key">
                         <a 
+                          v-if="children.roles.includes(currentRoles)"
                           @click="goToRoute(children.to)"
                           :class="{ 'bg-highlight': router.currentRoute.value.name === children.to }"
                           v-ripple 

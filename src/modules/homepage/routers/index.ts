@@ -10,11 +10,17 @@ export const homeRoute: RouteRecordRaw[] = [
         path: '',
         name: 'house',
         component: () => import('../views/ListHouse.vue'), 
+        meta: {
+          skipAuthCheck: true
+        }
       },
       {
         path: '/detail/:id',
         name: 'detail.house',
         component: () => import('../views/DetailHouse.vue'), 
+        meta: {
+          skipAuthCheck: true
+        }
       },
     ]
   }
