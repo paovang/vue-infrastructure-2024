@@ -31,7 +31,7 @@ export class DistrictService {
     }
 
     async getAll(
-        input: IGPaginate<Pick<DistrictEntity, 'name'>>
+        input: IGPaginate<Pick<DistrictEntity, 'name' | 'province_id'>>
     ): Promise<void | IResponse<IGPaginated<DistrictEntity>>> {
         return await this._getAll.execute(input);
     }

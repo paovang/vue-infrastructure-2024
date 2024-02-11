@@ -5,7 +5,9 @@
         "country": "Country",
         "province": "Province",
         "district": "District",
-        "service": "Service"
+        "service": "Service",
+        "house": "House & Building",
+        "add_house": "Add House & Building"
     },
     "placeholder": {
         "inputText": "Please Enter...",
@@ -44,6 +46,7 @@
         "province": "Province",
         "district": "District",
         "customer": "Customer",
-        "service": "Service"
+        "service": "Service",
+        "house": "House & Building"
     }
 }

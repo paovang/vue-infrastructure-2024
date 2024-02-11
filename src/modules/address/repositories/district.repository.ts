@@ -58,13 +58,14 @@ export class DistrictRepository implements IDistrictRepository {
     }
 
     async getAll(
-        args: IGPaginate<Pick<DistrictEntity, 'name'>>
+        args: IGPaginate<Pick<DistrictEntity, 'name' | 'province_id'>>
       ): Promise<IResponse<IGPaginated<DistrictEntity>>> {
         const response = await this._api.axios({
             url: '/admin/district',
             params: {
                 page: args.page,
                 per_page: args.limit,
+                province_id: args.filter?.province_id,
                 filter: args.filter?.name
             }
         });

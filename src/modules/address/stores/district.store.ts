@@ -19,10 +19,13 @@ export const districtStore = defineStore('district-store', () => {
         error: ''
     })
     
-    const setStateFilter = reactive<IGPaginate<Pick<DistrictEntity, 'name'>>>({
+    const setStateFilter = reactive<IGPaginate<Pick<DistrictEntity, 'name' | 'province_id'>>>({
         page: 1,
         limit: 10,
-        filter: { name: '' }
+        filter: { 
+            name: '',
+            province_id: '',
+        }
     })
 
     const form = reactive<DistrictEntity>({

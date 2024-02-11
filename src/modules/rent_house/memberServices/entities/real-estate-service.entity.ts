@@ -4,11 +4,11 @@ export interface RealEstateServiceEntity {
     real_estate_type_id?: string,
     service_charge?: string,
     unit_price?: string,
-    country: {
+    country?: {
         id: string
         name: string
     },
-    real_estate_type: {
+    real_estate_type?: {
         id: string,
         name: string
     }

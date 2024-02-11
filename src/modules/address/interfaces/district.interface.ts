@@ -9,7 +9,7 @@ export interface IDistrictRepository {
 
     delete(id: DistrictEntity): Promise<any>;
 
-    getAll(args: IGPaginate<Pick<DistrictEntity, 'name'>>): Promise<IResponse<IGPaginated<DistrictEntity>>>
+    getAll(args: IGPaginate<Pick<DistrictEntity, 'name' | 'province_id'>>): Promise<IResponse<IGPaginated<DistrictEntity>>>
 
     getById(id: number): Promise<any>;
 }

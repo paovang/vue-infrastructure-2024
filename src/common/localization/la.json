@@ -5,7 +5,9 @@
         "country": "ປະເທດ",
         "province": "ເເຂວງ",
         "district": "ເມືອງ",
-        "service": "ຄ່າບໍລິການ"
+        "service": "ຄ່າບໍລິການ",
+        "house": "ເຮືອນ ຫຼື ຫ້ອງເຊົ່າ",
+        "add_house": "ເພີ່ມ ເຮືອນ ຫຼື ຫ້ອງເຊົ່າ"
     },
     "placeholder": {
         "inputText": "ກະລຸນາປ້ອນກ່ອນ...",
@@ -44,6 +46,7 @@
         "province": "ເເຂວງ",
         "district": "ເມືອງ",
         "customer": "ລູກຄ້າ",
-        "service": "ບໍລິການ"
+        "service": "ບໍລິການ",
+        "house": "ເຮືອນ ຫຼື ຫ້ອງເຊົ່າ"
     }
 }

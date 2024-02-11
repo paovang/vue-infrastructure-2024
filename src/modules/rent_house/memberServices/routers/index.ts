@@ -5,6 +5,6 @@ export const realEstateServiceRoute: RouteRecordRaw[] = [
     path: '/real/estate/services',
     name: 'real.estate.services',
     component: () => import('../views/ListRealEstateService.vue'),
-    meta: { label: 'ຄ່າບໍລິການ' }
+    meta: { label: 'sidebar.service' }
   }
 ]

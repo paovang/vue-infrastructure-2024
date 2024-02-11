@@ -1,22 +1,22 @@
 import type { IGUseCase } from '@/common/interfaces/use-case.interface';
-import type { IDistrictRepository } from '../../interfaces/district.interface';
 import { injectable, inject } from 'tsyringe';
-import { DistrictEntity } from '../../entities/district.entity';
 import { IResponse } from '@/common/interfaces/response.interface';
 import { IGPaginate, IGPaginated } from '@/common/interfaces/pagination.interface';
-import { DistrictRepository } from '../../repositories/district.repository';
+import { HouseEntity } from '../entities/house.entity';
+import { HouseRepository } from '../repositories/house.repository';
+import type { IHouseRepository } from '../interfaces/house.interface';
 
 @injectable()
-export class GetAllDistrictUseCase implements IGUseCase<IResponse<IGPaginated<DistrictEntity>>, IGPaginate<DistrictEntity>> {
+export class GetAllHouseUseCase implements IGUseCase<IResponse<IGPaginated<HouseEntity>>, IGPaginate<HouseEntity>> {
     constructor(
-      @inject(DistrictRepository) private _api: IDistrictRepository,
+      @inject(HouseRepository) private _api: IHouseRepository,
     ) {
-
+        
     }
 
     async execute(
-        input: IGPaginate<Pick<DistrictEntity, 'name' | 'province_id'>>
-    ): Promise<void | IResponse<IGPaginated<DistrictEntity>>> {
+        input: IGPaginate<Pick<HouseEntity, 'real_estate_type_id' | 'service_model' | 'room_type' | 'village' | 'district_id' | 'province_id' | 'wide' | 'long'>>
+    ): Promise<void | IResponse<IGPaginated<HouseEntity>>> {
         try {
             return await this._api.getAll(input);
         } catch (error: any) {

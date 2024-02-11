@@ -11,6 +11,7 @@
                     icon="pi pi-plus-circle"
                     rounded 
                     severity="info" 
+                    @click="pushRouteAddHouse()"
                 />
             </span>
         </div>
@@ -28,7 +29,13 @@
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
     import { ref } from 'vue';
+    import { useRouter } from 'vue-router';
 
-
+    const router = useRouter()
     const customers = ref();
+
+
+    const pushRouteAddHouse = async () => {
+        router.push({ name: 'owner.add.house' });
+    }
 </script>
