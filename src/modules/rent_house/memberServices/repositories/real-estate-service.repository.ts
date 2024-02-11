@@ -85,6 +85,7 @@ export class RealEstateServiceRepository implements IRealEstateServiceRepository
     }
 
     async getById(id: string): Promise<any> {
+        console.log(id);
         const response = await this._api.axios({
             url: '/admin/realestate/type'
         });

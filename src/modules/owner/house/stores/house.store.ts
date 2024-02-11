@@ -1,4 +1,4 @@
-import { reactive, ref } from 'vue';
+import { reactive } from 'vue';
 import { defineStore } from 'pinia'
 import { container } from 'tsyringe'
 import { IGState } from '@/common/interfaces/state.interface';
@@ -58,10 +58,7 @@ export const houseStore = defineStore('house-store', () => {
 
         try {
             await service.register(form);
-            // await getAll();
-
             state.error = '';
-            // clearForm();
         } catch (error: any) {
             let responseError = '';
             if (error.response.status === 422) {
@@ -82,11 +79,26 @@ export const houseStore = defineStore('house-store', () => {
         state.btnLoading = false; 
     }
 
+    async function getAll() {
+        state.isLoading = true; 
+        const results =  await service.getAll({
+            page: setStateFilter.page,
+            limit: setStateFilter.limit,
+            filter: setStateFilter.filter
+        });
+
+        if (results && results.data && results.status == 'success') {
+            state.data.props = results.data.props;
+            state.data.total = results.data.total;
+            state.isLoading = false;
+        }
+    }
 
     return {
         form,
         setStateFilter,
         state,
-        register
+        register,
+        getAll
     };
 });

@@ -486,7 +486,6 @@
     });
 
     async function onSearch() {
-        console.log(setStateFilter);
         await getAll();
     }
 

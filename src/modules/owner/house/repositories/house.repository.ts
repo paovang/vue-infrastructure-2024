@@ -16,7 +16,7 @@ export class HouseRepository implements IHouseRepository {
             method: 'post',
             url: '/owner/realestate/list',
             params: {
-                real_estate_type_id: 1, 
+                real_estate_type_id: input.real_estate_type_id, 
                 service_model: input.service_model, 
                 image: input.image, 
                 room_type: input.room_type, 
@@ -40,22 +40,22 @@ export class HouseRepository implements IHouseRepository {
     }
 
     async update(input: HouseEntity): Promise<IResponse<HouseEntity>> {
-        // const response = await this._api.axios({
-        //     method: 'put',
-        //     url: '/admin/service-charge/' + input.id,
-        //     params: {
-        //         country_id: input.country_id,
-        //         real_estate_type_id: input.real_estate_type_id,
-        //         service_charge: input.service_charge,
-        //         unit_price: input.unit_price,
-        //     },
-        // });
+        const response = await this._api.axios({
+            method: 'put',
+            url: '/admin/service-charge/' + input.id,
+            params: {
+                // country_id: input.country_id,
+                // real_estate_type_id: input.real_estate_type_id,
+                // service_charge: input.service_charge,
+                // unit_price: input.unit_price,
+            },
+        });
         
-        // return {
-        //     data: response.data,
-        //     message: 'ອັບເດດ ຂໍ້ມູນສຳເລັດເເລ້ວ',
-        //     status: 'success'
-        // }
+        return {
+            data: response.data,
+            message: 'ອັບເດດ ຂໍ້ມູນສຳເລັດເເລ້ວ',
+            status: 'success'
+        }
     }
 
     async delete(id: HouseEntity): Promise<IResponse<HouseEntity>> {
@@ -74,7 +74,28 @@ export class HouseRepository implements IHouseRepository {
     async getAll(
         args: IGPaginate<Pick<HouseEntity, 'real_estate_type_id' | 'service_model' | 'room_type' | 'village' | 'district_id' | 'province_id' | 'wide' | 'long'>>
       ): Promise<IResponse<IGPaginated<HouseEntity>>> {
-        console.log(args);
+        const response = await this._api.axios({
+            url: '/owner/realestate/list',
+            params: {
+                page: args.page,
+                per_page: args.limit,
+                room_type: args.filter?.room_type,
+                real_estate_type_id: args.filter?.real_estate_type_id,
+                service_model: args.filter?.service_model,
+                village: args.filter?.village,
+                district_id: args.filter?.district_id,
+                province_id: args.filter?.province_id,
+                wide: args.filter?.wide,
+                long: args.filter?.long,
+            }
+        });
+
+        const { data, pagination } = response.data.data;
+
+        return {
+            data: { props: data, total: pagination.total },
+            status: 'success'
+        }
     }
 
     async getOne(id: string): Promise<any> {
