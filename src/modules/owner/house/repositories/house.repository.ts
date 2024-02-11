@@ -42,12 +42,20 @@ export class HouseRepository implements IHouseRepository {
     async update(input: HouseEntity): Promise<IResponse<HouseEntity>> {
         const response = await this._api.axios({
             method: 'put',
-            url: '/admin/service-charge/' + input.id,
+            url: `/owner/realestate/list/${input.id}`,
             params: {
-                // country_id: input.country_id,
-                // real_estate_type_id: input.real_estate_type_id,
-                // service_charge: input.service_charge,
-                // unit_price: input.unit_price,
+                real_estate_type_id: input.real_estate_type_id, 
+                service_model: input.service_model, 
+                // image: input.image, 
+                room_type: input.room_type, 
+                village: input.village,
+                district_id: input.district_id,
+                location: input.location, 
+                zip_code: input.zip_code, 
+                wide: input.wide, 
+                long: input.long, 
+                remark: input.remark,
+                prices: input.prices
             },
         });
         
@@ -98,7 +106,12 @@ export class HouseRepository implements IHouseRepository {
         }
     }
 
-    async getOne(id: string): Promise<any> {
-        console.log(id);
+    async getOne(id: number): Promise<any> {
+        const response = await this._api.axios({
+            method: 'get',
+            url: '/owner/realestate/list/' + id
+        });
+
+        return response.data;
     }
 }

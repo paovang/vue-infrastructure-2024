@@ -12,5 +12,11 @@ export const ownerHouseRoute: RouteRecordRaw[] = [
     name: 'owner.add.house',
     component: () => import('../views/AddHouse.vue'),
     meta: { label: 'sidebar.add_house' }
+  },
+  {
+    path: '/owner/edit/house/:id',
+    name: 'owner.edit.house',
+    component: () => import('../views/EditHouse.vue'),
+    meta: { label: 'sidebar.edit_house' }
   }
 ]

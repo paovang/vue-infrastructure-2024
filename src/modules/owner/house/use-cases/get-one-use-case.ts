@@ -11,7 +11,7 @@ export class GetOneHouseUseCase implements IUseCase {
 
     }
 
-    async execute(id: string): Promise<any> {
+    async execute(id: number): Promise<any> {
       return await this._api.getOne(id);
     }
 }

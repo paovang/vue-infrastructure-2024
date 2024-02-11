@@ -39,7 +39,7 @@ export class HouseService {
     }
 
     async getOne(
-        id: string
+        id: number
     ): Promise<any> {
         return await this._getOne.execute(id);
     }

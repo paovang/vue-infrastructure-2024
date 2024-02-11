@@ -195,6 +195,7 @@
                                 rounded 
                                 severity="warning"  
                                 style="color: white;" 
+                                @click="editHouse(data.id)"
                             />
                             <Button 
                                 type="button" 
@@ -263,16 +264,19 @@
         await initComponent();
     })
 
+    const editHouse = async (id: number) => {
+        router.push({ name: 'owner.edit.house', params: { id: id } });
+    }
+
     async function onPageChange(event: DataTablePageEvent) {
         setStateFilter.page = event.page + 1;
         setStateFilter.limit = event.rows;
 
-        const { page, limit, filter } = setStateFilter
+        const { page, limit } = setStateFilter
         router.push({ name: 'owner.house', query: 
             { 
                 page, 
-                limit, 
-                // real_estate_type_id: filter?.real_estate_type_id ? filter.real_estate_type_id : undefined 
+                limit
             } 
         })
 
