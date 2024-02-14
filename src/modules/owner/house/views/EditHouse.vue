@@ -224,33 +224,20 @@
                     <Panel header="ໂປຮໄຟລ ເເລະ ເເກເລີລີ່">
                         <div class="columns is-12 is-multiline">
                             <div class="column is-mobile-12 is-3">
-                                <Card class="is-card">
-                                    <template #header>
-                                        <img src="https://www.usatoday.com/gcdn/-mm-/05b227ad5b8ad4e9dcb53af4f31d7fbdb7fa901b/c=0-64-2119-1259/local/-/media/USATODAY/USATODAY/2014/08/13/1407953244000-177513283.jpg" alt="user header" style="width: 100%; height: 25vh;" />
-                                    </template>
-                                </Card>
-                            </div>
-                            <div class="column is-mobile-12 is-3">
-                                <Card class="is-card">
-                                    <template #header>
-                                        <img src="https://gcs.tripi.vn/hms_prod/photo/img/463162hVv/img_1895.jpg" alt="user header" style="width: 100%; height: 25vh;" />
-                                    </template>
-                                    
-                                    <template #content>
-                                        
-                                    </template>
-                                </Card>
-                            </div>
-                            <div class="column is-mobile-12 is-3">
-                                <Card class="is-card">
-                                    <template #header>
-                                        <img src="https://www.savhotel.com/media/1569/_pl32719-hdr.jpg" alt="user header" style="width: 100%; height: 25vh;" />
-                                    </template>
-                                    
-                                    <template #content>
-                                        
-                                    </template>
-                                </Card>
+                                <div class="card" style="padding: 0rem !important;">
+                                    <div class="card-image">
+                                        <figure class="image is-4by3">
+                                            <img src="https://www.usatoday.com/gcdn/-mm-/05b227ad5b8ad4e9dcb53af4f31d7fbdb7fa901b/c=0-64-2119-1259/local/-/media/USATODAY/USATODAY/2014/08/13/1407953244000-177513283.jpg" alt="Placeholder image">
+                                        </figure>
+                                    </div>
+                                    <div class="content" style="display: flex; justify-content: center">
+                                       <span style="padding: 10px !important;">
+                                        <Button icon="pi pi-trash" severity="danger" rounded />
+                                        <span style="margin-left: 10px;"></span> 
+                                        <Button icon="pi pi-pencil" severity="warning" rounded />
+                                       </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </Panel>
@@ -292,7 +279,6 @@
     import { districtStore } from '../../../address/stores/district.store';
     import { useRouter, useRoute } from 'vue-router';
     import { useToast } from "primevue/usetoast";
-    import Card from 'primevue/card';
 
     const toast = useToast();
     const router = useRouter();
@@ -438,11 +424,8 @@
         cursor: pointer;
         color: green;
     }
-
-    /* Lazy Load Styles */
-    .card-image {
-        height: 200px !important;
-        padding: 0rem !important;
+    .card-image:hover {
+        cursor: pointer;
     }
 
 </style>
