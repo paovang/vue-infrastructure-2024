@@ -457,7 +457,7 @@
             let formData = new FormData();
             formData.append('file', file);
 
-            const response = await axios.post('http://206.189.190.47/api/upload_file', formData, {
+            const response = await axios.post('http://159.223.42.254/api/upload_file', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMjA2LjE4OS4xOTAuNDcvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3MDc0ODQ1NDgsIm5iZiI6MTcwNzQ4NDU0OCwianRpIjoidEtMRnEyczNVaFVJUHhjdSIsInN1YiI6IjkiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.ljoD1A9QkJnBPCmt7TxZj-6n7n5gQojgszX-INFPi-o`
@@ -479,7 +479,7 @@
                 formData.append('files[]', files[i]);
             }
 
-            const response = await axios.post('http://206.189.190.47/api/upload/multiple/files', formData, {
+            const response = await axios.post('http://159.223.42.254/api/upload/multiple/files', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMjA2LjE4OS4xOTAuNDcvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3MDc0ODQ1NDgsIm5iZiI6MTcwNzQ4NDU0OCwianRpIjoidEtMRnEyczNVaFVJUHhjdSIsInN1YiI6IjkiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.ljoD1A9QkJnBPCmt7TxZj-6n7n5gQojgszX-INFPi-o`
