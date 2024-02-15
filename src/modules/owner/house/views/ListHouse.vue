@@ -182,13 +182,13 @@
             <Column headerStyle="width: 10rem">
                     <template #body="{ data }">
                         <div class="flex flex-wrap gap-2 btn-right">
-                            <Button 
+                            <!-- <Button 
                                 type="button" 
                                 icon="pi pi-eye" 
                                 rounded 
                                 severity="success"   
                                 style="color: white;" 
-                            />
+                            /> -->
                             <Button 
                                 type="button" 
                                 icon="pi pi-pencil" 
@@ -202,6 +202,7 @@
                                 icon="pi pi-trash" 
                                 rounded 
                                 severity="danger"
+                                @click="confirmDelete(data.id)"
                             />
                         </div>
                     </template>
@@ -221,11 +222,17 @@
     import { realEstateServiceStore } from '../../../rent_house/memberServices/stores/real-estate-service.store';
     import { provinceStore } from '../../../address/stores/province.store';
     import { districtStore } from '../../../address/stores/district.store';
+    import { HouseEntity } from '../entities/house.entity';
+    import { useConfirm } from "primevue/useconfirm";
+    import { useToast } from "primevue/usetoast";
 
     const router = useRouter()
     const { query } = useRoute()
 
-    const { form, getAll, state, setStateFilter } = houseStore();
+    const toast = useToast();
+    const confirm = useConfirm();
+
+    const { form, getAll, state, setStateFilter, remove } = houseStore();
     const { getOne, realestateType } = realEstateServiceStore();
     const { getAll: getAllProvince, state: stateProvince, setStateFilter: setStateProvinceFilter } = provinceStore();
     const { getAll: getAllDistrict, state: stateDistrict, setStateFilter: setStateDistrictFilter } = districtStore();
@@ -266,6 +273,16 @@
 
     const editHouse = async (id: number) => {
         router.push({ name: 'owner.edit.house', params: { id: id } });
+    }
+
+    const deleteHouse = async (id: HouseEntity) => {
+        await remove(id);
+
+        if (state.error) {
+            await showWarningValidateBackend();
+        } else {
+            await initComponent();
+        }
     }
 
     async function onPageChange(event: DataTablePageEvent) {
@@ -404,7 +421,36 @@
         }
     }
 
+    const confirmDelete = async (id: HouseEntity) => {
+        confirm.require({
+            message: 'ທ່ານຕ້ອງການລຶບບັນທຶກນີ້ບໍ?',
+            header: 'ຢືນຢັນການລຶບຂໍ້ມູນ',
+            rejectLabel: 'ຍົກເລີກ',
+            acceptLabel: 'ຕົກລົງ',
+            rejectClass: 'p-button-secondary p-button-outlined',
+            acceptClass: 'p-button-danger',
+            accept: async () => {
+                await deleteHouse(id)
+
+                toast.add({ severity: 'success', summary: 'ການລຶບຂໍ້ມູນສຳເລັດເເລ້ວ.', detail: 'ຖືກລຶບອອກເເລ້ວ', life: 3000 });
+            },
+            reject: () => {
+                toast.add({ severity: 'error', summary: 'ຍົກເລີກການລຶບຂໍ້ມູນເເລ້ວ.', detail: 'ຖືກຍົກເລີກເເລ້ວ', life: 3000 });
+            }
+        });
+    }
+
+    const showWarningValidateBackend = () => {
+        toast.add({ severity: 'error', summary: 'ເກີດຂໍ້ຜິດພາດ.', detail: `${state.error}`, life: 3000 });
+    }
+
     const pushRouteAddHouse = async () => {
         router.push({ name: 'owner.add.house' });
     }
 </script>
+<style>
+    .btn-right {
+        display: flex;
+        justify-content: flex-end;
+    }
+</style>

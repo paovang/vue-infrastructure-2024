@@ -221,23 +221,68 @@
                 </div>
 
                 <div class="column is-12">
-                    <Panel header="ໂປຮໄຟລ ເເລະ ເເກເລີລີ່">
+                    <Panel header="ເລືອກໂປຮໄຟລ ເເລະ ເເກເລີລີ່">
                         <div class="columns is-12 is-multiline">
                             <div class="column is-mobile-12 is-3">
                                 <div class="card" style="padding: 0rem !important;">
                                     <div class="card-image">
                                         <figure class="image is-4by3">
-                                            <img src="https://www.usatoday.com/gcdn/-mm-/05b227ad5b8ad4e9dcb53af4f31d7fbdb7fa901b/c=0-64-2119-1259/local/-/media/USATODAY/USATODAY/2014/08/13/1407953244000-177513283.jpg" alt="Placeholder image">
+                                            <img :src="isShowFileImage" alt="Placeholder image">
+                                        </figure>
+                                    </div>
+                                    <div class="content" style="display: flex; justify-content: center">
+                                        <span style="padding: 10px !important;">
+                                        <Button 
+                                            icon="pi pi-pencil" 
+                                            severity="warning" 
+                                            rounded 
+                                            @click="handleClick"
+                                            style="color: white;" 
+                                        />
+                                        <input type="file" id="fileInput" style="display: none" @change="handleFileChange">
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </Panel>
+                </div>
+
+                <div class="column is-12">
+                    <Panel header="ໂປຮໄຟລ ເເລະ ເເກເລີລີ່">
+                        <div class="columns is-12 is-multiline">
+                            <div class="column is-mobile-12 is-3" v-for="(item, index) in isShowFileGallery" :key="index">
+                                <div class="card" style="padding: 0rem !important;">
+                                    <div class="card-image">
+                                        <figure class="image is-4by3">
+                                            <img :src="item?.image" alt="Placeholder image">
                                         </figure>
                                     </div>
                                     <div class="content" style="display: flex; justify-content: center">
                                        <span style="padding: 10px !important;">
-                                        <Button icon="pi pi-trash" severity="danger" rounded />
+                                        <Button 
+                                            icon="pi pi-trash" 
+                                            severity="danger" 
+                                            rounded 
+                                            @click="deleteImageGallery(item.id)" 
+                                        />
                                         <span style="margin-left: 10px;"></span> 
-                                        <Button icon="pi pi-pencil" severity="warning" rounded />
+                                        <Button 
+                                            icon="pi pi-pencil" 
+                                            severity="warning" 
+                                            rounded 
+                                            @click="handleClickGalleryFile(item.id, 'update')" 
+                                            style="color: white;" 
+                                        />
                                        </span>
+                                       <input type="file" id="updateGalleryInput" style="display: none" @change="updateHandleFileGalleryChange">
+                                       <input type="file" id="addGalleryInput" multiple style="display: none" @change="addHandleFileGalleryChange">
                                     </div>
                                 </div>
+                            </div>
+                            <Divider/>
+                            <div class="column is-mobile-12 is-12" style="text-align: right;">
+                                <Button icon="pi pi-plus-circle"   @click="handleClickGalleryFile((route.params.id as string), 'add')" />
                             </div>
                         </div>
                     </Panel>
@@ -279,16 +324,27 @@
     import { districtStore } from '../../../address/stores/district.store';
     import { useRouter, useRoute } from 'vue-router';
     import { useToast } from "primevue/usetoast";
+    import { HouseEntity } from '../entities/house.entity';
+    import axios from 'axios';
 
     const toast = useToast();
     const router = useRouter();
     const route = useRoute();
 
-    const { form, state, update, getOne, houseGetByOne } = houseStore();
+    const { form, state, update, getOne, houseGetByOne, deleteGallery, updateGallery, addGallery } = houseStore();
     const { getOne: getOneRealEstateService, realestateType } = realEstateServiceStore();
     const { getAll: getAllProvince, state: stateProvince, setStateFilter: setStateProvinceFilter } = provinceStore();
     const { getAll: getAllDistrict, state: stateDistrict, setStateFilter: setStateDistrictFilter } = districtStore();
 
+    const isShowFileImage = ref();
+    const selectedImage = ref();
+    
+    const isShowFileGallery = ref([{
+        id: '',
+        image: ''
+    }]);
+    const selectedGallery = ref();
+    const isMethod = ref();
     
     const goBack = async () => {
         router.push({ name: 'owner.house'});
@@ -352,6 +408,16 @@
         form.remark = house.remark;
         form.location = house.location;
         form.prices = house.price;
+        form.prices = house.price;
+
+        isShowFileImage.value = house.image;
+        isShowFileGallery.value = house.gallery;
+
+        // ใช้ split('/') เพื่อแยกส่วนของ URL ตามเครื่องหมาย '/'
+        // const parts = house.image.split('/');
+
+        // // เลือกส่วนสุดท้ายของ URL ซึ่งเป็นชื่อไฟล์
+        // const filename = parts[parts.length - 1];
 
         setStateProvinceFilter.limit = 1000;
         await getAllProvince();
@@ -387,15 +453,95 @@
         form.long = value.long;
         form.remark = value.remark;
         form.location = value.location;
+        form.image = selectedImage.value;
 
         await update();
 
         if (state.error) {
             await showWarningValidateBackend();
         } else {
+            await clearAllFileUpload();
+            await initComponent();
             await showToastSuccess();
         }
     })
+
+    const handleClick = () => {
+        const input = document.getElementById('fileInput') as HTMLInputElement;
+        input.click();
+    };
+
+    const handleFileChange = async (event: Event) => {
+      const target = event.target as HTMLInputElement;
+      const file = target.files?.[0];
+      if (file) {
+        await uploadFileImage(file, 'image');
+        isShowFileImage.value = URL.createObjectURL(file);
+      }
+    };
+
+
+    const handleClickGalleryFile = (id: string, method: string) => {
+        form.id = id;
+        isMethod.value = method;
+
+        if (isMethod.value === 'update') {
+            const input = document.getElementById('updateGalleryInput') as HTMLInputElement;
+            input.click();
+        } else {
+            const input = document.getElementById('addGalleryInput') as HTMLInputElement;
+            input.click();
+        }
+    };
+
+    const deleteImageGallery = async (id: string) => {
+        await deleteGallery(id);
+
+        if (state.error) {
+                await showWarningValidateBackend();
+        } else {
+            await clearAllFileUpload();
+            await initComponent();
+            await showToastSuccess();
+        }
+    }
+
+    const updateHandleFileGalleryChange = async (event: any) => {
+        const target = event.target as HTMLInputElement;
+        const file = target.files?.[0];
+        if (file) {
+            await uploadFileImage(file, 'gallery');
+            form.gallery = selectedGallery.value;
+            await updateGallery();
+
+            if (state.error) {
+                await showWarningValidateBackend();
+            } else {
+                await clearAllFileUpload();
+                await initComponent();
+                await showToastSuccess();
+            }
+        }
+    }
+
+    const addHandleFileGalleryChange = async (event: any) => {
+        const target = event.target as HTMLInputElement;
+        const files = target.files;
+        if (files) {
+            await uploadFileGallery(files);
+            form.gallery = selectedGallery.value;
+            await addGallery();
+           
+
+            if (state.error) {
+                await showWarningValidateBackend();
+            } else {
+                await clearAllFileUpload();
+                await initComponent();
+                await showToastSuccess();
+            }
+        }
+    }
 
     const showWarningValidateBackend = () => {
         toast.add({ severity: 'error', summary: 'ເກີດຂໍ້ຜິດພາດ.', detail: `${state.error}`, life: 3000 });
@@ -403,6 +549,73 @@
 
     const showToastSuccess = () => {
         toast.add({ severity: 'success', summary: 'ສຳເລັດເເລ້ວ.', detail: 'ການດຳເນີນສຳເລັດເເລ້ວ', life: 3000 });
+    }
+
+    const clearAllFileUpload = async () => {
+        isShowFileImage.value = '';
+        selectedImage.value = '';
+
+        selectedGallery.value = '';
+
+        const inputFile = document.getElementById('fileInput') as HTMLInputElement;
+        inputFile.value = '';
+
+        const updateInputGallery = document.getElementById('updateGalleryInput') as HTMLInputElement;
+        updateInputGallery.value = '';
+
+        const addInputGallery = document.getElementById('addGalleryInput') as HTMLInputElement;
+        addInputGallery.value = '';
+    }
+
+    const uploadFileGallery = async (files: any) => {
+        state.btnLoading = true;
+        try {
+            let formData = new FormData();
+            for (let i = 0; i < files.length; i++) {
+                formData.append('files[]', files[i]);
+            }
+
+            const response = await axios.post('http://159.223.42.254/api/upload/multiple/files', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTU5LjIyMy40Mi4yNTQvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3MDc5MjgwMDksIm5iZiI6MTcwNzkyODAwOSwianRpIjoia25Ma3BqRHdObUh4a2dyUyIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.FDSN40oY148SrIvrc0oj51Ln8dgwlYj8KDCEjvUPZ1U`
+                }
+            });
+
+            const gallery: { image: string }[] = response.data.filename.map((filename: string) => ({
+                image: `${filename}`
+            }));
+
+            selectedGallery.value = gallery;
+            state.btnLoading = false;
+        } catch (error) {
+            console.error('Upload failed:', error);
+        }
+    }
+
+    const uploadFileImage = async (file: any, type: string) => {
+        state.btnLoading = true;
+        try {
+            let formData = new FormData();
+            formData.append('file', file);
+
+            const response = await axios.post('http://159.223.42.254/api/upload_file', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTU5LjIyMy40Mi4yNTQvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3MDc5MjgwMDksIm5iZiI6MTcwNzkyODAwOSwianRpIjoia25Ma3BqRHdObUh4a2dyUyIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.FDSN40oY148SrIvrc0oj51Ln8dgwlYj8KDCEjvUPZ1U`
+                }
+            });
+
+            if (type === 'image') {
+                selectedImage.value = response.data?.filename;
+            } else {
+                selectedGallery.value = response.data?.filename;
+            }
+            
+            state.btnLoading = false;
+        } catch (error) {
+            console.error('Upload failed:', error);
+        }
     }
 </script>
 
@@ -425,6 +638,12 @@
         color: green;
     }
     .card-image:hover {
+        cursor: pointer;
+    }
+    .card-image img{
+        object-fit: cover;
+    }
+    .upload-box:hover {
         cursor: pointer;
     }
 

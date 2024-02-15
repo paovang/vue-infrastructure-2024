@@ -232,7 +232,7 @@
                                     {{ isShowFileImage }}
                                 </div>
                             </label>
-                            <input type="file" id="fileInput" style="display: none" @change="handleFileChangess">
+                            <input type="file" id="fileInput" style="display: none" @change="handleFileChange">
                         </div>
                         <Divider/>
                         <div class="column is-mobile-12 is-12">
@@ -316,7 +316,7 @@
         input.click();
     };
 
-    const handleFileChangess = async (event: Event) => {
+    const handleFileChange = async (event: Event) => {
       const target = event.target as HTMLInputElement;
       const file = target.files?.[0];
       if (file) {
@@ -460,7 +460,7 @@
             const response = await axios.post('http://159.223.42.254/api/upload_file', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMjA2LjE4OS4xOTAuNDcvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3MDc0ODQ1NDgsIm5iZiI6MTcwNzQ4NDU0OCwianRpIjoidEtMRnEyczNVaFVJUHhjdSIsInN1YiI6IjkiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.ljoD1A9QkJnBPCmt7TxZj-6n7n5gQojgszX-INFPi-o`
+                    'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTU5LjIyMy40Mi4yNTQvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3MDc5MjgwMDksIm5iZiI6MTcwNzkyODAwOSwianRpIjoia25Ma3BqRHdObUh4a2dyUyIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.FDSN40oY148SrIvrc0oj51Ln8dgwlYj8KDCEjvUPZ1U`
                 }
             });
 
@@ -482,7 +482,7 @@
             const response = await axios.post('http://159.223.42.254/api/upload/multiple/files', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMjA2LjE4OS4xOTAuNDcvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3MDc0ODQ1NDgsIm5iZiI6MTcwNzQ4NDU0OCwianRpIjoidEtMRnEyczNVaFVJUHhjdSIsInN1YiI6IjkiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.ljoD1A9QkJnBPCmt7TxZj-6n7n5gQojgszX-INFPi-o`
+                    'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTU5LjIyMy40Mi4yNTQvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3MDc5MjgwMDksIm5iZiI6MTcwNzkyODAwOSwianRpIjoia25Ma3BqRHdObUh4a2dyUyIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.FDSN40oY148SrIvrc0oj51Ln8dgwlYj8KDCEjvUPZ1U`
                 }
             });
 

@@ -14,6 +14,7 @@ export class AxiosApi {
     this.axios.interceptors.request.use(
       async (config: any) => {
         const session = sessionStorage.getItem("user");
+        const accessToken = localStorage.getItem("token");
         const user = JSON.parse(session as string);
 
         if (user) {
@@ -23,9 +24,7 @@ export class AxiosApi {
           }
         }
 
-        config.headers[
-          "Authorization"
-        ] = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTU5LjIyMy40Mi4yNTQvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3MDc4Nzc0ODAsIm5iZiI6MTcwNzg3NzQ4MCwianRpIjoiZ0l0d1NGTEpyNWhQTnBUTiIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.fy2967muigbPC4w2JkRy0nnIAso-9VlnpvGXpU5Rt5I`;
+        config.headers["Authorization"] = `Bearer ${accessToken}`;
 
         return config;
       },

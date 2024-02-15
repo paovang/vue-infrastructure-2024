@@ -1,4 +1,4 @@
-// import { roleGuard } from "@/common/guards/role.guard";
+import { roleGuard } from "@/common/guards/role.guard";
 import type { RouteRecordRaw } from "vue-router";
 
 export const ownerHouseRoute: RouteRecordRaw[] = [
@@ -10,7 +10,7 @@ export const ownerHouseRoute: RouteRecordRaw[] = [
       label: "sidebar.house",
       requiredRoles: ["Admin"],
     },
-    // beforeEnter: roleGuard,
+    beforeEnter: roleGuard,
   },
   {
     path: "/owner/add/house",
@@ -20,7 +20,7 @@ export const ownerHouseRoute: RouteRecordRaw[] = [
       label: "sidebar.add_house",
       requiredRoles: ["Admin"],
     },
-    // beforeEnter: roleGuard,
+    beforeEnter: roleGuard,
   },
   {
     path: "/owner/edit/house/:id",
@@ -30,6 +30,6 @@ export const ownerHouseRoute: RouteRecordRaw[] = [
       label: "sidebar.edit_house",
       requiredRoles: ["Admin"],
     },
-    // beforeEnter: roleGuard,
+    beforeEnter: roleGuard,
   },
 ];
