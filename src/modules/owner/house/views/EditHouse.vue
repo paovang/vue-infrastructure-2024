@@ -324,7 +324,6 @@
     import { districtStore } from '../../../address/stores/district.store';
     import { useRouter, useRoute } from 'vue-router';
     import { useToast } from "primevue/usetoast";
-    import { HouseEntity } from '../entities/house.entity';
     import axios from 'axios';
 
     const toast = useToast();
