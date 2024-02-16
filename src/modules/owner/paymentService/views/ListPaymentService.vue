@@ -89,7 +89,7 @@
 
 <script setup lang="ts">
     import { ref, onMounted, computed } from 'vue';
-    import DataTable from 'primevue/datatable';
+    import DataTable, { type DataTablePageEvent } from 'primevue/datatable';
     import Column from 'primevue/column'; 
     import Button from 'primevue/button';
     import PaymentServiceComponent from '../components/PaymentService.Component.vue';
@@ -101,7 +101,6 @@
     
     const createForm = ref();
     const editForm = ref();
-    const customers = ref();
     const editData = ref();
 
     onMounted(async() => {

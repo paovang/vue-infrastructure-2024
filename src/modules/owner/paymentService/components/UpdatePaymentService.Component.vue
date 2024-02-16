@@ -235,10 +235,6 @@
         isShowFileImage.value = props.data.slip_payment;
     }
 
-    const showWarningValidate = () => {
-        toast.add({ severity: 'error', summary: 'ກະລຸນາກວດສອບກ່ອນ.', detail: `ກະລຸນາເລືອກໄຟລກ່ອນ...`, life: 3000 });
-    }
-
     const showWarningValidateBackend = () => {
         toast.add({ severity: 'error', summary: 'ເກີດຂໍ້ຜິດພາດ.', detail: `${state.error}`, life: 3000 });
     }
