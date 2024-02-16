@@ -8,9 +8,9 @@
                             <my-input-text 
                                 ref="autoFocusCursor"
                                 name="name" 
-                                label="ຊື່" 
+                                :label="$t('messages.name')"
                                 required 
-                                placeholder="ກະລຸນາປ້ອນກ່ອນ..." 
+                                :placeholder="$t('placeholder.inputText')" 
                                 class="h-full" 
                             />
                         </div>
@@ -35,7 +35,7 @@
                             :loading="state.btnLoading"
                         >
                             <i :class="`${isEditing ? 'pi pi-pencil' : 'pi pi-plus-circle'}`" style="margin-right: 8px;"></i>
-                            {{ isEditing ? 'ເເກ້ໄຂ' : 'ບັນທຶກ' }} ເມືອງ
+                            {{ isEditing ? $t('button.edit') : $t('button.save') }} {{ $t('messages.district') }}
                         </Button>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
             <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
                 <span class="p-input-icon-left w-full sm:w-20rem flex-order-1 sm:flex-order-0">
                     <h2 class="mb-3">
-                        ລາຍການ ເມືອງທັງໝົດ
+                        {{ $t('table.title.district') }}
                     </h2>
                 </span>
                 <span class="w-full sm:w-auto flex-order-0 sm:flex-order-1 mb-4 sm:mb-0">
@@ -71,7 +71,7 @@
                 :rows="setStateFilter.limit"
                 paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
                 :rowsPerPageOptions="[5, 10, 25]"
-                currentPageReportTemplate="ສະແດງ {first} ຫາ {last} ຈາກ {totalRecords} ແຖວ"
+                :currentPageReportTemplate="`${$t('table.pagination.show')} {first} ${$t('table.pagination.to')} {last} ${$t('table.pagination.from')} {totalRecords} ${$t('table.pagination.row')}`"
             >
                 <template #header>
                     <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
@@ -79,7 +79,7 @@
                         <i class="pi pi-search" style="margin-top: -10px"/>
                         <input-text
                             v-model="filteredName"
-                            placeholder="ຄົ້ນຫາ..."
+                            :placeholder="$t('placeholder.textSearch')" 
                             style="font-family: NotoSansLao, Montserrat"
                             class="w-full"
                             @keyup.enter="onSearch"
@@ -88,13 +88,13 @@
                         </span>
                     </div>
                     </template>
-                    <Column field="id" header="ລຳດັບ" style="width: 25%">
+                    <Column field="id" :header="$t('table.header.index')" style="width: 25%">
                         <template #body="item">
                             {{ item.index + 1 }}
                         </template>
                     </Column>
-                <Column field="name" header="ຊື່ເມືອງ" style="width: 25%"></Column>
-                <Column field="province.name" header="ຊື່ເເຂວງ" style="width: 25%"></Column>
+                <Column field="name" :header="$t('table.header.district')" style="width: 25%"></Column>
+                <Column field="province.name" :header="$t('table.header.province')" style="width: 25%"></Column>
                 <Column headerStyle="width: 10rem">
                     <template #body="{ data }">
                         <div class="flex flex-wrap gap-2 btn-right">
@@ -134,10 +134,12 @@
     import { districtSchema } from '../schema/district.shema';
     import MyInputText from '../../../components/customComponents/FormInputText.vue';
     import { useRoute, useRouter } from 'vue-router';
-    import { ProvinceEntity } from '../entities/province.entity';
     import { useConfirm } from "primevue/useconfirm";
     import Dropdown from 'primevue/dropdown';
-    
+    import { DistrictEntity } from '../entities/district.entity';
+    import { useI18n } from 'vue-i18n';
+
+    const { t } = useI18n();
     const toast = useToast();
     const confirm = useConfirm();
 
@@ -149,8 +151,11 @@
     const { register, update, remove, getAll, form, state, setStateFilter } = districtStore();
     const { getAll: getAllProvince, state: stateProvince, setStateFilter: setStateProvinceFilter } = provinceStore();
 
+    const translatedErrorMessages = {
+        name: t('placeholder.inputText')
+    }
     const { handleSubmit, handleReset, setFieldValue } = useForm<any>({
-        validationSchema: districtSchema
+        validationSchema: districtSchema(translatedErrorMessages)
     })
 
     const RefreshData = async() => {
@@ -167,15 +172,15 @@
         state.btnLoading = false;
     }
 
-    const deleteItem = async (id: ProvinceEntity) => {
+    const deleteItem = async (id: DistrictEntity) => {
         await remove(id);
         await handleReset();
         await fetchProvince();
     }
 
-    const editItem = async (value: ProvinceEntity) => {
+    const editItem = async (value: DistrictEntity) => {
         isEditing.value = true;
-        form.province_id = value.country?.id;
+        form.province_id = value.province?.id;
         setFieldValue('id', value.id);
         setFieldValue('name', value.name);
         await scrollToInput();
@@ -230,31 +235,30 @@
         return result
     })
 
-    const confirmDelete = async (id: ProvinceEntity) => {
+    const confirmDelete = async (id: DistrictEntity) => {
         confirm.require({
-            message: 'ທ່ານຕ້ອງການລຶບບັນທຶກນີ້ບໍ?',
-            header: 'ຢືນຢັນການລຶບຂໍ້ມູນ',
-            rejectLabel: 'ຍົກເລີກ',
-            acceptLabel: 'ຕົກລົງ',
+            message: t('confirmDelete.message'),
+            header: t('confirmDelete.header'),
+            rejectLabel: t('confirmDelete.rejectLabel'),
+            acceptLabel: t('confirmDelete.acceptLabel'),
             rejectClass: 'p-button-secondary p-button-outlined',
             acceptClass: 'p-button-danger',
             accept: async () => {
                 await deleteItem(id)
-
-                toast.add({ severity: 'success', summary: 'ການລຶບຂໍ້ມູນສຳເລັດເເລ້ວ.', detail: 'ຖືກລຶບອອກເເລ້ວ', life: 3000 });
+                toast.add({ severity: 'success', summary: t('toast.summary.delete'), detail: t('toast.detail.delete'), life: 3000 });
             },
             reject: () => {
-                toast.add({ severity: 'error', summary: 'ຍົກເລີກການລຶບຂໍ້ມູນເເລ້ວ.', detail: 'ຖືກຍົກເລີກເເລ້ວ', life: 3000 });
+                toast.add({ severity: 'error', summary: t('toast.summary.cancel_delete'), detail: t('toast.detail.cancel_delete'), life: 3000 });
             }
         });
     }
 
     const showToastSuccess = () => {
-        toast.add({ severity: 'success', summary: 'ສຳເລັດເເລ້ວ.', detail: 'ການດຳເນີນສຳເລັດເເລ້ວ', life: 3000 });
+        toast.add({ severity: 'success', summary: t('toast.summary.success'), detail: t('toast.detail.successfully'), life: 3000 });
     }
 
     const showWarningValidateBackend = () => {
-        toast.add({ severity: 'error', summary: 'ເກີດຂໍ້ຜິດພາດ.', detail: `${state.error}`, life: 3000 });
+        toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: `${state.error}`, life: 3000 });
     }
 
     async function initComponent() {

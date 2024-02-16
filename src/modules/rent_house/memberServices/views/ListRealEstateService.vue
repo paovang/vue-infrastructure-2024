@@ -3,9 +3,9 @@
         <div class="card">
             <form @submit.prevent="isEditing ? onUpdate() : onSubmit()" class="flex flex-column gap-3 h-full">
                 <div class="columns is-12">
-                    <div class="column is-mobile-12 is-3">
+                    <div class="column is-mobile-12 is-2">
                         <label>
-                            ເລືອກປະເທດ
+                            {{ $t('messages.select')}} {{ $t('messages.country')}}
                             <span class="text-red-500"> *</span>
                         </label>
                         <Dropdown 
@@ -15,13 +15,13 @@
                             optionLabel="name" 
                             optionValue="id"
                             :highlightOnSelect="true" 
-                            placeholder="ກະລຸນາເລືອກກ່ອນ..." 
+                            :placeholder="$t('placeholder.dropdownSelect')" 
                             class="w-full md:w-14rem" 
                         />
                     </div>
-                    <div class="column is-mobile-12 is-2">
+                    <div class="column is-mobile-12 is-3">
                         <label>
-                            ເລືອກປະເພດບໍລິການ
+                            {{ $t('messages.select')}} {{ $t('messages.realestate_type')}}
                             <span class="text-red-500"> *</span>
                         </label>
                         <Dropdown 
@@ -31,13 +31,13 @@
                             optionLabel="name" 
                             optionValue="id"
                             :highlightOnSelect="true" 
-                            placeholder="ກະລຸນາເລືອກກ່ອນ..." 
+                            :placeholder="$t('placeholder.dropdownSelect')" 
                             class="w-full md:w-14rem" 
                         />
                     </div>
                     <div class="column is-mobile-12 is-2">
                         <label>
-                            ປະເພດຄ່າບໍລິການ
+                            {{ $t('messages.select')}} {{ $t('messages.unit_price')}}
                             <span class="text-red-500"> *</span>
                         </label>
                         <Dropdown 
@@ -47,7 +47,7 @@
                             optionLabel="name" 
                             optionValue="id"
                             :highlightOnSelect="true" 
-                            placeholder="ກະລຸນາເລືອກກ່ອນ..." 
+                            :placeholder="$t('placeholder.dropdownSelect')"  
                             class="w-full md:w-14rem" 
                         />
                     </div>
@@ -55,9 +55,9 @@
                         <my-input-number
                             ref="autoFocusCursor"
                             name="service_charge"
-                            label="ລາຄາ"
+                            :label="$t('messages.price')"
                             required
-                            placeholder="ປ້ອນລາຄາ x,xxx"
+                            :placeholder="$t('placeholder.inputNumber')" 
                         />
                     </div>
                     <div class="column is-mobile-12 is-2">
@@ -68,7 +68,7 @@
                             style="margin-top: 30px; font-family: 'NotoSansLao','Montserrat', 'sans-serif'"
                         >
                             <i :class="isEditing ? 'pi pi-pencil' : 'pi pi-plus-circle' " style="margin-right: 5px;"></i>
-                            {{ isEditing ? 'ເເກ້ໄຂ' : 'ບັນທຶກ' }} ບໍລິການ
+                            {{ isEditing ? $t('button.edit') : $t('button.save') }} {{ $t('messages.service')}}
                         </Button>
                     </div>
                 </div>
@@ -77,7 +77,7 @@
             <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
                 <span class="p-input-icon-left w-full sm:w-20rem flex-order-1 sm:flex-order-0">
                     <h2 class="mb-3" style="font-weight: bold; font-size: 24px;">
-                        ລາຍການ ຄ່າບໍລິການທັງໝົດ
+                        {{ $t('table.title.service')}}
                     </h2>
                 </span>
                 <span class="w-full sm:w-auto flex-order-0 sm:flex-order-1 mb-4 sm:mb-0">
@@ -103,16 +103,21 @@
                 :first="first"
                 :rows="setStateFilter.limit"
                 paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-                currentPageReportTemplate="ສະແດງ {first} ຫາ {last} ຈາກ {totalRecords} ແຖວ"
+                :currentPageReportTemplate="`${$t('table.pagination.show')} {first} ${$t('table.pagination.to')} {last} ${$t('table.pagination.from')} {totalRecords} ${$t('table.pagination.row')}`"
             >
-                <Column field="country.name" header="ປະເທດ" style="width: 15%"></Column>
-                <Column field="real_estate_type.name" header="ປະເພດບໍລິການ"></Column>
-                <Column field="service_charge" header="ຄ່າບໍລິການ" style="width: 25%;">
+                <Column field="id" :header="$t('table.header.index')">
+                    <template #body="item">
+                        {{ item.index + 1 }}
+                    </template>
+                </Column>
+                <Column field="country.name" :header="$t('table.header.country')" style="width: 20%"></Column>
+                <Column field="real_estate_type.name" :header="$t('table.header.realestate_type')" style="width: 20%;"></Column>
+                <Column field="service_charge" :header="$t('table.header.service')" style="width: 20%;">
                     <template #body="slotProps">
                         {{ formatCurrency(slotProps.data.service_charge, slotProps.data) }}
                     </template>
                 </Column>
-                <Column field="unit_price" header="ປະເພດຄ່າບໍລິການ" style="width: 25%"></Column>
+                <Column field="unit_price" :header="$t('table.header.unit_price')" style="width: 20%"></Column>
                 <Column headerStyle="width: 10rem">
                     <template #body="{ data }">
                         <div class="flex flex-wrap gap-2 btn-right">
@@ -154,7 +159,9 @@
     import Column from 'primevue/column';
     import { RealEstateServiceEntity } from '../entities/real-estate-service.entity';
     import { useConfirm } from "primevue/useconfirm";
+    import { useI18n } from 'vue-i18n';
 
+    const { t } = useI18n();
     const toast = useToast();
     const confirm = useConfirm();
 
@@ -167,8 +174,11 @@
     const { push } = useRouter()
     const { query } = useRoute()
 
+    const translatedErrorMessages = {
+        service_charge: t('placeholder.inputText')
+    }
     const { handleSubmit, handleReset, setFieldValue } = useForm<any>({
-        validationSchema: realEstateServiceSchema
+        validationSchema: realEstateServiceSchema(translatedErrorMessages)
     })
 
     const onSubmit = handleSubmit(async(value) => {
@@ -278,21 +288,28 @@
 
     const confirmDelete = async (id: RealEstateServiceEntity) => {
         confirm.require({
-            message: 'ທ່ານຕ້ອງການລຶບບັນທຶກນີ້ບໍ?',
-            header: 'ຢືນຢັນການລຶບຂໍ້ມູນ',
-            rejectLabel: 'ຍົກເລີກ',
-            acceptLabel: 'ຕົກລົງ',
+            message: t('confirmDelete.message'),
+            header: t('confirmDelete.header'),
+            rejectLabel: t('confirmDelete.rejectLabel'),
+            acceptLabel: t('confirmDelete.acceptLabel'),
             rejectClass: 'p-button-secondary p-button-outlined',
             acceptClass: 'p-button-danger',
             accept: async () => {
                 await deleteItem(id)
-
-                toast.add({ severity: 'success', summary: 'ການລຶບຂໍ້ມູນສຳເລັດເເລ້ວ.', detail: 'ຖືກລຶບອອກເເລ້ວ', life: 3000 });
+                toast.add({ severity: 'success', summary: t('toast.summary.delete'), detail: t('toast.detail.delete'), life: 3000 });
             },
             reject: () => {
-                toast.add({ severity: 'error', summary: 'ຍົກເລີກການລຶບຂໍ້ມູນເເລ້ວ.', detail: 'ຖືກຍົກເລີກເເລ້ວ', life: 3000 });
+                toast.add({ severity: 'error', summary: t('toast.summary.cancel_delete'), detail: t('toast.detail.cancel_delete'), life: 3000 });
             }
         });
+    }
+
+    const showToastSuccess = () => {
+        toast.add({ severity: 'success', summary: t('toast.summary.success'), detail: t('toast.detail.successfully'), life: 3000 });
+    }
+
+    const showWarningValidateBackend = () => {
+        toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: `${state.error}`, life: 3000 });
     }
 
     const refreshData = async () => {
@@ -303,14 +320,6 @@
         form.unit_price = 'day';
         isEditing.value = false;
         state.btnLoading = false;
-    }
-
-    const showToastSuccess = () => {
-        toast.add({ severity: 'success', summary: 'ສຳເລັດເເລ້ວ.', detail: 'ການດຳເນີນສຳເລັດເເລ້ວ', life: 3000 });
-    }
-
-    const showWarningValidateBackend = () => {
-        toast.add({ severity: 'error', summary: 'ເກີດຂໍ້ຜິດພາດ.', detail: `${state.error}`, life: 3000 });
     }
 
     const formatCurrency = (value: any, data: any) => {

@@ -74,6 +74,14 @@
           color: 'text-red-500',
           to: 'owner.house',
           roles: ['Admin']
+        },
+        {
+          key: '7',
+          label: t('sidebar.payment_service'),
+          icon: 'pi pi-chart-line',
+          color: 'text-red-500',
+          to: 'owner.payment.service',
+          roles: ['Admin']
         }
       ]
     },
@@ -159,7 +167,7 @@
                   </div>
                   <ul 
                     class="list-none py-0 pl-3 pr-0 m-0 overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out"
-                    :class="{ 'hidden': !['province', 'country', 'district', 'real.estate.services', 'owner.house'].includes(String(router.currentRoute.value.name)) }"
+                    :class="{ 'hidden': !['province', 'country', 'district', 'real.estate.services', 'owner.house', 'owner.payment.service'].includes(String(router.currentRoute.value.name)) }"
                   >
                     <li v-for="children in item.children" :key="item.key">
                         <a 

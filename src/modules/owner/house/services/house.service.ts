@@ -13,6 +13,8 @@ import { HouseEntity } from "../entities/house.entity";
 import { DeleteGalleryHouseUseCase } from "../use-cases/delete-gallery.use-case";
 import { UpdateGalleryHouseUseCase } from "../use-cases/update-gallery.use-case";
 import { AddGalleryHouseUseCase } from "../use-cases/add-gallery.use-case";
+import { FindRealEstateSeviceByHouseUseCase } from "../use-cases/find-realestate-service.use-case";
+import { PaymentServiceHouseUseCase } from "../use-cases/payment/payment.use-case";
 
 @injectable()
 export class HouseService {
@@ -27,7 +29,11 @@ export class HouseService {
     @inject(DeleteGalleryHouseUseCase)
     private _deleteGallery: DeleteGalleryHouseUseCase,
     @inject(AddGalleryHouseUseCase)
-    private _addGallery: AddGalleryHouseUseCase
+    private _addGallery: AddGalleryHouseUseCase,
+    @inject(FindRealEstateSeviceByHouseUseCase)
+    private _findBy: FindRealEstateSeviceByHouseUseCase,
+    @inject(PaymentServiceHouseUseCase)
+    private _payment: PaymentServiceHouseUseCase
   ) {}
 
   async register(input: HouseEntity) {
@@ -64,6 +70,10 @@ export class HouseService {
     return await this._getOne.execute(id);
   }
 
+  async findRealEstateServiceById(id: HouseEntity): Promise<any> {
+    return await this._findBy.execute(id);
+  }
+
   async deleteGallery(id: string) {
     return await this._deleteGallery.execute(id);
   }
@@ -74,5 +84,9 @@ export class HouseService {
 
   async addGallery(input: HouseEntity): Promise<any> {
     return await this._addGallery.execute(input);
+  }
+
+  async paymentService(input: HouseEntity) {
+    return await this._payment.execute(input);
   }
 }

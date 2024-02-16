@@ -7,10 +7,13 @@
         "district": "District",
         "service": "Service",
         "house": "House & Building",
-        "add_house": "Add House & Building"
+        "add_house": "Add House & Building",
+        "payment_service": "Payment Service"
     },
     "placeholder": {
         "inputText": "Please Enter...",
+        "inputNumber": "Please Enter x,xxx...",
+        "dropdownSelect": "Please Select",
         "textSearch": "Search..."
     },
     "table": {
@@ -27,7 +30,17 @@
             "province": "Province",
             "district": "District",
             "customer": "Customer",
-            "currency": "Currency"
+            "currency": "Currency",
+            "owner": "Owner",
+            "address": "Address",
+            "email": "Email",
+            "status": "Status",
+            "phone_number": "Phone Number",
+            "created_at": "Created_at",
+            "updated_at": "Updated_at",
+            "realestate_type": "RealEstate Type",
+            "service": "Service",    
+            "unit_price": "Unit Price"    
         },
         "pagination": {
             "show": "show",
@@ -39,7 +52,8 @@
     "button": {
         "save": "Save",
         "edit": "Edit",
-        "delete": "Delete"
+        "delete": "Delete",
+        "clear": "Clear"
     },
     "messages": {
         "country": "Country",
@@ -47,6 +61,37 @@
         "district": "District",
         "customer": "Customer",
         "service": "Service",
-        "house": "House & Building"
+        "house": "House & Building",
+        "form_register_customer": "Form Register Customer",
+        "select": "Select",
+        "name": "Name",
+        "owner": "Owner",
+        "phone_number": "Phone Number",
+        "email": "Email",
+        "address": "Address",
+        "password": "Password",
+        "confirm_password": "Confirmation Password",
+        "realestate_type": "RealEstate Type",
+        "unit_price": "Unit Price",
+        "price": "Price"
+    },
+    "confirmDelete": {
+        "message": "Are you sure?",
+        "header": "Confirm Delete",
+        "rejectLabel": "Reject",
+        "acceptLabel": "Accepted"
+    },
+    "toast": {
+        "summary": {
+            "delete": "The data deletion is complete.",
+            "cancel_delete": "Cancel data deletion.",
+            "success": "Success.",
+            "error": "Error."
+        },
+        "detail": {
+            "delete": "has been deleted.",
+            "cancel_delete": "has been cancelled.",
+            "successfully": "Success"
+        }
     }
 }

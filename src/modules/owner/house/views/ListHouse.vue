@@ -179,16 +179,16 @@
             <Column field="zip_code" header="zip code"></Column>
             <Column field="wide" header="ລວງກ້ວາງ"></Column>
             <Column field="long" header="ລວງຍາວ"></Column>
-            <Column headerStyle="width: 10rem">
+            <Column headerStyle="width: 10rem" style="width: 20%">
                     <template #body="{ data }">
                         <div class="flex flex-wrap gap-2 btn-right">
-                            <!-- <Button 
+                            <Button 
                                 type="button" 
-                                icon="pi pi-eye" 
-                                rounded 
-                                severity="success"   
+                                label="ຍັງບໍ່ຊຳລະ" 
+                                severity="danger"   
                                 style="color: white;" 
-                            /> -->
+                                @click="paymentService(data.id)"
+                            />
                             <Button 
                                 type="button" 
                                 icon="pi pi-pencil" 
@@ -208,8 +208,19 @@
                     </template>
                 </Column>
         </DataTable>
+
+        <payment-service-component
+            ref="createForm"
+            :id="false"
+            :on-submit="submitData"
+            :form="form"
+            :is-loading="btnLoading"
+            @on-success="clearForm"
+            :real-estate-service="findRealEstateService"
+        />
     </div>
 </template>
+
 <script setup lang="ts">
     import Button from 'primevue/button';
     import DataTable, { type DataTablePageEvent } from 'primevue/datatable';
@@ -225,6 +236,7 @@
     import { HouseEntity } from '../entities/house.entity';
     import { useConfirm } from "primevue/useconfirm";
     import { useToast } from "primevue/usetoast";
+    import PaymentServiceComponent from '../components/PaymentService.component.vue';
 
     const router = useRouter()
     const { query } = useRoute()
@@ -232,7 +244,7 @@
     const toast = useToast();
     const confirm = useConfirm();
 
-    const { form, getAll, state, setStateFilter, remove } = houseStore();
+    const { form, getAll, state, setStateFilter, remove, findRealEstateServiceById, findRealEstateService } = houseStore();
     const { getOne, realestateType } = realEstateServiceStore();
     const { getAll: getAllProvince, state: stateProvince, setStateFilter: setStateProvinceFilter } = provinceStore();
     const { getAll: getAllDistrict, state: stateDistrict, setStateFilter: setStateDistrictFilter } = districtStore();
@@ -249,6 +261,25 @@
         { id: 'fan', name: 'ພັດລົມ' },
         { id: 'no', name: 'ບໍ່ມີ' },
     ]);
+    const createForm = ref();
+    const btnLoading = ref(false);
+
+
+    const paymentService = async (id: HouseEntity) => {
+        await findRealEstateServiceById(id);
+        form.id = (id as string);
+        form.service_charge_id = findRealEstateService.data.props ? findRealEstateService.data.props[0].id : undefined;
+        createForm.value.visible = true;
+    }
+
+   
+    async function  submitData() {
+        console.log('paovang: submit 2024')
+    }
+
+    async function clearForm() {
+        console.log('clear....')
+    }
 
     async function initComponent() {
         if (Object.keys(query).length !== 0) {

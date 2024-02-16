@@ -1,5 +1,19 @@
-import { object, string, type ObjectSchema } from 'yup'
+import { object, string, ObjectSchema } from "yup";
 
-export const realEstateServiceSchema: ObjectSchema<any> = object({
-    service_charge: string().required('ກະລຸນາປ້ອນກ່ອນ...'),
-})
+interface ErrorMessages {
+  service_charge: string;
+}
+
+// Define the schema function type alias
+type RealEstateSchemaFunction = (
+  errorMessages: ErrorMessages
+) => ObjectSchema<ErrorMessages>;
+
+// Define the schema function
+const realEstateSchemaFunction: RealEstateSchemaFunction = (errorMessages) =>
+  object({
+    service_charge: string().required(errorMessages.service_charge),
+  });
+
+// Assign the schema function to customerSchema
+export const realEstateServiceSchema = realEstateSchemaFunction;

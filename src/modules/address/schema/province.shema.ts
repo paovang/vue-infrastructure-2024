@@ -1,5 +1,19 @@
-import { object, string, type ObjectSchema } from 'yup'
+import { object, string, ObjectSchema } from "yup";
 
-export const createProvinceSchema: ObjectSchema<any> = object({
-  name: string().required('ກະລຸນາປ້ອນຊື່ກ່ອນ...')
-})
+interface ErrorMessages {
+  name: string;
+}
+
+// Define the schema function type alias
+type ProvinceSchemaFunction = (
+  errorMessages: ErrorMessages
+) => ObjectSchema<ErrorMessages>;
+
+// Define the schema function
+const provinceSchemaFunction: ProvinceSchemaFunction = (errorMessages) =>
+  object({
+    name: string().required(errorMessages.name),
+  });
+
+// Assign the schema function to customerSchema
+export const createProvinceSchema = provinceSchemaFunction;

@@ -6,14 +6,14 @@
                     <template #legend>
                         <div class="flex align-items-center pl-2">
                             <i class="pi pi-users" style="font-size: 20px;"></i>
-                            <span class="font-bold">ຟອມລົງທະບຽນ ຂໍ້ມູນລູກຄ້າ</span>
+                            <span class="font-bold">{{ $t('messages.form_register_customer') }}</span>
                         </div>
                     </template>
                     <form @submit.prevent="isEditing ? onUpdate() : onSubmit()" class="flex flex-column gap-3 h-full">
                         <div class="col-12 md:col-12 flex flex-row">
                             <div class="col-12 md:col-3">
                                 <label>
-                                    ກະລຸນາເລືອກ
+                                    {{ $t('messages.select')}} {{ $t('messages.country')}}
                                     <span class="text-red-500"> *</span>
                                 </label>
                                 <Dropdown 
@@ -23,7 +23,7 @@
                                     optionLabel="name" 
                                     optionValue="id"
                                     :highlightOnSelect="true" 
-                                    placeholder="ກະລຸນາເລືອກກ່ອນ..." 
+                                    :placeholder="$t('placeholder.dropdownSelect')" 
                                     class="w-full md:w-14rem" 
                                 />
                             </div>
@@ -31,27 +31,27 @@
                                 <my-input-text 
                                     ref="autoFocusCursor"
                                     name="name" 
-                                    label="ຊື່" 
+                                    :label="$t('messages.name')"
                                     required 
-                                    placeholder="ກະລຸນາປ້ອນກ່ອນ..." 
+                                    :placeholder="$t('placeholder.inputText')" 
                                     class="h-full" 
                                 />
                             </div>
                             <div class="col-12 md:col-3">
                                 <my-input-text 
                                     name="owner" 
-                                    label="ເຈົ້າຂອງ" 
+                                    :label="$t('messages.owner')"
                                     required 
-                                    placeholder="ກະລຸນາປ້ອນກ່ອນ..." 
+                                    :placeholder="$t('placeholder.inputText')" 
                                     class="h-full" 
                                 />
                             </div>
                             <div class="col-12 md:col-3">
                                 <my-input-text 
                                     name="address" 
-                                    label="ເບີໂທລະສັບ" 
+                                    :label="$t('messages.phone_number')"
                                     required 
-                                    placeholder="ກະລຸນາປ້ອນກ່ອນ..." 
+                                    :placeholder="$t('placeholder.inputText')" 
                                     class="h-full" 
                                 />
                             </div>
@@ -61,18 +61,18 @@
                             <div class="col-12 md:col-4">
                                 <my-input-text 
                                     name="tel" 
-                                    label="ທີ່ຢູ່ປະຈຸບັນ" 
+                                    :label="$t('messages.address')"
                                     required 
-                                    placeholder="ກະລຸນາປ້ອນກ່ອນ..." 
+                                    :placeholder="$t('placeholder.inputText')" 
                                     class="h-full" 
                                 />
                             </div>
-                            <div class="col-12 md:col-4">
+                            <div class="col-12 md:col-3">
                                 <my-input-text 
                                     name="email" 
-                                    label="ອີເມວ" 
+                                    :label="$t('messages.email')"
                                     required 
-                                    placeholder="ກະລຸນາປ້ອນກ່ອນ..." 
+                                    :placeholder="$t('placeholder.inputText')" 
                                     class="h-full" 
                                     :isEditing="isEditing"
                                 />
@@ -80,18 +80,18 @@
                             <div class="col-12 md:col-2">
                                 <my-input-text 
                                     name="password" 
-                                    label="ລະຫັດຜ່ານ" 
+                                    :label="$t('messages.password')"
                                     required 
-                                    placeholder="ກະລຸນາປ້ອນກ່ອນ..." 
+                                    :placeholder="$t('placeholder.inputText')" 
                                     class="h-full" 
                                 />
                             </div>
-                            <div class="col-12 md:col-2">
+                            <div class="col-12 md:col-3">
                                 <my-input-text 
                                     name="password_confirmation" 
-                                    label="ຢືນຢັນລະຫັດຜ່ານ" 
+                                    :label="$t('messages.confirm_password')"
                                     required 
-                                    placeholder="ກະລຸນາປ້ອນກ່ອນ..." 
+                                    :placeholder="$t('placeholder.inputText')" 
                                     class="h-full" 
                                 />
                             </div>
@@ -105,7 +105,7 @@
                                 style="margin-right: 8px;"
                             >
                                 <i :class="isEditing ? 'pi pi-pencil' : 'pi pi-plus-circle' " style="margin-right: 8px;"></i>
-                                {{ isEditing ? 'ເເກ້ໄຂ' : 'ບັນທຶກ' }} ລູກຄ້າ
+                                {{ isEditing ? $t('button.edit') : $t('button.save') }} {{ $t('messages.customer')}}
                             </Button>
                             <Button 
                                 severity="danger" 
@@ -113,7 +113,7 @@
                                 @click="clearForm()"
                             >
                                 <i class="pi pi-sync" style="margin-right: 8px;"></i>
-                                ລົບລ້າງ
+                                {{ $t('button.clear')}}
                             </Button>
                         </div>
                     </form>
@@ -121,12 +121,11 @@
             </div>
         </transition>
             
-        
         <div class="card">
             <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
                 <span class="p-input-icon-left w-full sm:w-20rem flex-order-1 sm:flex-order-0">
                     <h2 class="mb-3">
-                        ລາຍການ ລູກຄ້າທັງໝົດ
+                        {{ $t('table.title.customer')}}
                     </h2>
                 </span>
                 <span class="w-full sm:w-auto flex-order-0 sm:flex-order-1 mb-4 sm:mb-0">
@@ -143,6 +142,7 @@
                 :value="state.data.props" 
                 :loading="state.isLoading" 
                 lazy
+                style="overflow-x: auto; width: 100%;"
                 tableStyle="min-width: 50rem"
                 :totalRecords="state.data.total"
                 @page="onPageChange"
@@ -151,7 +151,7 @@
                 :rows="setStateFilter.limit"
                 paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
                 :rowsPerPageOptions="[5, 10, 25]"
-                currentPageReportTemplate="ສະແດງ {first} ຫາ {last} ຈາກ {totalRecords} ແຖວ"
+                :currentPageReportTemplate="`${$t('table.pagination.show')} {first} ${$t('table.pagination.to')} {last} ${$t('table.pagination.from')} {totalRecords} ${$t('table.pagination.row')}`"
             >
                 <template #header>
                     <div class="col-12 md:col-12 flex flex-row">
@@ -163,7 +163,7 @@
                                     optionLabel="name" 
                                     optionValue="id"
                                     :highlightOnSelect="true" 
-                                    placeholder="ກະລຸນາເລືອກກ່ອນ..." 
+                                    :placeholder="$t('placeholder.dropdownSelect')" 
                                     class="w-full md:w-14rem" 
                                     @change="onSearch"
                                 />
@@ -174,7 +174,7 @@
                                 <i class="pi pi-search" style="margin-top: -10px"/>
                                 <input-text
                                     v-model="filteredName"
-                                    placeholder="ຄົ້ນຫາ ( ຊື່, ເຈົ້າຂອງ ) ..."
+                                    :placeholder="`${$t('placeholder.textSearch')} (${$t('messages.name')}, ${$t('messages.owner')})`"  
                                     style="font-family: NotoSansLao, Montserrat"
                                     class="w-full"
                                     @keyup.enter="onSearch"
@@ -187,7 +187,7 @@
                                 <i class="pi pi-search" style="margin-top: -10px"/>
                                 <input-text
                                     v-model="filterTel"
-                                    placeholder="ຄົ້ນຫາ ດ້ວຍເບີໂທລະສັບ..."
+                                    :placeholder="`${$t('placeholder.textSearch')} ${$t('messages.phone_number')}`" 
                                     style="font-family: NotoSansLao, Montserrat"
                                     class="w-full"
                                     @keyup.enter="onSearch"
@@ -207,20 +207,20 @@
                         </div>
                     </div>
                 </template>
-                <Column field="id" header="ລຳດັບ">
+                <Column field="id" :header="$t('table.header.index')">
                     <template #body="item">
                         {{ item.index + 1 }}
                     </template>
                 </Column>
-                <Column field="country.name" header="ປະເທດ"></Column>
-                <Column field="name" header="ຊື່ລູກຄ້າ"></Column>
-                <Column field="owner" header="ເຈົ້າຂອງ"></Column>
-                <Column field="address" header="ທີ່ຢູ່"></Column>
-                <Column field="tel" header="ເບີໂທ"></Column>
-                <Column field="email" header="ອີເມວ"></Column>
-                <Column field="status" header="ສະຖານະ"></Column>
-                <Column field="created" header="ວັນທີສ້າງ"></Column>
-                <Column field="updated" header="ອັບເດດລ່າສຸດ"></Column>
+                <Column field="country.name" :header="$t('table.header.country')"></Column>
+                <Column field="name" :header="$t('table.header.customer')"></Column>
+                <Column field="owner" :header="$t('table.header.owner')"></Column>
+                <Column field="address" :header="$t('table.header.address')"></Column>
+                <Column field="tel" :header="$t('table.header.phone_number')"></Column>
+                <!-- <Column field="email" :header="$t('table.header.email')"></Column> -->
+                <Column field="status" :header="$t('table.header.status')"></Column>
+                <Column field="created" :header="$t('table.header.created_at')"></Column>
+                <Column field="updated" :header="$t('table.header.updated_at')"></Column>
                 <Column headerStyle="width: 10rem">
                     <template #body="{ data }">
                         <div class="flex flex-wrap gap-2 btn-right">
@@ -264,7 +264,9 @@
     import MyInputText from '../../../../components/customComponents/FormInputText.vue';
     import { useForm } from 'vee-validate';
     import { customerSchema } from '../schema/customer.shema';
+    import { useI18n } from 'vue-i18n';
 
+    const { t } = useI18n();
     const toast = useToast();
     const confirm = useConfirm();
 
@@ -277,9 +279,18 @@
     const { register, update, remove, getAll, form, state, setStateFilter } = customerStore();
     const { getAll: getAllCountry, state: stateCountry, setStateFilter: setStateCountyFilter } = countryStore();
 
+    const translatedErrorMessages = {
+        name: t('placeholder.inputText'),
+        owner: t('placeholder.inputText'),
+        address: t('placeholder.inputText'),
+        tel: t('placeholder.inputText'),
+        email: t('placeholder.inputText'),
+        password: t('placeholder.inputText'),
+        password_confirmation: t('placeholder.inputText'),
+    }
 
     const { handleSubmit, handleReset, setFieldValue } = useForm<any>({
-        validationSchema: customerSchema
+        validationSchema: customerSchema(translatedErrorMessages)
     })
 
     const onUpdate = handleSubmit(async(values) => {
@@ -398,29 +409,28 @@
 
     const confirmDelete = async (id: CustomerEntity) => {
         confirm.require({
-            message: 'ທ່ານຕ້ອງການລຶບບັນທຶກນີ້ບໍ?',
-            header: 'ຢືນຢັນການລຶບຂໍ້ມູນ',
-            rejectLabel: 'ຍົກເລີກ',
-            acceptLabel: 'ຕົກລົງ',
+            message: t('confirmDelete.message'),
+            header: t('confirmDelete.header'),
+            rejectLabel: t('confirmDelete.rejectLabel'),
+            acceptLabel: t('confirmDelete.acceptLabel'),
             rejectClass: 'p-button-secondary p-button-outlined',
             acceptClass: 'p-button-danger',
             accept: async () => {
                 await deleteItem(id)
-
-                toast.add({ severity: 'success', summary: 'ການລຶບຂໍ້ມູນສຳເລັດເເລ້ວ.', detail: 'ຖືກລຶບອອກເເລ້ວ', life: 3000 });
+                toast.add({ severity: 'success', summary: t('toast.summary.delete'), detail: t('toast.detail.delete'), life: 3000 });
             },
             reject: () => {
-                toast.add({ severity: 'error', summary: 'ຍົກເລີກການລຶບຂໍ້ມູນເເລ້ວ.', detail: 'ຖືກຍົກເລີກເເລ້ວ', life: 3000 });
+                toast.add({ severity: 'error', summary: t('toast.summary.cancel_delete'), detail: t('toast.detail.cancel_delete'), life: 3000 });
             }
         });
     }
 
     const showToastSuccess = () => {
-        toast.add({ severity: 'success', summary: 'ສຳເລັດເເລ້ວ.', detail: 'ການດຳເນີນສຳເລັດເເລ້ວ', life: 3000 });
+        toast.add({ severity: 'success', summary: t('toast.summary.success'), detail: t('toast.detail.successfully'), life: 3000 });
     }
 
     const showWarningValidateBackend = () => {
-        toast.add({ severity: 'error', summary: 'ເກີດຂໍ້ຜິດພາດ.', detail: `${state.error}`, life: 3000 });
+        toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: `${state.error}`, life: 3000 });
     }
 
     async function initComponent() {

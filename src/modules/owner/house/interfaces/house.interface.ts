@@ -30,10 +30,14 @@ export interface IHouseRepository {
 
   getOne(id: number): Promise<any>;
 
+  findRealEstateServiceById(id: HouseEntity): Promise<any>;
+
   /* Gallery */
   deleteGallery(id: string): Promise<any>;
 
   updateGallery(input: HouseEntity): Promise<any>;
 
   addGallery(input: HouseEntity): Promise<any>;
+
+  paymentService(input: HouseEntity): Promise<any>;
 }

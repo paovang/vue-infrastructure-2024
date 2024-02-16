@@ -28,6 +28,12 @@ export const houseStore = defineStore("house-store", () => {
     },
   });
 
+  const findRealEstateService = reactive<any>({
+    data: {
+      props: "",
+    },
+  });
+
   type FilterType = Pick<
     HouseEntity,
     | "real_estate_type_id"
@@ -57,6 +63,7 @@ export const houseStore = defineStore("house-store", () => {
   const form = reactive<HouseEntity>({
     id: "",
     real_estate_type_id: "",
+    service_charge_id: "",
     district_id: "",
     service_model: "",
     image: "",
@@ -68,6 +75,11 @@ export const houseStore = defineStore("house-store", () => {
     long: "",
     remark: "",
     prices: [],
+    payment: {
+      quantity: 0,
+      fromDate: new Date(),
+      filezPaySlip: "",
+    },
   });
 
   async function register() {
@@ -256,6 +268,54 @@ export const houseStore = defineStore("house-store", () => {
       (form.prices = []);
   }
 
+  async function findRealEstateServiceById(id: HouseEntity) {
+    const response = await service.findRealEstateServiceById(id);
+
+    if (response && response.data && response.message == "success") {
+      findRealEstateService.data.props = response.data;
+    }
+  }
+
+  async function paymentService() {
+    try {
+      await service.paymentService(form);
+      state.error = "";
+    } catch (error: any) {
+      console.log(error.message);
+      if (error.response) {
+        switch (error.response.status) {
+          case 422:
+            let responseError = "";
+            responseError = Object.keys(error.response.data.errors)
+              .map(
+                (key) => `${key}: ${error.response.data.errors[key].join(", ")}`
+              )
+              .join("; ");
+            state.error = responseError;
+            break;
+          case 413:
+            state.error = "Payload Too Large";
+            break;
+          case 429:
+            state.error = "Too Many Requests";
+            break;
+          case 500:
+            state.error = error.message;
+            break;
+          case 404:
+            state.error = error.message;
+            break;
+          default:
+            state.error = "An unexpected error occurred";
+        }
+      } else {
+        state.error = "Network Error"; // Handle network errors
+      }
+    } finally {
+      state.isLoading = false;
+    }
+  }
+
   return {
     form,
     setStateFilter,
@@ -269,5 +329,8 @@ export const houseStore = defineStore("house-store", () => {
     addGallery,
     deleteGallery,
     updateGallery,
+    findRealEstateServiceById,
+    findRealEstateService,
+    paymentService,
   };
 });

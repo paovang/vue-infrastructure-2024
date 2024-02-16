@@ -9,7 +9,7 @@
                             <my-input-text 
                                 ref="autoFocusCursor"
                                 name="name" 
-                                label="ຊື່" 
+                                :label="$t('messages.name')"
                                 required 
                                 :placeholder="$t('placeholder.inputText')" 
                                 class="h-full" 
@@ -20,7 +20,7 @@
                         <div class="flex flex-column h-full">
                             <my-input-text 
                                 name="currency" 
-                                label="ຊື່" 
+                                :label="$t('messages.name')"
                                 required 
                                 :placeholder="$t('placeholder.inputText')" 
                                 class="h-full" 
@@ -131,12 +131,14 @@
     import { countryStore } from '../stores/country.store';
     import { useToast } from "primevue/usetoast";
     import { useForm } from 'vee-validate'
-    import { createCountrySchema } from '../schema/country.shema'
+    import { countrySchema } from '../schema/country.shema'
     import MyInputText from '../../../components/customComponents/FormInputText.vue'
     import { useRoute, useRouter } from 'vue-router'
     import { CountryEntity } from '../entities/country.entity';
     import { useConfirm } from "primevue/useconfirm";
-    
+    import { useI18n } from 'vue-i18n';
+
+    const { t } = useI18n();
     const toast = useToast();
     const confirm = useConfirm();
 
@@ -147,8 +149,12 @@
 
     const { register, update, remove, getAll, form, state, setStateFilter } = countryStore();
 
+    const translatedErrorMessages = {
+        name: t('placeholder.inputText'),
+        currency: t('placeholder.inputText'),
+    }
     const { handleSubmit, handleReset, setFieldValue } = useForm<any>({
-        validationSchema: createCountrySchema
+        validationSchema: countrySchema(translatedErrorMessages)
     })
 
     const RefreshData = async() => {
@@ -229,29 +235,28 @@
 
     const confirmDelete = async (id: CountryEntity) => {
         confirm.require({
-            message: 'ທ່ານຕ້ອງການລຶບບັນທຶກນີ້ບໍ?',
-            header: 'ຢືນຢັນການລຶບຂໍ້ມູນ',
-            rejectLabel: 'ຍົກເລີກ',
-            acceptLabel: 'ຕົກລົງ',
+            message: t('confirmDelete.message'),
+            header: t('confirmDelete.header'),
+            rejectLabel: t('confirmDelete.rejectLabel'),
+            acceptLabel: t('confirmDelete.acceptLabel'),
             rejectClass: 'p-button-secondary p-button-outlined',
             acceptClass: 'p-button-danger',
             accept: async () => {
                 await deleteItem(id)
-
-                toast.add({ severity: 'success', summary: 'ການລຶບຂໍ້ມູນສຳເລັດເເລ້ວ.', detail: 'ຖືກລຶບອອກເເລ້ວ', life: 3000 });
+                toast.add({ severity: 'success', summary: t('toast.summary.delete'), detail: t('toast.detail.delete'), life: 3000 });
             },
             reject: () => {
-                toast.add({ severity: 'error', summary: 'ຍົກເລີກການລຶບຂໍ້ມູນເເລ້ວ.', detail: 'ຖືກຍົກເລີກເເລ້ວ', life: 3000 });
+                toast.add({ severity: 'error', summary: t('toast.summary.cancel_delete'), detail: t('toast.detail.cancel_delete'), life: 3000 });
             }
         });
     }
 
     const showToastSuccess = () => {
-        toast.add({ severity: 'success', summary: 'Success Message', detail: 'Message Content', life: 3000 });
+        toast.add({ severity: 'success', summary: t('toast.summary.success'), detail: t('toast.detail.successfully'), life: 3000 });
     }
 
     const showWarningValidateBackend = () => {
-        toast.add({ severity: 'error', summary: 'Error Message', detail: `${state.error}`, life: 3000 });
+        toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: `${state.error}`, life: 3000 });
     }
 
     async function initComponent() {

@@ -7,10 +7,13 @@
         "district": "ເມືອງ",
         "service": "ຄ່າບໍລິການ",
         "house": "ເຮືອນ ຫຼື ຫ້ອງເຊົ່າ",
-        "add_house": "ເພີ່ມ ເຮືອນ ຫຼື ຫ້ອງເຊົ່າ"
+        "add_house": "ເພີ່ມ ເຮືອນ ຫຼື ຫ້ອງເຊົ່າ",
+        "payment_service": "ຊຳລະຄ່າບໍລິການ"
     },
     "placeholder": {
         "inputText": "ກະລຸນາປ້ອນກ່ອນ...",
+        "inputNumber": "ກະລຸນາປ້ອນກ່ອນ x,xxx...",
+        "dropdownSelect": "ກະລຸນາເລືອກກ່ອນ...",
         "textSearch": "ຄົ້ນຫາ..."
     },
     "table": {
@@ -27,7 +30,17 @@
             "province": "ຊື່ເເຂວງ",
             "district": "ຊື່ເມືອງ",
             "customer": "ຊື່ລູກຄ້າ",
-            "currency": "ສະກຸນເງີນ"
+            "currency": "ສະກຸນເງີນ",
+            "owner": "ເຈົ້າຂອງ",
+            "address": "ທີ່ຢູ່ປະຈຸບັນ",
+            "email": "ອີເມວ",
+            "phone_number": "ເບີໂທລະສັບ",
+            "status": "ສະຖານະ",
+            "created_at": "ວັນທີ່ສ້າງ",
+            "updated_at": "ອັບເດດລ່າສຸດ",
+            "realestate_type": "ປະເພດບໍລິການ",
+            "service": "ຄ່າບໍລິການ",
+            "unit_price": "ປະເພດຄ່າບໍລິການ"    
         },
         "pagination": {
             "show": "ສະເເດງ",
@@ -39,7 +52,8 @@
     "button": {
         "save": "ບັນທຶກ",
         "edit": "ເເກ້ໄຂ",
-        "delete": "ລຶບ"
+        "delete": "ລຶບ",
+        "clear": "ລົບລ້າງ"
     },
     "messages": {
         "country": "ປະເທດ",
@@ -47,6 +61,37 @@
         "district": "ເມືອງ",
         "customer": "ລູກຄ້າ",
         "service": "ບໍລິການ",
-        "house": "ເຮືອນ ຫຼື ຫ້ອງເຊົ່າ"
+        "house": "ເຮືອນ ຫຼື ຫ້ອງເຊົ່າ",
+        "form_register_customer": "ຟອມລົງທະບຽນ ຂໍ້ມູນລູກຄ້າ",
+        "select": "ເລືອກ",
+        "name": "ຊື່",
+        "owner": "ເຈົ້າຂອງ",
+        "phone_number": "ເບີໂທລະສັບ",
+        "email": "ອີເມວ",
+        "address": "ທີ່ຢູ່ປະຈຸບັນ",
+        "password": "ລະຫັດຜ່ານ",
+        "confirm_password": "ຢືນຢັນລະຫັດຜ່ານ",
+        "realestate_type": "ປະເພດບໍລິການ",
+        "unit_price": "ປະເພດຄ່າບໍລິການ",
+        "price": "ລາຄາ"
+    },
+    "confirmDelete": {
+        "message": "ທ່ານເເນ່ໃຈ ຫຼຶ ບໍ?",
+        "header": "ຢືນຢັນການລຶບຂໍ້ມູນ",
+        "rejectLabel": "ຍົກເລີກ",
+        "acceptLabel": "ຕົກລົງ"
+    },
+    "toast": {
+        "summary": {
+            "delete": "ການລຶບຂໍ້ມູນສຳເລັດ.",
+            "cancel_delete": "ຍົກເລີກການລຶບຂໍ້ມູນ.",
+            "success": "ສຳເລັດ.",
+            "error": "ເກີດຂໍ້ຜິດພາດ."
+        },
+        "detail": {
+            "delete": "ຖືກລຶບອອກເເລ້ວ.",
+            "cancel_delete": "ຖືກຍົກເລີກເເລ້ວ.",
+            "successfully": "ການດຳເນີນສຳເລັດ."
+        }
     }
 }

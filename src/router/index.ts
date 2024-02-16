@@ -8,6 +8,7 @@ import { homeRoute } from "@/modules/homepage/routers/index";
 import { ownerHouseRoute } from "@/modules/owner/house/routers/index";
 import { authGuard } from "@/common/guards/auth.guard";
 import { realEstateServiceRoute } from "@/modules/rent_house/memberServices/routers";
+import { paymentServiceHouseRoute } from "@/modules/owner/paymentService/routers";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,6 +23,7 @@ const router = createRouter({
         ...addressRoute,
         ...realEstateServiceRoute,
         ...ownerHouseRoute,
+        ...paymentServiceHouseRoute,
       ],
     },
     ...authRoute,
