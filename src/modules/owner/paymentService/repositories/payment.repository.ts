@@ -44,14 +44,23 @@ export class PaymentServiceHouseRepository
   }
 
   async update(input: PaymentEntity): Promise<IResponse<PaymentEntity>> {
+    let fromDate: string = "";
+    if (typeof input.fromDate !== "undefined") {
+      if (input.fromDate instanceof Date) {
+        fromDate = input.fromDate.toISOString().slice(0, 10);
+      } else {
+        fromDate = input.fromDate as string;
+      }
+    }
+
     const response = await this._api.axios({
       method: "put",
       url: `/owner/payment/service-charge/${input.id}`,
       params: {
-        real_estate_list_id: input.id,
+        real_estate_list_id: input.real_estate_list_id,
         service_charge_id: input.service_charge_id,
         qty: input.quantity,
-        from_date: input.fromDate,
+        from_date: formatDate(fromDate),
         slip_payment: input.paySlip,
       },
     });
@@ -85,7 +94,8 @@ export class PaymentServiceHouseRepository
         page: args.page,
         per_page: args.limit,
         service_charge_id: args.filter?.service_charge_id,
-        date_payment: args.filter?.date_payment,
+        date_payment: "",
+        // date_payment: args.filter?.date_payment,
       },
     });
 

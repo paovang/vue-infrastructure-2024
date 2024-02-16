@@ -40,7 +40,10 @@
             "updated_at": "ອັບເດດລ່າສຸດ",
             "realestate_type": "ປະເພດບໍລິການ",
             "service": "ຄ່າບໍລິການ",
-            "unit_price": "ປະເພດຄ່າບໍລິການ"    
+            "unit_price": "ປະເພດຄ່າບໍລິການ",
+            "amount": "ຈຳນວນເງີນ",
+            "start_end_date": "ວັນທີເລີ່ມ - ສີ້ນສຸດ",
+            "date_payment": "ວັນທີຊຳລະ"
         },
         "pagination": {
             "show": "ສະເເດງ",

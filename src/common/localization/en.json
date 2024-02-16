@@ -40,7 +40,10 @@
             "updated_at": "Updated_at",
             "realestate_type": "RealEstate Type",
             "service": "Service",    
-            "unit_price": "Unit Price"    
+            "unit_price": "Unit Price",
+            "amount": "Amount",
+            "start_end_date": "Start - End Date",
+            "date_payment": "Payment Date"
         },
         "pagination": {
             "show": "show",

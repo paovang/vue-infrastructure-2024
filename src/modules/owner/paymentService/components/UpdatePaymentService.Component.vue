@@ -3,7 +3,7 @@
         v-model:visible="visible" 
         modal 
         @hide="clearData"
-        header="ຊຳລະ ຄ່າບໍລິການ" 
+        header="ອັບເດດ ຊຳລະຄ່າບໍລິການ" 
         :style="{ width: '50vw' }" 
         :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
     >
@@ -18,7 +18,7 @@
                         <Dropdown 
                             name="real_estate_type"
                             style="margin-top: 8px;"
-                            v-model="form.id" 
+                            v-model="form.real_estate_list_id" 
                             :options="stateHouse.data.props" 
                             :optionLabel="option => `${option.real_estate_type.name} - ${option.room_type} - ${option.service_model}`" 
                             placeholder="ກະລຸນາເລືອກກ່ອນ..." 
@@ -108,7 +108,7 @@
 
 <script setup lang="ts">
     import Dialog from 'primevue/dialog';
-    import { ref, onMounted, watch } from 'vue';
+    import { ref, watch } from 'vue';
     import { houseStore } from '../../../owner/house/stores/house.store'
     import Dropdown from 'primevue/dropdown';
     import { HouseEntity } from '../../house/entities/house.entity';
@@ -128,6 +128,13 @@
     const toast = useToast();
     const visible = ref<boolean>(false);
     defineExpose({ visible });
+    const emit = defineEmits<{ (e: 'onSuccess'): void; (e: 'onHide'): void }>();
+
+    const props = defineProps<{
+      id: boolean,
+      data: any
+    }>()
+
 
     const isShowFileImage = ref<string | null>(null);
     const selectedImage = ref();
@@ -142,34 +149,32 @@
         }
     });
 
-    const { handleSubmit, handleReset } = useForm<any>({
+    const { handleSubmit, handleReset, setFieldValue } = useForm<any>({
         validationSchema: paymentSchema
     })
 
     const { getAll, state: stateHouse, findRealEstateServiceById, findRealEstateService } = houseStore();
-    const { form, state, paymentService } = paymentStore();
+    const { form, state, update } = paymentStore();
 
     const onSubmit = handleSubmit(async (value) => {
         form.quantity = value.quantity;
         form.paySlip = selectedImage.value;
-        
-        if (selectedImage.value) {
-            await paymentService();
 
-            if (state.error) {
-                await showWarningValidateBackend();
-            } else {
-                await clearData();
-                await fetchAll();
-                await showToastSuccess();
-            }
+        await update();
+
+        if (state.error) {
+            await showWarningValidateBackend();
         } else {
-            await showWarningValidate();
+            await clearData();
+            await fetchAll();
+            await showToastSuccess();
+            visible.value = false;
         }
     })
 
     const clearData = async () => {
         await handleReset();
+        emit('onSuccess')
         selectedImage.value = "";
         isShowFileImage.value = "";
 
@@ -219,15 +224,15 @@
         }
     }
 
-    onMounted(async() => {
-        await fetchAll();
-    });
-
     const fetchAll = async() => {
         await getAll();
-        form.id = stateHouse.data.props ? stateHouse.data.props[0].id : undefined;
-        await findRealEstateServiceById(form.id as HouseEntity);
-        form.service_charge_id = findRealEstateService.data.props ? findRealEstateService.data.props[0].id : undefined;
+        form.id = props.data.id;
+        form.real_estate_list_id = props.data.real_estate_list.id;
+        await findRealEstateServiceById(form.real_estate_list_id as HouseEntity);
+        form.service_charge_id = props.data.service_charge_list.id;
+        setFieldValue('quantity', props.data.qty);
+        form.fromDate = props.data.from_date;
+        isShowFileImage.value = props.data.slip_payment;
     }
 
     const showWarningValidate = () => {

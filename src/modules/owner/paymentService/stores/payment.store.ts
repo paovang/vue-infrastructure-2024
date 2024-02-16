@@ -30,6 +30,7 @@ export const paymentStore = defineStore("payment-house-store", () => {
 
   const form = reactive<PaymentEntity>({
     id: "",
+    real_estate_list_id: "",
     service_charge_id: "",
     fromDate: new Date(),
     quantity: 0,
@@ -161,6 +162,7 @@ export const paymentStore = defineStore("payment-house-store", () => {
   return {
     form,
     state,
+    setStateFilter,
     paymentService,
     getAll,
     remove,
