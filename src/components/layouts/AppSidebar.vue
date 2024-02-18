@@ -1,10 +1,10 @@
 <script setup lang="ts">
   import { useRouter } from 'vue-router'
-  import { countryStore } from '../../modules/address/stores/country.store';
-  import { provinceStore } from '../../modules/address/stores/province.store';
-  import { realEstateServiceStore } from '../../modules/rent_house/memberServices/stores/real-estate-service.store';
-  import { districtStore } from '../../modules/address/stores/district.store';
+  import { provinceStore } from '@/modules/realEstate/address/stores/province.store';
+  import { realEstateServiceStore } from '@/modules/realEstate/rentHouse/memberServices/stores/real-estate-service.store';
+  import { districtStore } from '@/modules/realEstate/address/stores/district.store';
   import { useI18n } from 'vue-i18n';
+  import { countryStore } from '@/modules/realEstate/address/stores/country.store';
 
   const { t } = useI18n();
   
@@ -236,4 +236,4 @@
   .bg-highlight {
     background-color: rgba(199, 195, 195, 0.604) !important; /* Add the desired highlight color */
   }
-</style>
+</style>../../modules/real-estate/address/stores/country.store../../modules/real-estate/address/stores/province.store../../modules/real-estate/address/stores/district.store../../modules/realEstate/rent_house/memberServices/stores/real-estate-service.store@/modules/realEstate/rentHouse/memberServices/stores/real-estate-service.store
