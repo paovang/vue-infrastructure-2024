@@ -20,7 +20,7 @@ export class GetAllPaymentServiceHouseUseCase
   ) {}
 
   async execute(
-    input: IGPaginate<Pick<PaymentEntity, "service_charge_id" | "date_payment">>
+    input: IGPaginate<Pick<PaymentEntity, "status" | "date_payment">>
   ): Promise<void | IResponse<IGPaginated<PaymentEntity>>> {
     try {
       return await this._api.getAll(input);

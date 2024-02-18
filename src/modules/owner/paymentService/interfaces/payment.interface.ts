@@ -13,7 +13,7 @@ export interface IPaymentServiceHouseRepository {
   delete(id: PaymentEntity): Promise<any>;
 
   getAll(
-    args: IGPaginate<Pick<PaymentEntity, "service_charge_id" | "date_payment">>
+    args: IGPaginate<Pick<PaymentEntity, "status" | "date_payment">>
   ): Promise<IResponse<IGPaginated<PaymentEntity>>>;
 
   getOne(id: number): Promise<any>;

@@ -128,6 +128,7 @@
     const toast = useToast();
     const visible = ref<boolean>(false);
     defineExpose({ visible });
+    const emit = defineEmits<{ (e: 'onSuccess'): void; (e: 'onHide'): void }>();
 
     const isShowFileImage = ref<string | null>(null);
     const selectedImage = ref();
@@ -162,6 +163,7 @@
                 await clearData();
                 await fetchAll();
                 await showToastSuccess();
+                visible.value = false;
             }
         } else {
             await showWarningValidate();
@@ -170,6 +172,7 @@
 
     const clearData = async () => {
         await handleReset();
+        emit('onSuccess');
         selectedImage.value = "";
         isShowFileImage.value = "";
 

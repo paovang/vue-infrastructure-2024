@@ -37,13 +37,13 @@ export const paymentStore = defineStore("payment-house-store", () => {
     paySlip: "",
   });
 
-  type FilterType = Pick<PaymentEntity, "service_charge_id" | "date_payment">;
+  type FilterType = Pick<PaymentEntity, "date_payment" | "status">;
   const setStateFilter = reactive<IGPaginate<FilterType>>({
     page: 1,
     limit: 10,
     filter: {
-      service_charge_id: "",
-      date_payment: new Date(),
+      status: "",
+      date_payment: null,
     },
   });
 

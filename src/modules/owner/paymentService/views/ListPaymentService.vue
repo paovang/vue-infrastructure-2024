@@ -10,6 +10,7 @@
                 <Button icon="pi pi-plus-circle" rounded  @click="paymentService" />
             </span>
         </div>
+        <Divider/>
         <DataTable 
             :value="state.data.props" 
             paginator 
@@ -24,6 +25,48 @@
             paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
             :currentPageReportTemplate="`${$t('table.pagination.show')} {first} ${$t('table.pagination.to')} {last} ${$t('table.pagination.from')} {totalRecords} ${$t('table.pagination.row')}`"
         >
+            <template #header>
+                    <div class="col-12 md:col-12 flex flex-row">
+                        <div class="col-12 md:col-2">
+                            <label>
+                                ວັນທີຊຳລະ
+                            </label>
+                            <Calendar 
+                                v-model="paymentDate" 
+                                showIcon iconDisplay="input" 
+                                inputId="icondisplay" 
+                                style="width: 100%;" 
+                                @date-select="onSearch"
+                                @input="onSearch"
+                            />
+                        </div>
+                        <div class="col-12 md:col-2">
+                            <label>
+                                ສະຖານະ
+                            </label>
+                            <Dropdown 
+                                name="status"
+                                v-model="form.status" 
+                                :options="paymentStatues" 
+                                :optionLabel="option => `${option.name}`" 
+                                placeholder="ກະລຸນາເລືອກກ່ອນ..." 
+                                class="w-full" 
+                                optionValue="id"
+                                :highlightOnSelect="true" 
+                                @change="onSearch"
+                            />
+                        </div>
+                        <div class="col-12 md:col-8" style="text-align: right;">
+                            <Button 
+                                icon="pi pi-refresh" 
+                                severity="warning" 
+                                style="margin-top: 22px !important; color: white" 
+                                @click="clearSearch"
+                            />
+                        </div>
+                    </div>
+            </template>
+
             <Column field="id" :header="$t('table.header.index')">
                 <template #body="item">
                     {{ item.index + 1 }}
@@ -71,13 +114,17 @@
                             icon="pi pi-trash" 
                             rounded 
                             severity="danger"
+                            @click="confirmDelete(data.id)"
                         />
                     </div>
                 </template>
             </Column>
         </DataTable>
 
-        <payment-service-component ref="createForm" />
+        <payment-service-component 
+            ref="createForm" 
+            @on-success="onSuccess"
+        />
         <update-payment-service-component 
             ref="editForm" 
             id
@@ -91,20 +138,54 @@
     import { ref, onMounted, computed } from 'vue';
     import DataTable, { type DataTablePageEvent } from 'primevue/datatable';
     import Column from 'primevue/column'; 
+    import Divider from 'primevue/divider';
     import Button from 'primevue/button';
+    import Dropdown from 'primevue/dropdown';
+    import Calendar from 'primevue/calendar';
     import PaymentServiceComponent from '../components/PaymentService.Component.vue';
     import UpdatePaymentServiceComponent from '../components/UpdatePaymentService.Component.vue';
     import { paymentStore } from '../stores/payment.store';
     import { PaymentEntity } from '../entities/payment.entity';
+    import { useConfirm } from "primevue/useconfirm";
+    import { useToast } from "primevue/usetoast";
+    import { useI18n } from 'vue-i18n';
 
-    const { getAll, state, setStateFilter } = paymentStore();
+    const { t } = useI18n();
+    const toast = useToast();
+    const confirm = useConfirm();
+
+    const { form, getAll, remove, state, setStateFilter } = paymentStore();
     
     const createForm = ref();
     const editForm = ref();
     const editData = ref();
 
+    const paymentStatues = ref([
+        { id: 'all', name: 'All' },
+        { id: 'pending', name: 'Pending' },
+        { id: 'confirm', name: 'Confirm' },
+        { id: 'reject', name: 'Reject' },
+    ]);
+
+    const paymentDate = ref();
+
+    const onSearch = async () => {
+        if (setStateFilter.filter) { 
+            setStateFilter.filter.status = form.status === 'all' ? '' : form.status;
+            setStateFilter.filter.date_payment = paymentDate.value;
+        }
+        await getAll();
+    }
+
+    const clearSearch = async () => {
+        form.status = 'all';
+        paymentDate.value = null;
+        await onSearch();
+    }
+
     onMounted(async() => {
         await getAll();
+        form.status = 'all';
     });
 
     const editItem = async (value: PaymentEntity) => {
@@ -141,6 +222,29 @@
 
     const onSuccess = async () => {
         await getAll();
+    }
+
+    const deleteItem = async (id: PaymentEntity) => {
+        await remove(id);
+        await getAll();
+    }
+
+    const confirmDelete = async (id: PaymentEntity) => {
+        confirm.require({
+            message: t('confirmDelete.message'),
+            header: t('confirmDelete.header'),
+            rejectLabel: t('confirmDelete.rejectLabel'),
+            acceptLabel: t('confirmDelete.acceptLabel'),
+            rejectClass: 'p-button-secondary p-button-outlined',
+            acceptClass: 'p-button-danger',
+            accept: async () => {
+                await deleteItem(id)
+                toast.add({ severity: 'success', summary: t('toast.summary.delete'), detail: t('toast.detail.delete'), life: 3000 });
+            },
+            reject: () => {
+                toast.add({ severity: 'error', summary: t('toast.summary.cancel_delete'), detail: t('toast.detail.cancel_delete'), life: 3000 });
+            }
+        });
     }
 </script>
 <style scoped>

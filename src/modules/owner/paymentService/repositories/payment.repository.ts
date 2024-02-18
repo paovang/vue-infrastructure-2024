@@ -19,10 +19,18 @@ export class PaymentServiceHouseRepository
   async paymentService(
     input: PaymentEntity
   ): Promise<IResponse<PaymentEntity>> {
-    const fromDate =
-      input.fromDate instanceof Date
-        ? input.fromDate.toISOString().slice(0, 10)
-        : "";
+    let fromDate: string = "";
+    if (typeof input.fromDate !== "undefined") {
+      if (input.fromDate instanceof Date) {
+        const year = input.fromDate.getFullYear();
+        const month = (input.fromDate.getMonth() + 1)
+          .toString()
+          .padStart(2, "0");
+        const day = input.fromDate.getDate().toString().padStart(2, "0");
+
+        fromDate = `${year}-${month}-${day}`;
+      }
+    }
 
     const response = await this._api.axios({
       method: "post",
@@ -47,7 +55,13 @@ export class PaymentServiceHouseRepository
     let fromDate: string = "";
     if (typeof input.fromDate !== "undefined") {
       if (input.fromDate instanceof Date) {
-        fromDate = input.fromDate.toISOString().slice(0, 10);
+        const year = input.fromDate.getFullYear();
+        const month = (input.fromDate.getMonth() + 1)
+          .toString()
+          .padStart(2, "0");
+        const day = input.fromDate.getDate().toString().padStart(2, "0");
+
+        fromDate = `${year}-${month}-${day}`;
       } else {
         fromDate = input.fromDate as string;
       }
@@ -86,16 +100,25 @@ export class PaymentServiceHouseRepository
   }
 
   async getAll(
-    args: IGPaginate<Pick<PaymentEntity, "service_charge_id" | "date_payment">>
+    args: IGPaginate<Pick<PaymentEntity, "status" | "date_payment">>
   ): Promise<IResponse<IGPaginated<PaymentEntity>>> {
+    const date = args.filter?.date_payment;
+    let paymentDate = "";
+    if (date instanceof Date) {
+      const year = date.getFullYear();
+      const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Adding 1 to month as it's zero-based
+      const day = date.getDate().toString().padStart(2, "0");
+
+      paymentDate = `${year}-${month}-${day}`;
+    }
+
     const response = await this._api.axios({
       url: "/owner/payment/service-charge",
       params: {
         page: args.page,
         per_page: args.limit,
-        service_charge_id: args.filter?.service_charge_id,
-        date_payment: "",
-        // date_payment: args.filter?.date_payment,
+        status: args.filter?.status,
+        date_payment: paymentDate ? formatDate(paymentDate) : null,
       },
     });
 
