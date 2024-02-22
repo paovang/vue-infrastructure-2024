@@ -37,15 +37,15 @@ export class PaymentServiceHistoryHouseRepository
   async getAll(
     args: IGPaginate<Pick<PaymentEntity, "status" | "date_payment">>
   ): Promise<IResponse<IGPaginated<PaymentEntity>>> {
-    const date = args.filter?.date_payment;
-    let paymentDate = "";
-    if (date instanceof Date) {
-      const year = date.getFullYear();
-      const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Adding 1 to month as it's zero-based
-      const day = date.getDate().toString().padStart(2, "0");
+    // const date = args.filter?.date_payment;
+    // let paymentDate = "";
+    // if (date instanceof Date) {
+    //   const year = date.getFullYear();
+    //   const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Adding 1 to month as it's zero-based
+    //   const day = date.getDate().toString().padStart(2, "0");
 
-      paymentDate = `${year}-${month}-${day}`;
-    }
+    //   paymentDate = `${year}-${month}-${day}`;
+    // }
 
     const response = await this._api.axios({
       url: "/admin/payment/service-charge",

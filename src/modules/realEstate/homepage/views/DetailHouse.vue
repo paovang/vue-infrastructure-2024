@@ -76,34 +76,6 @@ onMounted(async () => {
     await getOne(Number(route.params.id));
 });
 
-const images = ref([
-    {
-        id: 1,
-        itemImageSrc: 'http://t0.gstatic.com/licensed-image?q=tbn:ANd9GcTwGTmgN4WclFT5_MqG2LWj9nSsaabJ_hdFIxxBFf_SPblOvYwmOQdGu6cSOEmULMLm595LQ_FahMEgDtjqqDU',
-        thumbnailImageSrc: 'http://t0.gstatic.com/licensed-image?q=tbn:ANd9GcTwGTmgN4WclFT5_MqG2LWj9nSsaabJ_hdFIxxBFf_SPblOvYwmOQdGu6cSOEmULMLm595LQ_FahMEgDtjqqDU'
-    },
-    {
-        id: 2,
-        itemImageSrc: 'https://static.wixstatic.com/media/f826c8_f558a61420e04bc6936589d0495d068a~mv2.jpg/v1/fill/w_640,h_480,al_b,q_80,usm_0.66_1.00_0.01,enc_auto/f826c8_f558a61420e04bc6936589d0495d068a~mv2.jpg',
-        thumbnailImageSrc: 'https://static.wixstatic.com/media/f826c8_f558a61420e04bc6936589d0495d068a~mv2.jpg/v1/fill/w_640,h_480,al_b,q_80,usm_0.66_1.00_0.01,enc_auto/f826c8_f558a61420e04bc6936589d0495d068a~mv2.jpg'
-    },
-    // {
-    //     id: 3,
-    //     itemImageSrc: 'https://media-cdn.tripadvisor.com/media/photo-s/28/57/00/37/home-cuisine-de-maison.jpg',
-    //     thumbnailImageSrc: 'https://media-cdn.tripadvisor.com/media/photo-s/28/57/00/37/home-cuisine-de-maison.jpg'
-    // },
-    // {
-    //     id: 4,
-    //     itemImageSrc: 'http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRkXBpCv0_aA9rtR69FyYsewBE9MJXUSVwfCh0y-gvEUd6xPRdILqtUAiqaw1QoiK5q98rAAmEBmQLWGrlUmtE',
-    //     thumbnailImageSrc: 'http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRkXBpCv0_aA9rtR69FyYsewBE9MJXUSVwfCh0y-gvEUd6xPRdILqtUAiqaw1QoiK5q98rAAmEBmQLWGrlUmtE'
-    // },
-    // {
-    //     id: 5,
-    //     itemImageSrc: 'https://static.wixstatic.com/media/f826c8_f558a61420e04bc6936589d0495d068a~mv2.jpg/v1/fill/w_640,h_480,al_b,q_80,usm_0.66_1.00_0.01,enc_auto/f826c8_f558a61420e04bc6936589d0495d068a~mv2.jpg',
-    //     thumbnailImageSrc: 'https://static.wixstatic.com/media/f826c8_f558a61420e04bc6936589d0495d068a~mv2.jpg/v1/fill/w_640,h_480,al_b,q_80,usm_0.66_1.00_0.01,enc_auto/f826c8_f558a61420e04bc6936589d0495d068a~mv2.jpg'
-    // }
-]);
-
 const responsiveOptions = ref([
     {
         breakpoint: '10px',
