@@ -208,4 +208,3 @@
         cursor: pointer;
     }
 </style>
-../stores/house.store

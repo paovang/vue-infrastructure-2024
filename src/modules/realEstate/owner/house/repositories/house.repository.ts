@@ -1,4 +1,4 @@
-import { AxiosApi } from "../../../../../common/configurations/axios.config";
+import { AxiosApi } from "@/common/configurations/axios.config";
 import { injectable, inject } from "tsyringe";
 import {
   IGPaginate,
@@ -16,7 +16,7 @@ export class HouseRepository implements IHouseRepository {
     const response = await this._api.axios({
       method: "post",
       url: "/owner/realestate/list",
-      params: {
+      data: {
         real_estate_type_id: input.real_estate_type_id,
         service_model: input.service_model,
         image: input.image,
@@ -44,7 +44,7 @@ export class HouseRepository implements IHouseRepository {
     const response = await this._api.axios({
       method: "put",
       url: `/owner/realestate/list/${input.id}`,
-      params: {
+      data: {
         real_estate_type_id: input.real_estate_type_id,
         service_model: input.service_model,
         new_image: input.image,

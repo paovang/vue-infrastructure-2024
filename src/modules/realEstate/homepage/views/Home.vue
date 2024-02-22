@@ -2,14 +2,14 @@
     <div class="home-layout-view">
       <nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-          <a class="navbar-item" href="#">HAL Tech</a>
+          <a class="navbar-item" href="#">UK LAO</a>
           <div class="navbar-burger" @click="toggleNavbar" data-target="navMenu">
             <span></span>
             <span></span>
             <span></span>
           </div>
         </div>
-        <div id="navbarBasicExample" class="navbar-menu">
+        <!-- <div id="navbarBasicExample" class="navbar-menu">
           <div class="navbar-start">
             <div class="navbar-item has-dropdown is-hoverable">
               <a class="navbar-link">
@@ -32,8 +32,8 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="navbar-menu" :class="{ 'is-active': isNavbarActive }">
+        </div> -->
+        <!-- <div class="navbar-menu" :class="{ 'is-active': isNavbarActive }">
           <div class="navbar-end">
             <a href="#about" class="navbar-item brackets">Sobre</a>
             <a href="#portfolio" class="navbar-item brackets">Portfolio</a>
@@ -61,7 +61,7 @@
             </div>
             <a href="http://society6.com/monicagabriel" target="_blank" class="navbar-item brackets">Loja</a>
           </div>
-        </div>
+        </div> -->
       </nav>
     </div>
 </template>

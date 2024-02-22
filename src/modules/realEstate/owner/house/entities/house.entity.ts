@@ -37,6 +37,7 @@ export interface HouseEntity {
   wide?: string;
   long?: string;
   remark?: string;
+  price?: Price[];
   prices?: Price[];
   gallery?: {
     id?: string;

@@ -52,7 +52,6 @@ export const paymentStore = defineStore("payment-house-store", () => {
       await service.paymentService(form);
       state.error = "";
     } catch (error: any) {
-      console.log(error.message);
       if (error.response) {
         switch (error.response.status) {
           case 422:

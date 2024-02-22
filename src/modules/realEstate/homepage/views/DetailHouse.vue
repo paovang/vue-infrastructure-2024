@@ -1,7 +1,7 @@
 <template>
     <div style="margin: 20px">
         <Galleria 
-            :value="images" 
+            :value="realEstateGetOne.data.props.gallery" 
             :responsiveOptions="responsiveOptions" 
             :numVisible="5" 
             :circular="true" 
@@ -12,14 +12,14 @@
         >
             <template #item="slotProps">
                 <img 
-                    :src="slotProps.item.itemImageSrc" 
+                    :src="slotProps.item.image" 
                     :alt="slotProps.item.alt" 
                     style="width: 100%; height: 70vh; display: block;"
                     class="gallery-image"  
                 />
             </template>
             <template #thumbnail="slotProps">
-                <img :src="slotProps.item.thumbnailImageSrc" :alt="slotProps.item.alt" style="display: block;" />
+                <img :src="slotProps.item.image" :alt="slotProps.item.alt" style="display: block;" />
             </template>
         </Galleria>
 
@@ -33,7 +33,7 @@
                 <p>3 bed 2 bath 1,381sqft 1,381 square feet 8,712sqft lot</p>
                 <p>5307 Newton Ave N, Brooklyn Center, MN 55430</p>
                 <div style="margin-top: 20px;">
-                    <Button class="button is-info" style="font-family: 'Phetsarath OT';">ຈອງເລີຍ</Button>
+                    <Button class="button is-info" @click="reserve" style="font-family: 'Phetsarath OT';">ຈອງເລີຍ</Button>
                 </div>
             </div>
             <div class="column is-mobile-12 is-desktop-6" style="text-align: center;">
@@ -46,31 +46,34 @@
                     referrerpolicy="no-referrer-when-downgrade"
                 >
                 </iframe>
-                <!-- <GmapMap
-                    :center="{ lat: 37.7749, lng: -122.4194 }"
-                    :zoom="12"
-                    style="width: 100%; height: 400px;"
-                >
-         
-                </GmapMap> -->
             </div>
         </div>
-        <!-- <div class="columns is-12">
-            <div class="column is-12">
-                <Button class="button is-info" style="font-family: 'Phetsarath OT';">ຈອງເລີຍ</Button>
-            </div>
-        </div> -->
+        <reserve-component
+            ref="createForm"
+        />
     </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import Galleria from 'primevue/galleria';
-// import GmapMap from 'vue3-google-map'
+import ReserveComponent from '../components/Reserve.Component.vue';
+import Button from 'primevue/button';
+import { homerealEstateStore } from '@/modules/realEstate/homepage/stores/home.store'
+import { useRoute } from 'vue-router';
 
+const { getOne, realEstateGetOne } = homerealEstateStore();
 
-onMounted(() => {
-    
+const route = useRoute();
+
+const createForm = ref();
+
+const reserve = async () => {
+    createForm.value.visible = true;
+}
+
+onMounted(async () => {
+    await getOne(Number(route.params.id));
 });
 
 const images = ref([

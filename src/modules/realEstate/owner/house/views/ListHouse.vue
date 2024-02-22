@@ -3,7 +3,7 @@
         <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
             <span class="p-input-icon-left w-full sm:w-20rem flex-order-1 sm:flex-order-0">
                 <h2 class="mb-3">
-                    ລາຍການ ຂໍ້ມູນທັງໝົດ
+                    {{ $t('table.title.real_estate') }}
                 </h2>
             </span>
             <span class="w-full sm:w-auto flex-order-0 sm:flex-order-1 mb-4 sm:mb-0">
@@ -28,13 +28,13 @@
             :totalRecords="state.data.total"
             :rows="setStateFilter.limit"
             paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-            currentPageReportTemplate="ສະແດງ {first} ຫາ {last} ຈາກ {totalRecords} ແຖວ"
+            :currentPageReportTemplate="`${$t('table.pagination.show')} {first} ${$t('table.pagination.to')} {last} ${$t('table.pagination.from')} {totalRecords} ${$t('table.pagination.row')}`"
         >
             <template #header>
                 <div class="col-12 md:col-12 flex flex-row">
                     <div class="col-12 md:col-3">
                         <label>
-                        ປະເພດ ບໍລິການ
+                            {{ $t('messages.realestate_type') }}
                             <span class="text-red-500"> *</span>
                         </label>
                         <Dropdown 
@@ -42,7 +42,7 @@
                             v-model="form.real_estate_type_id" 
                             :options="realestateType.props" 
                             optionLabel="name" 
-                            placeholder="ກະລຸນາເລືອກກ່ອນ..." 
+                            :placeholder="$t('placeholder.dropdownSelect')" 
                             class="w-full" 
                             optionValue="id"
                             :highlightOnSelect="true" 
@@ -51,14 +51,14 @@
                     </div>
                     <div class="col-12 md:col-3">
                         <label>
-                            ຮູບເເບບ ບໍລິການ
+                            {{ $t('messages.service_model') }}
                             <span class="text-red-500"> *</span>
                         </label>
                         <Dropdown 
                             v-model="form.service_model" 
                             :options="servicemodels" 
                             optionLabel="name" 
-                            placeholder="Select a City" 
+                            :placeholder="$t('placeholder.dropdownSelect')" 
                             optionValue="id"
                             :highlightOnSelect="true" 
                             class="w-full" 
@@ -67,14 +67,14 @@
                     </div>
                     <div class="col-12 md:col-3">
                         <label>
-                            ປະເພດຫ້ອງ
+                            {{ $t('messages.room_type') }}
                             <span class="text-red-500"> *</span>
                         </label>
                         <Dropdown 
                             v-model="form.room_type" 
                             :options="roomTypes" 
                             optionLabel="name" 
-                            placeholder="Select a City" 
+                            :placeholder="$t('placeholder.dropdownSelect')" 
                             class="w-full" 
                             optionValue="id"
                             :highlightOnSelect="true" 
@@ -83,14 +83,14 @@
                     </div>
                     <div class="col-12 md:col-3">
                         <label>
-                            ເເຂວງ
+                            {{ $t('messages.province') }}
                             <span class="text-red-500"> *</span>
                         </label>
                         <Dropdown 
                             v-model="form.province_id" 
                             :options="stateProvince.data.props" 
                             optionLabel="name" 
-                            placeholder="ກະລຸນາເລືອກກ່ອນ..." 
+                            :placeholder="$t('placeholder.dropdownSelect')" 
                             class="w-full" 
                             optionValue="id"
                             :highlightOnSelect="true" 
@@ -102,14 +102,14 @@
                 <div class="col-12 md:col-12 flex flex-row">
                     <div class="col-12 md:col-3">
                         <label>
-                            ເມືອງ
+                            {{ $t('messages.district') }}
                             <span class="text-red-500"> *</span>
                         </label>
                         <Dropdown 
                             v-model="form.district_id" 
                             :options="stateDistrict.data.props" 
                             optionLabel="name" 
-                            placeholder="Select a City" 
+                            :placeholder="$t('placeholder.dropdownSelect')" 
                             class="w-full" 
                             optionValue="id"
                             :highlightOnSelect="true" 
@@ -119,12 +119,12 @@
                     </div>
                     <div class="col-12 md:col-3">
                         <label>
-                            ບ້ານ
+                            {{ $t('messages.village') }}
                             <span class="text-red-500"> *</span>
                         </label>
                         <input-text
                             v-model="filterVillage"
-                            placeholder="ຄົ້ນຫາ ດ້ວຍເບີໂທລະສັບ..."
+                            :placeholder="$t('placeholder.inputText')" 
                             style="font-family: NotoSansLao, Montserrat"
                             class="w-full"
                             name="village"
@@ -134,12 +134,12 @@
                     </div>
                     <div class="col-12 md:col-3">
                         <label>
-                            ລວງກ້ວາງ
+                            {{ $t('messages.wide') }}
                             <span class="text-red-500"> *</span>
                         </label>
                         <input-text
                             v-model="filterWide"
-                            placeholder="ຄົ້ນຫາ ລວງກ້ວາງ..."
+                            :placeholder="$t('placeholder.inputText')" 
                             style="font-family: NotoSansLao, Montserrat"
                             class="w-full"
                             name="wide"
@@ -149,12 +149,12 @@
                     </div>
                     <div class="col-12 md:col-3">
                         <label>
-                            ລວງຍາວ
+                            {{ $t('messages.long') }}
                             <span class="text-red-500"> *</span>
                         </label>
                         <input-text
                             v-model="filterLong"
-                            placeholder="ຄົ້ນຫາ ລວງກ້ວາງ..."
+                            :placeholder="$t('placeholder.inputText')" 
                             style="font-family: NotoSansLao, Montserrat"
                             class="w-full"
                             name="long"
@@ -170,21 +170,21 @@
                     {{ item.index + 1 }}
                 </template>
             </Column>
-            <Column field="real_estate_type.name" header="ປະເພດບໍລິການ"></Column>
-            <Column field="service_model" header="ຮູບເເບບບໍລິການ"></Column>
-            <Column field="room_type" header="ປະເພດຫ້ອງ"></Column>
-            <Column field="village" header="ບ້ານ"></Column>
-            <Column field="district.name" header="ເມືອງ"></Column>
-            <Column field="district.province.name" header="ເເຂວງ"></Column>
-            <Column field="zip_code" header="zip code"></Column>
-            <Column field="wide" header="ລວງກ້ວາງ"></Column>
-            <Column field="long" header="ລວງຍາວ"></Column>
-            <Column headerStyle="width: 10rem" style="width: 20%">
+            <Column field="real_estate_type.name" :header="$t('table.header.realestate_type')"></Column>
+            <Column field="service_model" :header="$t('table.header.service_model')"></Column>
+            <Column field="room_type" :header="$t('table.header.room_type')"></Column>
+            <Column field="village" :header="$t('table.header.village')"></Column>
+            <Column field="district.name" :header="$t('table.header.district')"></Column>
+            <Column field="district.province.name" :header="$t('table.header.province')"></Column>
+            <Column field="zip_code" :header="$t('table.header.zip_code')"></Column>
+            <Column field="wide" :header="$t('table.header.wide')"></Column>
+            <Column field="long" :header="$t('table.header.long')"></Column>
+            <Column headerStyle="width: 10rem" style="width: 23%">
                     <template #body="{ data }">
                         <div class="flex flex-wrap gap-2 btn-right">
                             <Button 
                                 type="button" 
-                                label="ຍັງບໍ່ຊຳລະ" 
+                                :label="$t('messages.payment')" 
                                 severity="danger"   
                                 style="color: white;" 
                                 @click="paymentService(data.id)"
@@ -229,7 +229,7 @@
     import { onMounted, ref, computed } from 'vue';
     import { useRouter, useRoute } from 'vue-router';
     import Dropdown from 'primevue/dropdown';
-    import { houseStore } from '@/modules/realEstate/owner/house/stores/house.store'
+    import { houseStore } from '@/modules/realEstate/owner/house/stores/house.store';
     import { realEstateServiceStore } from '@/modules/realEstate/rentHouse/memberServices/stores/real-estate-service.store';
     import { provinceStore } from '@/modules/realEstate/address/stores/province.store';
     import { districtStore } from '@/modules/realEstate/address/stores/district.store';
@@ -237,7 +237,9 @@
     import { useConfirm } from "primevue/useconfirm";
     import { useToast } from "primevue/usetoast";
     import PaymentServiceComponent from '../components/PaymentService.component.vue';
+    import { useI18n } from 'vue-i18n';
 
+    const { t } = useI18n();
     const router = useRouter()
     const { query } = useRoute()
 
@@ -346,12 +348,6 @@
             setStateFilter.filter.service_model = form.service_model === 'all' ? '' : form.service_model;
             setStateFilter.filter.room_type = form.room_type === 'all' ? '' : form.room_type;
             setStateFilter.filter.district_id = form.district_id === 'all' ? '' : form.district_id;
-
-            // router.push({ name: 'owner.house', query: 
-            //     { 
-            //         real_estate_type_id: setStateFilter.filter?.real_estate_type_id ? setStateFilter.filter.real_estate_type_id : undefined 
-            //     } 
-            // })
         }
        
         await getAll();
@@ -454,34 +450,35 @@
 
     const confirmDelete = async (id: HouseEntity) => {
         confirm.require({
-            message: 'ທ່ານຕ້ອງການລຶບບັນທຶກນີ້ບໍ?',
-            header: 'ຢືນຢັນການລຶບຂໍ້ມູນ',
-            rejectLabel: 'ຍົກເລີກ',
-            acceptLabel: 'ຕົກລົງ',
+            message: t('confirmDelete.message'),
+            header: t('confirmDelete.header'),
+            rejectLabel: t('confirmDelete.rejectLabel'),
+            acceptLabel: t('confirmDelete.acceptLabel'),
             rejectClass: 'p-button-secondary p-button-outlined',
             acceptClass: 'p-button-danger',
             accept: async () => {
-                await deleteHouse(id)
+                await deleteHouse(id);
 
-                toast.add({ severity: 'success', summary: 'ການລຶບຂໍ້ມູນສຳເລັດເເລ້ວ.', detail: 'ຖືກລຶບອອກເເລ້ວ', life: 3000 });
+                toast.add({ severity: 'success', summary: t('toast.summary.delete'), detail: t('toast.detail.delete'), life: 3000 });
             },
             reject: () => {
-                toast.add({ severity: 'error', summary: 'ຍົກເລີກການລຶບຂໍ້ມູນເເລ້ວ.', detail: 'ຖືກຍົກເລີກເເລ້ວ', life: 3000 });
+                toast.add({ severity: 'error', summary: t('toast.summary.cancel_delete'), detail: t('toast.detail.cancel_delete'), life: 3000 });
             }
         });
     }
 
     const showWarningValidateBackend = () => {
-        toast.add({ severity: 'error', summary: 'ເກີດຂໍ້ຜິດພາດ.', detail: `${state.error}`, life: 3000 });
+        toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: `${state.error}`, life: 3000 });
     }
 
     const pushRouteAddHouse = async () => {
         router.push({ name: 'owner.add.house' });
     }
 </script>
+
 <style>
     .btn-right {
         display: flex;
         justify-content: flex-end;
     }
-</style>../../../real-estate/address/stores/province.store../../../real-estate/address/stores/district.store@/modules/realEstate/owner/house/stores/house.store@/modules/realEstate/rent_house/memberServices/stores/real-estate-service.store@/modules/realEstate/rentHouse/memberServices/stores/real-estate-service.store
+</style>

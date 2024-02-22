@@ -2,6 +2,8 @@
     "sidebar": {
         "settings": "Setting",
         "customer": "Customer",
+        "report": "Report",
+        "payment_history": "Payment History",
         "country": "Country",
         "province": "Province",
         "district": "District",
@@ -12,6 +14,7 @@
     },
     "placeholder": {
         "inputText": "Please Enter...",
+        "inputFile": "Please Choose File...",
         "inputNumber": "Please Enter x,xxx...",
         "dropdownSelect": "Please Select",
         "textSearch": "Search..."
@@ -22,7 +25,8 @@
             "province": "All Province",
             "district": "All District",
             "customer": "All Customer",
-            "service": "All Service"
+            "service": "All Service",
+            "real_estate": "All Real Estate"
         },
         "header": {
             "index": "Number",
@@ -32,18 +36,25 @@
             "customer": "Customer",
             "currency": "Currency",
             "owner": "Owner",
+            "name": "Name",
             "address": "Address",
             "email": "Email",
             "status": "Status",
             "phone_number": "Phone Number",
             "created_at": "Created_at",
             "updated_at": "Updated_at",
-            "realestate_type": "RealEstate Type",
+            "realestate_type": "Real Estate Type",
             "service": "Service",    
             "unit_price": "Unit Price",
             "amount": "Amount",
             "start_end_date": "Start - End Date",
-            "date_payment": "Payment Date"
+            "date_payment": "Payment Date",
+            "room_type": "Room Type",
+            "service_model": "Service Model",
+            "village": "Village",
+            "zip_code": "Zip Code",
+            "wide": "Wide",
+            "long": "Long"
         },
         "pagination": {
             "show": "show",
@@ -56,7 +67,10 @@
         "save": "Save",
         "edit": "Edit",
         "delete": "Delete",
-        "clear": "Clear"
+        "clear": "Clear",
+        "add": "Add",
+        "add_item": "Add Item",
+        "save_data": "Save Data"
     },
     "messages": {
         "country": "Country",
@@ -74,9 +88,32 @@
         "address": "Address",
         "password": "Password",
         "confirm_password": "Confirmation Password",
-        "realestate_type": "RealEstate Type",
+        "realestate_type": "Real Estate Type",
         "unit_price": "Unit Price",
-        "price": "Price"
+        "price": "Price",
+        "info": "Info",
+        "service_model": "Service Model",
+        "room_type": "Room Type",
+        "village": "Village",
+        "zip_code": "Zip Code",
+        "wide": "Wide",
+        "long": "Long",
+        "currency": "Currency",
+        "service_charge": "Service Charge",
+        "qty": "Quantity",
+        "amount": "Amount",
+        "payment_date": "Payment Date",
+        "from_date": "From Date",
+        "to_date": "To Date",
+        "status": "Status",
+        "payment_service": "Payment Service",
+        "payment": "Payment",
+        "form_register": "Form Register",
+        "details": "Details",
+        "setting_price_for_rent": "Setting The Price For Rent - Sell",
+        "profile_and_gallery": "Profile & Gallery",
+        "profile": "Profile",
+        "gallery": "Gallery"
     },
     "confirmDelete": {
         "message": "Are you sure?",
@@ -95,6 +132,11 @@
             "delete": "has been deleted.",
             "cancel_delete": "has been cancelled.",
             "successfully": "Success"
+        }
+    },
+    "dialog": {
+        "header": {
+            "update_payment_service": "Update payment service"
         }
     }
 }

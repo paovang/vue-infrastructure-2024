@@ -85,13 +85,23 @@
         }
       ]
     },
-    // {
-    //   key: '2',
-    //   label: 'ຜູ້ໃຊ້ລະບົບ',
-    //   icon: 'pi pi-users',
-    //   color: 'text-red-500',
-    //   to: 'customer'
-    // },
+    {
+      key: '1',
+      label: t('sidebar.report'),
+      icon: 'pi pi-chart-line',
+      color: 'text-black-500',
+      to: 'settings',
+      children: [
+        // {
+        //   key: '1',
+        //   label:  t('sidebar.country'),
+        //   icon: 'pi pi-chart-line',
+        //   color: 'text-red-500',
+        //   to: 'country',
+        //   roles: ['SuperAdmin']
+        // }
+      ]
+    },
   ]
 
   const routeNames = ['province', 'country', 'district', 'real.estate.services'];
@@ -146,6 +156,17 @@
                       <span class="font-medium">{{ $t('sidebar.customer')}}</span>
                   </a>
               </li>
+              <li>
+                  <a 
+                    @click="goToRoute('admin.payment.history')"
+                    :class="{ 'bg-highlight': router.currentRoute.value.name === 'admin.payment.histor' }"
+                    v-ripple 
+                    class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
+                  >
+                      <i class="pi pi-chart-line mr-2"></i>
+                      <span class="font-medium">{{ $t('sidebar.payment_history')}}</span>
+                  </a>
+              </li>
             </ul>
 
             <ul class="list-none p-0 m-0 overflow-hidden">
@@ -187,44 +208,6 @@
                     </li>
                   </ul>
                 </li>
-            </ul>
-
-            <ul class="list-none p-0 m-0 overflow-hidden">
-              <li>
-                <div
-                      v-ripple
-                      v-styleclass="{
-                          selector: '@next',
-                          enterClass: 'hidden',
-                          enterActiveClass: 'slidedown',
-                          leaveToClass: 'hidden',
-                          leaveActiveClass: 'slideup'
-                      }"
-                      class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
-                  >
-                    <i class="pi pi-chart-line mr-2"></i>
-                    <span class="font-medium">Reports</span>
-                    <i class="pi pi-chevron-down ml-auto"></i>
-                  </div>
-
-                  <ul 
-                    class="list-none py-0 pl-3 pr-0 m-0 overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out"
-                    :class="{ 'hidden': !['district'].includes(String(router.currentRoute.value.name)) }"
-                  >
-                      <li>
-                          <a v-ripple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                              <i class="pi pi-table mr-2"></i>
-                              <span class="font-medium">View</span>
-                          </a>
-                      </li>
-                      <li>
-                          <a v-ripple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                              <i class="pi pi-search mr-2"></i>
-                              <span class="font-medium">Search</span>
-                          </a>
-                      </li>
-                  </ul>
-              </li>
             </ul>
         </div>
       </div>

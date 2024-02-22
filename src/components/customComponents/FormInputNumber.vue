@@ -9,7 +9,8 @@ const props = defineProps<{
   label: string
   required?: boolean
   placeholder?: string
-  value?: number
+  value?: number,
+  useGroup?: boolean
 }>()
 
 const { value, errorMessage } = useField<number>(() => props.name)
@@ -30,6 +31,7 @@ if (props.value) {
       :class="{ 'p-invalid': errorMessage }"
       :aria-describedby="`number-error-${name}`"
       :placeholder="placeholder"
+      :useGrouping="useGroup === true ? false : true"
     />
     <small class="p-error" :id="`number-error-${name}`">{{ errorMessage }}</small>
   </div>

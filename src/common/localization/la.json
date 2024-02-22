@@ -1,6 +1,8 @@
 {
     "sidebar": {
         "settings": "ຕັ້ງຄ່າ ທົ່ວໄປ",
+        "report": "ລາຍງານ",
+        "payment_history": "ປະຫວັດ ການຊຳລະຄ່າບໍລິການ",
         "customer": "ລູກຄ້າ",
         "country": "ປະເທດ",
         "province": "ເເຂວງ",
@@ -12,6 +14,7 @@
     },
     "placeholder": {
         "inputText": "ກະລຸນາປ້ອນກ່ອນ...",
+        "inputFile": "ກະລຸນາເລືອກໄຟລກ່ອນ...",
         "inputNumber": "ກະລຸນາປ້ອນກ່ອນ x,xxx...",
         "dropdownSelect": "ກະລຸນາເລືອກກ່ອນ...",
         "textSearch": "ຄົ້ນຫາ..."
@@ -22,7 +25,8 @@
             "province": "ລາຍການ ເເຂວງທັງໝົດ",
             "district": "ລາຍການ ເມືອງທັງໝົດ",
             "customer": "ລາຍການ ລູກຄ້າທັງໝົດ",
-            "service": "ລາຍການ ຄ່າບໍລິການທັງໝົດ"
+            "service": "ລາຍການ ຄ່າບໍລິການທັງໝົດ",
+            "real_estate": "ລາຍການ ອະສັງຫາທັງໝົດ"
         },
         "header": {
             "index": "ລຳດັບ",
@@ -32,6 +36,7 @@
             "customer": "ຊື່ລູກຄ້າ",
             "currency": "ສະກຸນເງີນ",
             "owner": "ເຈົ້າຂອງ",
+            "name": "ຊື່",
             "address": "ທີ່ຢູ່ປະຈຸບັນ",
             "email": "ອີເມວ",
             "phone_number": "ເບີໂທລະສັບ",
@@ -43,7 +48,13 @@
             "unit_price": "ປະເພດຄ່າບໍລິການ",
             "amount": "ຈຳນວນເງີນ",
             "start_end_date": "ວັນທີເລີ່ມ - ສີ້ນສຸດ",
-            "date_payment": "ວັນທີຊຳລະ"
+            "date_payment": "ວັນທີຊຳລະ",
+            "room_type": "ປະເພດຫ້ອງ",
+            "service_model": "ຮູບເເບບບໍລິການ",
+            "village": "ບ້ານ",
+            "zip_code": "ລະຫັດ",
+            "wide": "ລວງກ້ວາງ",
+            "long": "ລວງຍາວ"
         },
         "pagination": {
             "show": "ສະເເດງ",
@@ -56,7 +67,10 @@
         "save": "ບັນທຶກ",
         "edit": "ເເກ້ໄຂ",
         "delete": "ລຶບ",
-        "clear": "ລົບລ້າງ"
+        "clear": "ລົບລ້າງ",
+        "add": "ເພີ່ມ",
+        "add_item": "ເພີ່ມລາຍການ",
+        "save_data": "ບັນທຶກ ຂໍ້ມູນ"
     },
     "messages": {
         "country": "ປະເທດ",
@@ -76,7 +90,30 @@
         "confirm_password": "ຢືນຢັນລະຫັດຜ່ານ",
         "realestate_type": "ປະເພດບໍລິການ",
         "unit_price": "ປະເພດຄ່າບໍລິການ",
-        "price": "ລາຄາ"
+        "price": "ລາຄາ",
+        "info": "ຂໍ້ມູນ",
+        "service_model": "ຮູບເເບບບໍລິການ",
+        "room_type": "ປະເພດຫ້ອງ",
+        "village": "ບ້ານ",
+        "zip_code": "ລະຫັດ",
+        "wide": "ລວງຍາວ",
+        "long": "ລວງກ້ວາງ",
+        "currency": "ສະກຸນເງີນ",
+        "service_charge": "ຄ່າບໍລິການ",
+        "qty": "ຈຳນວນ",
+        "amount": "ຈຳນວນເງີນ",
+        "payment_date": "ວັນທີຊຳລະເງີນ",
+        "from_date": "ວັນທີ່ເປີດ",
+        "to_date": "ວັນທີ່ປິດ",
+        "status": "ສະຖານະ",
+        "payment_service": "ຊຳລະຄ່າບໍລິການ",
+        "payment": "ຊຳລະເງີນ",
+        "form_register": "ຟອມລົງທະບຽນ",
+        "details": "ລາຍລະອຽດ",
+        "setting_price_for_rent": "ຕັ້ງຄ່າລາຄາ ຊື້ຂາຍ - ເຊົ່າ",
+        "profile_and_gallery": "ໂປຮໄຟລ ເເລະ ເເກເລີລີ່",
+        "profile": "ໂປຮໄຟລ",
+        "gallery": "ເເກເລີລີ່"
     },
     "confirmDelete": {
         "message": "ທ່ານເເນ່ໃຈ ຫຼຶ ບໍ?",
@@ -95,6 +132,11 @@
             "delete": "ຖືກລຶບອອກເເລ້ວ.",
             "cancel_delete": "ຖືກຍົກເລີກເເລ້ວ.",
             "successfully": "ການດຳເນີນສຳເລັດ."
+        }
+    },
+    "dialog": {
+        "header": {
+            "update_payment_service": "ອັບເດດ ການຊຳລະຄ່າບໍລິການ"
         }
     }
 }

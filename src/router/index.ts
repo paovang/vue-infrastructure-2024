@@ -3,11 +3,12 @@ import { userRoute } from "../modules/users/router/index.route";
 import { addressRoute } from "../modules/realEstate/address/router/address.route";
 import { createRouter, createWebHistory } from "vue-router";
 import { authRoute } from "@/modules/auth/routers/index";
-import { homeRoute } from "@/modules/homepage/routers/index";
+import { homeRoute } from "@/modules/realEstate/homepage/routers/index";
 import { ownerHouseRoute } from "@/modules/realEstate/owner/house/routers/index";
 import { authGuard } from "@/common/guards/auth.guard";
 import { realEstateServiceRoute } from "@/modules/realEstate/rentHouse/memberServices/routers";
 import { paymentServiceHouseRoute } from "@/modules/realEstate/owner/paymentService/routers";
+import { adminPaymentHistoryRoute } from "@/modules/realEstate/admin/paymentHistory/routers";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,6 +23,7 @@ const router = createRouter({
         ...realEstateServiceRoute,
         ...ownerHouseRoute,
         ...paymentServiceHouseRoute,
+        ...adminPaymentHistoryRoute,
       ],
     },
     ...authRoute,

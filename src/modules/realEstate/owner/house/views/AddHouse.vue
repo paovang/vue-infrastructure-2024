@@ -4,7 +4,7 @@
             <span class="p-input-icon-left w-full sm:w-20rem flex-order-1 sm:flex-order-0">
                 <h2 style="font-weight: bold; font-size: 20px;" class="arrow-left" @click="goBack()">
                     <i class="pi pi-arrow-left" style="color: green"></i>
-                    ຟອມລົງທະບຽນຂໍ້ມູນ
+                    {{ $t('messages.form_register') }}
                 </h2>
             </span>
         </div>
@@ -14,7 +14,7 @@
             <div class="columns is-12 is-multiline" style="margin-top: 20px;">
                 <div class="column is-mobile-12 is-2">
                     <label>
-                        ປະເພດ ບໍລິການ
+                        {{ $t('messages.realestate_type') }}
                         <span class="text-red-500"> *</span>
                     </label>
                     <Dropdown 
@@ -23,7 +23,7 @@
                         v-model="form.real_estate_type_id" 
                         :options="realestateType.props" 
                         optionLabel="name" 
-                        placeholder="ກະລຸນາເລືອກກ່ອນ..." 
+                        :placeholder="$t('placeholder.dropdownSelect')" 
                         class="w-full" 
                         optionValue="id"
                         :highlightOnSelect="true" 
@@ -32,7 +32,7 @@
                 </div>
                 <div class="column is-mobile-12 is-2">
                     <label>
-                        ຮູບເເບບ ບໍລິການ
+                        {{ $t('messages.service_model') }}
                         <span class="text-red-500"> *</span>
                     </label>
                     <Dropdown 
@@ -40,7 +40,7 @@
                         v-model="form.service_model" 
                         :options="servicemodels" 
                         optionLabel="name" 
-                        placeholder="Select a City" 
+                        :placeholder="$t('placeholder.dropdownSelect')" 
                         optionValue="id"
                         :highlightOnSelect="true" 
                         class="w-full" 
@@ -48,7 +48,7 @@
                 </div>
                 <div class="column is-mobile-12 is-2">
                     <label>
-                        ປະເພດຫ້ອງ
+                        {{ $t('messages.room_type') }}
                         <span class="text-red-500"> *</span>
                     </label>
                     <Dropdown 
@@ -56,7 +56,7 @@
                         v-model="form.room_type" 
                         :options="roomTypes" 
                         optionLabel="name" 
-                        placeholder="Select a City" 
+                        :placeholder="$t('placeholder.dropdownSelect')" 
                         class="w-full" 
                         optionValue="id"
                         :highlightOnSelect="true" 
@@ -64,7 +64,7 @@
                 </div>
                 <div class="column is-mobile-12 is-2">
                     <label>
-                        ເເຂວງ
+                        {{ $t('messages.province') }}
                         <span class="text-red-500"> *</span>
                     </label>
                     <Dropdown 
@@ -72,7 +72,7 @@
                         v-model="form.province_id" 
                         :options="stateProvince.data.props" 
                         optionLabel="name" 
-                        placeholder="ກະລຸນາເລືອກກ່ອນ..." 
+                        :placeholder="$t('placeholder.dropdownSelect')" 
                         class="w-full" 
                         optionValue="id"
                         :highlightOnSelect="true" 
@@ -82,7 +82,7 @@
                 </div>
                 <div class="column is-mobile-12 is-2">
                     <label>
-                        ເມືອງ
+                        {{ $t('messages.district') }}
                         <span class="text-red-500"> *</span>
                     </label>
                     <Dropdown 
@@ -90,7 +90,7 @@
                         v-model="form.district_id" 
                         :options="stateDistrict.data.props" 
                         optionLabel="name" 
-                        placeholder="Select a City" 
+                        :placeholder="$t('placeholder.dropdownSelect')" 
                         class="w-full" 
                         optionValue="id"
                         :highlightOnSelect="true" 
@@ -102,7 +102,7 @@
                         name="village" 
                         label="ບ້ານ" 
                         required 
-                        placeholder="ກະລຸນາປ້ອນກ່ອນ..." 
+                        :placeholder="$t('placeholder.inputText')"  
                         class="h-full" 
                     />
                 </div>
@@ -111,7 +111,7 @@
                         name="zipcode" 
                         label="zipcode" 
                         required 
-                        placeholder="ກະລຸນາປ້ອນກ່ອນ..." 
+                        :placeholder="$t('placeholder.inputText')"  
                         class="h-full" 
                     />
                 </div>
@@ -120,7 +120,7 @@
                         name="wide" 
                         label="ລວງກວ້າງ" 
                         required 
-                        placeholder="ກະລຸນາປ້ອນກ່ອນ..." 
+                        :placeholder="$t('placeholder.inputText')"  
                         class="h-full" 
                     />
                 </div>
@@ -129,7 +129,7 @@
                         name="long" 
                         label="ລວງຍາວ" 
                         required 
-                        placeholder="ກະລຸນາປ້ອນກ່ອນ..." 
+                        :placeholder="$t('placeholder.inputText')"  
                         class="h-full" 
                     />
                 </div>
@@ -158,18 +158,18 @@
                 </div>
 
                 <div class="column is-12">
-                    <Panel header="ຕັ້ງຄ່າລາຄາ ຊື້ຂາຍ - ເຊົ່າ">
+                    <Panel :header="$t('messages.setting_price_for_rent')">
                         <div class="columns is-12" v-for="(input, index) in createInputs" :key="index">
                             <div class="column is-3">
                                 <label>
-                                    ຮູບເເບບ ບໍລິການ
+                                    {{ $t('messages.service_model') }}
                                     <span class="text-red-500"> *</span>
                                 </label>
                                 <Dropdown 
                                     v-model="input.unit_price" 
                                     :options="unitPrices" 
                                     optionLabel="name" 
-                                    placeholder="ກະລຸນາເລືອກກ່ອນ..." 
+                                    :placeholder="$t('placeholder.dropdownSelect')"  
                                     class="w-full" 
                                     optionValue="id"
                                     :highlightOnSelect="true" 
@@ -178,7 +178,7 @@
                             </div>
                             <div class="column is-3">
                                 <label>
-                                    ລາຄາ
+                                    {{ $t('messages.price') }}
                                     <span class="text-red-500"> *</span>
                                 </label>
                                 <input-number 
@@ -190,7 +190,7 @@
                             </div>
                             <div class="column is-5">
                                 <label>
-                                    ລາຍລະອຽດ
+                                    {{ $t('messages.details') }}
                                 </label>
                                 <input 
                                     name="detail"
@@ -209,15 +209,17 @@
                             </div>
                         </div>
                         <div class="column is-mobile-12 is-12">
-                            <a @click="addInput" class="button is-primary">ເພີ່ມລາຍການ</a>
+                            <a @click="addInput" class="button is-primary">
+                                {{ $t('button.add_item') }}
+                            </a>
                         </div>
                     </Panel>
                 </div>
                 <div class="column is-12">
-                    <Panel header="ເລືອກໂປຮໄຟລ ເເລະ ເເກເລີລີ່">
+                    <Panel :header="$t('messages.profile_and_gallery')">
                         <div class="column is-mobile-12 is-12">
                             <label>
-                                ເລືອກໂປຮໄຟລ
+                                {{ $t('messages.profile') }}
                                 <span class="text-red-500"> *</span>
                             </label>
                             <label 
@@ -226,7 +228,7 @@
                                 :style="{ border: isShowFileImage ? '1px dashed #029217' : '1px dashed red' }"
                             >
                                 <div v-if="!isShowFileImage">
-                                    ກະລຸນາເລືອກໄຟລກ່ອນ...
+                                    {{ $t('placeholder.inputFile') }}
                                 </div>
                                 <div v-else style="color: #029217">
                                     {{ isShowFileImage }}
@@ -237,7 +239,7 @@
                         <Divider/>
                         <div class="column is-mobile-12 is-12">
                             <label>
-                                ເລືອກເເກເລີເລີ່
+                                {{ $t('messages.gallery') }}
                                 <span class="text-red-500"> *</span>
                             </label>
                             <label 
@@ -246,7 +248,7 @@
                                 :style="{ border: isShowFileGallery ? '1px dashed #029217' : '1px dashed red' }"
                             >
                                 <div v-if="!isShowFileGallery">
-                                    ກະລຸນາເລືອກໄຟລກ່ອນ...
+                                    {{ $t('placeholder.inputFile') }}
                                 </div>
                                 <div v-else style="color: #029217">
                                     {{ isShowFileGallery }}
@@ -265,7 +267,7 @@
                         :loading="state.btnLoading"
                     >
                         <i class="pi pi-save" style="margin-right: 8px;"></i>
-                        ບັນທຶກ ຂໍ້ມູນ
+                        {{ $t('button.save_data') }}
                     </Button>
                 </div>
             </div>
@@ -539,4 +541,4 @@
         cursor: pointer;
         color: green;
     }
-</style>../../../real-estate/address/stores/province.store../../../real-estate/address/stores/district.store@/modules/realEstate/owner/house/stores/house.store@/modules/realEstate/rent_house/memberServices/stores/real-estate-service.store@/modules/realEstate/rentHouse/memberServices/stores/real-estate-service.store
+</style>
