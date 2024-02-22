@@ -281,5 +281,30 @@
         text-overflow: ellipsis; 
         white-space: nowrap;
     }
+    
+    /* Adjust these media queries as needed for your specific design */
+    @media screen and (max-width: 1200px) {
+        .detail {
+            width: 260px;
+        }
+    }
+
+    @media screen and (max-width: 992px) {
+        .detail {
+            width: 250px;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .detail {
+            width: 260px;
+        }
+    }
+
+    @media screen and (max-width: 576px) {
+        .detail {
+            width: 250px;
+        }
+    }
 </style>
   
