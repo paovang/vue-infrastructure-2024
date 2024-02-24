@@ -37,7 +37,8 @@
                 </div>
             </div>
             <div class="column is-mobile-12 is-desktop-6" style="text-align: center;">
-                <iframe 
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3795.4655459091437!2d102.61605547449916!3d17.9570649830305!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x312469b0df33de9f%3A0xe9bf50ca85a1a3ce!2sKM%2052%20School!5e0!3m2!1sen!2sla!4v1708750445867!5m2!1sen!2sla" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <!-- <iframe 
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2441.9389565896167!2d102.6259785581835!3d18.03843928339644!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31245de15531b821%3A0x164c7f83dd5ea5b2!2z4Lqu4LuJ4Lqy4LqZIOC6lOC6suC6p-C6reC6meC6l-C6uOC6geC6ouC7iOC6suC6hyAzNSwwMDAg4LqB4Lq14LqaIERhdm9uZSBzaG9w!5e1!3m2!1sen!2sus!4v1707285263764!5m2!1sen!2sus" 
                     width="100%" 
                     height="200" 
@@ -45,7 +46,7 @@
                     loading="lazy" 
                     referrerpolicy="no-referrer-when-downgrade"
                 >
-                </iframe>
+                </iframe> -->
             </div>
         </div>
         <reserve-component
