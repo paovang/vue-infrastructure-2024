@@ -1,20 +1,23 @@
 <template>
     <div>
-        <HomePage />
+        <Navbar />
         <div class="home-view">
             <router-view></router-view> 
         </div>
+        <Footer />
     </div>
 </template>  
 
 <script setup lang='ts'>
-    import HomePage from '../Home.vue';
+    import Navbar from './Navbar.vue';
+    import Footer from './Footer.vue';
 </script>
 
 <style scoped>
     .home-view {
         margin-top: 80px;
         padding: 0px 80px 0px 80px;
+        min-height: 80vh;
     }
 
     @media only screen and (max-width: 767px) {

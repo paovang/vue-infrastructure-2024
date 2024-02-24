@@ -10,7 +10,8 @@
         "service": "Service",
         "house": "House & Building",
         "add_house": "Add House & Building",
-        "payment_service": "Payment Service"
+        "payment_service": "Payment Service",
+        "edit_house": "Edit House & Building"
     },
     "placeholder": {
         "inputText": "Please Enter...",
@@ -26,7 +27,8 @@
             "district": "All District",
             "customer": "All Customer",
             "service": "All Service",
-            "real_estate": "All Real Estate"
+            "real_estate": "All Real Estate",
+            "payment_history": "Payment History"
         },
         "header": {
             "index": "Number",
@@ -70,7 +72,8 @@
         "clear": "Clear",
         "add": "Add",
         "add_item": "Add Item",
-        "save_data": "Save Data"
+        "save_data": "Save Data",
+        "edit_data": "Edit Data"
     },
     "messages": {
         "country": "Country",
@@ -113,11 +116,28 @@
         "setting_price_for_rent": "Setting The Price For Rent - Sell",
         "profile_and_gallery": "Profile & Gallery",
         "profile": "Profile",
-        "gallery": "Gallery"
+        "gallery": "Gallery",
+        "image": "Image",
+        "location": "Location",
+        "remark": "Remark",
+        "date": "Date",
+        "file_reference": "File Reference",
+        "update": "Update"
+    },
+    "uploadFile": {
+        "uploading": "Uploading profile to the system please wait...",
+        "file": "File.",
+        "upload_success": "Upload completed."
     },
     "confirmDelete": {
         "message": "Are you sure?",
         "header": "Confirm Delete",
+        "rejectLabel": "Reject",
+        "acceptLabel": "Accepted"
+    },
+    "confirmDuplicate": {
+        "message": "Do you want to duplicate the data?",
+        "header": "Confirm Duplicate",
         "rejectLabel": "Reject",
         "acceptLabel": "Accepted"
     },
@@ -126,12 +146,17 @@
             "delete": "The data deletion is complete.",
             "cancel_delete": "Cancel data deletion.",
             "success": "Success.",
-            "error": "Error."
+            "error": "Error.",
+            "duplicate": "The data has already been copied.",
+            "not_duplicate": "No need to copy data"
         },
         "detail": {
             "delete": "has been deleted.",
             "cancel_delete": "has been cancelled.",
-            "successfully": "Success"
+            "successfully": "Success",
+            "success_duplicate": "The Data copy completed",
+            "cancel_duplicate": "The copy has already been canceled",
+            "choose_file": "Please Choose File."
         }
     },
     "dialog": {

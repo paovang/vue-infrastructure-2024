@@ -112,11 +112,11 @@
                     </template>
                     <template #title>
                     <span>
-                        {{ item.price?.[0]?.price }}
+                        {{ formatNumber(item.price?.[0]?.price, '') }}
                     </span>
                     </template>
                     <template #subtitle>
-                    <span>ເປີດ / ຈອງເເລ້ວ</span>,
+                    <span>ສະຖານະ: {{ item.status }}</span> |
                     <span>ຮູບເເບບບໍລິການ: {{ item.service_model }}</span>
                     </template>
                     <template #content>
@@ -138,7 +138,7 @@
     </div>
 </template>
 <script setup lang='ts'>
-    import { useRouter, useRoute } from 'vue-router'
+    import { useRouter, useRoute } from 'vue-router';
     import Card from 'primevue/card';
     import InputText from 'primevue/inputtext';
     import Divider from 'primevue/divider';
@@ -148,6 +148,7 @@
     import Dropdown from 'primevue/dropdown';
     import { provinceStore } from '@/modules/realEstate/address/stores/province.store';
     import { districtStore } from '@/modules/realEstate/address/stores/district.store';
+    import { formatNumber } from '@/common/utils/format.currency';
     
     const { form, getAll, state, setStateFilter } = homerealEstateStore();
     const { getOne, realestateType } = realEstateServiceStore();

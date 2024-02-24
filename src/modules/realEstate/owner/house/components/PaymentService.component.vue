@@ -3,7 +3,7 @@
     <Dialog 
         v-model:visible="visible" 
         modal 
-        header="ຈ່າຍຄ່າບໍລິການ" 
+        :header="$t('messages.payment_service')" 
         @hide="clearData"
         :style="{ width: '50rem' }" 
         :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
@@ -13,7 +13,7 @@
                 <div class="col-12 md:col-12">
                     <div class="flex flex-column">
                         <label>
-                            ປະເພດ ບໍລິການ / ລາຄາ
+                            {{ $t('messages.service_model') }} / {{ $t('messages.price') }}
                             <span class="text-red-500"> *</span>
                         </label>
                         <Dropdown 
@@ -33,16 +33,16 @@
                     <div class="flex flex-column">
                         <my-input-number
                             name="quantity"
-                            label="ຈຳນວນ"
+                            :label="$t('messages.qty')"
                             required
-                            placeholder="ກະລຸນາປ້ອນ ຈຳນວນ..."
+                            :placeholder="$t('placeholder.inputText')" 
                         />
                     </div>
                 </div>
                 <div class="col-12 md:col-12" style="margin-top: -20px;">
                     <div class="flex flex-column">
                         <label>
-                            ເລືອກວັນທີ
+                            {{ $t('messages.date') }}
                             <span class="text-red-500"> *</span>
                         </label>
                         <Calendar 
@@ -56,7 +56,7 @@
                 <div class="col-12 md:col-12">
                     <div class="flex flex-column">
                         <label>
-                            ເລືອກໄຟລ
+                            {{ $t('messages.file_reference') }}
                             <span class="text-red-500"> *</span>
                         </label>
                         <label 
@@ -65,7 +65,7 @@
                             :style="{ border: isShowFileImage ? '1px dashed #029217' : '1px dashed red' }"
                         >
                             <div v-if="!isShowFileImage">
-                                ກະລຸນາເລືອກໄຟລກ່ອນ...
+                                {{ $t('placeholder.inputFile') }}
                             </div>
                             <div v-else style="color: #029217">
                                 {{ isShowFileImage }}
@@ -100,6 +100,9 @@
     import { paymentSchema } from '../schema/payment.schema';
     import { houseStore } from '../../../owner/house/stores/house.store'
     import { useToast } from "primevue/usetoast";
+    import { useI18n } from 'vue-i18n';
+
+    const { t } = useI18n();
 
     const { paymentService, state } = houseStore();
 
@@ -161,9 +164,9 @@
       const target = event.target as HTMLInputElement;
       const file = target.files?.[0];
       if (file) {
-        isShowFileImage.value = 'ກຳລັງອັບໂຫຼດໄຟລເຂົ້າລະບົບ ກະລຸນາລໍຖ້າ';
+        isShowFileImage.value = t('uploadFile.uploading');
         await uploadFileImage(file);
-        isShowFileImage.value = 'ອັບໂຫຼດສຳເລັດເເລ້ວ.';
+        isShowFileImage.value = t('uploadFile.upload_success');
       }
     };
 
@@ -188,11 +191,11 @@
     }
 
     const showWarningValidate = () => {
-        toast.add({ severity: 'error', summary: 'ກະລຸນາກວດສອບກ່ອນ.', detail: `ກະລຸນາເລືອກໄຟລກ່ອນ...`, life: 3000 });
+        toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: t('toast.detail.choose_file'), life: 3000 });
     }
 
     const showWarningValidateBackend = () => {
-        toast.add({ severity: 'error', summary: 'ເກີດຂໍ້ຜິດພາດ.', detail: `${state.error}`, life: 3000 });
+        toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: `${state.error}`, life: 3000 });
     }
 </script>
 

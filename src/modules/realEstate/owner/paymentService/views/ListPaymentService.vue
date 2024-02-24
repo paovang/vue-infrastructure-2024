@@ -3,7 +3,7 @@
         <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
             <span class="p-input-icon-left w-full sm:w-20rem flex-order-1 sm:flex-order-0">
                 <h2 class="mb-3">
-                    ປະຫວັດ ການຊຳລະຄ່າບໍລິການ
+                    {{ $t('table.title.payment_history')}}
                 </h2>
             </span>
             <span>
@@ -29,7 +29,7 @@
                     <div class="col-12 md:col-12 flex flex-row">
                         <div class="col-12 md:col-2">
                             <label>
-                                ວັນທີຊຳລະ
+                                {{ $t('messages.payment_date')}}
                             </label>
                             <Calendar 
                                 v-model="paymentDate" 
@@ -42,14 +42,14 @@
                         </div>
                         <div class="col-12 md:col-2">
                             <label>
-                                ສະຖານະ
+                                {{ $t('messages.status')}}
                             </label>
                             <Dropdown 
                                 name="status"
                                 v-model="form.status" 
                                 :options="paymentStatues" 
                                 :optionLabel="option => `${option.name}`" 
-                                placeholder="ກະລຸນາເລືອກກ່ອນ..." 
+                                :placeholder="$t('placeholder.dropdownSelect')" 
                                 class="w-full" 
                                 optionValue="id"
                                 :highlightOnSelect="true" 

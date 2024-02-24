@@ -2,13 +2,13 @@ import type { RouteRecordRaw } from "vue-router";
 
 export const homeRoute: RouteRecordRaw[] = [
   {
-    path: "/",
-    name: "home",
+    path: "",
+    name: "",
     component: () => import("../views/layout/LayoutHome.vue"),
     children: [
       {
         path: "",
-        name: "house",
+        name: "home",
         component: () => import("../views/ListHouse.vue"),
         meta: {
           skipAuthCheck: true,

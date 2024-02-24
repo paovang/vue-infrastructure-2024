@@ -49,7 +49,7 @@
                             <div class="col-12 md:col-3">
                                 <my-input-text 
                                     name="address" 
-                                    :label="$t('messages.phone_number')"
+                                    :label="$t('messages.address')"
                                     required 
                                     :placeholder="$t('placeholder.inputText')" 
                                     class="h-full" 
@@ -61,7 +61,7 @@
                             <div class="col-12 md:col-4">
                                 <my-input-text 
                                     name="tel" 
-                                    :label="$t('messages.address')"
+                                    :label="$t('messages.phone_number')"
                                     required 
                                     :placeholder="$t('placeholder.inputText')" 
                                     class="h-full" 
@@ -81,7 +81,7 @@
                                 <my-input-text 
                                     name="password" 
                                     :label="$t('messages.password')"
-                                    required 
+                                    :required="!isEditing"
                                     :placeholder="$t('placeholder.inputText')" 
                                     class="h-full" 
                                 />
@@ -90,7 +90,7 @@
                                 <my-input-text 
                                     name="password_confirmation" 
                                     :label="$t('messages.confirm_password')"
-                                    required 
+                                    :required="!isEditing"
                                     :placeholder="$t('placeholder.inputText')" 
                                     class="h-full" 
                                 />
@@ -142,7 +142,6 @@
                 :value="state.data.props" 
                 :loading="state.isLoading" 
                 lazy
-                style="overflow-x: auto; width: 100%;"
                 tableStyle="min-width: 50rem"
                 :totalRecords="state.data.total"
                 @page="onPageChange"
@@ -217,10 +216,10 @@
                 <Column field="owner" :header="$t('table.header.owner')"></Column>
                 <Column field="address" :header="$t('table.header.address')"></Column>
                 <Column field="tel" :header="$t('table.header.phone_number')"></Column>
-                <!-- <Column field="email" :header="$t('table.header.email')"></Column> -->
+                <Column field="email" :header="$t('table.header.email')"></Column>
                 <Column field="status" :header="$t('table.header.status')"></Column>
-                <Column field="created" :header="$t('table.header.created_at')"></Column>
-                <Column field="updated" :header="$t('table.header.updated_at')"></Column>
+                <!-- <Column field="created" :header="$t('table.header.created_at')"></Column> -->
+                <!-- <Column field="updated" :header="$t('table.header.updated_at')"></Column> -->
                 <Column headerStyle="width: 10rem">
                     <template #body="{ data }">
                         <div class="flex flex-wrap gap-2 btn-right">
@@ -248,7 +247,7 @@
   </template>
   
   <script setup lang="ts">
-    import { ref, onMounted, computed } from 'vue';
+    import { ref, onMounted, computed, watch } from 'vue';
     import DataTable, { type DataTablePageEvent } from 'primevue/datatable';
     import Column from 'primevue/column';
     import InputText from 'primevue/inputtext';
@@ -273,6 +272,8 @@
     const isEditing = ref(false);   
     const autoFocusCursor = ref();
     const isCardVisible = ref(false);
+    const isValidate = ref<boolean>(true);
+
     const { push } = useRouter()
     const { query } = useRoute()
 
@@ -289,9 +290,23 @@
         password_confirmation: t('placeholder.inputText'),
     }
 
+    // Define a reactive property to hold the validation schema
+    const validationSchema = ref(customerSchema(translatedErrorMessages, isValidate.value));
+
+    // Function to update the validation schema
+    const updateValidationSchema = () => {
+        validationSchema.value = customerSchema(translatedErrorMessages, isValidate.value);
+    };
+
+    // When isValidate.value changes, update the validation schema
+    watch(isValidate, () => {
+        updateValidationSchema();
+    });
+
+    // Now, use validationSchema in useForm
     const { handleSubmit, handleReset, setFieldValue } = useForm<any>({
-        validationSchema: customerSchema(translatedErrorMessages)
-    })
+        validationSchema: validationSchema
+    });
 
     const onUpdate = handleSubmit(async(values) => {
         form.id = values.id;
@@ -309,6 +324,8 @@
             await handleReset();
             await fetchCountry();
             isCardVisible.value = false;
+            isEditing.value = false;
+            isValidate.value = true;
         }
     })
 
@@ -340,6 +357,9 @@
     }
 
     const toggleIsCardVisible = async () => {
+        isEditing.value = false;
+        isValidate.value = true;
+
         if (isCardVisible.value) {
             isCardVisible.value = false;
         } else {
@@ -350,8 +370,6 @@
     const clearForm = async () => {
         state.btnLoading = false;
         await handleReset(); 
-        await fetchCountry();
-        state.btnLoading = false;
     }
 
     const RefreshData = async() => {
@@ -385,6 +403,9 @@
 
         isEditing.value = true;
         isCardVisible.value = true;
+        isValidate.value = false;
+
+        await scrollToInput();
         await scrollToInput();
     }
 
@@ -566,4 +587,4 @@
     .fade-enter, .fade-leave-to {
         opacity: 0;
     }
-</style>../../../real-estate/address/stores/country.store
+</style>

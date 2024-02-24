@@ -10,7 +10,8 @@
         "service": "ຄ່າບໍລິການ",
         "house": "ເຮືອນ ຫຼື ຫ້ອງເຊົ່າ",
         "add_house": "ເພີ່ມ ເຮືອນ ຫຼື ຫ້ອງເຊົ່າ",
-        "payment_service": "ຊຳລະຄ່າບໍລິການ"
+        "payment_service": "ຊຳລະຄ່າບໍລິການ",
+        "edit_house": "ເເກ້ໄຂ ເຮືອນ ຫຼື ຫ້ອງເຊົ່າ"
     },
     "placeholder": {
         "inputText": "ກະລຸນາປ້ອນກ່ອນ...",
@@ -26,7 +27,8 @@
             "district": "ລາຍການ ເມືອງທັງໝົດ",
             "customer": "ລາຍການ ລູກຄ້າທັງໝົດ",
             "service": "ລາຍການ ຄ່າບໍລິການທັງໝົດ",
-            "real_estate": "ລາຍການ ອະສັງຫາທັງໝົດ"
+            "real_estate": "ລາຍການ ອະສັງຫາທັງໝົດ",
+            "payment_history": "ປະຫວັດ ການຊຳລະຄ່າບໍລິການ"
         },
         "header": {
             "index": "ລຳດັບ",
@@ -70,7 +72,8 @@
         "clear": "ລົບລ້າງ",
         "add": "ເພີ່ມ",
         "add_item": "ເພີ່ມລາຍການ",
-        "save_data": "ບັນທຶກ ຂໍ້ມູນ"
+        "save_data": "ບັນທຶກ ຂໍ້ມູນ",
+        "edit_data": "ອັບເດດ ຂໍ້ມູນ"
     },
     "messages": {
         "country": "ປະເທດ",
@@ -113,7 +116,18 @@
         "setting_price_for_rent": "ຕັ້ງຄ່າລາຄາ ຊື້ຂາຍ - ເຊົ່າ",
         "profile_and_gallery": "ໂປຮໄຟລ ເເລະ ເເກເລີລີ່",
         "profile": "ໂປຮໄຟລ",
-        "gallery": "ເເກເລີລີ່"
+        "gallery": "ເເກເລີລີ່",
+        "image": "ຮູບພາບ",
+        "location": "ເເຜນທີ່",
+        "remark": "ລາຍລະອຽດ",
+        "date": "ວັນທີ",
+        "file_reference": "ໄຟລຫຼັກຖານການໂອນເງີນ",
+        "update": "ອັບເດດ"
+    },
+    "uploadFile": {
+        "uploading": "ກຳລັງອັບໂຫຼດໂປຮໄຟລເຂົ້າລະບົບ ກະລຸນາລໍຖ້າ...",
+        "file": "ໄຟລ.",
+        "upload_success": "ອັບໂຫຼດສຳເລັດເເລ້ວ."
     },
     "confirmDelete": {
         "message": "ທ່ານເເນ່ໃຈ ຫຼຶ ບໍ?",
@@ -121,17 +135,28 @@
         "rejectLabel": "ຍົກເລີກ",
         "acceptLabel": "ຕົກລົງ"
     },
+    "confirmDuplicate": {
+        "message": "ທ່ານຕ້ອງການສຳເນົາຂໍ້ມູນບໍ?",
+        "header": "ຢືນຢັນເພື່ອທຳການສຳເນົາຂໍ້ມູນ",
+        "rejectLabel": "ຕ້ອງການ",
+        "acceptLabel": "ບໍ່ຕ້ອງການ"
+    },
     "toast": {
         "summary": {
             "delete": "ການລຶບຂໍ້ມູນສຳເລັດ.",
             "cancel_delete": "ຍົກເລີກການລຶບຂໍ້ມູນ.",
             "success": "ສຳເລັດ.",
-            "error": "ເກີດຂໍ້ຜິດພາດ."
+            "error": "ເກີດຂໍ້ຜິດພາດ.",
+            "duplicate": "ໄດ້ທຳການສຳເນົາຂໍ້ມູນເເລ້ວ.",
+            "not_duplicate": "ບໍ່ຕ້ອງການສຳເນົາຂໍ້ມູນ."
         },
         "detail": {
             "delete": "ຖືກລຶບອອກເເລ້ວ.",
             "cancel_delete": "ຖືກຍົກເລີກເເລ້ວ.",
-            "successfully": "ການດຳເນີນສຳເລັດ."
+            "successfully": "ການດຳເນີນສຳເລັດ.",
+            "success_duplicate": "ສຳເນົາຂໍ້ມູນສຳເລັດ.",
+            "cancel_duplicate": "ຖືກຍົກເລີກການສຳເນົາເເລ້ວ.",
+            "choose_file": "ກະລຸນາເລືອກໄຟລກ່ອນ."
         }
     },
     "dialog": {

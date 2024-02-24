@@ -100,7 +100,7 @@
                 <div class="column is-mobile-12 is-2">
                     <my-input-text 
                         name="village" 
-                        label="ບ້ານ" 
+                        :label="$t('messages.village')" 
                         required 
                         :placeholder="$t('placeholder.inputText')"  
                         class="h-full" 
@@ -109,8 +109,7 @@
                 <div class="column is-mobile-12 is-2">
                     <my-input-text 
                         name="zipcode" 
-                        label="zipcode" 
-                        required 
+                        :label="$t('messages.zip_code')" 
                         :placeholder="$t('placeholder.inputText')"  
                         class="h-full" 
                     />
@@ -118,7 +117,7 @@
                 <div class="column is-mobile-12 is-2">
                     <my-input-text 
                         name="wide" 
-                        label="ລວງກວ້າງ" 
+                        :label="$t('messages.wide')"  
                         required 
                         :placeholder="$t('placeholder.inputText')"  
                         class="h-full" 
@@ -127,7 +126,7 @@
                 <div class="column is-mobile-12 is-2">
                     <my-input-text 
                         name="long" 
-                        label="ລວງຍາວ" 
+                        :label="$t('messages.long')"  
                         required 
                         :placeholder="$t('placeholder.inputText')"  
                         class="h-full" 
@@ -136,18 +135,18 @@
                 <div class="column is-mobile-12 is-6">
                     <my-input-text 
                         name="location" 
-                        label="ລີ້ງເເຜນທີ່" 
+                        :label="$t('messages.location')" 
                         required 
-                        placeholder="ກະລຸນາປ້ອນກ່ອນ..." 
+                        :placeholder="$t('placeholder.inputText')"  
                         class="h-full" 
                     />
                 </div>
                 <div class="column is-mobile-12 is-12">
                     <my-input-text-area 
                         name="remark" 
-                        label="ລາຍລະອຽດ" 
+                        :label="$t('messages.details')" 
                         required 
-                        placeholder="ກະລຸນາປ້ອນກ່ອນ..." 
+                        :placeholder="$t('placeholder.inputText')"  
                         class="h-full" 
                     />
                     <!-- <label>
@@ -198,7 +197,6 @@
                                     class="input" 
                                     v-model="input.detail" 
                                     placeholder="ກະລຸນາປ້ອນກ່ອນ..." 
-                                    required 
                                     style="font-family: 'NotoSansLao','Montserrat', 'sans-serif'" 
                                 />
                             </div>
@@ -296,7 +294,9 @@
     import { HouseEntity } from '../entities/house.entity';
     import { useConfirm } from "primevue/useconfirm";
     import { useRouter } from 'vue-router';
+    import { useI18n } from 'vue-i18n';
 
+    const { t } = useI18n();
     const toast = useToast();
     const confirm = useConfirm();
     const router = useRouter();
@@ -322,9 +322,9 @@
       const target = event.target as HTMLInputElement;
       const file = target.files?.[0];
       if (file) {
-        isShowFileImage.value = 'ກຳລັງອັບໂຫຼດໂປຮໄຟລເຂົ້າລະບົບ ກະລຸນາລໍຖ້າ';
+        isShowFileImage.value = t('uploadFile.uploading');
         await uploadFileImage(file);
-        isShowFileImage.value = 'ອັບໂຫຼດສຳເລັດເເລ້ວ.';
+        isShowFileImage.value = t('uploadFile.upload_success');
       }
     };
 
@@ -337,9 +337,9 @@
       const target = event.target as HTMLInputElement;
       const files = target.files;
       if (files) {
-        isShowFileGallery.value = 'ກຳລັງອັບໂຫຼດ ' + files.length + ' ໄຟລເຂົ້າລະບົບ ກະລຸນາລໍຖ້າ...';
+        isShowFileGallery.value = t('uploadFile.uploading') + files.length;
         await uploadFileGallery(files);
-        isShowFileGallery.value = 'ອັບໂຫຼດສຳເລັດເເລ້ວ ' + files.length + ' ໄຟລ.';
+        isShowFileGallery.value = t('uploadFile.upload_success') + '(' + files.length + ' ' + t('uploadFile.file') + ')';
       }
     };
 
@@ -421,22 +421,30 @@
     }
 
     const onSubmit = handleSubmit(async (value) => {
-        form.village = value.village;
-        form.zip_code = value.zipcode;
-        form.wide = value.wide;
-        form.long = value.long;
-        form.remark = value.remark;
-        form.location = value.location;
-        form.prices = createInputs.value;
-        form.image = selectedImage.value;
-        form.gallery = selectedGallery.value;
-
-        await register();
-
-        if (state.error) {
-            await showWarningValidateBackend();
+        if(!form.district_id) {
+            await showErrorValidate(t('placeholder.dropdownSelect') + ' ' + t('messages.district'))
+        } else if(!selectedImage.value) {
+            await showErrorValidate(t('placeholder.dropdownSelect') + ' ' + t('messages.image'))
+        } else if(!selectedGallery.value) {
+            await showErrorValidate(t('placeholder.dropdownSelect') + ' ' + t('messages.gallery'))
         } else {
-            await confirmDuplicate();
+            form.village = value.village;
+            form.zip_code = value.zipcode;
+            form.wide = value.wide;
+            form.long = value.long;
+            form.remark = value.remark;
+            form.location = value.location;
+            form.prices = createInputs.value;
+            form.image = selectedImage.value;
+            form.gallery = selectedGallery.value;
+
+            await register();
+
+            if (state.error) {
+                await showWarningValidateBackend();
+            } else {
+                await confirmDuplicate();
+            }   
         }
     })
 
@@ -499,28 +507,34 @@
         }
     }
 
+    const showErrorValidate = (erorr: string) => {
+        toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: erorr, life: 3000 });
+    }
+
     const showWarningValidateBackend = () => {
-        toast.add({ severity: 'error', summary: 'ເກີດຂໍ້ຜິດພາດ.', detail: `${state.error}`, life: 3000 });
+        toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: `${state.error}`, life: 3000 });
     }
 
     const confirmDuplicate = async () => {
         confirm.require({
-            message: 'ທ່ານຕ້ອງການສຳເນົາຂໍ້ມູນບໍ?',
-            header: 'ຢືນຢັນເພື່ອທຳການສຳເນົາຂໍ້ມູນ',
-            acceptLabel: 'ຕ້ອງການ',
-            rejectLabel: 'ບໍ່ຕ້ອງການ',
+            message: t('confirmDuplicate.message'),
+            header: t('confirmDuplicate.header'),
+            rejectLabel: t('confirmDuplicate.rejectLabel'),
+            acceptLabel: t('confirmDuplicate.acceptLabel'),
             rejectClass: 'p-button-danger',
             acceptClass: 'p-button-info',
             accept: async () => {
                 await clearAllFileUpload();
-                toast.add({ severity: 'success', summary: 'ໄດ້ທຳການສຳເນົາຂໍ້ມູນເເລ້ວ.', detail: 'ສຳເນົາຂໍ້ມູນສຳເລັດ.', life: 3000 });
+                toast.add({ severity: 'success', summary: t('toast.summary.duplicate'), detail: t('toast.detail.success_duplicate'), life: 3000 });
             },
             reject: async () => {
                 window.location.reload();
-                toast.add({ severity: 'error', summary: 'ບໍ່ຕ້ອງການສຳເນົາຂໍ້ມູນ.', detail: 'ຖືກຍົກເລີກການສຳເນົາເເລ້ວ.', life: 3000 });
+                toast.add({ severity: 'error', summary: t('toast.summary.not_duplicate'), detail: t('toast.detail.cancel_duplicate'), life: 3000 });
             }
         });
     }
+
+    
 </script>
 
 <style scoped>
