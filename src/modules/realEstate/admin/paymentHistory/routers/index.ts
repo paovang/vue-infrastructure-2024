@@ -1,4 +1,5 @@
 import { roleGuard } from "@/common/guards/role.guard";
+import { GET_ROLES } from "@/common/utils/const";
 import type { RouteRecordRaw } from "vue-router";
 
 export const adminPaymentHistoryRoute: RouteRecordRaw[] = [
@@ -8,7 +9,7 @@ export const adminPaymentHistoryRoute: RouteRecordRaw[] = [
     component: () => import("../views/ListPaymentHistory.vue"),
     meta: {
       label: "sidebar.payment_history",
-      requiredRoles: ["SuperAdmin"],
+      requiredRoles: [GET_ROLES.SUPER_ADMIN],
     },
     beforeEnter: roleGuard,
   },

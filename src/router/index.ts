@@ -9,6 +9,7 @@ import { authGuard } from "@/common/guards/auth.guard";
 import { realEstateServiceRoute } from "@/modules/realEstate/rentHouse/memberServices/routers";
 import { paymentServiceHouseRoute } from "@/modules/realEstate/owner/paymentService/routers";
 import { adminPaymentHistoryRoute } from "@/modules/realEstate/admin/paymentHistory/routers";
+import { adminUserRoute } from "@/modules/realEstate/admin/user/routers";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,6 +25,7 @@ const router = createRouter({
         ...ownerHouseRoute,
         ...paymentServiceHouseRoute,
         ...adminPaymentHistoryRoute,
+        ...adminUserRoute,
       ],
     },
     ...authRoute,

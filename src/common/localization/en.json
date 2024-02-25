@@ -11,7 +11,10 @@
         "house": "House & Building",
         "add_house": "Add House & Building",
         "payment_service": "Payment Service",
-        "edit_house": "Edit House & Building"
+        "edit_house": "Edit House & Building",
+        "user": "User",
+        "add_user": "Add User",
+        "edit_user": "Edit User"
     },
     "placeholder": {
         "inputText": "Please Enter...",
@@ -122,7 +125,9 @@
         "remark": "Remark",
         "date": "Date",
         "file_reference": "File Reference",
-        "update": "Update"
+        "update": "Update",
+        "role": "Role",
+        "permission": "Permission"
     },
     "uploadFile": {
         "uploading": "Uploading profile to the system please wait...",

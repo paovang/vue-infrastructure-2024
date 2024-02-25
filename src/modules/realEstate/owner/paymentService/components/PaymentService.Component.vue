@@ -123,7 +123,7 @@
     import { paymentSchema } from '../schemas/payment.schema';
     import { useToast } from 'primevue/usetoast';
     import { useI18n } from 'vue-i18n';
-import { formatNumber } from '@/common/utils/format.currency';
+    import { formatNumber } from '@/common/utils/format.currency';
 
 
     const { t } = useI18n();

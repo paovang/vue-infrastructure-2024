@@ -5,6 +5,7 @@
   import { districtStore } from '@/modules/realEstate/address/stores/district.store';
   import { useI18n } from 'vue-i18n';
   import { countryStore } from '@/modules/realEstate/address/stores/country.store';
+  import { GET_ROLES } from '@/common/utils/const';
 
   const { t } = useI18n();
   
@@ -41,7 +42,7 @@
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'country',
-          roles: ['SuperAdmin']
+          roles: [GET_ROLES.SUPER_ADMIN]
         },
         {
           key: '2',
@@ -49,7 +50,7 @@
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'province',
-          roles: ['SuperAdmin']
+          roles: [GET_ROLES.SUPER_ADMIN]
         },
         {
           key: '3',
@@ -57,7 +58,7 @@
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'district',
-          roles: ['SuperAdmin']
+          roles: [GET_ROLES.SUPER_ADMIN]
         },
         {
           key: '5',
@@ -65,23 +66,31 @@
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'real.estate.services',
-          roles: ['SuperAdmin']
+          roles: [GET_ROLES.SUPER_ADMIN]
         },
         {
           key: '6',
+          label: t('sidebar.user'),
+          icon: 'pi pi-chart-line',
+          color: 'text-red-500',
+          to: 'admin.user',
+          roles: [GET_ROLES.SUPER_ADMIN]
+        },
+        {
+          key: '7',
           label: t('sidebar.house'),
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'owner.house',
-          roles: ['Admin']
+          roles: [GET_ROLES.ADMIN_OWNER]
         },
         {
-          key: '7',
+          key: '8',
           label: t('sidebar.payment_service'),
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'owner.payment.service',
-          roles: ['Admin']
+          roles: [GET_ROLES.ADMIN_OWNER]
         }
       ]
     },
@@ -127,7 +136,7 @@
     router.push({ name: routeName});
   }
 
-  const roleSuperAdmin = ['SuperAdmin'];
+  const roleSuperAdmin = [GET_ROLES.SUPER_ADMIN];
   const currentRoles = localStorage.getItem('roles') || '';
 
 </script>
@@ -188,7 +197,15 @@
                   </div>
                   <ul 
                     class="list-none py-0 pl-3 pr-0 m-0 overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out"
-                    :class="{ 'hidden': !['province', 'country', 'district', 'real.estate.services', 'owner.house', 'owner.payment.service'].includes(String(router.currentRoute.value.name)) }"
+                    :class="{ 'hidden': ![
+                      'province', 
+                      'country', 
+                      'district', 
+                      'real.estate.services', 
+                      'owner.house', 
+                      'owner.payment.service',
+                      'admin.user'
+                    ].includes(String(router.currentRoute.value.name)) }"
                   >
                     <li v-for="children in item.children" :key="item.key">
                         <a 

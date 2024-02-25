@@ -1,4 +1,5 @@
 import { roleGuard } from "@/common/guards/role.guard";
+import { GET_ROLES } from "@/common/utils/const";
 import type { RouteRecordRaw } from "vue-router";
 
 export const ownerHouseRoute: RouteRecordRaw[] = [
@@ -8,7 +9,7 @@ export const ownerHouseRoute: RouteRecordRaw[] = [
     component: () => import("../views/ListHouse.vue"),
     meta: {
       label: "sidebar.house",
-      requiredRoles: ["Admin"],
+      requiredRoles: [GET_ROLES.ADMIN_OWNER],
     },
     beforeEnter: roleGuard,
   },
@@ -18,7 +19,7 @@ export const ownerHouseRoute: RouteRecordRaw[] = [
     component: () => import("../views/AddHouse.vue"),
     meta: {
       label: "sidebar.add_house",
-      requiredRoles: ["Admin"],
+      requiredRoles: [GET_ROLES.ADMIN_OWNER],
     },
     beforeEnter: roleGuard,
   },
@@ -28,7 +29,7 @@ export const ownerHouseRoute: RouteRecordRaw[] = [
     component: () => import("../views/EditHouse.vue"),
     meta: {
       label: "sidebar.edit_house",
-      requiredRoles: ["Admin"],
+      requiredRoles: [GET_ROLES.ADMIN_OWNER],
     },
     beforeEnter: roleGuard,
   },

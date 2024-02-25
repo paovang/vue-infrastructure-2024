@@ -1,0 +1,152 @@
+<template>
+    <div class="card">
+        <form @submit.prevent="onSubmit()" class="flex flex-column gap-3 h-full">
+            <div class="columns is-12 is-multiline">
+                <div class="column is-4 is-mobile-12">
+                    <my-input-text 
+                        ref="autoFocusCursor"
+                        name="name" 
+                        :label="$t('messages.name')"
+                        required 
+                        :placeholder="$t('placeholder.inputText')" 
+                        class="h-full" 
+                    />
+                </div>
+                <div class="column is-4 is-mobile-12">
+                    <my-input-text 
+                        ref="autoFocusCursor"
+                        name="email" 
+                        :label="$t('messages.email')"
+                        required 
+                        :placeholder="$t('placeholder.inputText')" 
+                        class="h-full" 
+                    />
+                </div>
+                <div class="column is-4 is-mobile-12">
+                    <label>
+                        {{ $t('messages.role') }}
+                        <span class="text-red-500"> *</span>
+                    </label>
+                    <Dropdown 
+                        style="margin-top: 7px;"
+                        v-model="form.roleId" 
+                        :options="allRole.data.props" 
+                        optionLabel="name" 
+                        :placeholder="$t('placeholder.dropdownSelect')" 
+                        class="w-full" 
+                        optionValue="id"
+                        :highlightOnSelect="true" 
+                    />
+                </div>
+            </div>
+            <p style="font-size: 18px; font-weight: bold;">
+                <i class="pi pi-users"></i>
+                <span style="width: 10px;"></span>
+                {{ $t('messages.permission') }}
+            </p>
+            <Divider/>
+            <div class="columns is-12 is-multiline" v-for="(item, index) in allPermission.data.props" :key="index">
+                <div class="column is-12 is-mobile-12" style="font-size: 18px; font-weight: bold;">
+                    <i class="pi pi-check-circle" style="color: green"></i> {{ item.name }}
+                </div>
+
+                <div class="column is-4 is-mobile-12" v-for="(per, idx) in item.permissions" :key="idx">
+                    <label class="checkbox ml-2">
+                        <Checkbox v-model="form.permissionIds" :inputId="'permission_' + idx" :name="'permission_' + idx" :value="per.id" />
+                        {{ per.name }} {{ per.id }}
+                    </label>
+                </div>
+            </div>
+            <Divider style="margin-top: -10px;"/>
+            <br/>
+            <div style="text-align: right;">
+                <Button type="submit" :label="$t('button.edit_data')" :loading="state.btnLoading" />
+            </div>
+        </form>
+    </div>
+</template>
+
+<script setup lang="ts">
+    import MyInputText from '@/components/customComponents/FormInputText.vue';
+    import { adminUserStore } from '../stores/user.store';
+    import { onMounted, ref } from 'vue';
+    import Dropdown from 'primevue/dropdown';
+    import Divider from 'primevue/divider';
+    import Checkbox from 'primevue/checkbox';
+    import Button from 'primevue/button';
+    import { useToast } from 'primevue/usetoast';
+    import { useI18n } from 'vue-i18n';
+    import { useForm } from 'vee-validate';
+    import { editUserServiceSchema } from '../schemas/user.schema';
+    import { useRoute } from 'vue-router';
+    
+
+    const { form, update, getAllRole, getAllPermission, allPermission, allRole, state, getOne, userGetByOne  } = adminUserStore();
+    const toast = useToast();
+    const { t } = useI18n();
+    const route = useRoute();
+    // const router = useRouter();
+
+    const permissionIds = ref<number[]>([]);
+
+    const translatedErrorMessages = {
+        name: t('placeholder.inputText'),
+        email: t('placeholder.inputText')
+    }
+
+    const { handleSubmit, setFieldValue } = useForm<any>({
+        validationSchema: editUserServiceSchema(translatedErrorMessages)
+    })
+
+    const onSubmit = handleSubmit(async (value) => {
+        form.id = String(route.params.id);
+        form.name = value.name;
+        form.email = value.email;
+        form.password = value.password;
+        form.password_confirmation = value.password_confirmation;
+
+        await update();
+
+        if (state.error) {
+            await showWarningValidateBackend();
+        } else {
+            await showToastSuccess();
+        }   
+    })
+
+    onMounted(async() => {
+        const id = Number(route.params.id);
+        await getOne(id);
+        await getAllRole();
+        await getAllPermission();
+
+        form.roleId = userGetByOne.data.props.role ? userGetByOne.data.props.role.id : undefined;
+        setFieldValue('name', userGetByOne.data.props.name);
+        setFieldValue('email', userGetByOne.data.props.email);
+
+        const permissions = userGetByOne.data.props.permissions;
+        if (permissions) {
+            
+            permissions.forEach((per: any) => {
+                permissionIds.value.push(per.id);
+            });
+
+            form.permissionIds = permissionIds.value;
+        }
+    })
+
+    const showWarningValidateBackend = () => {
+        toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: `${state.error}`, life: 3000 });
+    }
+
+    const showToastSuccess = () => {
+        toast.add({ severity: 'success', summary: t('toast.summary.success'), detail: t('toast.detail.successfully'), life: 3000 });
+    }
+
+</script>
+
+<style scoped>
+    @import 'bulma/css/bulma.css';
+
+
+</style>
