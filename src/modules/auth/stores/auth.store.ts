@@ -32,11 +32,21 @@ export const useAuthStore = defineStore("auth", () => {
     try {
       const result = await authService.login(item);
       if (result.status === "success" && result.data) {
+        // localStorage.setItem("token", result.data.access_token);
+        // localStorage.setItem("roles", result.data.authUser.roles);
+        // localStorage.setItem("permissions", result.data.authUser.permissions);
         localStorage.setItem("token", result.data.access_token);
-        localStorage.setItem("roles", result.data.authUser.role);
+        localStorage.setItem(
+          "roles",
+          JSON.stringify(result.data.authUser.roles)
+        );
+        localStorage.setItem(
+          "permissions",
+          JSON.stringify(result.data.authUser.permissions)
+        );
         state.errorMessage = "";
 
-        const roleUsers = result.data.authUser.role;
+        const roleUsers = result.data.authUser.roles;
 
         if (
           roleUsers.includes(GET_ROLES.SUPER_ADMIN) ||
@@ -72,6 +82,7 @@ export const useAuthStore = defineStore("auth", () => {
   async function logout(): Promise<void> {
     localStorage.removeItem("token");
     localStorage.removeItem("roles");
+    localStorage.removeItem("permissions");
 
     router.push({ name: "login" });
   }

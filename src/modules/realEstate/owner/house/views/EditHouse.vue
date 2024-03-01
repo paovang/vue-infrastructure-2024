@@ -63,6 +63,15 @@
                     />
                 </div>
                 <div class="column is-mobile-12 is-2">
+                    <my-input-text 
+                        name="name" 
+                        :label="$t('messages.name')" 
+                        required 
+                        :placeholder="$t('placeholder.inputText')"  
+                        class="h-full" 
+                    />
+                </div>
+                <div class="column is-mobile-12 is-2">
                     <label>
                         {{ $t('messages.province') }}
                         <span class="text-red-500"> *</span>
@@ -137,7 +146,7 @@
                         :value="form.long"
                     />
                 </div>
-                <div class="column is-mobile-12 is-6">
+                <div class="column is-mobile-12 is-4">
                     <my-input-text 
                         name="location" 
                         :label="$t('messages.location')" 
@@ -307,8 +316,8 @@
 </template>
 
 <script setup lang="ts">
-    // import MyInputText from '@/components/customComponents/FormInputText.vue';
-    import MyInputText from '@/components/customComponents/FormEditInputText.vue';
+    import MyInputText from '@/components/customComponents/FormInputText.vue';
+    // import MyInputText from '@/components/customComponents/FormEditInputText.vue';
     import MyInputTextArea from '@/components/customComponents/FormEditTextArea.vue';
     import Dropdown from 'primevue/dropdown';
     import { ref, onMounted } from 'vue';
@@ -367,7 +376,7 @@
     }
 
 
-    const { handleSubmit } = useForm<any>({
+    const { handleSubmit, setFieldValue } = useForm<any>({
         validationSchema: houseSchema
     })
 
@@ -403,15 +412,16 @@
     const fetchAll = async() => {
         const house = houseGetByOne.data.props;
 
+        setFieldValue('village', house.village);
+        setFieldValue('zipcode', house.zip_code);
+        setFieldValue('wide', house.wide);
+        setFieldValue('long', house.long);
+        setFieldValue('location', house.location);
+        setFieldValue('name', house.name);
+
         form.room_type = house.room_type;
         form.service_model = house.service_model;
-        form.village = house.village;
-        form.zip_code = house.zip_code;
-        form.wide = house.wide;
-        form.long = house.long;
         form.remark = house.remark;
-        form.location = house.location;
-        form.prices = house.price;
         form.prices = house.price;
 
         isShowFileImage.value = house.image;
@@ -452,6 +462,7 @@
     const onSubmit = handleSubmit(async (value) => {
         form.id = String(route.params.id);
         form.village = value.village;
+        form.name = value.name;
         form.zip_code = value.zipcode;
         form.wide = value.wide;
         form.long = value.long;

@@ -6,6 +6,7 @@
   import { useI18n } from 'vue-i18n';
   import { countryStore } from '@/modules/realEstate/address/stores/country.store';
   import { GET_ROLES } from '@/common/utils/const';
+  import { GET_PERMISSIONS } from '../../common/utils/const';
 
   const { t } = useI18n();
   
@@ -42,7 +43,8 @@
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'country',
-          roles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER]
+          roles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER],
+          permission: GET_PERMISSIONS.COUNTRY.VIEW
         },
         {
           key: '2',
@@ -50,7 +52,8 @@
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'province',
-          roles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER]
+          roles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER],
+          permission: GET_PERMISSIONS.PROVINCE.VIEW
         },
         {
           key: '3',
@@ -58,7 +61,8 @@
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'district',
-          roles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER]
+          roles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER],
+          permission: GET_PERMISSIONS.DISTRICT.VIEW
         },
         {
           key: '5',
@@ -66,7 +70,8 @@
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'real.estate.services',
-          roles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER]
+          roles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER],
+          permission: GET_PERMISSIONS.SERVICE_CHARGE.VIEW
         },
         {
           key: '6',
@@ -74,7 +79,8 @@
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'admin.user',
-          roles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER]
+          roles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER],
+          permission: GET_PERMISSIONS.ADMIN_USER.VIEW
         },
         {
           key: '7',
@@ -82,7 +88,8 @@
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'owner.house',
-          roles: [GET_ROLES.ADMIN_OWNER, GET_ROLES.USER_OWNER]
+          roles: [GET_ROLES.ADMIN_OWNER, GET_ROLES.USER_OWNER],
+          permission: GET_PERMISSIONS.REAL_ESTATE.VIEW
         },
         {
           key: '8',
@@ -90,7 +97,8 @@
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'owner.payment.service',
-          roles: [GET_ROLES.ADMIN_OWNER, GET_ROLES.USER_OWNER]
+          roles: [GET_ROLES.ADMIN_OWNER, GET_ROLES.USER_OWNER],
+          permission: GET_PERMISSIONS.PAYMENT_REAL_ESTATE.VIEW
         }
       ]
     },
@@ -136,8 +144,29 @@
     router.push({ name: routeName});
   }
 
-  const roleSuperAdmin = [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER];
-  const currentRoles = localStorage.getItem('roles') || '';
+
+  const rolesString = localStorage.getItem('roles') || '';
+  const currentRoles = rolesString ? JSON.parse(rolesString) : [];
+
+  const permissionsString = localStorage.getItem('permissions') || '';
+  const currentPermissions = rolesString ? JSON.parse(permissionsString) : [];
+
+
+  const hasPermission = (permission: any) => {
+   if (currentRoles.includes(GET_ROLES.SUPER_ADMIN) || currentRoles.includes(GET_ROLES.ADMIN)) {
+    return true;
+   } else {
+    return currentPermissions.includes(permission);
+   }
+  }
+
+  const hasMatchingRoleAndPermission = (childRoles: any, permission: string) => {
+    if (currentRoles.includes(GET_ROLES.SUPER_ADMIN) || currentRoles.includes(GET_ROLES.ADMIN_OWNER)) {
+      return childRoles.some((role: string) => currentRoles.includes(role));
+    } else {
+      return currentPermissions.includes(permission);
+    }
+  }
 
 </script>
 
@@ -153,8 +182,8 @@
       </div>
       <br/>
         <div class="overflow-y-auto">
-            <ul class="list-none p-0 m-0 overflow-hidden" v-if="roleSuperAdmin.includes(currentRoles)">
-              <li>
+            <ul class="list-none p-0 m-0 overflow-hidden">
+              <li v-if="hasPermission(GET_PERMISSIONS.CUSTOMER.VIEW)">
                   <a 
                     @click="goToRoute('customer')"
                     :class="{ 'bg-highlight': router.currentRoute.value.name === 'customer' }"
@@ -165,10 +194,10 @@
                       <span class="font-medium">{{ $t('sidebar.customer')}}</span>
                   </a>
               </li>
-              <li>
+              <li v-if="hasPermission(GET_PERMISSIONS.PAYMENT_HISTORY.VIEW)">
                   <a 
                     @click="goToRoute('admin.payment.history')"
-                    :class="{ 'bg-highlight': router.currentRoute.value.name === 'admin.payment.histor' }"
+                    :class="{ 'bg-highlight': router.currentRoute.value.name === 'admin.payment.history' }"
                     v-ripple 
                     class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
                   >
@@ -209,7 +238,7 @@
                   >
                     <li v-for="children in item.children" :key="item.key">
                         <a 
-                          v-if="children.roles.includes(currentRoles)"
+                          v-if="hasMatchingRoleAndPermission(children.roles ,children.permission)"
                           @click="goToRoute(children.to)"
                           :class="{ 'bg-highlight': router.currentRoute.value.name === children.to }"
                           v-ripple 
@@ -236,4 +265,4 @@
   .bg-highlight {
     background-color: rgba(199, 195, 195, 0.604) !important; /* Add the desired highlight color */
   }
-</style>../../modules/real-estate/address/stores/country.store../../modules/real-estate/address/stores/province.store../../modules/real-estate/address/stores/district.store../../modules/realEstate/rent_house/memberServices/stores/real-estate-service.store@/modules/realEstate/rentHouse/memberServices/stores/real-estate-service.store
+</style>

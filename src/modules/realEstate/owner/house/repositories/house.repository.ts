@@ -50,6 +50,7 @@ export class HouseRepository implements IHouseRepository {
         service_model: input.service_model,
         new_image: input.image,
         room_type: input.room_type,
+        name: input.name,
         village: input.village,
         district_id: input.district_id,
         location: input.location,
