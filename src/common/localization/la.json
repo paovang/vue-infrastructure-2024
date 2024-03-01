@@ -31,7 +31,8 @@
             "customer": "ລາຍການ ລູກຄ້າທັງໝົດ",
             "service": "ລາຍການ ຄ່າບໍລິການທັງໝົດ",
             "real_estate": "ລາຍການ ອະສັງຫາທັງໝົດ",
-            "payment_history": "ປະຫວັດ ການຊຳລະຄ່າບໍລິການ"
+            "payment_history": "ປະຫວັດ ການຊຳລະຄ່າບໍລິການ",
+            "user": "ລາຍການ ຜູ້ໃຊ້ລະບົບທັງໝົດ"
         },
         "header": {
             "index": "ລຳດັບ",
@@ -59,7 +60,13 @@
             "village": "ບ້ານ",
             "zip_code": "ລະຫັດ",
             "wide": "ລວງກ້ວາງ",
-            "long": "ລວງຍາວ"
+            "long": "ລວງຍາວ",
+            "role": "ບົດບາດ",
+            "permission": "ໜ້າທີ່ຮັບຜິດຊອບ",
+            "customer_number": "ລະຫັດລູກຄ້າ",
+            "real_esate_number": "ເລກລະຫັດ",
+            "bill_number": "ເລກທີ່ບີນ",
+            "info_house": "ຂໍ້ມູນເຮືອນ"
         },
         "pagination": {
             "show": "ສະເເດງ",
@@ -76,7 +83,8 @@
         "add": "ເພີ່ມ",
         "add_item": "ເພີ່ມລາຍການ",
         "save_data": "ບັນທຶກ ຂໍ້ມູນ",
-        "edit_data": "ອັບເດດ ຂໍ້ມູນ"
+        "edit_data": "ອັບເດດ ຂໍ້ມູນ",
+        "appointment": "ນັດໝາຍເລີຍ"
     },
     "messages": {
         "country": "ປະເທດ",
@@ -166,7 +174,8 @@
     },
     "dialog": {
         "header": {
-            "update_payment_service": "ອັບເດດ ການຊຳລະຄ່າບໍລິການ"
+            "update_payment_service": "ອັບເດດ ການຊຳລະຄ່າບໍລິການ",
+            "manage_appointment": "ຈັດການ ການນັດໝາຍ"
         }
     }
 }

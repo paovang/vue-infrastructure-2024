@@ -9,7 +9,7 @@ export const paymentServiceHouseRoute: RouteRecordRaw[] = [
     component: () => import("../views/ListPaymentService.vue"),
     meta: {
       label: "sidebar.payment_service",
-      requiredRoles: [GET_ROLES.ADMIN_OWNER],
+      requiredRoles: [GET_ROLES.ADMIN_OWNER, GET_ROLES.USER_OWNER],
     },
     beforeEnter: roleGuard,
   },

@@ -140,6 +140,8 @@
     const isShowFileImage = ref<string | null>(null);
     const selectedImage = ref();
     const btnLoading = ref(false);
+    const accessToken = localStorage.getItem('token');
+
 
     watch(visible, (newValue, oldValue) => {
         if (newValue === true) {
@@ -211,10 +213,10 @@
             let formData = new FormData();
             formData.append('file', file);
 
-            const response = await axios.post('http://159.223.42.254/api/upload_file', formData, {
+            const response = await axios.post(import.meta.env.VITE_APP_BASE_API_URL + 'upload_file', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTU5LjIyMy40Mi4yNTQvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3MDc5MjgwMDksIm5iZiI6MTcwNzkyODAwOSwianRpIjoia25Ma3BqRHdObUh4a2dyUyIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.FDSN40oY148SrIvrc0oj51Ln8dgwlYj8KDCEjvUPZ1U`
+                    'Authorization': `Bearer ${accessToken}`
                 }
             });
 

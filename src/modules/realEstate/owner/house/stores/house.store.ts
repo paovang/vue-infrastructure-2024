@@ -67,6 +67,7 @@ export const houseStore = defineStore("house-store", () => {
     district_id: "",
     service_model: "",
     image: "",
+    name: "",
     room_type: "",
     village: "",
     location: "",

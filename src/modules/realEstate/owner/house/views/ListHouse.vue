@@ -170,6 +170,7 @@
                     {{ item.index + 1 }}
                 </template>
             </Column>
+            <Column field="real_esate_number" :header="$t('table.header.real_esate_number')"></Column>
             <Column field="real_estate_type.name" :header="$t('table.header.realestate_type')"></Column>
             <Column field="service_model" :header="$t('table.header.service_model')"></Column>
             <Column field="room_type" :header="$t('table.header.room_type')"></Column>
@@ -276,7 +277,7 @@
 
    
     async function  submitData() {
-        console.log('paovang: submit 2024')
+        console.log('paovang: submit 2024');
     }
 
     async function clearForm() {

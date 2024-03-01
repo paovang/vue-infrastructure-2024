@@ -20,7 +20,7 @@
                             style="margin-top: 8px;"
                             v-model="form.id" 
                             :options="stateHouse.data.props" 
-                            :optionLabel="option => `${option.real_estate_type.name} - ${option.room_type} - ${option.service_model} (${formatNumber(option.price[0].price, '')})`" 
+                            :optionLabel="option => `${option.real_esate_number} - ${option.real_estate_type.name} - ${option.room_type} - ${option.service_model} (${formatNumber(option.price[0].price, '')})`" 
                             :placeholder="$t('placeholder.dropdownSelect')" 
                             class="w-full" 
                             optionValue="id"
@@ -58,7 +58,15 @@
                         />
                     </div>
                 </div>
-                <div class="col-12 md:col-12" style="margin-top: -20px;">
+                <!-- <div class="col-12 md:col-12" style="margin-top: -20px">
+                    <div class="flex flex-column" style="border: 1px solid #029217; padding: 10px;">
+                        <p>
+                            {{ $t('messages.amount') }} :
+                            <span>23423</span>
+                        </p>
+                    </div>
+                </div> -->
+                <div class="col-12 md:col-12" style="margin-top: -20px">
                     <div class="flex flex-column">
                         <label>
                             {{ $t('messages.date') }}
@@ -135,6 +143,7 @@
     const isShowFileImage = ref<string | null>(null);
     const selectedImage = ref();
     const btnLoading = ref(false);
+    const accessToken = localStorage.getItem('token');
 
     watch(visible, (newValue, oldValue) => {
         if (newValue === true) {
@@ -210,10 +219,10 @@
             let formData = new FormData();
             formData.append('file', file);
 
-            const response = await axios.post('http://159.223.42.254/api/upload_file', formData, {
+            const response = await axios.post(import.meta.env.VITE_APP_BASE_API_URL + 'upload_file', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTU5LjIyMy40Mi4yNTQvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3MDc5MjgwMDksIm5iZiI6MTcwNzkyODAwOSwianRpIjoia25Ma3BqRHdObUh4a2dyUyIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.FDSN40oY148SrIvrc0oj51Ln8dgwlYj8KDCEjvUPZ1U`
+                    'Authorization': `Bearer ${accessToken}`
                 }
             });
 

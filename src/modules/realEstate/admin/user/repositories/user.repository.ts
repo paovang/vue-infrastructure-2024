@@ -7,6 +7,7 @@ import {
 import { IResponse } from "@/common/interfaces/response.interface";
 import { IUserRepository } from "../interfaces/user.interface";
 import { UserEntity } from "../entities/user.entity";
+import { GET_ROLES } from "@/common/utils/const";
 
 @injectable()
 export class UserRepository implements IUserRepository {
@@ -99,6 +100,9 @@ export class UserRepository implements IUserRepository {
     const response = await this._api.axios({
       method: "get",
       url: "roles",
+      params: {
+        roles: [GET_ROLES.ADMIN, GET_ROLES.USER],
+      },
     });
 
     return response.data;

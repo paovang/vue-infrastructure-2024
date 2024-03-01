@@ -73,6 +73,15 @@
                 </template>
             </Column>
             <Column field="date_payment" :header="$t('table.header.date_payment')"></Column>
+            <Column field="bill_no" :header="$t('table.header.bill_number')"></Column>
+            <Column :header="$t('table.header.info_house')">
+                <template #body="{data}">
+                    <span>{{ data.real_estate_list.real_esate_number }}</span>
+                    <span> - 
+                        ({{ data.real_estate_list.real_estate_type.name }} / {{ data.real_estate_list.service_model }})
+                    </span>
+                </template>
+            </Column>
             <Column field="service_charge" :header="$t('table.header.amount')">
                 <template #body="slotProps">
                     {{ formatCurrency(slotProps.data.amount, slotProps.data) }}

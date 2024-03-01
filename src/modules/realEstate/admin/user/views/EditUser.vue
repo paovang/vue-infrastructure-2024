@@ -1,5 +1,15 @@
 <template>
     <div class="card">
+        <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
+            <span class="p-input-icon-left w-full sm:w-20rem flex-order-1 sm:flex-order-0">
+                <h2 style="font-weight: bold; font-size: 20px;" class="arrow-left" @click="goBack">
+                    <i class="pi pi-arrow-left" style="color: green"></i>
+                    {{ $t('messages.form_register') }}
+                </h2>
+            </span>
+        </div>
+        <Divider/>
+        <br/>
         <form @submit.prevent="onSubmit()" class="flex flex-column gap-3 h-full">
             <div class="columns is-12 is-multiline">
                 <div class="column is-4 is-mobile-12">
@@ -53,7 +63,7 @@
                 <div class="column is-4 is-mobile-12" v-for="(per, idx) in item.permissions" :key="idx">
                     <label class="checkbox ml-2">
                         <Checkbox v-model="form.permissionIds" :inputId="'permission_' + idx" :name="'permission_' + idx" :value="per.id" />
-                        {{ per.name }} {{ per.id }}
+                        {{ per.name }}
                     </label>
                 </div>
             </div>
@@ -78,14 +88,14 @@
     import { useI18n } from 'vue-i18n';
     import { useForm } from 'vee-validate';
     import { editUserServiceSchema } from '../schemas/user.schema';
-    import { useRoute } from 'vue-router';
+    import { useRoute, useRouter } from 'vue-router';
     
 
     const { form, update, getAllRole, getAllPermission, allPermission, allRole, state, getOne, userGetByOne  } = adminUserStore();
     const toast = useToast();
     const { t } = useI18n();
     const route = useRoute();
-    // const router = useRouter();
+    const router = useRouter();
 
     const permissionIds = ref<number[]>([]);
 
@@ -135,6 +145,10 @@
         }
     })
 
+    const goBack = async () => { 
+        router.push({ name: 'admin.user'});
+    }
+    
     const showWarningValidateBackend = () => {
         toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: `${state.error}`, life: 3000 });
     }
@@ -148,5 +162,8 @@
 <style scoped>
     @import 'bulma/css/bulma.css';
 
-
+    .arrow-left:hover {
+        cursor: pointer;
+        color: green;
+    }
 </style>

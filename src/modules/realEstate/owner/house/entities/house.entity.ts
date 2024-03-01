@@ -16,6 +16,7 @@ export interface HouseEntity {
   };
   service_model?: string;
   image?: string;
+  name?: string;
   room_type?: string;
   village?: string;
   district?: {
@@ -31,6 +32,11 @@ export interface HouseEntity {
   province?: {
     id?: string;
     name?: string;
+  };
+  country?: {
+    id?: string;
+    name?: string;
+    currency?: string;
   };
   location?: string;
   zip_code?: string;

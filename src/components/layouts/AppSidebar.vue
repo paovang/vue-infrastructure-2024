@@ -42,7 +42,7 @@
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'country',
-          roles: [GET_ROLES.SUPER_ADMIN]
+          roles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER]
         },
         {
           key: '2',
@@ -50,7 +50,7 @@
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'province',
-          roles: [GET_ROLES.SUPER_ADMIN]
+          roles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER]
         },
         {
           key: '3',
@@ -58,7 +58,7 @@
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'district',
-          roles: [GET_ROLES.SUPER_ADMIN]
+          roles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER]
         },
         {
           key: '5',
@@ -66,7 +66,7 @@
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'real.estate.services',
-          roles: [GET_ROLES.SUPER_ADMIN]
+          roles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER]
         },
         {
           key: '6',
@@ -74,7 +74,7 @@
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'admin.user',
-          roles: [GET_ROLES.SUPER_ADMIN]
+          roles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER]
         },
         {
           key: '7',
@@ -82,7 +82,7 @@
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'owner.house',
-          roles: [GET_ROLES.ADMIN_OWNER]
+          roles: [GET_ROLES.ADMIN_OWNER, GET_ROLES.USER_OWNER]
         },
         {
           key: '8',
@@ -90,7 +90,7 @@
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'owner.payment.service',
-          roles: [GET_ROLES.ADMIN_OWNER]
+          roles: [GET_ROLES.ADMIN_OWNER, GET_ROLES.USER_OWNER]
         }
       ]
     },
@@ -136,7 +136,7 @@
     router.push({ name: routeName});
   }
 
-  const roleSuperAdmin = [GET_ROLES.SUPER_ADMIN];
+  const roleSuperAdmin = [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER];
   const currentRoles = localStorage.getItem('roles') || '';
 
 </script>

@@ -9,17 +9,17 @@ export const adminUserRoute: RouteRecordRaw[] = [
     component: () => import("../views/ListUsers.vue"),
     meta: {
       label: "sidebar.user",
-      requiredRoles: [GET_ROLES.SUPER_ADMIN],
+      requiredRoles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER],
     },
     beforeEnter: roleGuard,
   },
   {
     path: "/admin/add/user",
-    name: "admin.admin.user",
+    name: "admin.add.user",
     component: () => import("../views/AddUser.vue"),
     meta: {
       label: "sidebar.add_user",
-      requiredRoles: [GET_ROLES.SUPER_ADMIN],
+      requiredRoles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER],
     },
     beforeEnter: roleGuard,
   },
@@ -29,7 +29,7 @@ export const adminUserRoute: RouteRecordRaw[] = [
     component: () => import("../views/EditUser.vue"),
     meta: {
       label: "sidebar.edit_user",
-      requiredRoles: [GET_ROLES.SUPER_ADMIN],
+      requiredRoles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER],
     },
     beforeEnter: roleGuard,
   },

@@ -9,7 +9,7 @@ export const realEstateServiceRoute: RouteRecordRaw[] = [
     component: () => import("../views/ListRealEstateService.vue"),
     meta: {
       label: "sidebar.service",
-      requiredRoles: [GET_ROLES.SUPER_ADMIN],
+      requiredRoles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER],
     },
     beforeEnter: roleGuard,
   },

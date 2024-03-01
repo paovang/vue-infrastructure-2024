@@ -16,7 +16,7 @@ export class CustomerRepository implements ICustomerRepository {
     const response = await this._api.axios({
       method: "post",
       url: "/admin/account",
-      params: {
+      data: {
         name: input.name,
         owner: input.owner,
         address: input.address,
@@ -39,7 +39,7 @@ export class CustomerRepository implements ICustomerRepository {
     const response = await this._api.axios({
       method: "put",
       url: "/admin/account/" + input.id,
-      params: {
+      data: {
         name: input.name,
         owner: input.owner,
         address: input.address,
@@ -76,7 +76,7 @@ export class CustomerRepository implements ICustomerRepository {
       params: {
         page: args.page,
         per_page: args.limit,
-        contries_id: args.filter?.country_id,
+        country_id: args.filter?.country_id,
         tel: args.filter?.tel,
         filter: args.filter?.name,
       },

@@ -3,7 +3,7 @@
         v-model:visible="visible" 
         modal 
         @hide="clearData"
-        header="ຈັດການ ການຈອງ" 
+        :header="$t('dialog.header.manage_appointment')" 
         :style="{ width: '50rem' }" 
         :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
     >
@@ -34,7 +34,7 @@
                 <div class="col-12 md:col-12" style="margin-top: -20px">
                     <div class="flex flex-column">
                         <label>
-                            ວັນທີນັດໝາຍ
+                            {{ $t('date') }}
                             <span class="text-red-500"> *</span>
                         </label>
                         <Calendar 
@@ -48,7 +48,7 @@
                 <br/>
                 <div class="col-12 md:col-12">
                     <div class="flex flex-column">
-                        <Button type="submit" label="ຈອງເລີຍ" />
+                        <Button type="submit" :label="$t('button.appointment')" />
                     </div>
                 </div>
             </div>

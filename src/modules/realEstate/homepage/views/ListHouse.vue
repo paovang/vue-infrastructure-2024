@@ -112,12 +112,13 @@
                     </template>
                     <template #title>
                     <span>
-                        {{ formatNumber(item.price?.[0]?.price, '') }}
+                        {{ formatNumber(item.price?.[0]?.price, item.country?.currency) }}
                     </span>
                     </template>
                     <template #subtitle>
-                    <span>ສະຖານະ: {{ item.status }}</span> |
-                    <span>ຮູບເເບບບໍລິການ: {{ item.service_model }}</span>
+                    <span>{{ item.name }}</span> |
+                    <span>{{ item.status }}</span> |
+                    <span>{{ item.service_model }}</span>
                     </template>
                     <template #content>
                     <p class="detail">

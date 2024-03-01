@@ -212,6 +212,7 @@
                     </template>
                 </Column>
                 <Column field="country.name" :header="$t('table.header.country')"></Column>
+                <Column field="customer_number" :header="$t('table.header.customer_number')"></Column>
                 <Column field="name" :header="$t('table.header.customer')"></Column>
                 <Column field="owner" :header="$t('table.header.owner')"></Column>
                 <Column field="address" :header="$t('table.header.address')"></Column>
@@ -475,12 +476,11 @@
         await getAll()
     }
 
-    
-
 
     onMounted(async () => {
         await initComponent();
         await fetchData();
+        stateCountry.data.props.unshift({ id: 'all', name: 'ທັງໝົດ' });
     })
 
     const fetchData = async () => {

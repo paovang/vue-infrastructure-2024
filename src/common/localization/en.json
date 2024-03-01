@@ -31,7 +31,8 @@
             "customer": "All Customer",
             "service": "All Service",
             "real_estate": "All Real Estate",
-            "payment_history": "Payment History"
+            "payment_history": "Payment History",
+            "user": "All User"
         },
         "header": {
             "index": "Number",
@@ -59,7 +60,13 @@
             "village": "Village",
             "zip_code": "Zip Code",
             "wide": "Wide",
-            "long": "Long"
+            "long": "Long",
+            "role": "Role",
+            "permission": "Permission",
+            "customer_number": "Customer Number",
+            "real_esate_number": "Real Estate Number",
+            "bill_number": "Bill Number",
+            "info_house": "Info House"
         },
         "pagination": {
             "show": "show",
@@ -76,7 +83,8 @@
         "add": "Add",
         "add_item": "Add Item",
         "save_data": "Save Data",
-        "edit_data": "Edit Data"
+        "edit_data": "Edit Data",
+        "appointment": "Appointment"
     },
     "messages": {
         "country": "Country",
@@ -166,7 +174,8 @@
     },
     "dialog": {
         "header": {
-            "update_payment_service": "Update payment service"
+            "update_payment_service": "Update payment service",
+            "manage_appointment": "Manage Appointment"
         }
     }
 }

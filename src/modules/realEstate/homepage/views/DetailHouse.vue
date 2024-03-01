@@ -34,9 +34,17 @@
                 </h3>
                 <Divider/>
                 <p style="margin-top: 5px;">
-                    <span>ປະເພດ: {{ realEstateGetOne.data.props.real_estate_type?.name }}</span>
-                    <span>| ຮູບເເບບບໍລິການ: {{ realEstateGetOne.data.props.service_model }}</span>
-                    <span> | ປະເພດຫ້ອງ: {{ realEstateGetOne.data.props.room_type }}</span>
+                    <span>
+                        {{ realEstateGetOne.data.props.status }}
+                    </span>
+                    <span>
+                        | {{ realEstateGetOne.data.props.name }}
+                    </span>
+                </p>
+                <p>
+                    <span>{{ realEstateGetOne.data.props.real_estate_type?.name }}</span>
+                    <span>| {{ realEstateGetOne.data.props.service_model }}</span>
+                    <span> | {{ realEstateGetOne.data.props.room_type }}</span>
                 </p>
                 <p>
                     <span>{{ realEstateGetOne.data.props.village }}</span>
@@ -45,10 +53,10 @@
                 </p>
                 <p>
                     <span v-if="realEstateGetOne.data.props.zip_code">
-                        ລະຫັດ: {{ realEstateGetOne.data.props.zip_code }},
+                        {{ $t('messages.zip_code') }}: {{ realEstateGetOne.data.props.zip_code }},
                     </span>
-                    <span>ລວງຍາວ: {{ realEstateGetOne.data.props.long }} m</span>
-                    <span>, ລວງກ້ວາງ: {{ realEstateGetOne.data.props.wide }} m</span>
+                    <span>{{ $t('messages.long') }}: {{ realEstateGetOne.data.props.long }} m</span>
+                    <span>, {{ $t('messages.wide') }}: {{ realEstateGetOne.data.props.wide }} m</span>
                 </p>
                 <Divider/>
                 <p v-if="realEstateGetOne.data.props.remark" style="font-size: 18px; font-weight: bold; margin-top: 5px;">ລາຍລະອຽດ:</p>
@@ -56,7 +64,9 @@
                     {{ realEstateGetOne.data.props.remark }}
                 </p>
                 <div style="margin-top: 20px;">
-                    <Button class="button is-info" @click="reserve" style="font-family: 'Phetsarath OT';">ຈອງເລີຍ</Button>
+                    <Button class="button is-info" @click="reserve" style="font-family: 'Phetsarath OT';">
+                        {{ $t('button.appointment') }}
+                    </Button>
                 </div>
             </div>
             <div class="column is-mobile-12 is-desktop-6" style="text-align: center;">

@@ -9,7 +9,7 @@ export const ownerHouseRoute: RouteRecordRaw[] = [
     component: () => import("../views/ListHouse.vue"),
     meta: {
       label: "sidebar.house",
-      requiredRoles: [GET_ROLES.ADMIN_OWNER],
+      requiredRoles: [GET_ROLES.ADMIN_OWNER, GET_ROLES.USER_OWNER],
     },
     beforeEnter: roleGuard,
   },
@@ -19,7 +19,7 @@ export const ownerHouseRoute: RouteRecordRaw[] = [
     component: () => import("../views/AddHouse.vue"),
     meta: {
       label: "sidebar.add_house",
-      requiredRoles: [GET_ROLES.ADMIN_OWNER],
+      requiredRoles: [GET_ROLES.ADMIN_OWNER, GET_ROLES.USER_OWNER],
     },
     beforeEnter: roleGuard,
   },
@@ -29,7 +29,7 @@ export const ownerHouseRoute: RouteRecordRaw[] = [
     component: () => import("../views/EditHouse.vue"),
     meta: {
       label: "sidebar.edit_house",
-      requiredRoles: [GET_ROLES.ADMIN_OWNER],
+      requiredRoles: [GET_ROLES.ADMIN_OWNER, GET_ROLES.USER_OWNER],
     },
     beforeEnter: roleGuard,
   },

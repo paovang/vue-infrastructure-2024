@@ -63,6 +63,15 @@
                     />
                 </div>
                 <div class="column is-mobile-12 is-2">
+                    <my-input-text 
+                        name="name" 
+                        :label="$t('messages.name')" 
+                        required 
+                        :placeholder="$t('placeholder.inputText')"  
+                        class="h-full" 
+                    />
+                </div>
+                <div class="column is-mobile-12 is-2">
                     <label>
                         {{ $t('messages.province') }}
                         <span class="text-red-500"> *</span>
@@ -132,7 +141,7 @@
                         class="h-full" 
                     />
                 </div>
-                <div class="column is-mobile-12 is-6">
+                <div class="column is-mobile-12 is-4">
                     <my-input-text 
                         name="location" 
                         :label="$t('messages.location')" 
@@ -383,6 +392,8 @@
         { id: 'year', name: 'ປີ' },
     ]);
 
+    const accessToken = localStorage.getItem('token');
+
     const selectedGallery = ref();
     const selectedImage = ref();
 
@@ -432,6 +443,7 @@
             form.zip_code = value.zipcode;
             form.wide = value.wide;
             form.long = value.long;
+            form.name = value.name;
             form.remark = value.remark;
             form.location = value.location;
             form.prices = createInputs.value;
@@ -467,10 +479,10 @@
             let formData = new FormData();
             formData.append('file', file);
 
-            const response = await axios.post('http://159.223.42.254/api/upload_file', formData, {
+            const response = await axios.post(import.meta.env.VITE_APP_BASE_API_URL + 'upload_file', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTU5LjIyMy40Mi4yNTQvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3MDc5MjgwMDksIm5iZiI6MTcwNzkyODAwOSwianRpIjoia25Ma3BqRHdObUh4a2dyUyIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.FDSN40oY148SrIvrc0oj51Ln8dgwlYj8KDCEjvUPZ1U`
+                    'Authorization': `Bearer ${accessToken}`
                 }
             });
 
@@ -489,10 +501,10 @@
                 formData.append('files[]', files[i]);
             }
 
-            const response = await axios.post('http://159.223.42.254/api/upload/multiple/files', formData, {
+            const response = await axios.post(import.meta.env.VITE_APP_BASE_API_URL + 'upload/multiple/files', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTU5LjIyMy40Mi4yNTQvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3MDc5MjgwMDksIm5iZiI6MTcwNzkyODAwOSwianRpIjoia25Ma3BqRHdObUh4a2dyUyIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.FDSN40oY148SrIvrc0oj51Ln8dgwlYj8KDCEjvUPZ1U`
+                    'Authorization': `Bearer ${accessToken}`
                 }
             });
 
