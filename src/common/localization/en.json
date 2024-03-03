@@ -14,7 +14,9 @@
         "edit_house": "Edit House & Building",
         "user": "User",
         "add_user": "Add User",
-        "edit_user": "Edit User"
+        "edit_user": "Edit User",
+        "appointment": "Appointment",
+        "rent_buy": "Rent - Buy"
     },
     "placeholder": {
         "inputText": "Please Enter...",
@@ -32,7 +34,9 @@
             "service": "All Service",
             "real_estate": "All Real Estate",
             "payment_history": "Payment History",
-            "user": "All User"
+            "user": "All User",
+            "appointment": "All Appointment",
+            "rent_buy": "All Rent - Buy"
         },
         "header": {
             "index": "Number",
@@ -66,7 +70,11 @@
             "customer_number": "Customer Number",
             "real_esate_number": "Real Estate Number",
             "bill_number": "Bill Number",
-            "info_house": "Info House"
+            "info_house": "Info House",
+            "appointment": "Appointment",
+            "customer_name": "Customer Name",
+            "customer_phone": "Customer Phone",
+            "date_appointment": "Date Appointment"
         },
         "pagination": {
             "show": "show",
@@ -135,7 +143,10 @@
         "file_reference": "File Reference",
         "update": "Update",
         "role": "Role",
-        "permission": "Permission"
+        "permission": "Permission",
+        "date_appointment": "Date Appointment",
+        "search": "Search",
+        "real_esate_number": "Real Estate Number"
     },
     "uploadFile": {
         "uploading": "Uploading profile to the system please wait...",

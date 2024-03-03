@@ -14,7 +14,9 @@
         "edit_house": "ເເກ້ໄຂ ເຮືອນ ຫຼື ຫ້ອງເຊົ່າ",
         "user": "ຜູ້ໃຊ້ລະບົບ",
         "add_user": "ເພີ່ມ ຜູ້ໃຊ້ລະບົບ",
-        "edit_user": "ອັບເດດ ຂໍ້ມູນຜູ້ໃຊ້ລະບົບ"
+        "edit_user": "ອັບເດດ ຂໍ້ມູນຜູ້ໃຊ້ລະບົບ",
+        "appointment": "ນັດໝາຍ",
+        "rent_buy": "ບໍລິການ ເຊົ່າ - ຂາຍ"
     },
     "placeholder": {
         "inputText": "ກະລຸນາປ້ອນກ່ອນ...",
@@ -32,7 +34,9 @@
             "service": "ລາຍການ ຄ່າບໍລິການທັງໝົດ",
             "real_estate": "ລາຍການ ອະສັງຫາທັງໝົດ",
             "payment_history": "ປະຫວັດ ການຊຳລະຄ່າບໍລິການ",
-            "user": "ລາຍການ ຜູ້ໃຊ້ລະບົບທັງໝົດ"
+            "user": "ລາຍການ ຜູ້ໃຊ້ລະບົບທັງໝົດ",
+            "appointment": "ລາຍການ ນັດໝາຍທັງໝົດ",
+            "rent_buy": "ລາຍການ ເຊົ່າ - ຂາຍ ທັງໝົດ"
         },
         "header": {
             "index": "ລຳດັບ",
@@ -66,7 +70,11 @@
             "customer_number": "ລະຫັດລູກຄ້າ",
             "real_esate_number": "ເລກລະຫັດ",
             "bill_number": "ເລກທີ່ບີນ",
-            "info_house": "ຂໍ້ມູນເຮືອນ"
+            "info_house": "ຂໍ້ມູນເຮືອນ",
+            "appointment": "ນັດໝາຍ",
+            "customer_name": "ຊື່ລູກຄ້າ",
+            "customer_phone": "ເບີໂທຕິດຕໍ່",
+            "date_appointment": "ວັນທີນັດໝາຍ"
         },
         "pagination": {
             "show": "ສະເເດງ",
@@ -135,7 +143,10 @@
         "file_reference": "ໄຟລຫຼັກຖານການໂອນເງີນ",
         "update": "ອັບເດດ",
         "role": "ບົດບາດ",
-        "permission": "ໜ້າທີ່ຮັບຜິດຊອບ"
+        "permission": "ໜ້າທີ່ຮັບຜິດຊອບ",
+        "date_appointment": "ວັນທີນັດໝາຍ",
+        "search": "ຄົ້ນຫາ",
+        "real_esate_number": "ເລກລະຫັດ"
     },
     "uploadFile": {
         "uploading": "ກຳລັງອັບໂຫຼດໂປຮໄຟລເຂົ້າລະບົບ ກະລຸນາລໍຖ້າ...",

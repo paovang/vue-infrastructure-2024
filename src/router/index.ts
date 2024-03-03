@@ -10,6 +10,8 @@ import { realEstateServiceRoute } from "@/modules/realEstate/rentHouse/memberSer
 import { paymentServiceHouseRoute } from "@/modules/realEstate/owner/paymentService/routers";
 import { adminPaymentHistoryRoute } from "@/modules/realEstate/admin/paymentHistory/routers";
 import { adminUserRoute } from "@/modules/realEstate/admin/user/routers";
+import { ownerAppointmentRoute } from "@/modules/realEstate/owner/appointment/routers";
+import { ownerRentAndBuyRoute } from "@/modules/realEstate/owner/rent_buy/routers";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,6 +25,8 @@ const router = createRouter({
         ...addressRoute,
         ...realEstateServiceRoute,
         ...ownerHouseRoute,
+        ...ownerAppointmentRoute,
+        ...ownerRentAndBuyRoute,
         ...paymentServiceHouseRoute,
         ...adminPaymentHistoryRoute,
         ...adminUserRoute,

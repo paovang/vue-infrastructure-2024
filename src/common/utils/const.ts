@@ -61,4 +61,22 @@ export const GET_PERMISSIONS = {
     UPDATE: "edit-user",
     DELETE: "delete-user",
   },
+  OWNER_USER: {
+    VIEW: "view-user",
+    CREATE: "create-user",
+    UPDATE: "edit-user",
+    DELETE: "delete-user",
+  },
+  APPOINTMENT: {
+    VIEW: "view-appointment",
+    CREATE: "create-appointment",
+    UPDATE: "edit-appointment",
+    DELETE: "delete-appointment",
+  },
+  RENT_BUY: {
+    VIEW: "view-rent-buy",
+    CREATE: "create-rent-buy",
+    UPDATE: "edit-rent-buy",
+    DELETE: "delete-rent-buy",
+  },
 };

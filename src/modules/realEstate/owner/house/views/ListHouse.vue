@@ -180,37 +180,38 @@
             <Column field="zip_code" :header="$t('table.header.zip_code')"></Column>
             <Column field="wide" :header="$t('table.header.wide')"></Column>
             <Column field="long" :header="$t('table.header.long')"></Column>
+            <Column field="status" :header="$t('table.header.status')"></Column>
             <Column headerStyle="width: 10rem" style="width: 23%">
-                    <template #body="{ data }">
-                        <div class="flex flex-wrap gap-2 btn-right">
-                            <Button 
-                                type="button" 
-                                :label="$t('messages.payment')" 
-                                severity="danger"   
-                                style="color: white;" 
-                                @click="paymentService(data.id)"
-                            />
-                            <Button 
-                                type="button" 
-                                icon="pi pi-pencil" 
-                                rounded 
-                                severity="warning"  
-                                style="color: white;" 
-                                @click="editHouse(data.id)"
-                            />
-                            <Button 
-                                type="button" 
-                                icon="pi pi-trash" 
-                                rounded 
-                                severity="danger"
-                                @click="confirmDelete(data.id)"
-                            />
-                        </div>
-                    </template>
-                </Column>
+                <template #body="{ data }">
+                    <div class="flex flex-wrap gap-2 btn-right">
+                        <!-- <Button 
+                            type="button" 
+                            :label="$t('messages.payment')" 
+                            severity="danger"   
+                            style="color: white;" 
+                            @click="paymentService(data.id)"
+                        /> -->
+                        <Button 
+                            type="button" 
+                            icon="pi pi-pencil" 
+                            rounded 
+                            severity="warning"  
+                            style="color: white;" 
+                            @click="editHouse(data.id)"
+                        />
+                        <Button 
+                            type="button" 
+                            icon="pi pi-trash" 
+                            rounded 
+                            severity="danger"
+                            @click="confirmDelete(data.id)"
+                        />
+                    </div>
+                </template>
+            </Column>
         </DataTable>
 
-        <payment-service-component
+        <!-- <payment-service-component
             ref="createForm"
             :id="false"
             :on-submit="submitData"
@@ -218,7 +219,7 @@
             :is-loading="btnLoading"
             @on-success="clearForm"
             :real-estate-service="findRealEstateService"
-        />
+        /> -->
     </div>
 </template>
 
@@ -237,7 +238,7 @@
     import { HouseEntity } from '../entities/house.entity';
     import { useConfirm } from "primevue/useconfirm";
     import { useToast } from "primevue/usetoast";
-    import PaymentServiceComponent from '../components/PaymentService.component.vue';
+    // import PaymentServiceComponent from '../components/PaymentService.component.vue';
     import { useI18n } from 'vue-i18n';
 
     const { t } = useI18n();
@@ -247,7 +248,7 @@
     const toast = useToast();
     const confirm = useConfirm();
 
-    const { form, getAll, state, setStateFilter, remove, findRealEstateServiceById, findRealEstateService } = houseStore();
+    const { form, getAll, state, setStateFilter, remove } = houseStore();
     const { getOne, realestateType } = realEstateServiceStore();
     const { getAll: getAllProvince, state: stateProvince, setStateFilter: setStateProvinceFilter } = provinceStore();
     const { getAll: getAllDistrict, state: stateDistrict, setStateFilter: setStateDistrictFilter } = districtStore();
@@ -264,25 +265,25 @@
         { id: 'fan', name: 'ພັດລົມ' },
         { id: 'no', name: 'ບໍ່ມີ' },
     ]);
-    const createForm = ref();
-    const btnLoading = ref(false);
+    // const createForm = ref();
+    // const btnLoading = ref(false);
 
 
-    const paymentService = async (id: HouseEntity) => {
-        await findRealEstateServiceById(id);
-        form.id = (id as string);
-        form.service_charge_id = findRealEstateService.data.props ? findRealEstateService.data.props[0].id : undefined;
-        createForm.value.visible = true;
-    }
+    // const paymentService = async (id: HouseEntity) => {
+    //     await findRealEstateServiceById(id);
+    //     form.id = (id as string);
+    //     form.service_charge_id = findRealEstateService.data.props ? findRealEstateService.data.props[0].id : undefined;
+    //     createForm.value.visible = true;
+    // }
 
    
-    async function  submitData() {
-        console.log('paovang: submit 2024');
-    }
+    // async function  submitData() {
+    //     console.log('paovang: submit 2024');
+    // }
 
-    async function clearForm() {
-        console.log('clear....')
-    }
+    // async function clearForm() {
+    //     console.log('clear....')
+    // }
 
     async function initComponent() {
         if (Object.keys(query).length !== 0) {

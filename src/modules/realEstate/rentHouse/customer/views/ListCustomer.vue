@@ -473,7 +473,7 @@
                 })
             }
         }
-        await getAll()
+        await getAll();
     }
 
 

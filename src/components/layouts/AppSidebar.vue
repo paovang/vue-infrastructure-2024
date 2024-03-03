@@ -99,6 +99,24 @@
           to: 'owner.payment.service',
           roles: [GET_ROLES.ADMIN_OWNER, GET_ROLES.USER_OWNER],
           permission: GET_PERMISSIONS.PAYMENT_REAL_ESTATE.VIEW
+        },
+        {
+          key: '9',
+          label: t('sidebar.appointment'),
+          icon: 'pi pi-chart-line',
+          color: 'text-red-500',
+          to: 'owner.appointment',
+          roles: [GET_ROLES.ADMIN_OWNER, GET_ROLES.USER_OWNER],
+          permission: GET_PERMISSIONS.PAYMENT_REAL_ESTATE.VIEW
+        },
+        {
+          key: '10',
+          label: t('sidebar.rent_buy'),
+          icon: 'pi pi-chart-line',
+          color: 'text-red-500',
+          to: 'owner.rent.buy',
+          roles: [GET_ROLES.ADMIN_OWNER, GET_ROLES.USER_OWNER],
+          permission: GET_PERMISSIONS.PAYMENT_REAL_ESTATE.VIEW
         }
       ]
     },
@@ -233,7 +251,9 @@
                       'real.estate.services', 
                       'owner.house', 
                       'owner.payment.service',
-                      'admin.user'
+                      'admin.user',
+                      'owner.appointment',
+                      'owner.rent.buy',
                     ].includes(String(router.currentRoute.value.name)) }"
                   >
                     <li v-for="children in item.children" :key="item.key">
