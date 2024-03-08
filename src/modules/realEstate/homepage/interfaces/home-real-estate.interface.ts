@@ -26,4 +26,6 @@ export interface IHomeRealEstateRepository {
   ): Promise<IResponse<IGPaginated<HouseEntity>>>;
 
   getOne(id: number): Promise<any>;
+
+  getAllData(filter: any): Promise<any>;
 }

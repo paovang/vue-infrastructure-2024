@@ -97,4 +97,16 @@ export class HomeRealEstateRepository implements IHomeRealEstateRepository {
 
     return response.data;
   }
+
+  async getAllData(filter: any): Promise<any> {
+    const response = await this._api.axios({
+      method: "get",
+      url: `get-all-data`,
+      params: {
+        province_id: filter.province_id,
+      },
+    });
+
+    return response.data;
+  }
 }

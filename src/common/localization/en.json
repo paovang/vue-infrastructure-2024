@@ -23,6 +23,7 @@
         "inputFile": "Please Choose File...",
         "inputNumber": "Please Enter x,xxx...",
         "dropdownSelect": "Please Select",
+        "calendarSelect": "Please Select Calendar",
         "textSearch": "Search..."
     },
     "table": {
@@ -74,7 +75,14 @@
             "appointment": "Appointment",
             "customer_name": "Customer Name",
             "customer_phone": "Customer Phone",
-            "date_appointment": "Date Appointment"
+            "date_appointment": "Date Appointment",
+            "reserve_number": "Reserve Number",
+            "reason": "Reason",
+            "date_rent": "Date",
+            "rent_number": "Rent Number",
+            "from_date": "From Date",
+            "to_date": "To Date",
+            "price": "Price"   
         },
         "pagination": {
             "show": "show",
@@ -92,7 +100,12 @@
         "add_item": "Add Item",
         "save_data": "Save Data",
         "edit_data": "Edit Data",
-        "appointment": "Appointment"
+        "appointment": "Appointment",
+        "update": "Update",
+        "cancel": "Cacel",
+        "pending": "Pending",
+        "success": "Success",
+        "rent_buy": "Rent - Buy"
     },
     "messages": {
         "country": "Country",
@@ -146,7 +159,13 @@
         "permission": "Permission",
         "date_appointment": "Date Appointment",
         "search": "Search",
-        "real_esate_number": "Real Estate Number"
+        "real_esate_number": "Real Estate Number",
+        "reserve_number": "Reserve Number",
+        "update_appointment": "Update Appointment",
+        "reason": "Reason",
+        "date_rent_buy": "Date Rent - Buy",
+        "start_date": "Start Date",
+        "appointment": "Appointment"
     },
     "uploadFile": {
         "uploading": "Uploading profile to the system please wait...",
@@ -165,6 +184,12 @@
         "rejectLabel": "Reject",
         "acceptLabel": "Accepted"
     },
+    "confirmUpdateAppointment": {
+        "message": "Do you want to update the status?",
+        "header": "Confirm Update",
+        "rejectLabel": "Cancel",
+        "acceptLabel": "Update"
+    },
     "toast": {
         "summary": {
             "delete": "The data deletion is complete.",
@@ -172,7 +197,8 @@
             "success": "Success.",
             "error": "Error.",
             "duplicate": "The data has already been copied.",
-            "not_duplicate": "No need to copy data"
+            "not_duplicate": "No need to copy data",
+            "cancel_update": "Cancel Update."
         },
         "detail": {
             "delete": "has been deleted.",
@@ -180,13 +206,15 @@
             "successfully": "Success",
             "success_duplicate": "The Data copy completed",
             "cancel_duplicate": "The copy has already been canceled",
-            "choose_file": "Please Choose File."
+            "choose_file": "Please Choose File.",
+            "cancel_update": "has been cancelled."
         }
     },
     "dialog": {
         "header": {
             "update_payment_service": "Update payment service",
-            "manage_appointment": "Manage Appointment"
+            "manage_appointment": "Manage Appointment",
+            "manage_Rent_Buy": "Manage Rent - Buy"
         }
     }
 }

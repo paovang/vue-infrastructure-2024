@@ -10,7 +10,7 @@
                     <Dropdown 
                         name="real_estate_type"
                         v-model="form.real_estate_type_id" 
-                        :options="realestateType.props" 
+                        :options="realEstateTypes.data.props" 
                         optionLabel="name" 
                         :placeholder="$t('placeholder.dropdownSelect')" 
                         class="w-full" 
@@ -58,7 +58,7 @@
                     </label>
                     <Dropdown 
                         v-model="form.province_id" 
-                        :options="stateProvince.data.props" 
+                        :options="provinces.data.props" 
                         optionLabel="name" 
                         placeholder="ກະລຸນາເລືອກກ່ອນ..." 
                         class="w-full" 
@@ -75,7 +75,7 @@
                     </label>
                     <Dropdown 
                         v-model="form.district_id" 
-                        :options="stateDistrict.data.props" 
+                        :options="districts.data.props" 
                         optionLabel="name" 
                         placeholder="Select a City" 
                         class="w-full" 
@@ -145,16 +145,10 @@
     import Divider from 'primevue/divider';
     import { homerealEstateStore } from '@/modules/realEstate/homepage/stores/home.store'
     import { onMounted, ref, computed } from 'vue';
-    import { realEstateServiceStore } from '@/modules/realEstate/rentHouse/memberServices/stores/real-estate-service.store';
     import Dropdown from 'primevue/dropdown';
-    import { provinceStore } from '@/modules/realEstate/address/stores/province.store';
-    import { districtStore } from '@/modules/realEstate/address/stores/district.store';
     import { formatNumber } from '@/common/utils/format.currency';
     
-    const { form, getAll, state, setStateFilter } = homerealEstateStore();
-    const { getOne, realestateType } = realEstateServiceStore();
-    const { getAll: getAllProvince, state: stateProvince, setStateFilter: setStateProvinceFilter } = provinceStore();
-    const { getAll: getAllDistrict, state: stateDistrict, setStateFilter: setStateDistrictFilter } = districtStore();
+    const { form, getAll, state, setStateFilter, getAllData, provinces, districts, realEstateTypes } = homerealEstateStore();
 
     const router = useRouter();
     const { query } = useRoute();
@@ -207,27 +201,33 @@
     }
 
     const filterDistrictByid = async (id: any) => {
-        if (setStateDistrictFilter.filter) {
-            setStateDistrictFilter.filter.province_id = id;
-            await getAllDistrict();
-            stateDistrict.data.props.unshift({ id: 'all', name: 'ທັງໝົດ' });
-            await selectedDistrict();
+       if (setStateFilter.filter) {
+        setStateFilter.filter.province_id = id;
+       }
 
-            if (setStateFilter.filter) {
-                setStateFilter.filter.district_id = form.district_id === 'all' ? '' : form.district_id;
-                setStateFilter.filter.province_id = form.province_id === 'all' ? '' : form.province_id;
-            }
+        await getAllData();
+        await selectedDistrict();
 
-            await getAll();
+        if (setStateFilter.filter) {
+            setStateFilter.filter.district_id = form.district_id === 'all' ? '' : form.district_id;
+            setStateFilter.filter.province_id = form.province_id === 'all' ? '' : form.province_id;
         }
+
+        await getAll();
     }
 
     const selectedDistrict = async () => {
-        form.district_id = stateDistrict.data.props.length > 0 ? stateDistrict.data.props[0].id : undefined;
+        realEstateTypes.data.props.unshift({ id: 'all', name: 'ທັງໝົດ' });
+        provinces.data.props.unshift({ id: 'all', name: 'ທັງໝົດ' });
+        districts.data.props.unshift({ id: 'all', name: 'ທັງໝົດ' });
+        form.district_id = districts.data.props.length > 0 ? districts.data.props[0].id : undefined;
     }
-
+    
     onMounted(async() => {
         await initComponent();
+        await getAllData();
+        realEstateTypes.data.props.unshift({ id: 'all', name: 'ທັງໝົດ' });
+        provinces.data.props.unshift({ id: 'all', name: 'ທັງໝົດ' });
     })
 
 
@@ -249,15 +249,9 @@
 
     const fetchAll = async() => {
         await getAll();
-        await getOne();
-
-        realestateType.props.unshift({ id: 'all', name: 'ທັງໝົດ' });
-        setStateProvinceFilter.limit = 300;
-        await getAllProvince();
-        stateProvince.data.props.unshift({ id: 'all', name: 'ທັງໝົດ' });
-
-        form.real_estate_type_id = realestateType.props.length > 0 ? realestateType.props[0].id : undefined;
-        form.province_id = stateProvince.data.props.length > 0 ? stateProvince.data.props[0].id : undefined;
+        
+        form.real_estate_type_id = realEstateTypes.data.props.length > 0 ? realEstateTypes.data.props[0].id : undefined;
+        form.province_id = provinces.data.props.length > 0 ? provinces.data.props[0].id : undefined;
     }
 
     const viewDetail = async (id: string) => {

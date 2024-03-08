@@ -117,6 +117,33 @@ export const homerealEstateStore = defineStore("home-real-estate-store", () => {
     }
   }
 
+  const provinces = reactive<any>({
+    data: {
+      props: [],
+    },
+  });
+  const districts = reactive<any>({
+    data: {
+      props: [],
+    },
+  });
+
+  const realEstateTypes = reactive<any>({
+    data: {
+      props: [],
+    },
+  });
+
+  async function getAllData() {
+    const response = await service.getAllData(setStateFilter.filter);
+
+    if (response && response.data && response.message === "success") {
+      provinces.data.props = response.data.provinces;
+      districts.data.props = response.data.districts;
+      realEstateTypes.data.props = response.data.realEstateTypes;
+    }
+  }
+
   return {
     state,
     getAll,
@@ -125,5 +152,9 @@ export const homerealEstateStore = defineStore("home-real-estate-store", () => {
     reserveRealEstate,
     getOne,
     realEstateGetOne,
+    provinces,
+    districts,
+    realEstateTypes,
+    getAllData,
   };
 });

@@ -14,6 +14,7 @@ interface Gallery {
 export interface AppointmentEntity {
   id?: string;
   name?: string;
+  reason?: string;
   customer_name?: string;
   customer_tel?: string;
   date_appointment?: Date | string;
@@ -21,6 +22,7 @@ export interface AppointmentEntity {
   prices?: Prices[];
   gallery?: Gallery[];
   estate_list?: {
+    id: number | string;
     service_model?: string;
     image?: string;
     location?: string;

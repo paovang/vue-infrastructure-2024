@@ -26,13 +26,12 @@
                     <div class="col-12 md:col-5">
                         <label>
                             {{ $t('messages.search') }}
-                            <span class="text-red-500"> *</span>
                         </label>
                         <span class="p-input-icon-left w-full flex-order-1 sm:flex-order-0">
                             <i class="pi pi-search" style="margin-top: -10px"/>
                             <input-text
                                 v-model="filteredName"
-                                :placeholder="`${$t('placeholder.textSearch')} (${$t('messages.real_esate_number')}, ${$t('messages.service_model')})`"  
+                                :placeholder="`${$t('placeholder.textSearch')} (${$t('messages.reserve_number')}, ${$t('messages.real_esate_number')}, ${$t('messages.service_model')})`"  
                                 style="font-family: NotoSansLao, Montserrat"
                                 class="w-full"
                                 @keyup.enter="onSearch"
@@ -43,7 +42,6 @@
                     <div class="col-12 md:col-3">
                         <label>
                             {{ $t('messages.status') }}
-                            <span class="text-red-500"> *</span>
                         </label>
                         <Dropdown 
                             name="real_estate_type"
@@ -60,12 +58,10 @@
                     <div class="col-12 md:col-3">
                         <label>
                             {{ $t('messages.date_appointment') }}
-                            <span class="text-red-500"> *</span>
                         </label>
                         <Calendar 
                             v-model="form.date_appointment" 
-                            showIcon iconDisplay="input" 
-                            inputId="icondisplay" 
+                            showIcon
                             style="width: 100%;" 
                             @date-select="onSearch"
                             @input="onSearch"
@@ -88,33 +84,49 @@
                 </template>
             </Column>
             <Column field="date_appointment" :header="$t('table.header.date_appointment')"></Column>
+            <Column field="reserve_number" :header="$t('table.header.reserve_number')"></Column>
             <Column field="customer_name" :header="$t('table.header.customer_name')"></Column>
             <Column field="customer_tel" :header="$t('table.header.customer_phone')"></Column>
             <Column field="estate_list.real_esate_number" :header="$t('table.header.real_esate_number')"></Column>
             <Column field="estate_list.name" :header="$t('table.header.name')"></Column>
             <Column field="estate_list.service_model" :header="$t('table.header.service_model')"></Column>
             <Column field="estate_list.room_type" :header="$t('table.header.room_type')"></Column>
-            <Column field="status" :header="$t('table.header.status')"></Column>
+            <Column field="reason" :header="$t('table.header.reason')"></Column>
+            <Column field="status" :header="$t('table.header.status')">
+                <template #body="rowData">
+                    <span :style="{ color: getStatusColor(rowData.data.status) }">{{ rowData.data.status }}</span>
+                </template>
+            </Column>
             <Column headerStyle="width: 10rem">
-                <template>
+                <template #body="{ data }">
                     <div class="flex flex-wrap gap-2 btn-right">
                         <Button 
                             type="button" 
-                            icon="pi pi-pencil" 
+                            icon="pi pi-pencil"
                             rounded 
-                            severity="warning"  
+                            severity="danger"  
                             style="color: white;" 
+                            :disabled="data.status === 'done' ? true : false"
+                            @click="handleClick(data.id, data.status)"
                         />
                         <!-- <Button 
                             type="button" 
-                            icon="pi pi-trash" 
+                            :label="data.status === 'pending' ? $t('button.cancel') : (data.status === 'done' ? $t('button.success') : $t('button.pending'))"
                             rounded 
-                            severity="danger"
+                            :severity="data.status === 'pending' ? 'danger' : (data.status === 'done' ? 'success' : 'warning')"  
+                            style="color: white;" 
+                            @click="handleClick(data.id, data.status)"
                         /> -->
                     </div>
                 </template>
             </Column>
         </DataTable>
+
+        <update-component
+            ref="editForm" 
+            :id="form.id"
+            @on-success="onSuccess"
+        />
     </div>
 </template>
 
@@ -128,11 +140,29 @@
     import Calendar from 'primevue/calendar';
     import Dropdown from 'primevue/dropdown';
     import InputText from 'primevue/inputtext';
+    import UpdateComponent from '../components/Update.Component.vue';
+    import { AppointmentEntity } from '../entities/appointment.entity';
+
+    // import { useI18n } from 'vue-i18n';
+    // import { useToast } from "primevue/usetoast";
+    // import { useConfirm } from "primevue/useconfirm";
+    // import { AppointmentEntity } from '../entities/appointment.entity';
+
 
     const { form, getAll, setStateFilter, state } = appointmentStore();
     const { query } = useRoute();
     const router = useRouter();
+    // const { t } = useI18n();
+    // const toast = useToast();
+    // const confirm = useConfirm();
 
+    const statuses = ref([
+        { id: 'all', name: 'ທັງໝົດ' },
+        { id: 'pending', name: 'ລໍຖ້າ' },
+        { id: 'done', name: 'ສຳເລັດ' },
+        { id: 'cancel', name: 'ຍົກເລີກ' }
+    ]);
+    const editForm = ref();
     
     const clearSearch = async () => {
         form.status = 'all';
@@ -150,6 +180,10 @@
         }
 
         await getAll();
+    }
+
+    const getStatusColor = (status: string) => {
+      return status === 'done' ? 'green' : (status === 'cancel' ? 'red' : ''); // Add more conditions as needed
     }
 
     async function onClearSearch(e: any) {
@@ -172,12 +206,49 @@
         }
     })
 
-    const statuses = ref([
-        { id: 'all', name: 'ທັງໝົດ' },
-        { id: 'pending', name: 'ລໍຖ້າ' },
-        { id: 'done', name: 'ສຳເລັດ' },
-        { id: 'cancel', name: 'ຍົກເລີກ' }
-    ]);
+    const handleClick = async (id: AppointmentEntity, status: string) => {
+        if (status !== 'done') {
+            form.id = (id as string);
+            editForm.value.visible = true;
+        }
+    }
+
+    const onSuccess = async () => {
+        await fetchAll();
+    }
+
+    // const deleteItem = async () => {
+    //     await update();
+    //     await clearSearch();
+    //     await fetchAll();
+    // }
+
+    // const handleClick = async (id: AppointmentEntity, status: string) => {
+    //     if(status !== 'done') {
+    //         form.id = (id as string);
+    //         form.status = status === 'cancel' ? 'pending' : 'cancel';
+
+    //         await confirmDelete();
+    //     }
+    // }
+
+    // const confirmDelete = async () => {
+    //     confirm.require({
+    //         message: t('confirmUpdateAppointment.message'),
+    //         header: t('confirmUpdateAppointment.header'),
+    //         rejectLabel: t('confirmUpdateAppointment.rejectLabel'),
+    //         acceptLabel: t('confirmUpdateAppointment.acceptLabel'),
+    //         rejectClass: 'p-button-secondary p-button-outlined',
+    //         acceptClass: 'p-button-success',
+    //         accept: async () => {
+    //             await deleteItem();
+    //             toast.add({ severity: 'success', summary: t('toast.summary.success'), detail: t('toast.detail.successfully'), life: 3000 });
+    //         },
+    //         reject: () => {
+    //             toast.add({ severity: 'error', summary: t('toast.summary.cancel_update'), detail: t('toast.detail.cancel_update'), life: 3000 });
+    //         }
+    //     });
+    // }
 
     async function onPageChange(event: DataTablePageEvent) {
         setStateFilter.page = event.page + 1;

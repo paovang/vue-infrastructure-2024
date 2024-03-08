@@ -5,27 +5,27 @@ import {
   IGPaginate,
   IGPaginated,
 } from "@/common/interfaces/pagination.interface";
-import type { IAppointmentRepository } from "../interfaces/appointment.interface";
-import { AppointmentRepository } from "../repositories/appointment.repository";
-import { AppointmentEntity } from "../entities/appointment.entity";
+import type { IRentAndBuyRepository } from "../interfaces/rent-buy.interface";
+import { RentAndBuyRepository } from "../repositories/rent-buy.repository";
+import { RentAndBuyEntity } from "../entities/rent-buy-entity";
 
 @injectable()
-export class GetAllAppointmentUseCase
+export class GetAllRentAndBuyUseCase
   implements
     IGUseCase<
-      IResponse<IGPaginated<AppointmentEntity>>,
-      IGPaginate<AppointmentEntity>
+      IResponse<IGPaginated<RentAndBuyEntity>>,
+      IGPaginate<RentAndBuyEntity>
     >
 {
   constructor(
-    @inject(AppointmentRepository) private _api: IAppointmentRepository
+    @inject(RentAndBuyRepository) private _api: IRentAndBuyRepository
   ) {}
 
   async execute(
     input: IGPaginate<
-      Pick<AppointmentEntity, "status" | "date_appointment" | "name">
+      Pick<RentAndBuyEntity, "service_model" | "from_date" | "to_date">
     >
-  ): Promise<void | IResponse<IGPaginated<AppointmentEntity>>> {
+  ): Promise<void | IResponse<IGPaginated<RentAndBuyEntity>>> {
     try {
       return await this._api.getAll(input);
     } catch (error: any) {

@@ -27,20 +27,19 @@
         >
             <template #header>
                     <div class="col-12 md:col-12 flex flex-row">
-                        <div class="col-12 md:col-2">
+                        <div class="col-12 md:col-3">
                             <label>
                                 {{ $t('messages.payment_date')}}
                             </label>
                             <Calendar 
                                 v-model="paymentDate" 
-                                showIcon iconDisplay="input" 
-                                inputId="icondisplay" 
+                                showIcon
                                 style="width: 100%;" 
                                 @date-select="onSearch"
                                 @input="onSearch"
                             />
                         </div>
-                        <div class="col-12 md:col-2">
+                        <div class="col-12 md:col-3">
                             <label>
                                 {{ $t('messages.status')}}
                             </label>
@@ -56,7 +55,7 @@
                                 @change="onSearch"
                             />
                         </div>
-                        <div class="col-12 md:col-8" style="text-align: right;">
+                        <div class="col-12 md:col-6" style="text-align: right;">
                             <Button 
                                 icon="pi pi-refresh" 
                                 severity="warning" 

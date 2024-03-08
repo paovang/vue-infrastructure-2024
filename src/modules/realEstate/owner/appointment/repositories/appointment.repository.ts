@@ -17,10 +17,10 @@ export class AppointmentRepository implements IAppointmentRepository {
     input: AppointmentEntity
   ): Promise<IResponse<AppointmentEntity>> {
     const response = await this._api.axios({
-      method: "put",
-      url: `/owner/realestate/list/${input.id}`,
+      method: "post",
+      url: `/owner/customer/not/rent/buy/${input.id}`,
       data: {
-        status: input.status,
+        reason: input.reason,
       },
     });
 
@@ -34,7 +34,7 @@ export class AppointmentRepository implements IAppointmentRepository {
   async delete(id: AppointmentEntity): Promise<IResponse<AppointmentEntity>> {
     const response = await this._api.axios({
       method: "delete",
-      url: `/owner/realestate/list/${id}`,
+      url: `/owner/reserve/list/${id}`,
     });
 
     return {

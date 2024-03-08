@@ -107,7 +107,7 @@
           color: 'text-red-500',
           to: 'owner.appointment',
           roles: [GET_ROLES.ADMIN_OWNER, GET_ROLES.USER_OWNER],
-          permission: GET_PERMISSIONS.PAYMENT_REAL_ESTATE.VIEW
+          permission: GET_PERMISSIONS.APPOINTMENT.VIEW
         },
         {
           key: '10',
@@ -116,7 +116,7 @@
           color: 'text-red-500',
           to: 'owner.rent.buy',
           roles: [GET_ROLES.ADMIN_OWNER, GET_ROLES.USER_OWNER],
-          permission: GET_PERMISSIONS.PAYMENT_REAL_ESTATE.VIEW
+          permission: GET_PERMISSIONS.RENT_BUY.VIEW
         }
       ]
     },

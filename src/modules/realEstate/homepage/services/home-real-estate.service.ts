@@ -9,6 +9,7 @@ import { HouseEntity } from "@/modules/realEstate/owner/house/entities/house.ent
 import { GetOneHomeRealEstateUseCase } from "../use-cases/get-one.use-case";
 import { ReserveRealEstateUseCase } from "../use-cases/reserve.use-case";
 import { ReserveRealEstateEntity } from "../entities/reserve.entity";
+import { GetAllDataHomeRealEstateUseCase } from "../use-cases/get-all-data";
 
 @injectable()
 export class HomeRealEstateService {
@@ -18,7 +19,9 @@ export class HomeRealEstateService {
     @inject(GetOneHomeRealEstateUseCase)
     private _getOne: GetOneHomeRealEstateUseCase,
     @inject(ReserveRealEstateUseCase)
-    private _reserve: ReserveRealEstateUseCase
+    private _reserve: ReserveRealEstateUseCase,
+    @inject(GetAllDataHomeRealEstateUseCase)
+    private _getAllData: GetAllDataHomeRealEstateUseCase
   ) {}
 
   async reserve(input: ReserveRealEstateEntity) {
@@ -45,5 +48,9 @@ export class HomeRealEstateService {
 
   async getOne(id: number): Promise<any> {
     return await this._getOne.execute(id);
+  }
+
+  async getAllData(filter: any): Promise<any> {
+    return await this._getAllData.execute(filter);
   }
 }

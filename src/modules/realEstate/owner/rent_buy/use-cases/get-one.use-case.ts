@@ -1,12 +1,12 @@
 import type { IUseCase } from "@/common/interfaces/use-case.interface";
 import { injectable, inject } from "tsyringe";
-import type { IAppointmentRepository } from "../interfaces/appointment.interface";
-import { AppointmentRepository } from "../repositories/appointment.repository";
+import type { IRentAndBuyRepository } from "../interfaces/rent-buy.interface";
+import { RentAndBuyRepository } from "../repositories/rent-buy.repository";
 
 @injectable()
-export class GetOneAppointmentUseCase implements IUseCase {
+export class GetOneRentAndBuyUseCase implements IUseCase {
   constructor(
-    @inject(AppointmentRepository) private _api: IAppointmentRepository
+    @inject(RentAndBuyRepository) private _api: IRentAndBuyRepository
   ) {}
 
   async execute(id: number): Promise<any> {

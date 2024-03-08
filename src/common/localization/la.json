@@ -23,6 +23,7 @@
         "inputFile": "ກະລຸນາເລືອກໄຟລກ່ອນ...",
         "inputNumber": "ກະລຸນາປ້ອນກ່ອນ x,xxx...",
         "dropdownSelect": "ກະລຸນາເລືອກກ່ອນ...",
+        "calendarSelect": "ກະລຸນາເລືອກວັນທີ່ກ່ອນ",
         "textSearch": "ຄົ້ນຫາ..."
     },
     "table": {
@@ -74,7 +75,14 @@
             "appointment": "ນັດໝາຍ",
             "customer_name": "ຊື່ລູກຄ້າ",
             "customer_phone": "ເບີໂທຕິດຕໍ່",
-            "date_appointment": "ວັນທີນັດໝາຍ"
+            "date_appointment": "ວັນທີນັດໝາຍ",
+            "reserve_number": "ລະຫັດນັດໝາຍ",
+            "reason": "ເຫດຜົນ",
+            "date_rent": "ວັນທີ ຊື້ຂາຍ",
+            "rent_number": "ເລກລະຫັດ",
+            "from_date": "ເລີ່ມເເຕ່ວັນທີ",
+            "to_date": "ຫາວັນທີ",
+            "price": "ລາຄາ"   
         },
         "pagination": {
             "show": "ສະເເດງ",
@@ -92,7 +100,12 @@
         "add_item": "ເພີ່ມລາຍການ",
         "save_data": "ບັນທຶກ ຂໍ້ມູນ",
         "edit_data": "ອັບເດດ ຂໍ້ມູນ",
-        "appointment": "ນັດໝາຍເລີຍ"
+        "appointment": "ນັດໝາຍເລີຍ",
+        "update": "ອັບເດດ",
+        "cancel": "ຍົກເລີກ",
+        "pending": "ລໍຖ້າ",
+        "success": "ສຳເລັດ",
+        "rent_buy": "ເຊົ່າ - ຊື້ຂາຍ"
     },
     "messages": {
         "country": "ປະເທດ",
@@ -146,7 +159,14 @@
         "permission": "ໜ້າທີ່ຮັບຜິດຊອບ",
         "date_appointment": "ວັນທີນັດໝາຍ",
         "search": "ຄົ້ນຫາ",
-        "real_esate_number": "ເລກລະຫັດ"
+        "real_esate_number": "ເລກລະຫັດ",
+        "reserve_number": "ລະຫັດນັດໝາຍ",
+        "update_appointment": "ອັບເດດ ການນັດໝາຍ",
+        "reason": "ເຫດຜົນ",
+        "date_rent_buy": "ວັນທີ ເຊົ່າ - ຊື້ຂາຍ",
+        "start_date": "ເລີ່ມເເຕ່ວັນທີ",
+        "appointment": "ນັດໝາຍ",
+        "end_date": "ສີ້ນສຸດ ວັນທີ"
     },
     "uploadFile": {
         "uploading": "ກຳລັງອັບໂຫຼດໂປຮໄຟລເຂົ້າລະບົບ ກະລຸນາລໍຖ້າ...",
@@ -165,6 +185,12 @@
         "rejectLabel": "ຕ້ອງການ",
         "acceptLabel": "ບໍ່ຕ້ອງການ"
     },
+    "confirmUpdateAppointment": {
+        "message": "ທ່ານຕ້ອງການອັບເດດສະຖານະບໍ?",
+        "header": "ຢືນຢັນການອັບເດດ",
+        "rejectLabel": "ຍົກເລີກ",
+        "acceptLabel": "ອັບເດດ"
+    },
     "toast": {
         "summary": {
             "delete": "ການລຶບຂໍ້ມູນສຳເລັດ.",
@@ -172,7 +198,8 @@
             "success": "ສຳເລັດ.",
             "error": "ເກີດຂໍ້ຜິດພາດ.",
             "duplicate": "ໄດ້ທຳການສຳເນົາຂໍ້ມູນເເລ້ວ.",
-            "not_duplicate": "ບໍ່ຕ້ອງການສຳເນົາຂໍ້ມູນ."
+            "not_duplicate": "ບໍ່ຕ້ອງການສຳເນົາຂໍ້ມູນ.",
+            "cancel_update": "ຍົກເລີກການອັບເດດ."
         },
         "detail": {
             "delete": "ຖືກລຶບອອກເເລ້ວ.",
@@ -180,13 +207,15 @@
             "successfully": "ການດຳເນີນສຳເລັດ.",
             "success_duplicate": "ສຳເນົາຂໍ້ມູນສຳເລັດ.",
             "cancel_duplicate": "ຖືກຍົກເລີກການສຳເນົາເເລ້ວ.",
-            "choose_file": "ກະລຸນາເລືອກໄຟລກ່ອນ."
+            "choose_file": "ກະລຸນາເລືອກໄຟລກ່ອນ.",
+            "cancel_update": "ການຍົກເລີກການອັບເດດ."
         }
     },
     "dialog": {
         "header": {
             "update_payment_service": "ອັບເດດ ການຊຳລະຄ່າບໍລິການ",
-            "manage_appointment": "ຈັດການ ການນັດໝາຍ"
+            "manage_appointment": "ຈັດການ ການນັດໝາຍ",
+            "manage_Rent_Buy": "ຈັດການ ເຊົ່າ - ຊື້ຂາຍ"
         }
     }
 }

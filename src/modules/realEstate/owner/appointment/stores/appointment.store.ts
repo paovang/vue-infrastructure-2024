@@ -74,6 +74,8 @@ export const appointmentStore = defineStore("owner-appointment-store", () => {
     try {
       await service.update(form);
       state.error = "";
+      form.id = "";
+      form.reason = "";
     } catch (error: any) {
       let responseError = "";
       if (error.response.status === 422) {

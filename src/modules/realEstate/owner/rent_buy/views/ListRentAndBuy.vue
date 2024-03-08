@@ -3,8 +3,11 @@
         <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
             <span class="p-input-icon-left w-full sm:w-20rem flex-order-1 sm:flex-order-0">
                 <h2 class="mb-3">
-                    {{ $t('table.title.rent_buy') }}
+                    {{ $t('table.title.appointment') }}
                 </h2>
+            </span>
+            <span>
+                <Button icon="pi pi-plus-circle" rounded  @click="addRentAndBuy" />
             </span>
         </div>
         <DataTable 
@@ -23,32 +26,14 @@
         >
             <template #header>
                 <div class="col-12 md:col-12 flex flex-row" style="margin-top: -15px;">
-                    <div class="col-12 md:col-5">
-                        <label>
-                            {{ $t('messages.search') }}
-                            <span class="text-red-500"> *</span>
-                        </label>
-                        <span class="p-input-icon-left w-full flex-order-1 sm:flex-order-0">
-                            <i class="pi pi-search" style="margin-top: -10px"/>
-                            <input-text
-                                v-model="filteredName"
-                                :placeholder="`${$t('placeholder.textSearch')} (${$t('messages.real_esate_number')}, ${$t('messages.service_model')})`"  
-                                style="font-family: NotoSansLao, Montserrat"
-                                class="w-full"
-                                @keyup.enter="onSearch"
-                                @input="onClearSearch"
-                            />
-                        </span>
-                    </div>
                     <div class="col-12 md:col-3">
                         <label>
                             {{ $t('messages.status') }}
-                            <span class="text-red-500"> *</span>
                         </label>
                         <Dropdown 
                             name="real_estate_type"
-                            v-model="form.status" 
-                            :options="statuses" 
+                            v-model="form.service_model" 
+                            :options="serviceModels" 
                             optionLabel="name" 
                             :placeholder="$t('placeholder.dropdownSelect')" 
                             class="w-full" 
@@ -59,19 +44,29 @@
                     </div>
                     <div class="col-12 md:col-3">
                         <label>
-                            {{ $t('messages.date_appointment') }}
-                            <span class="text-red-500"> *</span>
+                            {{ $t('messages.start_date') }}
                         </label>
                         <Calendar 
-                            v-model="form.date_appointment" 
-                            showIcon iconDisplay="input" 
-                            inputId="icondisplay" 
+                            v-model="form.from_date" 
+                            showIcon 
                             style="width: 100%;" 
                             @date-select="onSearch"
                             @input="onSearch"
                         />
                     </div>
-                    <div class="col-12 md:col-1" style="text-align: right;">
+                    <div class="col-12 md:col-3">
+                        <label>
+                            {{ $t('messages.end_date') }}
+                        </label>
+                        <Calendar 
+                            v-model="form.to_date" 
+                            showIcon 
+                            style="width: 100%;" 
+                            @date-select="onSearch"
+                            @input="onSearch"
+                        />
+                    </div>
+                    <div class="col-12 md:col-3" style="text-align: right;">
                         <Button 
                             icon="pi pi-refresh" 
                             severity="warning" 
@@ -87,104 +82,117 @@
                     {{ item.index + 1 }}
                 </template>
             </Column>
-            <Column field="date_appointment" :header="$t('table.header.date_appointment')"></Column>
+            <Column field="date" :header="$t('table.header.date_rent')"></Column>
+            <Column field="number" :header="$t('table.header.rent_number')"></Column>
             <Column field="customer_name" :header="$t('table.header.customer_name')"></Column>
             <Column field="customer_tel" :header="$t('table.header.customer_phone')"></Column>
-            <Column field="estate_list.real_esate_number" :header="$t('table.header.real_esate_number')"></Column>
-            <Column field="estate_list.name" :header="$t('table.header.name')"></Column>
-            <Column field="estate_list.service_model" :header="$t('table.header.service_model')"></Column>
-            <Column field="estate_list.room_type" :header="$t('table.header.room_type')"></Column>
-            <Column field="status" :header="$t('table.header.status')"></Column>
+            <Column field="real_estate_list.real_esate_number" :header="$t('table.header.real_esate_number')"></Column>
+            <Column field="real_estate_list.name" :header="$t('table.header.name')"></Column>
+            <Column field="service_model" :header="$t('table.header.service_model')"></Column>
+            <Column field="from_date" :header="$t('table.header.from_date')"></Column>
+            <Column field="to_date" :header="$t('table.header.to_date')"></Column>
+            <Column :header="$t('table.header.price')">
+                <template #body="{ data }">
+                    {{ formatNumber(data.price , data.currency)}} - ( {{ data.qty }} / {{ data.unit_price }})
+                </template>
+            </Column>
             <Column headerStyle="width: 10rem">
-                <template>
+                <template #body="{ data }">
                     <div class="flex flex-wrap gap-2 btn-right">
                         <Button 
                             type="button" 
-                            icon="pi pi-pencil" 
+                            icon="pi pi-pencil"
                             rounded 
-                            severity="warning"  
+                            severity="danger"  
                             style="color: white;" 
+                            :disabled="data.status === 'done' ? true : false"
                         />
                         <!-- <Button 
                             type="button" 
-                            icon="pi pi-trash" 
+                            :label="data.status === 'pending' ? $t('button.cancel') : (data.status === 'done' ? $t('button.success') : $t('button.pending'))"
                             rounded 
-                            severity="danger"
+                            :severity="data.status === 'pending' ? 'danger' : (data.status === 'done' ? 'success' : 'warning')"  
+                            style="color: white;" 
+                            @click="handleClick(data.id, data.status)"
                         /> -->
                     </div>
                 </template>
             </Column>
         </DataTable>
+
+        <add-rent-buy-component
+            ref="createFromAppointment" 
+            @on-success="onSuccess"
+        />
+
+        <!-- <add-component
+            ref="createForm" 
+            :id="form.id"
+            @on-success="onSuccess"
+        /> -->
     </div>
 </template>
 
 <script setup lang="ts">
     import { computed, onMounted, ref } from 'vue';
-    import { appointmentStore } from '../stores/appointment.store';
+    import { rentAndBuyStore } from '../stores/rent-buy.store';
     import { useRoute, useRouter } from 'vue-router';
     import DataTable, { type DataTablePageEvent } from 'primevue/datatable';
     import Column from 'primevue/column';
     import Button from 'primevue/button';
     import Calendar from 'primevue/calendar';
     import Dropdown from 'primevue/dropdown';
-    import InputText from 'primevue/inputtext';
+    import AddRentBuyComponent from '../components/Add-From-Appointment.Component.vue';
+    // import AddComponent from '../components/Add.Component.vue';
+    import { formatNumber } from '@/common/utils/format.currency';
 
-    const { form, getAll, setStateFilter, state } = appointmentStore();
+    const { form, getAll, setStateFilter, state } = rentAndBuyStore();
     const { query } = useRoute();
     const router = useRouter();
+    // const { t } = useI18n();
+    // const toast = useToast();
+    // const confirm = useConfirm();
 
-    
+    const serviceModels = ref([
+        { id: 'all', name: 'ທັງໝົດ' },
+        { id: 'rent', name: 'ເຊົ່າ' },
+        { id: 'sale', name: 'ຊື້ຂາຍ' }
+    ]);
+    const createFromAppointment = ref();
+    // const createForm = ref();
+
     const clearSearch = async () => {
-        form.status = 'all';
-        form.date_appointment = '';
-        if (setStateFilter.filter?.name !== undefined) {
-            setStateFilter.filter.name = ''
-        }
         await onSearch();
     }
 
     const onSearch = async () => {
         if (setStateFilter.filter) {
-            setStateFilter.filter.status = form.status === 'all' ? '' : form.status;
-            setStateFilter.filter.date_appointment = form.date_appointment;
+            setStateFilter.filter.service_model = form.service_model === 'all' ? '' : form.service_model;
+            setStateFilter.filter.from_date = form.from_date;
+            setStateFilter.filter.to_date = form.to_date;
         }
 
         await getAll();
     }
 
-    async function onClearSearch(e: any) {
-        if (e.target.value === '') {
-            if (setStateFilter.filter?.name !== undefined) {
-                setStateFilter.filter.name = ''
-            }
-            await getAll();
-        }
+    // const getStatusColor = (status: string) => {
+    //   return status === 'done' ? 'green' : (status === 'cancel' ? 'red' : ''); // Add more conditions as needed
+    // }
+
+    const addRentAndBuy = async () => {
+        createFromAppointment.value.visible = true;
     }
 
-    const filteredName = computed<string>({
-        get: () => setStateFilter.filter!.name || '',
-        set: (value) => {
-            if (setStateFilter.filter) {
-                setStateFilter.filter.name = value;
-            } else {
-                setStateFilter.filter = { name: value };
-            }
-        }
-    })
-
-    const statuses = ref([
-        { id: 'all', name: 'ທັງໝົດ' },
-        { id: 'pending', name: 'ລໍຖ້າ' },
-        { id: 'done', name: 'ສຳເລັດ' },
-        { id: 'cancel', name: 'ຍົກເລີກ' }
-    ]);
+    const onSuccess = async () => {
+        await fetchAll();
+    }
 
     async function onPageChange(event: DataTablePageEvent) {
         setStateFilter.page = event.page + 1;
         setStateFilter.limit = event.rows;
 
         const { page, limit } = setStateFilter
-        router.push({ name: 'owner.appointment', query: 
+        router.push({ name: 'owner.rent.buy', query: 
             { 
                 page, 
                 limit
@@ -221,7 +229,7 @@
 
     const fetchAll = async () => {
         await getAll();
-        form.status = 'all';
+        form.service_model = 'all';
     }
 
     onMounted(async() => {

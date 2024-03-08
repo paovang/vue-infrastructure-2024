@@ -114,7 +114,7 @@ export const provinceStore = defineStore("province-store", () => {
       filter: setStateFilter.filter,
     });
 
-    if (results && results.data && results.status == "success") {
+    if (results && results.data && results.status === "success") {
       state.data.props = results.data.props;
       state.data.total = results.data.total;
       state.isLoading = false;
