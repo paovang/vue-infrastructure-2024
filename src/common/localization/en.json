@@ -82,7 +82,8 @@
             "rent_number": "Rent Number",
             "from_date": "From Date",
             "to_date": "To Date",
-            "price": "Price"   
+            "price": "Price",
+            "total": "Total"   
         },
         "pagination": {
             "show": "show",
@@ -165,7 +166,9 @@
         "reason": "Reason",
         "date_rent_buy": "Date Rent - Buy",
         "start_date": "Start Date",
-        "appointment": "Appointment"
+        "appointment": "Appointment",
+        "customer_name": "Customer Name",
+        "customer_tel": "Customer Phone Number"
     },
     "uploadFile": {
         "uploading": "Uploading profile to the system please wait...",
@@ -198,7 +201,8 @@
             "error": "Error.",
             "duplicate": "The data has already been copied.",
             "not_duplicate": "No need to copy data",
-            "cancel_update": "Cancel Update."
+            "cancel_update": "Cancel Update.",
+            "no_list_appointment": "No List Appointments"
         },
         "detail": {
             "delete": "has been deleted.",

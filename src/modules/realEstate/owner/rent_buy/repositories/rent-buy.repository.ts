@@ -42,9 +42,8 @@ export class RentAndBuyRepository implements IRentAndBuyRepository {
       method: "post",
       url: `/owner/rent/buy/from/reserve/${input.appointment_id}`,
       data: {
-        service_model: input.service_model,
         qty: input.qty,
-        unit_price: input.unit_price,
+        real_estate_price_id: input.unit_price,
         detail: input.detail,
         date: appointmentDate ? formatDate(appointmentDate) : null,
         from_date: startDate ? formatDate(startDate) : null,
@@ -59,11 +58,49 @@ export class RentAndBuyRepository implements IRentAndBuyRepository {
   }
 
   async update(input: RentAndBuyEntity): Promise<IResponse<RentAndBuyEntity>> {
+    const fromDate = input.from_date;
+    let startDate = "";
+
+    if (typeof fromDate !== "undefined") {
+      if (fromDate instanceof Date) {
+        const year = fromDate.getFullYear();
+        const month = (fromDate.getMonth() + 1).toString().padStart(2, "0"); // Adding 1 to month as it's zero-based
+        const day = fromDate.getDate().toString().padStart(2, "0");
+
+        startDate = `${year}-${month}-${day}`;
+      } else {
+        startDate = fromDate;
+      }
+    }
+
+    const dateAppointment = input.date_appointment;
+    let appointmentDate = "";
+
+    if (typeof dateAppointment !== "undefined") {
+      if (dateAppointment instanceof Date) {
+        const year = dateAppointment.getFullYear();
+        const month = (dateAppointment.getMonth() + 1)
+          .toString()
+          .padStart(2, "0");
+        const day = dateAppointment.getDate().toString().padStart(2, "0");
+
+        appointmentDate = `${year}-${month}-${day}`;
+      } else {
+        appointmentDate = dateAppointment;
+      }
+    }
+
     const response = await this._api.axios({
       method: "put",
-      url: `/owner/realestate/list/${input.id}`,
+      url: `/owner/rent/buy/${input.id}`,
       data: {
-        date: input.status,
+        qty: input.qty,
+        detail: input.detail,
+        customer_name: input.customer_name,
+        customer_tel: input.customer_tel,
+        date: appointmentDate ? formatDate(appointmentDate) : null,
+        from_date: startDate ? formatDate(startDate) : null,
+        service_model: input.service_model,
       },
     });
 
@@ -136,6 +173,15 @@ export class RentAndBuyRepository implements IRentAndBuyRepository {
     const response = await this._api.axios({
       method: "get",
       url: "/owner/reserve/list/" + id,
+    });
+
+    return response.data;
+  }
+
+  async getRealEstatePrices(id: number): Promise<any> {
+    const response = await this._api.axios({
+      method: "get",
+      url: "/owner/real-estate-prices/" + id,
     });
 
     return response.data;

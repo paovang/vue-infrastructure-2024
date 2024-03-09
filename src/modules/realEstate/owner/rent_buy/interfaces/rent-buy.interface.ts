@@ -19,4 +19,6 @@ export interface IRentAndBuyRepository {
   ): Promise<IResponse<IGPaginated<RentAndBuyEntity>>>;
 
   getOne(id: number): Promise<any>;
+
+  getRealEstatePrices(id: number): Promise<any>;
 }

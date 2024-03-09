@@ -69,7 +69,7 @@
             "role": "ບົດບາດ",
             "permission": "ໜ້າທີ່ຮັບຜິດຊອບ",
             "customer_number": "ລະຫັດລູກຄ້າ",
-            "real_esate_number": "ເລກລະຫັດ",
+            "real_esate_number": "ເລກລະຫັດເຮືອນ",
             "bill_number": "ເລກທີ່ບີນ",
             "info_house": "ຂໍ້ມູນເຮືອນ",
             "appointment": "ນັດໝາຍ",
@@ -79,10 +79,11 @@
             "reserve_number": "ລະຫັດນັດໝາຍ",
             "reason": "ເຫດຜົນ",
             "date_rent": "ວັນທີ ຊື້ຂາຍ",
-            "rent_number": "ເລກລະຫັດ",
+            "rent_number": "ເລກລະຫັດ ຊື້ຂາຍ",
             "from_date": "ເລີ່ມເເຕ່ວັນທີ",
             "to_date": "ຫາວັນທີ",
-            "price": "ລາຄາ"   
+            "price": "ລາຄາ",
+            "total": "ລວມເປັນເງີນ"   
         },
         "pagination": {
             "show": "ສະເເດງ",
@@ -159,14 +160,16 @@
         "permission": "ໜ້າທີ່ຮັບຜິດຊອບ",
         "date_appointment": "ວັນທີນັດໝາຍ",
         "search": "ຄົ້ນຫາ",
-        "real_esate_number": "ເລກລະຫັດ",
+        "real_esate_number": "ເລກລະຫັດເຮືອນ",
         "reserve_number": "ລະຫັດນັດໝາຍ",
         "update_appointment": "ອັບເດດ ການນັດໝາຍ",
         "reason": "ເຫດຜົນ",
         "date_rent_buy": "ວັນທີ ເຊົ່າ - ຊື້ຂາຍ",
         "start_date": "ເລີ່ມເເຕ່ວັນທີ",
         "appointment": "ນັດໝາຍ",
-        "end_date": "ສີ້ນສຸດ ວັນທີ"
+        "end_date": "ສີ້ນສຸດ ວັນທີ",
+        "customer_name": "ຊື່ລູກຄ້າ",
+        "customer_tel": "ເບີໂທຕິດຕໍ່"
     },
     "uploadFile": {
         "uploading": "ກຳລັງອັບໂຫຼດໂປຮໄຟລເຂົ້າລະບົບ ກະລຸນາລໍຖ້າ...",
@@ -199,7 +202,8 @@
             "error": "ເກີດຂໍ້ຜິດພາດ.",
             "duplicate": "ໄດ້ທຳການສຳເນົາຂໍ້ມູນເເລ້ວ.",
             "not_duplicate": "ບໍ່ຕ້ອງການສຳເນົາຂໍ້ມູນ.",
-            "cancel_update": "ຍົກເລີກການອັບເດດ."
+            "cancel_update": "ຍົກເລີກການອັບເດດ.",
+            "no_list_appointment": "ບໍ່ມີລາຍການນັດໝາຍເເລ້ວ."
         },
         "detail": {
             "delete": "ຖືກລຶບອອກເເລ້ວ.",

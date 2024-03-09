@@ -10,6 +10,23 @@
         <form @submit.prevent="onSubmit()" class="flex flex-column gap-3 h-full">
             <div class="flex flex-column align-items-center justify-content-center">
                 <div class="col-12 md:col-12">
+                    <label>
+                        {{ $t('messages.appointment') }}
+                        <span class="text-red-500"> *</span>
+                    </label>
+                    <Dropdown 
+                        v-model="form.appointment_id" 
+                        :options="stateAppointment.data.props" 
+                        :optionLabel="option => `${option.reserve_number} ( ${option.customer_name} - ${option.customer_tel} ) - ${option.estate_list.name} (${option.estate_list.service_model})`" 
+                        :placeholder="$t('placeholder.dropdownSelect')"  
+                        class="w-full" 
+                        optionValue="id"
+                        :highlightOnSelect="true" 
+                        required
+                        @change="filterAppointment(form.appointment_id)"
+                    />
+                </div>
+                <div class="col-12 md:col-12">
                     <div class="flex flex-column">
                         <form-calendar
                             name="date"
@@ -20,10 +37,10 @@
                         />
                     </div>
                 </div>
-                <div class="col-12 md:col-12" style="margin-top: -20px;">
+                <div class="col-12 md:col-12" style="margin-top: -20px;" v-if="showFromDate">
                     <div class="flex flex-column">
                         <form-calendar
-                            name="start_date"
+                            name="from_date"
                             :label="$t('messages.start_date')"
                             :placeholder="$t('placeholder.calendarSelect')"
                             selection-mode="single"
@@ -36,25 +53,9 @@
                         <span class="text-red-500"> *</span>
                     </label>
                     <Dropdown 
-                        style="margin-top: 8px;"
-                        v-model="form.service_model" 
-                        :options="servicemodels" 
-                        optionLabel="name" 
-                        :placeholder="$t('placeholder.dropdownSelect')" 
-                        optionValue="id"
-                        :highlightOnSelect="true" 
-                        class="w-full" 
-                    />
-                </div>
-                <div class="col-12 md:col-12">
-                    <label>
-                        {{ $t('messages.service_model') }}
-                        <span class="text-red-500"> *</span>
-                    </label>
-                    <Dropdown 
                         v-model="form.unit_price" 
-                        :options="unitPrices" 
-                        optionLabel="name" 
+                        :options="stateGetPrice.data.props" 
+                        :optionLabel="option => `${option.unit_price} - ${formatNumber(option.price, option.currency)}`" 
                         :placeholder="$t('placeholder.dropdownSelect')"  
                         class="w-full" 
                         optionValue="id"
@@ -62,7 +63,7 @@
                         required
                     />
                 </div>
-                <div class="col-12 md:col-12">
+                <div class="col-12 md:col-12" v-if="showFromDate">
                     <div class="flex flex-column">
                         <my-input-number
                             name="quantity"
@@ -71,7 +72,7 @@
                         />
                     </div>
                 </div>
-                <div class="col-12 md:col-12" style="margin-top: -20px;">
+                <div class="col-12 md:col-12" :style="{ marginTop: showFromDate === false ? '0px' : '-20px' }">
                     <div class="flex flex-column">
                         <input-text-area
                             name="remark"
@@ -99,11 +100,17 @@
     import { useForm } from 'vee-validate';
     import Button from 'primevue/button';
     import { useI18n } from 'vue-i18n';
-    import { appointmentStore } from '../stores/appointment.store';
+    import { rentAndBuyStore } from '../stores/rent-buy.store';
     import { useToast } from 'primevue/usetoast';
     import { rentBuyServiceSchema } from '../schemas/rent-buy.schema';
     import Dropdown from 'primevue/dropdown';
     import MyInputNumber from '@/components/customComponents/FormInputNumber.vue';
+    import { appointmentStore } from '@/modules/realEstate/owner/appointment/stores/appointment.store';
+    import { formatNumber } from '@/common/utils/format.currency';
+
+
+    const { state: stateAppointment, setStateFilter: setStateFilterAppointment, getAll: getAllAppointment } = appointmentStore();
+    const { form, create, state, getRealEstatePrices, stateGetPrice } = rentAndBuyStore();
 
     const { t } = useI18n();
     const toast = useToast();
@@ -113,37 +120,24 @@
     const emit = defineEmits<{ (e: 'onSuccess'): void; (e: 'onHide'): void }>();
     const btnLoading = ref<boolean>(false);
 
-    const props = defineProps<{
-      id?: string
-    }>()
-
-    const servicemodels = ref([
-        { id: 'buy', name: 'ຊື້-ຂາຍ' },
-        { id: 'rent', name: 'ເຊົ່າ' }
-    ]);
-
-    const unitPrices = ref([
-        { id: 'sale', name: 'ບໍລິການ ຊື້-ຂາຍ' },
-        { id: 'day', name: 'ເຊົ່າເປັນມື້' },
-        { id: 'month', name: 'ເຊົ່າເປັນເດືອນ' },
-        { id: 'year', name: 'ເຊົ່າເປັນປີ' },
-    ]);
+    const showFromDate = ref<boolean>(true);
 
     const translatedErrorMessages = {
-        reason: t('placeholder.inputText'),
+        remark: t('placeholder.inputText'),
         date: t('placeholder.calendarSelect'),
     }
-
-    const { form, update, state } = appointmentStore();
 
     const { handleSubmit, handleReset } = useForm<any>({
         validationSchema: rentBuyServiceSchema(translatedErrorMessages)
     })
 
     const onSubmit = handleSubmit(async (value) => {
-        form.id = props.id;
-        form.reason = value.reason;
-        await update();
+        form.qty = value.quantity;
+        form.detail = value.remark;
+        form.date_appointment = value.date;
+        form.from_date = value.from_date;
+
+        await create();
 
         if (state.error) {
             await showWarningValidateBackend();
@@ -154,6 +148,16 @@
         }
     });
 
+    const filterAppointment = async (value: any) => {
+        const filteredProps = stateAppointment.data.props.filter(option => option.id == value);
+
+        if (filteredProps) {
+            showFromDate.value = filteredProps[0].estate_list?.service_model === 'rent' ? true : false;
+
+            await getRealEstatePrices(filteredProps[0].estate_list?.id as number);
+        }
+    }
+
     const clearData = async () => {
         await handleReset();
         emit('onSuccess');
@@ -161,7 +165,12 @@
 
     onMounted(async() => {
         form.service_model = 'buy';
-        form.unit_price = 'sale';
+
+        if (setStateFilterAppointment.filter) {
+            setStateFilterAppointment.filter.status = 'pending';
+            setStateFilterAppointment.limit = 1000;
+        }
+        await getAllAppointment();
     })
 
     const showWarningValidateBackend = () => {
@@ -171,4 +180,4 @@
     const showToastSuccess = () => {
         toast.add({ severity: 'success', summary: t('toast.summary.success'), detail: t('toast.detail.successfully'), life: 3000 });
     }
-</script>../stores/rent-buy.store
+</script>

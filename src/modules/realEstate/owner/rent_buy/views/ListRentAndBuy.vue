@@ -7,7 +7,9 @@
                 </h2>
             </span>
             <span>
-                <Button icon="pi pi-plus-circle" rounded  @click="addRentAndBuy" />
+                <Button label="ເຊົ່າ - ຊື້ຂາຍ ຈາກການນັດໝາຍ" severity="warning"  @click="addRentAndBuyFromAppointment" />
+                <span style="margin-left: 20px;"></span>
+                <Button label="ເຊົ່າ - ຊື້ຂາຍ ທົ່ວໄປ"  @click="addRentAndBuy" />
             </span>
         </div>
         <DataTable 
@@ -93,7 +95,12 @@
             <Column field="to_date" :header="$t('table.header.to_date')"></Column>
             <Column :header="$t('table.header.price')">
                 <template #body="{ data }">
-                    {{ formatNumber(data.price , data.currency)}} - ( {{ data.qty }} / {{ data.unit_price }})
+                    {{ formatNumber(data.price , data.currency)  }} - ( {{ data.qty }} / {{ data.unit_price }})
+                </template>
+            </Column>
+            <Column :header="$t('table.header.total')">
+                <template #body="{ data }">
+                    {{ formatNumber(data.total , data.currency) }}
                 </template>
             </Column>
             <Column headerStyle="width: 10rem">
@@ -103,9 +110,9 @@
                             type="button" 
                             icon="pi pi-pencil"
                             rounded 
-                            severity="danger"  
+                            severity="warning"  
                             style="color: white;" 
-                            :disabled="data.status === 'done' ? true : false"
+                            @click="editItem(data)"
                         />
                         <!-- <Button 
                             type="button" 
@@ -120,16 +127,21 @@
             </Column>
         </DataTable>
 
-        <add-rent-buy-component
+        <add-rent-buy-from-appointment-component
             ref="createFromAppointment" 
             @on-success="onSuccess"
         />
 
-        <!-- <add-component
-            ref="createForm" 
-            :id="form.id"
+        <add-rent-buy-component
+            ref="createFrom" 
             @on-success="onSuccess"
-        /> -->
+        />
+
+        <edit-rent-buy-component
+            ref="editRentAndBuy" 
+            :form="editData"
+            @on-success="onSuccess"
+        />
     </div>
 </template>
 
@@ -142,24 +154,32 @@
     import Button from 'primevue/button';
     import Calendar from 'primevue/calendar';
     import Dropdown from 'primevue/dropdown';
-    import AddRentBuyComponent from '../components/Add-From-Appointment.Component.vue';
-    // import AddComponent from '../components/Add.Component.vue';
+    import AddRentBuyFromAppointmentComponent from '../components/Add-From-Appointment.Component.vue';
+    import AddRentBuyComponent from '../components/Add.Component.vue';
+    import EditRentBuyComponent from '../components/Edit-Rent-Buy.Component.vue';
     import { formatNumber } from '@/common/utils/format.currency';
+    import { useI18n } from 'vue-i18n';
+    import { useToast } from 'primevue/usetoast';
+    import { appointmentStore } from '../../appointment/stores/appointment.store';
+    import { RentAndBuyEntity } from '../entities/rent-buy-entity';
 
     const { form, getAll, setStateFilter, state } = rentAndBuyStore();
+    const { state: stateAppointment } = appointmentStore();
+
     const { query } = useRoute();
     const router = useRouter();
-    // const { t } = useI18n();
-    // const toast = useToast();
-    // const confirm = useConfirm();
+    const { t } = useI18n();
+    const toast = useToast();
 
     const serviceModels = ref([
         { id: 'all', name: 'ທັງໝົດ' },
         { id: 'rent', name: 'ເຊົ່າ' },
-        { id: 'sale', name: 'ຊື້ຂາຍ' }
+        { id: 'buy', name: 'ຊື້ຂາຍ' }
     ]);
     const createFromAppointment = ref();
-    // const createForm = ref();
+    const editRentAndBuy = ref();
+    const createFrom = ref();
+    const editData = ref();
 
     const clearSearch = async () => {
         await onSearch();
@@ -179,8 +199,21 @@
     //   return status === 'done' ? 'green' : (status === 'cancel' ? 'red' : ''); // Add more conditions as needed
     // }
 
+    const editItem = async (data: RentAndBuyEntity) => {
+        editData.value = data;
+        editRentAndBuy.value.visible = true;
+    }
+
+    const addRentAndBuyFromAppointment = async () => {
+        if (stateAppointment.data.props.length > 0) {
+            createFromAppointment.value.visible = true;
+        } else {
+            await alertItemEmpty();
+        }
+    }
+
     const addRentAndBuy = async () => {
-        createFromAppointment.value.visible = true;
+        createFrom.value.visible = true;
     }
 
     const onSuccess = async () => {
@@ -235,6 +268,10 @@
     onMounted(async() => {
         await initComponent();
     })
+
+    const alertItemEmpty = async () => {
+        toast.add({ severity: 'error', summary: t('toast.summary.no_list_appointment'), detail: t('toast.detail.cancel_delete'), life: 3000 });
+    }
     
 </script>
 

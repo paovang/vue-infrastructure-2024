@@ -74,6 +74,7 @@ export const rentAndBuyStore = defineStore("owner-rent-buy-store", () => {
     try {
       await service.create(form);
       state.error = "";
+      await clearData();
     } catch (error: any) {
       let responseError = "";
       if (error.response.status === 422) {
@@ -101,6 +102,7 @@ export const rentAndBuyStore = defineStore("owner-rent-buy-store", () => {
     try {
       await service.update(form);
       state.error = "";
+      await clearData();
     } catch (error: any) {
       let responseError = "";
       if (error.response.status === 422) {
@@ -140,6 +142,29 @@ export const rentAndBuyStore = defineStore("owner-rent-buy-store", () => {
     state.isLoading = false;
   }
 
+  const stateGetPrice = reactive<any>({
+    data: {
+      props: [],
+    },
+  });
+
+  async function getRealEstatePrices(id: number) {
+    const response = await service.getRealEstatePrices(id);
+
+    if (response && response.data && response.message === "success") {
+      stateGetPrice.data.props = response.data;
+    }
+  }
+
+  async function clearData() {
+    form.date_appointment = "";
+    form.from_date = "";
+    form.appointment_id = "";
+    form.unit_price = "";
+    form.qty = "";
+    form.detail = "";
+  }
+
   return {
     state,
     setStateFilter,
@@ -149,5 +174,7 @@ export const rentAndBuyStore = defineStore("owner-rent-buy-store", () => {
     update,
     create,
     remove,
+    getRealEstatePrices,
+    stateGetPrice,
   };
 });
