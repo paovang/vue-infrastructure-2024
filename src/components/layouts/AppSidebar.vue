@@ -179,7 +179,7 @@
   }
 
   const hasMatchingRoleAndPermission = (childRoles: any, permission: string) => {
-    if (currentRoles.includes(GET_ROLES.SUPER_ADMIN) || currentRoles.includes(GET_ROLES.ADMIN_OWNER)) {
+    if (currentRoles.includes(GET_ROLES.SUPER_ADMIN) || currentRoles.includes(GET_ROLES.ADMIN) || currentRoles.includes(GET_ROLES.ADMIN_OWNER)) {
       return childRoles.some((role: string) => currentRoles.includes(role));
     } else {
       return currentPermissions.includes(permission);
@@ -258,7 +258,7 @@
                   >
                     <li v-for="children in item.children" :key="item.key">
                         <a 
-                          v-if="hasMatchingRoleAndPermission(children.roles ,children.permission)"
+                          v-if="hasMatchingRoleAndPermission(children.roles, children.permission)"
                           @click="goToRoute(children.to)"
                           :class="{ 'bg-highlight': router.currentRoute.value.name === children.to }"
                           v-ripple 
