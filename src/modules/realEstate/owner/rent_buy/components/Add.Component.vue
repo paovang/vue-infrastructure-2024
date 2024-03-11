@@ -11,22 +11,43 @@
             <div class="flex flex-column align-items-center justify-content-center">
                 <div class="col-12 md:col-12">
                     <label>
-                        {{ $t('messages.appointment') }}
+                        {{ $t('messages.house') }}
                         <span class="text-red-500"> *</span>
                     </label>
                     <Dropdown 
-                        v-model="form.appointment_id" 
-                        :options="stateAppointment.data.props" 
-                        :optionLabel="option => `${option.reserve_number} ( ${option.customer_name} - ${option.customer_tel} ) - ${option.estate_list.name} (${option.estate_list.service_model})`" 
+                        v-model="form.real_estate_id" 
+                        :options="stateGetRealEstateOnline.data.props" 
+                        :optionLabel="option => `${option.real_esate_number} - ${option.real_estate_type.name} - ${option.room_type} - ${option.service_model}`" 
                         :placeholder="$t('placeholder.dropdownSelect')"  
                         class="w-full" 
                         optionValue="id"
                         :highlightOnSelect="true" 
                         required
-                        @change="filterAppointment(form.appointment_id)"
+                        @change="filterRealEstateOnline(form.real_estate_id)"
                     />
                 </div>
                 <div class="col-12 md:col-12">
+                    <div class="flex flex-column">
+                        <my-input-text
+                            name="customer_name" 
+                            :label="$t('messages.customer_name')" 
+                            required 
+                            :placeholder="$t('placeholder.inputText')" 
+                            class="h-full" 
+                        />
+                    </div>
+                </div>
+                <div class="col-12 md:col-12" style="margin-top: -20px;">
+                    <div class="flex flex-column">
+                        <my-input-text
+                            name="customer_tel"
+                            :label="$t('messages.customer_tel')"
+                            required
+                            :placeholder="$t('placeholder.inputText')" 
+                        />
+                    </div>
+                </div>
+                <div class="col-12 md:col-12" style="margin-top: -20px;">
                     <div class="flex flex-column">
                         <form-calendar
                             name="date"
@@ -105,12 +126,11 @@
     import { rentBuyServiceSchema } from '../schemas/rent-buy.schema';
     import Dropdown from 'primevue/dropdown';
     import MyInputNumber from '@/components/customComponents/FormInputNumber.vue';
-    import { appointmentStore } from '@/modules/realEstate/owner/appointment/stores/appointment.store';
     import { formatNumber } from '@/common/utils/format.currency';
+    import myInputText from '@/components/customComponents/FormInputText.vue';
 
 
-    const { state: stateAppointment, setStateFilter: setStateFilterAppointment, getAll: getAllAppointment } = appointmentStore();
-    const { form, create, state, getRealEstatePrices, stateGetPrice } = rentAndBuyStore();
+    const { form, create, state, getRealEstatePrices, stateGetPrice, stateGetRealEstateOnline, getRealEstateOnline } = rentAndBuyStore();
 
     const { t } = useI18n();
     const toast = useToast();
@@ -132,10 +152,13 @@
     })
 
     const onSubmit = handleSubmit(async (value) => {
+        form.source_type = 'notAppointment';
         form.qty = value.quantity;
         form.detail = value.remark;
         form.date_appointment = value.date;
         form.from_date = value.from_date;
+        form.customer_name = value.customer_name;
+        form.customer_tel = value.customer_tel;
 
         await create();
 
@@ -144,17 +167,18 @@
         } else {
             await clearData();
             await showToastSuccess();
+            await getRealEstateOnline();
             visible.value = false;
         }
     });
 
-    const filterAppointment = async (value: any) => {
-        const filteredProps = stateAppointment.data.props.filter(option => option.id == value);
+    const filterRealEstateOnline = async (value: any) => {
+        const filteredProps = stateGetRealEstateOnline.data.props.filter((option: any) => option.id == value);
 
         if (filteredProps) {
-            showFromDate.value = filteredProps[0].estate_list?.service_model === 'rent' ? true : false;
+            showFromDate.value = filteredProps[0].service_model === 'rent' ? true : false;
 
-            await getRealEstatePrices(filteredProps[0].estate_list?.id as number);
+            await getRealEstatePrices(filteredProps[0]?.id as number);
         }
     }
 
@@ -164,13 +188,7 @@
     }
 
     onMounted(async() => {
-        form.service_model = 'buy';
-
-        if (setStateFilterAppointment.filter) {
-            setStateFilterAppointment.filter.status = 'pending';
-            setStateFilterAppointment.limit = 1000;
-        }
-        await getAllAppointment();
+        await getRealEstateOnline();
     })
 
     const showWarningValidateBackend = () => {

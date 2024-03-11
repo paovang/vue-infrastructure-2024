@@ -38,23 +38,46 @@ export class RentAndBuyRepository implements IRentAndBuyRepository {
       appointmentDate = `${year}-${month}-${day}`;
     }
 
-    const response = await this._api.axios({
-      method: "post",
-      url: `/owner/rent/buy/from/reserve/${input.appointment_id}`,
-      data: {
-        qty: input.qty,
-        real_estate_price_id: input.unit_price,
-        detail: input.detail,
-        date: appointmentDate ? formatDate(appointmentDate) : null,
-        from_date: startDate ? formatDate(startDate) : null,
-      },
-    });
+    if (input.source_type === "fromAppointment") {
+      const response = await this._api.axios({
+        method: "post",
+        url: `/owner/rent/buy/from/reserve/${input.appointment_id}`,
+        data: {
+          qty: input.qty,
+          real_estate_price_id: input.unit_price,
+          detail: input.detail,
+          date: appointmentDate ? formatDate(appointmentDate) : null,
+          from_date: startDate ? formatDate(startDate) : null,
+        },
+      });
 
-    return {
-      data: response.data,
-      message: "ອັບເດດ ຂໍ້ມູນສຳເລັດເເລ້ວ",
-      status: "success",
-    };
+      return {
+        data: response.data,
+        message: "ອັບເດດ ຂໍ້ມູນສຳເລັດເເລ້ວ",
+        status: "success",
+      };
+    } else {
+      const response = await this._api.axios({
+        method: "post",
+        url: `/owner/rent/buy`,
+        data: {
+          qty: input.qty,
+          real_estate_price_id: input.unit_price,
+          real_estate_list_id: input.real_estate_id,
+          detail: input.detail,
+          customer_name: input.customer_name,
+          customer_tel: input.customer_tel,
+          date: appointmentDate ? formatDate(appointmentDate) : null,
+          from_date: startDate ? formatDate(startDate) : null,
+        },
+      });
+
+      return {
+        data: response.data,
+        message: "ອັບເດດ ຂໍ້ມູນສຳເລັດເເລ້ວ",
+        status: "success",
+      };
+    }
   }
 
   async update(input: RentAndBuyEntity): Promise<IResponse<RentAndBuyEntity>> {
@@ -182,6 +205,15 @@ export class RentAndBuyRepository implements IRentAndBuyRepository {
     const response = await this._api.axios({
       method: "get",
       url: "/owner/real-estate-prices/" + id,
+    });
+
+    return response.data;
+  }
+
+  async getRealEstateOnline(): Promise<any> {
+    const response = await this._api.axios({
+      method: "get",
+      url: "/owner/get-real-estate-online",
     });
 
     return response.data;

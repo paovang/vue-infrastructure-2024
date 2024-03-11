@@ -132,6 +132,7 @@
     })
 
     const onSubmit = handleSubmit(async (value) => {
+        form.source_type = 'fromAppointment';
         form.qty = value.quantity;
         form.detail = value.remark;
         form.date_appointment = value.date;
@@ -144,6 +145,7 @@
         } else {
             await clearData();
             await showToastSuccess();
+            await getAllAppointment();
             visible.value = false;
         }
     });
@@ -160,12 +162,14 @@
 
     const clearData = async () => {
         await handleReset();
+        if (setStateFilterAppointment.filter) {
+            setStateFilterAppointment.filter.status = 'all';
+            setStateFilterAppointment.limit = 10;
+        }
         emit('onSuccess');
     }
 
     onMounted(async() => {
-        form.service_model = 'buy';
-
         if (setStateFilterAppointment.filter) {
             setStateFilterAppointment.filter.status = 'pending';
             setStateFilterAppointment.limit = 1000;

@@ -11,6 +11,7 @@ import { UpdateRentAndBuyUseCase } from "../use-cases/update.use-case";
 import { DeleteRentAndBuyUseCase } from "../use-cases/delete.use-case";
 import { CreateRentAndBuyUseCase } from "../use-cases/create.use-case";
 import { GetRealEstatePricesUseCase } from "../use-cases/get-real-estate-prices.use-case";
+import { GetRealEstateOnlineUseCase } from "../use-cases/get-real-estate-online.use-case";
 
 @injectable()
 export class RentAndBuyService {
@@ -22,7 +23,9 @@ export class RentAndBuyService {
     @inject(DeleteRentAndBuyUseCase) private _delete: DeleteRentAndBuyUseCase,
     @inject(CreateRentAndBuyUseCase) private _create: CreateRentAndBuyUseCase,
     @inject(GetRealEstatePricesUseCase)
-    private _getPrices: GetRealEstatePricesUseCase
+    private _getPrices: GetRealEstatePricesUseCase,
+    @inject(GetRealEstateOnlineUseCase)
+    private _getRealEstateOnline: GetRealEstateOnlineUseCase
   ) {}
 
   async create(input: RentAndBuyEntity) {
@@ -51,5 +54,8 @@ export class RentAndBuyService {
 
   async getRealEstatePrices(id: number): Promise<any> {
     return await this._getPrices.execute(id);
+  }
+  async getRealEstateOnline(): Promise<any> {
+    return await this._getRealEstateOnline.execute();
   }
 }

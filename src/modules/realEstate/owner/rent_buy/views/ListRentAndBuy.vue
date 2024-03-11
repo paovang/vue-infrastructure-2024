@@ -3,7 +3,7 @@
         <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
             <span class="p-input-icon-left w-full sm:w-20rem flex-order-1 sm:flex-order-0">
                 <h2 class="mb-3">
-                    {{ $t('table.title.appointment') }}
+                    {{ $t('table.title.rent_buy') }}
                 </h2>
             </span>
             <span>
@@ -163,7 +163,7 @@
     import { appointmentStore } from '../../appointment/stores/appointment.store';
     import { RentAndBuyEntity } from '../entities/rent-buy-entity';
 
-    const { form, getAll, setStateFilter, state } = rentAndBuyStore();
+    const { form, getAll, setStateFilter, state, stateGetRealEstateOnline } = rentAndBuyStore();
     const { state: stateAppointment } = appointmentStore();
 
     const { query } = useRoute();
@@ -208,12 +208,17 @@
         if (stateAppointment.data.props.length > 0) {
             createFromAppointment.value.visible = true;
         } else {
-            await alertItemEmpty();
+            await alertAppointmentEmpty();
         }
     }
 
     const addRentAndBuy = async () => {
-        createFrom.value.visible = true;
+        if (stateGetRealEstateOnline.data.props.length > 0) {
+            createFrom.value.visible = true;
+        } else {
+            await alertItemEmpty();
+        }
+      
     }
 
     const onSuccess = async () => {
@@ -269,8 +274,12 @@
         await initComponent();
     })
 
+    const alertAppointmentEmpty = async () => {
+        toast.add({ severity: 'error', summary: t('toast.summary.not_found_list_appointment'), detail: t('toast.detail.cancel_delete'), life: 3000 });
+    }
+
     const alertItemEmpty = async () => {
-        toast.add({ severity: 'error', summary: t('toast.summary.no_list_appointment'), detail: t('toast.detail.cancel_delete'), life: 3000 });
+        toast.add({ severity: 'error', summary: t('toast.summary.not_found_item'), detail: t('toast.detail.cancel_delete'), life: 3000 });
     }
     
 </script>

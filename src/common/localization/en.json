@@ -202,7 +202,8 @@
             "duplicate": "The data has already been copied.",
             "not_duplicate": "No need to copy data",
             "cancel_update": "Cancel Update.",
-            "no_list_appointment": "No List Appointments"
+            "not_found_list_appointment": "Not Found List Appointments",
+            "not_found_item": "Not Found Items"
         },
         "detail": {
             "delete": "has been deleted.",

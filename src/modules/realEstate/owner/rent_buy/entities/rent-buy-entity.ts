@@ -1,4 +1,5 @@
 export interface RentAndBuyEntity {
+  source_type?: string;
   id?: string;
   name?: string;
   reason?: string;
@@ -15,6 +16,7 @@ export interface RentAndBuyEntity {
   detail?: string;
   status?: string;
   appointment_id?: string;
+  real_estate_id?: string;
   estate_list?: {
     id: number | string;
     real_esate_number?: string;

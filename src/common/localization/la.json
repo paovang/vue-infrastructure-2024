@@ -203,7 +203,8 @@
             "duplicate": "ໄດ້ທຳການສຳເນົາຂໍ້ມູນເເລ້ວ.",
             "not_duplicate": "ບໍ່ຕ້ອງການສຳເນົາຂໍ້ມູນ.",
             "cancel_update": "ຍົກເລີກການອັບເດດ.",
-            "no_list_appointment": "ບໍ່ມີລາຍການນັດໝາຍເເລ້ວ."
+            "not_found_list_appointment": "ບໍ່ມີລາຍການນັດໝາຍເເລ້ວ",
+            "not_found_item": "ບໍ່ມີລາຍການເເລ້ວ"
         },
         "detail": {
             "delete": "ຖືກລຶບອອກເເລ້ວ.",

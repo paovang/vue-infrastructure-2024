@@ -148,11 +148,25 @@ export const rentAndBuyStore = defineStore("owner-rent-buy-store", () => {
     },
   });
 
+  const stateGetRealEstateOnline = reactive<any>({
+    data: {
+      props: [],
+    },
+  });
+
   async function getRealEstatePrices(id: number) {
     const response = await service.getRealEstatePrices(id);
 
     if (response && response.data && response.message === "success") {
       stateGetPrice.data.props = response.data;
+    }
+  }
+
+  async function getRealEstateOnline() {
+    const response = await service.getRealEstateOnline();
+
+    if (response && response.data && response.message === "success") {
+      stateGetRealEstateOnline.data.props = response.data;
     }
   }
 
@@ -176,5 +190,7 @@ export const rentAndBuyStore = defineStore("owner-rent-buy-store", () => {
     remove,
     getRealEstatePrices,
     stateGetPrice,
+    stateGetRealEstateOnline,
+    getRealEstateOnline,
   };
 });

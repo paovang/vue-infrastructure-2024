@@ -21,4 +21,6 @@ export interface IRentAndBuyRepository {
   getOne(id: number): Promise<any>;
 
   getRealEstatePrices(id: number): Promise<any>;
+
+  getRealEstateOnline(): Promise<any>;
 }
