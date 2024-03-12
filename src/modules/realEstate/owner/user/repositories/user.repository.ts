@@ -16,7 +16,7 @@ export class UserRepository implements IUserRepository {
   async create(input: UserEntity): Promise<IResponse<UserEntity>> {
     const response = await this._api.axios({
       method: "post",
-      url: "/admin/add-user",
+      url: "/owner/add-real-estate-user",
       data: {
         name: input.name,
         email: input.email,
@@ -37,7 +37,7 @@ export class UserRepository implements IUserRepository {
   async update(input: UserEntity): Promise<IResponse<UserEntity>> {
     const response = await this._api.axios({
       method: "put",
-      url: `/admin/edit-user/${input.id}`,
+      url: `/owner/edit-real-estate-user/${input.id}`,
       data: {
         name: input.name,
         email: input.email,
@@ -56,7 +56,7 @@ export class UserRepository implements IUserRepository {
   async delete(id: UserEntity): Promise<IResponse<UserEntity>> {
     const response = await this._api.axios({
       method: "delete",
-      url: `/admin/delete-user/${id}`,
+      url: `/owner/delete-real-estate-user/${id}`,
     });
 
     return {
@@ -70,7 +70,7 @@ export class UserRepository implements IUserRepository {
     args: IGPaginate<Pick<UserEntity, "name" | "role">>
   ): Promise<IResponse<IGPaginated<UserEntity>>> {
     const response = await this._api.axios({
-      url: "/admin/list-users",
+      url: "/owner/list-real-estate-users",
       params: {
         page: args.page,
         per_page: args.limit,
@@ -90,7 +90,7 @@ export class UserRepository implements IUserRepository {
   async getOne(id: number): Promise<any> {
     const response = await this._api.axios({
       method: "get",
-      url: "/admin/list-user/" + id,
+      url: "/owner/list-real-estate-user/" + id,
     });
 
     return response.data;
@@ -101,7 +101,7 @@ export class UserRepository implements IUserRepository {
       method: "get",
       url: "roles",
       params: {
-        roles: [GET_ROLES.ADMIN, GET_ROLES.USER],
+        roles: [GET_ROLES.USER_OWNER],
       },
     });
 
@@ -113,7 +113,7 @@ export class UserRepository implements IUserRepository {
       method: "get",
       url: "permissions",
       params: {
-        types: ["all", "admin"],
+        types: ["all", "owner"],
       },
     });
 

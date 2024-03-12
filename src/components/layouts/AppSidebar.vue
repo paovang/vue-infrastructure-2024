@@ -40,6 +40,7 @@
         {
           key: '1',
           label:  t('sidebar.country'),
+          name: 'admin-country',
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'country',
@@ -49,6 +50,7 @@
         {
           key: '2',
           label: t('sidebar.province'),
+          name: 'admin-province',
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'province',
@@ -58,6 +60,7 @@
         {
           key: '3',
           label: t('sidebar.district'),
+          name: 'admin-district',
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'district',
@@ -67,6 +70,7 @@
         {
           key: '5',
           label: t('sidebar.service'),
+          name: 'admin-service-charge',
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'real.estate.services',
@@ -76,6 +80,7 @@
         {
           key: '6',
           label: t('sidebar.user'),
+          name: 'admin-user',
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'admin.user',
@@ -85,6 +90,7 @@
         {
           key: '7',
           label: t('sidebar.house'),
+          name: 'owner-real-estate',
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'owner.house',
@@ -94,6 +100,7 @@
         {
           key: '8',
           label: t('sidebar.payment_service'),
+          name: 'owner-payment-service',
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'owner.payment.service',
@@ -103,6 +110,7 @@
         {
           key: '9',
           label: t('sidebar.appointment'),
+          name: 'owner-appointment',
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'owner.appointment',
@@ -112,11 +120,22 @@
         {
           key: '10',
           label: t('sidebar.rent_buy'),
+          name: 'owner-rent-buy',
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'owner.rent.buy',
           roles: [GET_ROLES.ADMIN_OWNER, GET_ROLES.USER_OWNER],
           permission: GET_PERMISSIONS.RENT_BUY.VIEW
+        },
+        {
+          key: '10',
+          label: t('sidebar.user'),
+          name: 'owner-user',
+          icon: 'pi pi-chart-line',
+          color: 'text-red-500',
+          to: 'owner.user',
+          roles: [GET_ROLES.ADMIN_OWNER, GET_ROLES.USER_OWNER],
+          permission: GET_PERMISSIONS.OWNER_USER.VIEW
         }
       ]
     },
@@ -178,10 +197,74 @@
    }
   }
 
-  const hasMatchingRoleAndPermission = (childRoles: any, permission: string) => {
+  const hasMatchingRoleAndPermission = (childRoles: any, permission: string, name: string) => {
     if (currentRoles.includes(GET_ROLES.SUPER_ADMIN) || currentRoles.includes(GET_ROLES.ADMIN) || currentRoles.includes(GET_ROLES.ADMIN_OWNER)) {
       return childRoles.some((role: string) => currentRoles.includes(role));
     } else {
+      /** Owner & Admin User */
+      if (name === 'owner-user') {
+        if (permission === 'view-user' && currentRoles.includes(GET_ROLES.USER_OWNER)) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+      if (name === 'admin-user') {
+        if (permission === 'view-user' && currentRoles.includes(GET_ROLES.USER)) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+
+      /** Owner & Admin Real-Estate */
+      if (name === 'owner-real-estate') {
+        if (permission === 'view-real-estate' && currentRoles.includes(GET_ROLES.USER_OWNER)) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+      if (name === 'admin-real-estate') {
+        if (permission === 'view-real-estate' && currentRoles.includes(GET_ROLES.USER)) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+
+      /** Owner & Admin Appointment */
+      if (name === 'owner-appointment') {
+        if (permission === 'view-appointment' && currentRoles.includes(GET_ROLES.USER_OWNER)) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+      if (name === 'admin-appointment') {
+        if (permission === 'view-appointment' && currentRoles.includes(GET_ROLES.USER)) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+
+      /** Owner & Admin Rent-Buy */
+      if (name === 'owner-rent-buy') {
+        if (permission === 'view-rent-buy' && currentRoles.includes(GET_ROLES.USER_OWNER)) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+      if (name === 'admin-rent-buy') {
+        if (permission === 'view-rent-buy' && currentRoles.includes(GET_ROLES.USER)) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+
       return currentPermissions.includes(permission);
     }
   }
@@ -254,17 +337,18 @@
                       'admin.user',
                       'owner.appointment',
                       'owner.rent.buy',
+                      'owner.user'
                     ].includes(String(router.currentRoute.value.name)) }"
                   >
                     <li v-for="children in item.children" :key="item.key">
                         <a 
-                          v-if="hasMatchingRoleAndPermission(children.roles, children.permission)"
+                          v-if="hasMatchingRoleAndPermission(children.roles, children.permission, children.name)"
                           @click="goToRoute(children.to)"
                           :class="{ 'bg-highlight': router.currentRoute.value.name === children.to }"
                           v-ripple 
                           class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
                             <i class="pi pi-chart-line mr-2"></i>
-                            <span class="font-medium">{{ children.label}}</span>
+                            <span class="font-medium">{{ children.label }}</span>
                             <!-- <span 
                               class="inline-flex align-items-center justify-content-center ml-auto bg-primary border-circle" 
                               style="min-width: 1.5rem; height: 1.5rem; font-size: 14px !important; background-color: rgb(233, 141, 3) !important;">

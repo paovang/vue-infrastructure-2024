@@ -12,6 +12,7 @@ import { adminPaymentHistoryRoute } from "@/modules/realEstate/admin/paymentHist
 import { adminUserRoute } from "@/modules/realEstate/admin/user/routers";
 import { ownerAppointmentRoute } from "@/modules/realEstate/owner/appointment/routers";
 import { ownerRentAndBuyRoute } from "@/modules/realEstate/owner/rent_buy/routers";
+import { ownerUserRoute } from "@/modules/realEstate/owner/user/routers";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,6 +31,7 @@ const router = createRouter({
         ...paymentServiceHouseRoute,
         ...adminPaymentHistoryRoute,
         ...adminUserRoute,
+        ...ownerUserRoute,
       ],
     },
     ...authRoute,
