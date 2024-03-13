@@ -43,6 +43,12 @@ export const GET_PERMISSIONS = {
     UPDATE: "edit-real-estate",
     DELETE: "delete-real-estate",
   },
+  REAL_ESTATE_TYPE: {
+    VIEW: "view-real-estate-type",
+    CREATE: "create-real-estate-type",
+    UPDATE: "edit-real-estate-type",
+    DELETE: "delete-real-estate-type",
+  },
   PAYMENT_REAL_ESTATE: {
     VIEW: "view-payment-real-estate",
     CREATE: "create-payment-real-estate",

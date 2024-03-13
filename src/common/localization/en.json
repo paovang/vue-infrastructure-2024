@@ -16,7 +16,8 @@
         "add_user": "Add User",
         "edit_user": "Edit User",
         "appointment": "Appointment",
-        "rent_buy": "Rent - Buy"
+        "rent_buy": "Rent - Buy",
+        "real_estate_type": "Real Estate Type"
     },
     "placeholder": {
         "inputText": "Please Enter...",
@@ -37,7 +38,8 @@
             "payment_history": "Payment History",
             "user": "All User",
             "appointment": "All Appointment",
-            "rent_buy": "All Rent - Buy"
+            "rent_buy": "All Rent - Buy",
+            "real_estate_type":"All Real Estate Type"
         },
         "header": {
             "index": "Number",
@@ -168,7 +170,8 @@
         "start_date": "Start Date",
         "appointment": "Appointment",
         "customer_name": "Customer Name",
-        "customer_tel": "Customer Phone Number"
+        "customer_tel": "Customer Phone Number",
+        "real_estate_type": "Real Estate Type"
     },
     "uploadFile": {
         "uploading": "Uploading profile to the system please wait...",

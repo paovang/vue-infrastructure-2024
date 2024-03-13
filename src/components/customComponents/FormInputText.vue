@@ -20,7 +20,7 @@
     value.value = props.value
   }
 
-  const allowedRouteNames = ['country', 'province', 'district'];
+  const allowedRouteNames = ['country', 'province', 'district', 'real.estate.type'];
   const showLabel = route?.name !== null && route?.name !== undefined && allowedRouteNames.includes(route.name as string);
 </script>
 
