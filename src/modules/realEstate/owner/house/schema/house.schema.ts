@@ -5,5 +5,4 @@ export const houseSchema: ObjectSchema<any> = object({
   location: string().required("ກະລຸນາປ້ອນກ່ອນ..."),
   name: string().required("ກະລຸນາປ້ອນກ່ອນ..."),
   wide: string().required("ກະລຸນາປ້ອນກ່ອນ..."),
-  long: string().required("ກະລຸນາປ້ອນກ່ອນ..."),
 });

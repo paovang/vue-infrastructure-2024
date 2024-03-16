@@ -107,7 +107,7 @@
                         filter
                     />
                 </div>
-                <div class="column is-mobile-12 is-2">
+                <div class="column is-mobile-12 is-2 set-margin-top">
                     <my-input-text 
                         name="village" 
                         :label="$t('messages.village')" 
@@ -116,7 +116,7 @@
                         class="h-full" 
                     />
                 </div>
-                <div class="column is-mobile-12 is-2">
+                <div class="column is-mobile-12 is-2 set-margin-top">
                     <my-input-text 
                         name="zipcode" 
                         :label="$t('messages.zip_code')" 
@@ -124,7 +124,24 @@
                         class="h-full" 
                     />
                 </div>
-                <div class="column is-mobile-12 is-2">
+                <div class="column is-mobile-12 is-2 set-margin-top">
+                    <my-input-text 
+                        name="bed" 
+                        :label="$t('messages.total_bed')"  
+                        :placeholder="$t('placeholder.inputText')"  
+                        class="h-full" 
+                    />
+                </div>
+                <div class="column is-mobile-12 is-2 set-margin-top">
+                    <my-input-text 
+                        name="bath" 
+                        :label="$t('messages.total_bath')"  
+                        :placeholder="$t('placeholder.inputText')"  
+                        class="h-full" 
+                    />
+                </div>
+
+                <div class="column is-mobile-12 is-2 set-margin-top">
                     <my-input-text 
                         name="wide" 
                         :label="$t('messages.wide')"  
@@ -133,25 +150,33 @@
                         class="h-full" 
                     />
                 </div>
-                <div class="column is-mobile-12 is-2">
+                <div class="column is-mobile-12 is-2 set-margin-top">
                     <my-input-text 
                         name="long" 
                         :label="$t('messages.long')"  
-                        required 
                         :placeholder="$t('placeholder.inputText')"  
                         class="h-full" 
                     />
                 </div>
-                <div class="column is-mobile-12 is-4">
+                <div class="column is-mobile-12 is-2 set-margin-top">
+                    <my-input-text 
+                        name="garage" 
+                        :label="$t('messages.garage')"  
+                        required 
+                        :placeholder="$t('placeholder.inputTextGarage')"  
+                        class="h-full" 
+                    />
+                </div>
+                <div class="column is-mobile-12 is-10 set-margin-top">
                     <my-input-text 
                         name="location" 
                         :label="$t('messages.location')" 
                         required 
-                        :placeholder="$t('placeholder.inputText')"  
+                        :placeholder="$t('placeholder.inputTextLocation')"  
                         class="h-full" 
                     />
                 </div>
-                <div class="column is-mobile-12 is-12">
+                <div class="column is-mobile-12 is-12 set-margin-top">
                     <my-input-text-area 
                         name="remark" 
                         :label="$t('messages.details')" 
@@ -400,14 +425,14 @@
     })
 
     const servicemodels = ref([
-        { id: 'sale', name: 'ບໍລິການຂາຍ' },
-        { id: 'rent', name: 'ບໍລິການເຊົ່າ' }
+        { id: 'sale', name: t('messages.service_sale') },
+        { id: 'rent', name: t('messages.service_rent') },
     ]);
     
     const roomTypes = ref([
-        { id: 'air', name: 'ເເອ' },
-        { id: 'fan', name: 'ພັດລົມ' },
-        { id: 'no', name: 'ບໍ່ມີ' },
+        { id: 'air', name: t('messages.air') },
+        { id: 'fan', name: t('messages.fan') },
+        { id: 'no', name: t('messages.none') },
     ]);
 
     const unitPrices = ref([
@@ -591,5 +616,9 @@
     .arrow-left:hover {
         cursor: pointer;
         color: green;
+    }
+
+    .set-margin-top {
+        margin-top: -20px;
     }
 </style>

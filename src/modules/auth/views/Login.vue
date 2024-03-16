@@ -26,16 +26,23 @@
                     />
                     </span>
                 </div>
-              <div>
-                <my-input-password 
-                    style="width: 100% !important;"
-                    name="password"
-                    label="ລະຫັດຜ່ານ"
-                    placeholder="ກະລຸນາປ້ອນກ່ອນ..." 
-                />
+              <div style="margin-top: -30px;">
+                <div class="password-input-container">
+                    <my-input-text-password
+                        :type="showPassword"
+                        name="password"
+                        label="ອີເມວ"
+                        class="w-18rem"
+                        required
+                        placeholder="ກະລຸນາປ້ອນລະຫັດຜ່ານ..."
+                    />
+                    <span class="toggle-password" @click="togglePasswordVisibility">
+                      <i :class="['pi', showPassword ? 'pi-eye-slash' : 'pi-eye']"></i>
+                    </span>
+                  </div>
               </div>
             </div>
-            <div>
+            <div style="margin-top: 20px;">
               <Button
                 class="w-full surface-500 border-none"
                 type="submit"
@@ -45,22 +52,20 @@
             </div>
           </form>
         </div>
-        <span class="white-space-nowrap font-medium ml-2 text-color"
-          >&#9400;2023 Uk Laos | All Rights Reserved</span
-        >
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-    import MyInputText from '@/components/customComponents/FormInputText.vue'
-    import MyInputPassword from '@/components/customComponents/FormInputPassword.vue'
-    import Button from 'primevue/button'
-    import { useForm } from 'vee-validate';
-    import { loginSchema } from '../schema/login.shema'
-    import { useAuthStore } from '../stores/auth.store'
-    import { useToast } from "primevue/usetoast";
+  import MyInputText from '@/components/customComponents/FormInputText.vue'
+  import MyInputTextPassword from '@/components/customComponents/FormInputPass.vue'
+  import Button from 'primevue/button'
+  import { useForm } from 'vee-validate';
+  import { loginSchema } from '../schema/login.shema'
+  import { useAuthStore } from '../stores/auth.store'
+  import { useToast } from "primevue/usetoast";
+  import { ref } from 'vue';
 
     const { form, state, login } = useAuthStore()
     const toast = useToast();
@@ -69,31 +74,57 @@
     })
 
     const loginUser = handleSubmit(async (value) => {
-        await login(value);
+      if (!value.email || !value.password) {
+        await checkEmailPassword();
+        return true;
+      }
 
-        if (state.errorMessage) {
-            showWarningValidateBackend();
-        } else {
-            showToastSuccess();
-            handleReset();
-        }
+      await login(value);
+
+      if (state.errorMessage) {
+          showWarningValidateBackend();
+      } else {
+          showToastSuccess();
+          handleReset();
+      }
     })
 
     const showToastSuccess = () => {
         toast.add({ severity: 'success', summary: 'ສຳເລັດເເລ້ວ', detail: 'ຍີນດີຕ້ອນຮັບເຂົ້າສູ່ລະບົບ.', life: 3000 });
     }
 
+    const checkEmailPassword = () => {
+        toast.add({ severity: 'error', summary: 'ລອງໃໝ່', detail: 'ກວດສອບອີເມວ ຫຼື ລະຫັດຜ່ານກ່ອນ.', life: 3000 });
+    }
+
     const showWarningValidateBackend = () => {
         toast.add({ severity: 'error', summary: 'ເເຈ້ງເຕືອນ', detail: `${state.errorMessage}`, life: 3000 });
     }
 
+    const showPassword = ref(false);
+    const togglePasswordVisibility = () => {
+      showPassword.value = !showPassword.value;
+    };
 </script>
 
 <style scoped>
     .backgroundImage {
         background: url('https://www.journeyera.com/wp-content/uploads/2022/01/luxury-5-star-hotels-kathmandu-thamel-251085752.jpg');
     }
-    /* .p-input-icon-right > .p-inputtext {
-        width: 100% !important;
-    } */
+    
+    .password-input-container {
+      position: relative;
+    }
+
+    .password-input {
+      padding-right: 30px; /* Adjust as needed based on icon size */
+    }
+
+    .toggle-password {
+      position: absolute;
+      top: 68%;
+      right: 8px; /* Adjust as needed */
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
 </style>

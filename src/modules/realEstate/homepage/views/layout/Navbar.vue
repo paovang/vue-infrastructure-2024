@@ -3,13 +3,24 @@
       <nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
           <a class="navbar-item" @click="goToHome">UK LAO</a>
+          <div class="input-search">
+              <input-text
+                v-model="filterEverything"
+                  :placeholder="$t('placeholder.textSearch')" 
+                  style="font-family: NotoSansLao, Montserrat;"
+                  class="w-full"
+                  name="search"
+                  @keyup.enter="onSearch"
+                  @input="onClearSearch"
+              />
+            </div>
           <div class="navbar-burger" @click="toggleNavbar" data-target="navMenu">
             <span></span>
             <span></span>
             <span></span>
           </div>
         </div>
-        <div id="navbarBasicExample" class="navbar-menu" style="margin-left: 10%;">
+        <!-- <div id="navbarBasicExample" class="navbar-menu" style="margin-left: 10%;">
           <div class="navbar-start">
             <div style="margin-top: 5px; width: 500px !important;">
               <input-text
@@ -22,28 +33,8 @@
                   @input="onClearSearch"
               />
             </div>
-            <!-- <div class="navbar-item has-dropdown is-hoverable">
-              <a class="navbar-link">
-                More
-              </a>
-              <div class="navbar-dropdown">
-                <a class="navbar-item">
-                  About
-                </a>
-                <a class="navbar-item">
-                  Jobs
-                </a>
-                <a class="navbar-item">
-                  Contact
-                </a>
-                <hr class="navbar-divider">
-                <a class="navbar-item">
-                  Report an issue
-                </a>
-              </div>
-            </div> -->
           </div>
-        </div>
+        </div> -->
         <div class="navbar-menu" :class="{ 'is-active': isNavbarActive }">
           <div class="navbar-end">
             <a @click="goToProfile()" class="navbar-item brackets" v-if="isCheckLogin">
@@ -81,7 +72,7 @@
   import { computed, onMounted, ref } from 'vue';
   import { useRouter } from 'vue-router';
   import InputText from 'primevue/inputtext';
-import { homerealEstateStore } from '../../stores/home.store';
+  import { homerealEstateStore } from '../../stores/home.store';
 
   const { getAll, setStateFilter } = homerealEstateStore();
 
@@ -197,12 +188,20 @@ import { homerealEstateStore } from '../../stores/home.store';
     }
 
     @media only screen and (max-width: 767px) {
+      .input-search {
+        width: 250px !important;
+        margin-left: 0px !important;
+      }
       .navbar {
         padding: 0;
       }
     }
 
-  
+    .input-search {
+      margin-top: 5px;
+      width: 500px;
+      margin-left: 50px;
+    }
 
     .home-layout-view {
       padding: 0px 0px 0px 10px;

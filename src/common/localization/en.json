@@ -17,7 +17,7 @@
         "edit_user": "Edit User",
         "appointment": "Appointment",
         "rent_buy": "Rent - Buy",
-        "real_estate_type": "Real Estate Type"
+        "real_estate_type": "Product Type"
     },
     "placeholder": {
         "inputText": "Please Enter...",
@@ -25,7 +25,9 @@
         "inputNumber": "Please Enter x,xxx...",
         "dropdownSelect": "Please Select",
         "calendarSelect": "Please Select Calendar",
-        "textSearch": "Search..."
+        "textSearch": "Search...",
+        "inputTextLocation": "Please Enter Link Location...",
+        "inputTextGarage": "Total Car..."
     },
     "table": {
         "title": {
@@ -39,7 +41,7 @@
             "user": "All User",
             "appointment": "All Appointment",
             "rent_buy": "All Rent - Buy",
-            "real_estate_type":"All Real Estate Type"
+            "real_estate_type":"All Product Type"
         },
         "header": {
             "index": "Number",
@@ -56,7 +58,7 @@
             "phone_number": "Phone Number",
             "created_at": "Created_at",
             "updated_at": "Updated_at",
-            "realestate_type": "Real Estate Type",
+            "realestate_type": "Product Type",
             "service": "Service",    
             "unit_price": "Unit Price",
             "amount": "Amount",
@@ -66,8 +68,8 @@
             "service_model": "Service Model",
             "village": "Village",
             "zip_code": "Zip Code",
-            "wide": "Wide",
-            "long": "Long",
+            "wide": "sqft",
+            "long": "acre Lot",
             "role": "Role",
             "permission": "Permission",
             "customer_number": "Customer Number",
@@ -85,7 +87,7 @@
             "from_date": "From Date",
             "to_date": "To Date",
             "price": "Price",
-            "total": "Total"   
+            "total": "Total"
         },
         "pagination": {
             "show": "show",
@@ -127,7 +129,7 @@
         "address": "Address",
         "password": "Password",
         "confirm_password": "Confirmation Password",
-        "realestate_type": "Real Estate Type",
+        "realestate_type": "Product Type",
         "unit_price": "Unit Price",
         "price": "Price",
         "info": "Info",
@@ -135,8 +137,8 @@
         "room_type": "Room Type",
         "village": "Village",
         "zip_code": "Zip Code",
-        "wide": "Wide",
-        "long": "Long",
+        "wide": "sqft",
+        "long": "acre Lot",
         "currency": "Currency",
         "service_charge": "Service Charge",
         "qty": "Quantity",
@@ -172,12 +174,20 @@
         "appointment": "Appointment",
         "customer_name": "Customer Name",
         "customer_tel": "Customer Phone Number",
-        "real_estate_type": "Real Estate Type",
+        "real_estate_type": "Product Type",
         "open": "Open",
         "close": "Close",
         "pending": "Pending",
         "sign_up": "Sign Up",
-        "my_account": "My Account"
+        "my_account": "My Account",
+        "total_bed": "Total Bed",
+        "total_bath": "Total Bath",
+        "garage": "Garage",
+        "air": "Air",
+        "fan": "Fan",
+        "none": "None",
+        "service_sale": "Sale",
+        "service_rent": "Rent"
     },
     "uploadFile": {
         "uploading": "Uploading profile to the system please wait...",
@@ -237,5 +247,11 @@
             "manage_appointment": "Manage Appointment",
             "manage_Rent_Buy": "Manage Rent - Buy"
         }
+    },
+    "footer": {
+        "shop_on": "Products",
+        "payment_information": "Payment Information",
+        "contact_us": "Contact Us",
+        "customer_service": "Customer Service"
     }
 }

@@ -150,6 +150,12 @@ export const homerealEstateStore = defineStore("home-real-estate-store", () => {
     },
   });
 
+  const footer = reactive<any>({
+    data: {
+      props: "",
+    },
+  });
+
   async function getAllData() {
     const response = await service.getAllData(setStateFilter.filter);
 
@@ -158,6 +164,7 @@ export const homerealEstateStore = defineStore("home-real-estate-store", () => {
       districts.data.props = response.data.districts;
       countries.data.props = response.data.countries;
       realEstateTypes.data.props = response.data.realEstateTypes;
+      footer.data.props = response.data.footer;
     }
   }
 
@@ -210,5 +217,6 @@ export const homerealEstateStore = defineStore("home-real-estate-store", () => {
     formSignUp,
     register,
     isProgressBar,
+    footer,
   };
 });

@@ -17,7 +17,7 @@
         "edit_user": "ອັບເດດ ຂໍ້ມູນຜູ້ໃຊ້ລະບົບ",
         "appointment": "ນັດໝາຍ",
         "rent_buy": "ບໍລິການ ເຊົ່າ - ຂາຍ",
-        "real_estate_type": "ປະເພດບໍລິການ"
+        "real_estate_type": "ປະເພດຊັບສີນ"
     },
     "placeholder": {
         "inputText": "ກະລຸນາປ້ອນກ່ອນ...",
@@ -25,7 +25,9 @@
         "inputNumber": "ກະລຸນາປ້ອນກ່ອນ x,xxx...",
         "dropdownSelect": "ກະລຸນາເລືອກກ່ອນ...",
         "calendarSelect": "ກະລຸນາເລືອກວັນທີ່ກ່ອນ",
-        "textSearch": "ຄົ້ນຫາ..."
+        "textSearch": "ຄົ້ນຫາ...",
+        "inputTextLocation": "ກະລຸນາປ້ອນ ໃສ່ລີ້ງເເຜນທີ່...",
+        "inputTextGarage": "ກະລຸນາປ້ອນ ຈຳນວນລົດ..."
     },
     "table": {
         "title": {
@@ -39,7 +41,7 @@
             "user": "ລາຍການ ຜູ້ໃຊ້ລະບົບທັງໝົດ",
             "appointment": "ລາຍການ ນັດໝາຍທັງໝົດ",
             "rent_buy": "ລາຍການ ເຊົ່າ - ຂາຍ ທັງໝົດ",
-            "real_estate_type": "ປະເພດບໍລິການ ທັງໝົດ"
+            "real_estate_type": "ປະເພດຊັບສີນ ທັງໝົດ"
         },
         "header": {
             "index": "ລຳດັບ",
@@ -56,7 +58,7 @@
             "status": "ສະຖານະ",
             "created_at": "ວັນທີ່ສ້າງ",
             "updated_at": "ອັບເດດລ່າສຸດ",
-            "realestate_type": "ປະເພດບໍລິການ",
+            "realestate_type": "ປະເພດຊັບສີນ",
             "service": "ຄ່າບໍລິການ",
             "unit_price": "ປະເພດຄ່າບໍລິການ",
             "amount": "ຈຳນວນເງີນ",
@@ -66,8 +68,8 @@
             "service_model": "ຮູບເເບບບໍລິການ",
             "village": "ບ້ານ",
             "zip_code": "ລະຫັດ",
-            "wide": "ລວງກ້ວາງ",
-            "long": "ລວງຍາວ",
+            "wide": "ເນື້ອທີ່ດີນ",
+            "long": "ເນື້ອທີ່ເຮືອນ",
             "role": "ບົດບາດ",
             "permission": "ໜ້າທີ່ຮັບຜິດຊອບ",
             "customer_number": "ລະຫັດລູກຄ້າ",
@@ -127,7 +129,7 @@
         "address": "ທີ່ຢູ່ປະຈຸບັນ",
         "password": "ລະຫັດຜ່ານ",
         "confirm_password": "ຢືນຢັນລະຫັດຜ່ານ",
-        "realestate_type": "ປະເພດບໍລິການ",
+        "realestate_type": "ປະເພດຊັບສີນ",
         "unit_price": "ປະເພດຄ່າບໍລິການ",
         "price": "ລາຄາ",
         "info": "ຂໍ້ມູນ",
@@ -135,8 +137,8 @@
         "room_type": "ປະເພດຫ້ອງ",
         "village": "ບ້ານ",
         "zip_code": "ລະຫັດ",
-        "wide": "ລວງຍາວ",
-        "long": "ລວງກ້ວາງ",
+        "wide": "ເນື້ອທີ່ດີນ",
+        "long": "ເນື້ອທີ່ເຮືອນ",
         "currency": "ສະກຸນເງີນ",
         "service_charge": "ຄ່າບໍລິການ",
         "qty": "ຈຳນວນ",
@@ -173,12 +175,20 @@
         "end_date": "ສີ້ນສຸດ ວັນທີ",
         "customer_name": "ຊື່ລູກຄ້າ",
         "customer_tel": "ເບີໂທຕິດຕໍ່",
-        "real_estate_type":"ປະເພດບໍລິການ",
+        "real_estate_type":"ປະເພດຊັບສີນ",
         "open": "ເປີດ",
         "close": "ປິດ",
         "pending": "ລໍຖ້າອະນຸມັດ",
         "sign_up": "ລົງທະບຽນ",
-        "my_account": "ບັນຊີຂອງຂ້ອຍ"
+        "my_account": "ບັນຊີຂອງຂ້ອຍ",
+        "total_bed": "ຈຳນວນຫ້ອງນອນ",
+        "total_bath": "ຈຳນວນຫ້ອງນ້ຳ",
+        "garage": "ທີ່ຈອດລົດ",
+        "air": "ເເອ",
+        "fan": "ພັດລົມ",
+        "none": "ບໍ່ມີ",
+        "service_sale": "ບໍລິການຂາຍ",
+        "service_rent": "ບໍລິການເຊົ່າ"
     },
     "uploadFile": {
         "uploading": "ກຳລັງອັບໂຫຼດໂປຮໄຟລເຂົ້າລະບົບ ກະລຸນາລໍຖ້າ...",
@@ -238,5 +248,11 @@
             "manage_appointment": "ຈັດການ ການນັດໝາຍ",
             "manage_Rent_Buy": "ຈັດການ ເຊົ່າ - ຊື້ຂາຍ"
         }
+    },
+    "footer": {
+        "shop_on": "ສີນຄ້າ",
+        "payment_information": "ການຊຳລະເງີນ",
+        "contact_us": "ຕິດຕໍ່ພວກເຮົາ",
+        "customer_service": "ບໍລິການລູກຄ້າ"
     }
 }

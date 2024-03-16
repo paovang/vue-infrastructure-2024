@@ -289,7 +289,7 @@
         class="flex align-items-center justify-content-center pt-3 overflow-hidden cursor-pointer"
       >
         <img src="https://logomaker.designfreelogoonline.com/media/productdesigner/logo/resized/1286_bird-01.png" style="width: 38px" />
-        <span class="font-bold text-3xl" style="margin-left: 10px">UK LAO</span>
+        <span class="font-bold text-3xl" style="margin-left: 10px" @click="router.push({ name: 'home' })">UK LAO</span>
       </div>
       <br/>
         <div class="overflow-y-auto">

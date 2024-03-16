@@ -2,7 +2,7 @@
     <div>
         <div class="card">
             <div class="columns is-12 is-multiline" style="margin-top: -30px;">
-                <div class="column is-2 is-mobile-12">
+                <div class="column is-4 is-mobile-12">
                     <label>
                         {{ $t('messages.realestate_type') }}
                         <span class="text-red-500"> *</span>
@@ -19,7 +19,7 @@
                         @change="onSearch"
                     />
                 </div>
-                <div class="column is-2 is-mobile-12">
+                <div class="column is-4 is-mobile-12">
                     <label>
                         {{ $t('messages.service_model') }}
                         <span class="text-red-500"> *</span>
@@ -35,7 +35,7 @@
                         @change="onSearch"
                     />
                 </div>
-                <div class="column is-2 is-mobile-12">
+                <div class="column is-4 is-mobile-12">
                     <label>
                         {{ $t('messages.room_type') }}
                         <span class="text-red-500"> *</span>
@@ -51,7 +51,39 @@
                         @change="onSearch"
                     />
                 </div>
-                <div class="column is-2 is-mobile-12">
+                <div class="column is-3 is-mobile-12">
+                    <label>
+                        {{ $t('messages.country') }}
+                    <span class="text-red-500"> *</span>
+                    </label>
+                    <Dropdown 
+                        v-model="form.province_id" 
+                        :options="provinces.data.props" 
+                        optionLabel="name" 
+                        placeholder="ກະລຸນາເລືອກກ່ອນ..." 
+                        class="w-full" 
+                        optionValue="id"
+                        :highlightOnSelect="true" 
+                        filter
+                        @change="filterDistrictByid(form.province_id)"
+                    />
+                </div>
+                <div class="column is-3 is-mobile-12">
+                    <label>
+                        {{ $t('messages.village') }}
+                        <span class="text-red-500"> *</span>
+                    </label>
+                    <input-text
+                        v-model="filterVillage"
+                        :placeholder="$t('placeholder.inputText')" 
+                        style="font-family: NotoSansLao, Montserrat"
+                        class="w-full"
+                        name="village"
+                        @keyup.enter="onSearch"
+                        @input="onClearSearch"
+                    />
+                </div>
+                <div class="column is-3 is-mobile-12">
                     <label>
                         {{ $t('messages.province') }}
                     <span class="text-red-500"> *</span>
@@ -68,7 +100,7 @@
                         @change="filterDistrictByid(form.province_id)"
                     />
                 </div>
-                <div class="column is-2 is-mobile-12">
+                <div class="column is-3 is-mobile-12">
                     <label>
                         {{ $t('messages.district') }}
                         <span class="text-red-500"> *</span>
@@ -83,21 +115,6 @@
                         :highlightOnSelect="true" 
                         filter
                         @change="onSearch"
-                    />
-                </div>
-                <div class="column is-2 is-mobile-12">
-                    <label>
-                        {{ $t('messages.village') }}
-                        <span class="text-red-500"> *</span>
-                    </label>
-                    <input-text
-                        v-model="filterVillage"
-                        :placeholder="$t('placeholder.inputText')" 
-                        style="font-family: NotoSansLao, Montserrat"
-                        class="w-full"
-                        name="village"
-                        @keyup.enter="onSearch"
-                        @input="onClearSearch"
                     />
                 </div>
             </div>
@@ -127,9 +144,9 @@
                         <template #content>
                         <p class="detail">
                             {{ item.real_estate_type?.name }},
-                            <span>{{ item.room_type }}</span>,
-                            <span>ຍາວ: {{ item.wide }}</span>,
-                            <span>ກ້ວາງ: {{ item.long }}</span>
+                            <!-- <span>{{ item.room_type }}</span>, -->
+                            <span>{{ $t('messages.wide') }}: {{ item.wide }}</span>,
+                            <span>{{ $t('messages.long') }}: {{ item.long }}</span>
                         </p>
                         <p class="detail">
                             {{  item.village }},
@@ -147,7 +164,6 @@
             :first="first"
             :rows="setStateFilter.limit" 
             :totalRecords="state.data.total" 
-            :rowsPerPageOptions="[8, 12, 24, 36]"
             @page="onPageChange"
         >
         </Paginator>
@@ -183,18 +199,6 @@
         { id: 'fan', name: 'ພັດລົມ' },
         { id: 'no', name: 'ບໍ່ມີ' },
     ]);
-
-
-    const onSearch = async () => {
-        if (setStateFilter.filter) {
-            setStateFilter.filter.real_estate_type_id = form.real_estate_type_id === 'all' ? '' : form.real_estate_type_id;
-            setStateFilter.filter.service_model = form.service_model === 'all' ? '' : form.service_model;
-            setStateFilter.filter.room_type = form.room_type === 'all' ? '' : form.room_type;
-            setStateFilter.filter.district_id = form.district_id === 'all' ? '' : form.district_id;
-        }
-        
-        await getAll();
-    }
 
     const filterVillage = computed<string>({
         get: () => setStateFilter.filter!.village || '',
@@ -248,17 +252,53 @@
         provinces.data.props.unshift({ id: 'all', name: 'ທັງໝົດ' });
     })
 
+    const onSearch = async () => {
+        if (setStateFilter.filter) {
+            setStateFilter.filter.real_estate_type_id = form.real_estate_type_id === 'all' ? '' : form.real_estate_type_id;
+            setStateFilter.filter.service_model = form.service_model === 'all' ? '' : form.service_model;
+            setStateFilter.filter.room_type = form.room_type === 'all' ? '' : form.room_type;
+            setStateFilter.filter.district_id = form.district_id === 'all' ? '' : form.district_id;
+        }
+
+        router.push({
+            query: {
+                page: setStateFilter.page,
+                limit: setStateFilter.limit,
+                real_estate_type_id: form.real_estate_type_id,
+                service_model: form.service_model,
+                room_type: form.room_type,
+                district_id: form.district_id,
+            }
+        })
+        
+        await getAll();
+    }
 
     async function initComponent() {
         if (Object.keys(query).length !== 0) {
             setStateFilter.page = query.page ? Number(query.page) : 1
             setStateFilter.limit = query.limit ? Number(query.limit) : 10
-
+            const realEstateTypeId = query.real_estate_type_id !== undefined ? String(query.real_estate_type_id) : undefined;
+            const serviceModel = query.service_model !== undefined ? String(query.service_model) : undefined;
+            const roomType = query.room_type !== undefined ? String(query.room_type) : undefined;
+            const districtId = query.district_id !== undefined ? String(query.district_id) : undefined;
+            
+            if (setStateFilter.filter) {
+                setStateFilter.filter.real_estate_type_id = realEstateTypeId !== 'all' ? realEstateTypeId : "";
+                setStateFilter.filter.service_model = serviceModel !== 'all' ? serviceModel : "";
+                setStateFilter.filter.room_type = roomType !== 'all' ? roomType : "";
+                setStateFilter.filter.district_id = districtId !== 'all' ? districtId : "";
+            }
+            
 
             router.push({
                 query: {
                     page: setStateFilter.page,
-                    limit: setStateFilter.limit
+                    limit: setStateFilter.limit,
+                    real_estate_type_id: realEstateTypeId,
+                    service_model: serviceModel,
+                    room_type: roomType,
+                    district_id: districtId,
                 }
             })
         }
