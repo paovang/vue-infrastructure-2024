@@ -24,6 +24,7 @@ export interface IHomeRealEstateRepository {
         | "province_id"
         | "wide"
         | "long"
+        | "search"
       >
     >
   ): Promise<IResponse<IGPaginated<HouseEntity>>>;

@@ -30,6 +30,7 @@ export class GetAllHomeRealEstateUseCase
         | "province_id"
         | "wide"
         | "long"
+        | "search"
       >
     >
   ): Promise<void | IResponse<IGPaginated<HouseEntity>>> {

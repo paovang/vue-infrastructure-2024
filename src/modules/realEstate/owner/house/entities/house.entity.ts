@@ -56,6 +56,7 @@ export interface HouseEntity {
     fromDate?: Date;
     filezPaySlip: string;
   };
+  search?: string;
   created_at?: string;
   updated_at?: string;
 }

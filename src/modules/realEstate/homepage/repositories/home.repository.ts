@@ -63,6 +63,7 @@ export class HomeRealEstateRepository implements IHomeRealEstateRepository {
         | "province_id"
         | "wide"
         | "long"
+        | "search"
       >
     >
   ): Promise<IResponse<IGPaginated<HouseEntity>>> {
@@ -71,6 +72,7 @@ export class HomeRealEstateRepository implements IHomeRealEstateRepository {
       params: {
         page: args.page,
         per_page: args.limit,
+        search: args.filter?.search,
         room_type: args.filter?.room_type,
         real_estate_type_id: args.filter?.real_estate_type_id,
         service_model: args.filter?.service_model,

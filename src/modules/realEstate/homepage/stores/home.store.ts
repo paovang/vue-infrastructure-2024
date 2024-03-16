@@ -26,6 +26,10 @@ export const homerealEstateStore = defineStore("home-real-estate-store", () => {
     error: "",
   });
 
+  const isProgressBar = reactive({
+    isShow: true,
+  });
+
   type FilterType = Pick<
     HouseEntity,
     | "real_estate_type_id"
@@ -36,10 +40,11 @@ export const homerealEstateStore = defineStore("home-real-estate-store", () => {
     | "province_id"
     | "wide"
     | "long"
+    | "search"
   >;
   const setStateFilter = reactive<IGPaginate<FilterType>>({
     page: 1,
-    limit: 12,
+    limit: 4,
     filter: {
       real_estate_type_id: "",
       service_model: "",
@@ -49,6 +54,7 @@ export const homerealEstateStore = defineStore("home-real-estate-store", () => {
       province_id: "",
       wide: "",
       long: "",
+      search: "",
     },
   });
 
@@ -72,6 +78,7 @@ export const homerealEstateStore = defineStore("home-real-estate-store", () => {
 
   async function getAll() {
     state.isLoading = true;
+    isProgressBar.isShow = true;
     const results = await service.getAll({
       page: setStateFilter.page,
       limit: setStateFilter.limit,
@@ -82,6 +89,7 @@ export const homerealEstateStore = defineStore("home-real-estate-store", () => {
       state.data.props = results.data.props;
       state.data.total = results.data.total;
       state.isLoading = false;
+      isProgressBar.isShow = false;
     }
   }
 
@@ -201,5 +209,6 @@ export const homerealEstateStore = defineStore("home-real-estate-store", () => {
     countries,
     formSignUp,
     register,
+    isProgressBar,
   };
 });

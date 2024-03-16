@@ -177,7 +177,8 @@
         "open": "ເປີດ",
         "close": "ປິດ",
         "pending": "ລໍຖ້າອະນຸມັດ",
-        "sign_up": "ລົງທະບຽນ"
+        "sign_up": "ລົງທະບຽນ",
+        "my_account": "ບັນຊີຂອງຂ້ອຍ"
     },
     "uploadFile": {
         "uploading": "ກຳລັງອັບໂຫຼດໂປຮໄຟລເຂົ້າລະບົບ ກະລຸນາລໍຖ້າ...",
@@ -199,8 +200,8 @@
     "confirmDuplicate": {
         "message": "ທ່ານຕ້ອງການສຳເນົາຂໍ້ມູນບໍ?",
         "header": "ຢືນຢັນເພື່ອທຳການສຳເນົາຂໍ້ມູນ",
-        "rejectLabel": "ຕ້ອງການ",
-        "acceptLabel": "ບໍ່ຕ້ອງການ"
+        "rejectLabel": "ບໍ່ຕ້ອງການ",
+        "acceptLabel": "ຕ້ອງການ"
     },
     "confirmUpdateAppointment": {
         "message": "ທ່ານຕ້ອງການອັບເດດສະຖານະບໍ?",

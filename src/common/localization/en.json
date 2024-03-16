@@ -176,7 +176,8 @@
         "open": "Open",
         "close": "Close",
         "pending": "Pending",
-        "sign_up": "Sign Up"
+        "sign_up": "Sign Up",
+        "my_account": "My Account"
     },
     "uploadFile": {
         "uploading": "Uploading profile to the system please wait...",

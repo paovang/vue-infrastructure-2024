@@ -25,7 +25,7 @@
                             class="w-full" 
                             optionValue="id"
                             :highlightOnSelect="true" 
-                            @change="filterRealEstateService(form.id as HouseEntity)"
+                            @change="filterRealEstateService(form.id)"
                         />
                     </div>
                 </div>
@@ -111,7 +111,7 @@
     import { ref, watch } from 'vue';
     import { houseStore } from '@/modules/realEstate/owner/house/stores/house.store'
     import Dropdown from 'primevue/dropdown';
-    import { HouseEntity } from '../../house/entities/house.entity';
+    // import { HouseEntity } from '../../house/entities/house.entity';
     import { paymentStore } from '../stores/payment.store';
     import MyInputNumber from '@/components/customComponents/FormInputNumber.vue';
     import Calendar from 'primevue/calendar';
@@ -187,7 +187,7 @@
         form.fromDate = new Date();
     }
 
-    const filterRealEstateService = async (id: HouseEntity) => {
+    const filterRealEstateService = async (id: any) => {
         await findRealEstateServiceById(id);
         form.service_charge_id = findRealEstateService.data.props ? findRealEstateService.data.props[0].id : undefined;
     }
@@ -231,7 +231,7 @@
         await getAll();
         form.id = props.data.id;
         form.real_estate_list_id = props.data.real_estate_list.id;
-        await findRealEstateServiceById(form.real_estate_list_id as HouseEntity);
+        await findRealEstateServiceById(form.real_estate_list_id as any);
         form.service_charge_id = props.data.service_charge_list.id;
         setFieldValue('quantity', props.data.qty);
         form.fromDate = props.data.from_date;

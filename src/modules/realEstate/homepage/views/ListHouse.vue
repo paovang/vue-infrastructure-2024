@@ -104,38 +104,53 @@
         </div>
         <Divider style="margin-top: -20px;" />
         <br/>
-        <div class="columns is-12 is-multiline">
-            <div class="column is-3 is-mobile-12" v-for="(item, index) in state.data.props" :key="index">
-                <Card class="is-card" @click="viewDetail(item.id as string)">
-                    <template #header>
-                        <img :src="item.image" alt="user header" style="width: 100%;" />
-                    </template>
-                    <template #title>
-                    <span>
-                        {{ formatNumber(item.price?.[0]?.price, item.country?.currency) }}
-                    </span>
-                    </template>
-                    <template #subtitle>
-                    <span>{{ item.name }}</span> |
-                    <span>{{ item.status }}</span> |
-                    <span>{{ item.service_model }}</span>
-                    </template>
-                    <template #content>
-                    <p class="detail">
-                        {{ item.real_estate_type?.name }},
-                        <span>{{ item.room_type }}</span>,
-                        <span>ຍາວ: {{ item.wide }}</span>,
-                        <span>ກ້ວາງ: {{ item.long }}</span>
-                    </p>
-                    <p class="detail">
-                        {{  item.village }},
-                        {{  item.district?.name }},
-                        {{  item.province?.name }}
-                    </p>
-                    </template>
-                </Card>
+        <div class="flex justify-content-center">
+            <ProgressSpinner v-if="isProgressBar.isShow"/>
+        </div>
+        <div style="min-height: 50vh;">
+            <div class="columns is-12 is-multiline" v-if="!isProgressBar.isShow">
+                <div class="column is-3 is-mobile-12" v-for="(item, index) in state.data.props" :key="index">
+                    <Card class="is-card" @click="viewDetail(item.id as string)">
+                        <template #header>
+                            <img :src="item.image" alt="user header" style="width: 100%; height: 200px;" />
+                        </template>
+                        <template #title>
+                        <span>
+                            {{ formatNumber(item.price?.[0]?.price, item.country?.currency) }}
+                        </span>
+                        </template>
+                        <template #subtitle>
+                        <span>{{ item.name }}</span> |
+                        <span>{{ item.status }}</span> |
+                        <span>{{ item.service_model }}</span>
+                        </template>
+                        <template #content>
+                        <p class="detail">
+                            {{ item.real_estate_type?.name }},
+                            <span>{{ item.room_type }}</span>,
+                            <span>ຍາວ: {{ item.wide }}</span>,
+                            <span>ກ້ວາງ: {{ item.long }}</span>
+                        </p>
+                        <p class="detail">
+                            {{  item.village }},
+                            {{  item.district?.name }},
+                            {{  item.province?.name }}
+                        </p>
+                        </template>
+                    </Card>
+                </div>
             </div>
         </div>
+        <br/>
+        <Divider/>
+        <Paginator 
+            :first="first"
+            :rows="setStateFilter.limit" 
+            :totalRecords="state.data.total" 
+            :rowsPerPageOptions="[8, 12, 24, 36]"
+            @page="onPageChange"
+        >
+        </Paginator>
     </div>
 </template>
 <script setup lang='ts'>
@@ -147,8 +162,11 @@
     import { onMounted, ref, computed } from 'vue';
     import Dropdown from 'primevue/dropdown';
     import { formatNumber } from '@/common/utils/format.currency';
+    import Paginator from 'primevue/paginator';
+    import ProgressSpinner from 'primevue/progressspinner';
+
     
-    const { form, getAll, state, setStateFilter, getAllData, provinces, districts, realEstateTypes } = homerealEstateStore();
+    const { form, getAll, state, setStateFilter, getAllData, provinces, districts, realEstateTypes, isProgressBar } = homerealEstateStore();
 
     const router = useRouter();
     const { query } = useRoute();
@@ -174,7 +192,7 @@
             setStateFilter.filter.room_type = form.room_type === 'all' ? '' : form.room_type;
             setStateFilter.filter.district_id = form.district_id === 'all' ? '' : form.district_id;
         }
-       
+        
         await getAll();
     }
 
@@ -201,9 +219,9 @@
     }
 
     const filterDistrictByid = async (id: any) => {
-       if (setStateFilter.filter) {
-        setStateFilter.filter.province_id = id;
-       }
+        if (setStateFilter.filter) {
+            setStateFilter.filter.province_id = id;
+        }
 
         await getAllData();
         await selectedDistrict();
@@ -257,6 +275,30 @@
     const viewDetail = async (id: string) => {
       router.push({ name: 'detail.house', params: { id: id }});
     }
+
+    async function onPageChange(event: any) {
+        setStateFilter.page = event.page + 1;
+        setStateFilter.limit = event.rows;
+
+        const { page, limit } = setStateFilter
+        router.push({ name: 'home', query: 
+            { 
+                page, 
+                limit
+            } 
+        })
+
+        await getAll();
+    }
+
+    const first = computed(() => {
+        let result: number = 0
+
+        if(setStateFilter.page && setStateFilter.limit){
+            result = (setStateFilter.page - 1) * setStateFilter.limit
+        }
+        return result
+    })
     
 </script>
 

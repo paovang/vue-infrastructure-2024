@@ -88,8 +88,11 @@
 
   const selectedLocale = ref();
   const locales = ref([
-      { name: 'ລາວ', code: 'la' },
       { name: 'English', code: 'en' },
+      { name: 'ລາວ', code: 'la' },
+      { name: 'ไทย', code: 'th' },
+      { name: 'Tiếng Việt', code: 'vi' },
+      { name: 'China', code: 'lk' },
   ]);
 
   const setLocale = async () => {
