@@ -108,7 +108,8 @@
         "cancel": "ຍົກເລີກ",
         "pending": "ລໍຖ້າ",
         "success": "ສຳເລັດ",
-        "rent_buy": "ເຊົ່າ - ຊື້ຂາຍ"
+        "rent_buy": "ເຊົ່າ - ຊື້ຂາຍ",
+        "sign_up": "ລົງທະບຽນ"
     },
     "messages": {
         "country": "ປະເທດ",
@@ -172,7 +173,11 @@
         "end_date": "ສີ້ນສຸດ ວັນທີ",
         "customer_name": "ຊື່ລູກຄ້າ",
         "customer_tel": "ເບີໂທຕິດຕໍ່",
-        "real_estate_type":"ປະເພດບໍລິການ"
+        "real_estate_type":"ປະເພດບໍລິການ",
+        "open": "ເປີດ",
+        "close": "ປິດ",
+        "pending": "ລໍຖ້າອະນຸມັດ",
+        "sign_up": "ລົງທະບຽນ"
     },
     "uploadFile": {
         "uploading": "ກຳລັງອັບໂຫຼດໂປຮໄຟລເຂົ້າລະບົບ ກະລຸນາລໍຖ້າ...",
@@ -182,6 +187,12 @@
     "confirmDelete": {
         "message": "ທ່ານເເນ່ໃຈ ຫຼຶ ບໍ?",
         "header": "ຢືນຢັນການລຶບຂໍ້ມູນ",
+        "rejectLabel": "ຍົກເລີກ",
+        "acceptLabel": "ຕົກລົງ"
+    },
+    "confirmUpdateStatus": {
+        "message": "ທ່ານເເນ່ໃຈ ຫຼຶ ບໍ?",
+        "header": "ຢືນຢັນການອັບເດດສະຖານະ",
         "rejectLabel": "ຍົກເລີກ",
         "acceptLabel": "ຕົກລົງ"
     },
@@ -207,7 +218,8 @@
             "not_duplicate": "ບໍ່ຕ້ອງການສຳເນົາຂໍ້ມູນ.",
             "cancel_update": "ຍົກເລີກການອັບເດດ.",
             "not_found_list_appointment": "ບໍ່ມີລາຍການນັດໝາຍເເລ້ວ",
-            "not_found_item": "ບໍ່ມີລາຍການເເລ້ວ"
+            "not_found_item": "ບໍ່ມີລາຍການເເລ້ວ",
+            "must_be_length_three": "ຕ້ອງມີບໍ່ເກີນ 3 ລາຍການ."
         },
         "detail": {
             "delete": "ຖືກລຶບອອກເເລ້ວ.",

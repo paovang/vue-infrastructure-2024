@@ -193,6 +193,14 @@
                         /> -->
                         <Button 
                             type="button" 
+                            :label="data.status"
+                            rounded 
+                            :severity="getSeverity(data.status)"  
+                            style="color: white;" 
+                            @click="confirmUpdateStatus(data.id)"
+                        />
+                        <Button 
+                            type="button" 
                             icon="pi pi-pencil" 
                             rounded 
                             severity="warning"  
@@ -248,7 +256,7 @@
     const toast = useToast();
     const confirm = useConfirm();
 
-    const { form, getAll, state, setStateFilter, remove } = houseStore();
+    const { form, getAll, state, setStateFilter, remove, updateStatus } = houseStore();
     const { getOne, realestateType } = realEstateServiceStore();
     const { getAll: getAllProvince, state: stateProvince, setStateFilter: setStateProvinceFilter } = provinceStore();
     const { getAll: getAllDistrict, state: stateDistrict, setStateFilter: setStateDistrictFilter } = districtStore();
@@ -284,6 +292,21 @@
     // async function clearForm() {
     //     console.log('clear....')
     // }
+
+    const getSeverity = (status: string) => {
+        switch (status) {
+            case 'open':
+                return 'success';
+            case 'close':
+                return 'danger';
+            case 'rent':
+                return 'warning';
+            case 'buy':
+                return 'danger';
+            default:
+                return 'info';
+        }
+    };
 
     async function initComponent() {
         if (Object.keys(query).length !== 0) {
@@ -465,6 +488,30 @@
             },
             reject: () => {
                 toast.add({ severity: 'error', summary: t('toast.summary.cancel_delete'), detail: t('toast.detail.cancel_delete'), life: 3000 });
+            }
+        });
+    }
+
+    const updateStatusItem = async (id: HouseEntity) => {
+        await updateStatus(id);
+        await fetchAll();
+    }
+
+    const confirmUpdateStatus = async (id: HouseEntity) => {
+        confirm.require({
+            message: t('confirmUpdateStatus.message'),
+            header: t('confirmUpdateStatus.header'),
+            rejectLabel: t('confirmUpdateStatus.rejectLabel'),
+            acceptLabel: t('confirmUpdateStatus.acceptLabel'),
+            rejectClass: 'p-button-secondary p-button-outlined',
+            acceptClass: 'p-button-danger',
+            accept: async () => {
+                await updateStatusItem(id);
+
+                toast.add({ severity: 'success', summary: t('toast.summary.success'), detail: t('toast.detail.successfully'), life: 3000 });
+            },
+            reject: () => {
+                toast.add({ severity: 'error', summary: t('toast.summary.cancel_update'), detail: t('toast.detail.cancel_update'), life: 3000 });
             }
         });
     }

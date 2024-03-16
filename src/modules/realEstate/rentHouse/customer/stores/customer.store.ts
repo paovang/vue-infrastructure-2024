@@ -113,6 +113,27 @@ export const customerStore = defineStore("customer-store", () => {
     state.isLoading = false;
   }
 
+  async function updateStatus(id: CustomerEntity) {
+    state.isLoading = true;
+
+    try {
+      await service.updateStatus(id);
+      await getAll();
+
+      state.error = "";
+      form.name = "";
+    } catch (error: any) {
+      let responseError = "";
+      if (error.response.status === 422) {
+        responseError = Object.keys(error.response.data.errors)
+          .map((key) => `${key}: ${error.response.data.errors[key].join(", ")}`)
+          .join("; ");
+      }
+      state.error = responseError;
+    }
+    state.isLoading = false;
+  }
+
   async function getOne() {
     console.log("getOne");
   }
@@ -141,5 +162,6 @@ export const customerStore = defineStore("customer-store", () => {
     form,
     setStateFilter,
     state,
+    updateStatus,
   };
 });

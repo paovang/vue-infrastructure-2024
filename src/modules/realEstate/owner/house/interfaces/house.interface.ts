@@ -40,4 +40,6 @@ export interface IHouseRepository {
   addGallery(input: HouseEntity): Promise<any>;
 
   paymentService(input: HouseEntity): Promise<any>;
+
+  updateStatus(id: HouseEntity): Promise<any>;
 }

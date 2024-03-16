@@ -44,6 +44,7 @@
                         optionValue="id"
                         :highlightOnSelect="true" 
                         class="w-full" 
+                        @change="checkServiceModel(form.service_model)"
                     />
                 </div>
                 <div class="column is-mobile-12 is-2">
@@ -216,9 +217,14 @@
                             </div>
                         </div>
                         <div class="column is-mobile-12 is-12">
-                            <a @click="addInput" class="button is-primary">
+                            <Button 
+                            @click="addInput" 
+                                class="button is-primary" 
+                                style="font-family: 'NotoSansLao','Montserrat', 'sans-serif'" 
+                                :disabled="!isCheckForRent"
+                            >
                                 {{ $t('button.add_item') }}
-                            </a>
+                            </Button>
                         </div>
                     </Panel>
                 </div>
@@ -360,7 +366,11 @@
 
     const addInput = async () => {
         if (createInputs.value) {
-            createInputs.value.push({ price: '', unit_price: '', detail: '' });
+            if (createInputs.value?.length > 2) {
+                toast.add({ severity: 'error', summary: t('toast.summary.must_be_length_three'), detail: t('toast.detail.cancel_delete'), life: 3000 });
+            } else {
+                createInputs.value.push({ price: '', unit_price: '', detail: '' });
+            }
         }
     }
 
@@ -370,14 +380,28 @@
         }
     }
 
+    const isCheckForRent = ref<boolean>(false);
+    const checkServiceModel = async (value: any) => {
+        if (value === 'rent') {
+             // Find index of item with id 'sale'
+            // const index = unitPrices.value.findIndex(unit => unit.id === 'sale');
+            // // If found, remove it from unitPrices
+            // if (index !== -1) {
+            //     unitPrices.value.splice(index, 1);
+            // }
+            isCheckForRent.value = true;
+        } else {
+            isCheckForRent.value = false;
+        }
+    }
 
     const { handleSubmit } = useForm<any>({
         validationSchema: houseSchema
     })
 
     const servicemodels = ref([
-        { id: 'sale', name: 'ຂາຍ' },
-        { id: 'rent', name: 'ເຊົ່າ' }
+        { id: 'sale', name: 'ບໍລິການຂາຍ' },
+        { id: 'rent', name: 'ບໍລິການເຊົ່າ' }
     ]);
     
     const roomTypes = ref([
@@ -387,9 +411,10 @@
     ]);
 
     const unitPrices = ref([
-        { id: 'day', name: 'ມື້' },
-        { id: 'month', name: 'ເດືອນ' },
-        { id: 'year', name: 'ປີ' },
+        { id: 'sale', name: 'ບໍລິການຂາຍ' },
+        { id: 'day', name: 'ບໍລິການ ເຊົ່າເປັນມື້' },
+        { id: 'month', name: 'ບໍລິການ ເຊົ່າເປັນເດືອນ' },
+        { id: 'year', name: 'ບໍລິການ ເຊົ່າເປັນປີ' },
     ]);
 
     const accessToken = localStorage.getItem('token');

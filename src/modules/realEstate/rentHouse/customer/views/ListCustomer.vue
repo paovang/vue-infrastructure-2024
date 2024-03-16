@@ -221,9 +221,16 @@
                 <Column field="status" :header="$t('table.header.status')"></Column>
                 <!-- <Column field="created" :header="$t('table.header.created_at')"></Column> -->
                 <!-- <Column field="updated" :header="$t('table.header.updated_at')"></Column> -->
-                <Column headerStyle="width: 10rem">
+                <Column headerStyle="width: 20rem">
                     <template #body="{ data }">
                         <div class="flex flex-wrap gap-2 btn-right">
+                            <Button 
+                                type="button" 
+                                :label="data.status === 'open' ? $t('messages.open') : $t('messages.close')"
+                                rounded
+                                :severity="data.status === 'open' ? 'success' : 'danger'"
+                                @click="confirmUpdateStatus(data.id)" 
+                            />
                             <Button 
                                 type="button" 
                                 icon="pi pi-pencil" 
@@ -278,7 +285,7 @@
     const { push } = useRouter()
     const { query } = useRoute()
 
-    const { register, update, remove, getAll, form, state, setStateFilter } = customerStore();
+    const { register, update, remove, getAll, form, state, setStateFilter, updateStatus } = customerStore();
     const { getAll: getAllCountry, state: stateCountry, setStateFilter: setStateCountyFilter } = countryStore();
 
     const translatedErrorMessages = {
@@ -393,6 +400,11 @@
         await fetchData();
     }
 
+    const updateStatusItem = async (id: CustomerEntity) => {
+        await updateStatus(id);
+        await fetchData();
+    }
+
     const editItem = async (value: CustomerEntity) => {
         setFieldValue('id', value.id);
         setFieldValue('name', value.name);
@@ -438,11 +450,31 @@
             rejectClass: 'p-button-secondary p-button-outlined',
             acceptClass: 'p-button-danger',
             accept: async () => {
-                await deleteItem(id)
+                await deleteItem(id);
+
                 toast.add({ severity: 'success', summary: t('toast.summary.delete'), detail: t('toast.detail.delete'), life: 3000 });
             },
             reject: () => {
                 toast.add({ severity: 'error', summary: t('toast.summary.cancel_delete'), detail: t('toast.detail.cancel_delete'), life: 3000 });
+            }
+        });
+    }
+
+    const confirmUpdateStatus = async (id: CustomerEntity) => {
+        confirm.require({
+            message: t('confirmUpdateStatus.message'),
+            header: t('confirmUpdateStatus.header'),
+            rejectLabel: t('confirmUpdateStatus.rejectLabel'),
+            acceptLabel: t('confirmUpdateStatus.acceptLabel'),
+            rejectClass: 'p-button-secondary p-button-outlined',
+            acceptClass: 'p-button-danger',
+            accept: async () => {
+                await updateStatusItem(id);
+
+                toast.add({ severity: 'success', summary: t('toast.summary.success'), detail: t('toast.detail.successfully'), life: 3000 });
+            },
+            reject: () => {
+                toast.add({ severity: 'error', summary: t('toast.summary.cancel_update'), detail: t('toast.detail.cancel_update'), life: 3000 });
             }
         });
     }

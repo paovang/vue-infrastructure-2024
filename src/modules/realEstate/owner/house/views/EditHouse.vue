@@ -365,7 +365,11 @@
     
     const addInput = async () => {
         if (form.prices) {
-            form.prices.push({ price: '', unit_price: '', detail: '' });
+            if (form.prices.length > 2) {
+                toast.add({ severity: 'error', summary: t('toast.summary.must_be_length_three'), detail: t('toast.detail.cancel_delete'), life: 3000 });
+            } else {
+                form.prices.push({ price: '', unit_price: '', detail: '' });
+            }
         }
     }
 
@@ -381,8 +385,8 @@
     })
 
     const servicemodels = ref([
-        { id: 'sale', name: 'ຂາຍ' },
-        { id: 'rent', name: 'ເຊົ່າ' }
+        { id: 'sale', name: 'ບໍລິການຂາຍ' },
+        { id: 'rent', name: 'ບໍລິການເຊົ່າ' }
     ]);
     
     const roomTypes = ref([
@@ -392,9 +396,10 @@
     ]);
 
     const unitPrices = ref([
-        { id: 'day', name: 'ມື້' },
-        { id: 'month', name: 'ເດືອນ' },
-        { id: 'year', name: 'ປີ' },
+        { id: 'sale', name: 'ບໍລິການຂາຍ' },
+        { id: 'day', name: 'ບໍລິການ ເຊົ່າເປັນມື້' },
+        { id: 'month', name: 'ບໍລິການ ເຊົ່າເປັນເດືອນ' },
+        { id: 'year', name: 'ບໍລິການ ເຊົ່າເປັນປີ' },
     ]);
 
     onMounted(async() => {

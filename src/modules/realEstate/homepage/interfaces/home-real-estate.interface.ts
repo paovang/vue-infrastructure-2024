@@ -5,9 +5,12 @@ import {
 import { IResponse } from "@/common/interfaces/response.interface";
 import { HouseEntity } from "@/modules/realEstate/owner/house/entities/house.entity";
 import { ReserveRealEstateEntity } from "../entities/reserve.entity";
+import { SignUpEntity } from "../entities/sign-up.entity";
 
 export interface IHomeRealEstateRepository {
   reserve(input: ReserveRealEstateEntity): Promise<any>;
+
+  register(input: SignUpEntity): Promise<any>;
 
   getAll(
     args: IGPaginate<

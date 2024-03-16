@@ -323,7 +323,7 @@
     }
 
     const formatCurrency = (value: any, data: any) => {
-        return  data.country.currency + value.toLocaleString('en-US');
+        return  value.toLocaleString('en-US') + ' ' + data.country.currency;
         // return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     };
 

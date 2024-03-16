@@ -9,6 +9,7 @@ import { CreateCustomerUseCase } from "../use-cases/create-use-case";
 import { GetAllCustomerUseCase } from "../use-cases/get-all-use-case";
 import { UpdateCustomerUseCase } from "../use-cases/update-use-case";
 import { DeleteCustomerUseCase } from "../use-cases/delete.use-case";
+import { UpdateStatusCustomerUseCase } from "../use-cases/update-status.use-case";
 
 @injectable()
 export class CustomerService {
@@ -16,7 +17,9 @@ export class CustomerService {
     @inject(CreateCustomerUseCase) private _create: CreateCustomerUseCase,
     @inject(GetAllCustomerUseCase) private _getAll: GetAllCustomerUseCase,
     @inject(UpdateCustomerUseCase) private _update: UpdateCustomerUseCase,
-    @inject(DeleteCustomerUseCase) private _delete: DeleteCustomerUseCase
+    @inject(DeleteCustomerUseCase) private _delete: DeleteCustomerUseCase,
+    @inject(UpdateStatusCustomerUseCase)
+    private _updateStatus: UpdateStatusCustomerUseCase
   ) {}
 
   async register(input: CustomerEntity) {
@@ -35,5 +38,9 @@ export class CustomerService {
     input: IGPaginate<Pick<CustomerEntity, "name" | "country_id" | "tel">>
   ): Promise<void | IResponse<IGPaginated<CustomerEntity>>> {
     return await this._getAll.execute(input);
+  }
+
+  async updateStatus(id: CustomerEntity): Promise<any> {
+    return await this._updateStatus.execute(id);
   }
 }

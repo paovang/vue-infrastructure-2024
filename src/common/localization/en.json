@@ -108,7 +108,8 @@
         "cancel": "Cacel",
         "pending": "Pending",
         "success": "Success",
-        "rent_buy": "Rent - Buy"
+        "rent_buy": "Rent - Buy",
+        "sign_up": "Sign Up"
     },
     "messages": {
         "country": "Country",
@@ -171,7 +172,11 @@
         "appointment": "Appointment",
         "customer_name": "Customer Name",
         "customer_tel": "Customer Phone Number",
-        "real_estate_type": "Real Estate Type"
+        "real_estate_type": "Real Estate Type",
+        "open": "Open",
+        "close": "Close",
+        "pending": "Pending",
+        "sign_up": "Sign Up"
     },
     "uploadFile": {
         "uploading": "Uploading profile to the system please wait...",
@@ -181,6 +186,12 @@
     "confirmDelete": {
         "message": "Are you sure?",
         "header": "Confirm Delete",
+        "rejectLabel": "Reject",
+        "acceptLabel": "Accepted"
+    },
+    "confirmUpdateStatus": {
+        "message": "Are you sure?",
+        "header": "Confirm Update Status",
         "rejectLabel": "Reject",
         "acceptLabel": "Accepted"
     },
@@ -206,7 +217,8 @@
             "not_duplicate": "No need to copy data",
             "cancel_update": "Cancel Update.",
             "not_found_list_appointment": "Not Found List Appointments",
-            "not_found_item": "Not Found Items"
+            "not_found_item": "Not Found Items",
+            "must_be_length_three": "Must be not exceed 3 Items."
         },
         "detail": {
             "delete": "has been deleted.",

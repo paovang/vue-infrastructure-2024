@@ -156,7 +156,7 @@ export class HouseRepository implements IHouseRepository {
     const response = await this._api.axios({
       method: "put",
       url: `/owner/realestate/list/gallery/${input.id}`,
-      params: {
+      data: {
         file: input.gallery,
       },
     });
@@ -172,7 +172,7 @@ export class HouseRepository implements IHouseRepository {
     const response = await this._api.axios({
       method: "Post",
       url: `/owner/realestate/list/gallery/${input.id}`,
-      params: {
+      data: {
         gallery: input.gallery,
       },
     });
@@ -189,7 +189,7 @@ export class HouseRepository implements IHouseRepository {
     const response = await this._api.axios({
       method: "post",
       url: "/owner/payment/service-charge",
-      params: {
+      data: {
         real_estate_list_id: input.id,
         service_charge_id: input.service_charge_id,
         qty: input.payment?.quantity,
@@ -201,6 +201,19 @@ export class HouseRepository implements IHouseRepository {
     return {
       data: response.data,
       message: "ສຳເລັດເເລ້ວ",
+      status: "success",
+    };
+  }
+
+  async updateStatus(id: HouseEntity): Promise<any> {
+    const response = await this._api.axios({
+      method: "put",
+      url: `/owner/update-real-estate-status/${id}`,
+    });
+
+    return {
+      data: response.data,
+      message: "ສຳເລັດເເລ້ວ.",
       status: "success",
     };
   }

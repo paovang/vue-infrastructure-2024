@@ -9,6 +9,7 @@ import { IHomeRealEstateRepository } from "../interfaces/home-real-estate.interf
 import { HouseEntity } from "@/modules/realEstate/owner/house/entities/house.entity";
 import { ReserveRealEstateEntity } from "../entities/reserve.entity";
 import { formatDate } from "@/common/utils/format.date";
+import { SignUpEntity } from "../entities/sign-up.entity";
 
 @injectable()
 export class HomeRealEstateRepository implements IHomeRealEstateRepository {
@@ -108,5 +109,28 @@ export class HomeRealEstateRepository implements IHomeRealEstateRepository {
     });
 
     return response.data;
+  }
+
+  async register(input: SignUpEntity): Promise<IResponse<SignUpEntity>> {
+    const response = await this._api.axios({
+      method: "post",
+      url: "/customer/register",
+      data: {
+        name: input.name,
+        owner: input.owner,
+        address: input.address,
+        tel: input.phone_number,
+        email: input.email,
+        password: input.password,
+        password_confirmation: input.password_confirmation,
+        country_id: input.country_id,
+      },
+    });
+
+    return {
+      data: response.data,
+      message: "ສຳເລັດເເລ້ວ.",
+      status: "success",
+    };
   }
 }

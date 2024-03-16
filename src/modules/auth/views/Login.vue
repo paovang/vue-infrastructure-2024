@@ -28,6 +28,7 @@
                 </div>
               <div>
                 <my-input-password 
+                    style="width: 100% !important;"
                     name="password"
                     label="ລະຫັດຜ່ານ"
                     placeholder="ກະລຸນາປ້ອນກ່ອນ..." 
@@ -88,14 +89,11 @@
 
 </script>
 
-<style>
+<style scoped>
     .backgroundImage {
         background: url('https://www.journeyera.com/wp-content/uploads/2022/01/luxury-5-star-hotels-kathmandu-thamel-251085752.jpg');
     }
-    .p-input-icon-right > .p-inputtext {
+    /* .p-input-icon-right > .p-inputtext {
         width: 100% !important;
-    }
-    .p-input-icon-right .p-icon {
-        margin-top: -6px !important;
-    }
+    } */
 </style>

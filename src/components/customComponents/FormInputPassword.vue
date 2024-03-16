@@ -24,7 +24,7 @@
 </script>
 
 <template>
-  <div class="flex flex-column gap-2 mb-3">
+  <div>
     <label v-if="!showLabel" :for="name">
       {{ label }}
       <span class="text-red-500" v-if="required"> *</span>

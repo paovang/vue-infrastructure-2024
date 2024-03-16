@@ -93,4 +93,17 @@ export class CustomerRepository implements ICustomerRepository {
   async getById(id: any): Promise<any> {
     console.log(id);
   }
+
+  async updateStatus(id: CustomerEntity): Promise<any> {
+    const response = await this._api.axios({
+      method: "put",
+      url: `/admin/update-account-customer-status/${id}`,
+    });
+
+    return {
+      data: response.data,
+      message: "ສຳເລັດເເລ້ວ.",
+      status: "success",
+    };
+  }
 }

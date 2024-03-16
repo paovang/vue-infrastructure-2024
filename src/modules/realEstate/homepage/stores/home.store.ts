@@ -9,6 +9,7 @@ import { HouseEntity } from "../../owner/house/entities/house.entity";
 import { container } from "tsyringe";
 import { HomeRealEstateService } from "../services/home-real-estate.service";
 import { ReserveRealEstateEntity } from "../entities/reserve.entity";
+import { SignUpEntity } from "../entities/sign-up.entity";
 
 export const homerealEstateStore = defineStore("home-real-estate-store", () => {
   const service = container.resolve<HomeRealEstateService>(
@@ -60,6 +61,8 @@ export const homerealEstateStore = defineStore("home-real-estate-store", () => {
     service_model: "all",
     room_type: "all",
   });
+
+  const formSignUp = reactive<SignUpEntity>({});
 
   const realEstateGetOne = reactive<any>({
     data: {
@@ -127,6 +130,11 @@ export const homerealEstateStore = defineStore("home-real-estate-store", () => {
       props: [],
     },
   });
+  const countries = reactive<any>({
+    data: {
+      props: [],
+    },
+  });
 
   const realEstateTypes = reactive<any>({
     data: {
@@ -140,8 +148,42 @@ export const homerealEstateStore = defineStore("home-real-estate-store", () => {
     if (response && response.data && response.message === "success") {
       provinces.data.props = response.data.provinces;
       districts.data.props = response.data.districts;
+      countries.data.props = response.data.countries;
       realEstateTypes.data.props = response.data.realEstateTypes;
     }
+  }
+
+  async function register() {
+    state.isLoading = true;
+    state.btnLoading = true;
+
+    try {
+      await service.register(formSignUp);
+      await getAll();
+
+      await clearFormSignUp();
+      state.error = "";
+    } catch (error: any) {
+      let responseError = "";
+      if (error.response.status === 422) {
+        responseError = Object.keys(error.response.data.errors)
+          .map((key) => `${key}: ${error.response.data.errors[key].join(", ")}`)
+          .join("; ");
+      }
+      state.error = responseError;
+    }
+    state.isLoading = false;
+    state.btnLoading = false;
+  }
+
+  async function clearFormSignUp() {
+    formSignUp.name = "";
+    formSignUp.owner = "";
+    formSignUp.address = "";
+    formSignUp.email = "";
+    formSignUp.phone_number = "";
+    formSignUp.password = "";
+    formSignUp.password_confirmation = "";
   }
 
   return {
@@ -156,5 +198,8 @@ export const homerealEstateStore = defineStore("home-real-estate-store", () => {
     districts,
     realEstateTypes,
     getAllData,
+    countries,
+    formSignUp,
+    register,
   };
 });
