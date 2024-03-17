@@ -106,7 +106,7 @@
     import MyInputText from '@/components/customComponents/FormInputText.vue';
     import Button from 'primevue/button';
     import { footerStore } from '../stores/store';
-    import { onMounted, ref } from 'vue';
+    import { onMounted } from 'vue';
     import { FooterEntity } from '../entities/footer.entity';
     import { useForm } from 'vee-validate';
     import { footerSchema } from '../schema/shema';
