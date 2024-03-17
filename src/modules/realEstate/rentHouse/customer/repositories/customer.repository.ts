@@ -25,6 +25,8 @@ export class CustomerRepository implements ICustomerRepository {
         password: input.password,
         password_confirmation: input.password_confirmation,
         country_id: input.country_id,
+        id_no: input.id_no,
+        id_image: input.id_image,
       },
     });
 
@@ -44,7 +46,10 @@ export class CustomerRepository implements ICustomerRepository {
         owner: input.owner,
         address: input.address,
         tel: input.tel,
+        email: input.email,
         country_id: input.country_id,
+        id_no: input.id_no,
+        id_image: input.id_image,
       },
     });
 

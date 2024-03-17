@@ -57,8 +57,8 @@
                             </div>
                         </div>
 
-                        <div class="col-12 md:col-12 flex flex-row" style="margin-top: -35px;">
-                            <div class="col-12 md:col-4">
+                        <div class="col-12 md:col-12 flex flex-row is-margin-top">
+                            <div class="col-12 md:col-3">
                                 <my-input-text 
                                     name="tel" 
                                     :label="$t('messages.phone_number')"
@@ -77,22 +77,39 @@
                                     :isEditing="isEditing"
                                 />
                             </div>
-                            <div class="col-12 md:col-2">
-                                <my-input-text 
-                                    name="password" 
-                                    :label="$t('messages.password')"
-                                    :required="!isEditing"
-                                    :placeholder="$t('placeholder.inputText')" 
-                                    class="h-full" 
+                            <div class="col-12 md:col-3">
+                                <my-input-password 
+                                    name="password"
+                                    :label="$t('messages.password')" 
+                                    :placeholder="$t('placeholder.inputText')"  
                                 />
                             </div>
                             <div class="col-12 md:col-3">
+                                <my-input-password 
+                                    name="password_confirmation"
+                                    :label="$t('messages.confirm_password')" 
+                                    :placeholder="$t('placeholder.inputText')"  
+                                />
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-12 flex flex-row is-margin-top">
+                            <div class="col-12 md:col-6">
                                 <my-input-text 
-                                    name="password_confirmation" 
-                                    :label="$t('messages.confirm_password')"
-                                    :required="!isEditing"
-                                    :placeholder="$t('placeholder.inputText')" 
+                                    name="id_no" 
+                                    :label="$t('messages.id_no')" 
+                                    required 
+                                    :placeholder="$t('placeholder.inputTextIdNo')"  
                                     class="h-full" 
+                                />
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <my-input-file 
+                                    name="id_image" 
+                                    :label="$t('messages.id_image')" 
+                                    required 
+                                    :multiple="true"
+                                    class="h-full" 
+                                    @change="handleFileChange"
                                 />
                             </div>
                         </div>
@@ -130,9 +147,9 @@
                 </span>
                 <span class="w-full sm:w-auto flex-order-0 sm:flex-order-1 mb-4 sm:mb-0">
                     <Button 
-                        :icon="isCardVisible ? 'pi pi-chevron-up' : 'pi pi-user-plus'"
+                        :label="!isCardVisible ? $t('button.add') + ' ' + $t('messages.customer') : $t('button.close')"
                         rounded 
-                        :severity="isCardVisible ? 'warning' : 'info'" 
+                        :severity="!isCardVisible ? 'info' : 'danger'" 
                         @click="toggleIsCardVisible"
                         :loading="state.btnLoading"
                     />
@@ -211,6 +228,12 @@
                         {{ item.index + 1 }}
                     </template>
                 </Column>
+                <Column field="id_image" :header="$t('table.header.id_image')">
+                    <template #body="{ data }">
+                        <Image :src="data.id_image" alt="Image" preview />
+                    </template>
+                </Column>
+                <Column field="id_no" :header="$t('table.header.id_no')"></Column>
                 <Column field="country.name" :header="$t('table.header.country')"></Column>
                 <Column field="customer_number" :header="$t('table.header.customer_number')"></Column>
                 <Column field="name" :header="$t('table.header.customer')"></Column>
@@ -230,6 +253,14 @@
                                 rounded
                                 :severity="data.status === 'open' ? 'success' : 'danger'"
                                 @click="confirmUpdateStatus(data.id)" 
+                            />
+                            <Button 
+                                type="button" 
+                                icon="pi pi-eye" 
+                                rounded 
+                                severity="info"  
+                                style="color: white;" 
+                                @click="editItem(data)"
                             />
                             <Button 
                                 type="button" 
@@ -272,6 +303,11 @@
     import { useForm } from 'vee-validate';
     import { customerSchema } from '../schema/customer.shema';
     import { useI18n } from 'vue-i18n';
+    import MyInputPassword from '@/components/customComponents/FormInputPassword.vue';
+    import MyInputFile from '@/components/customComponents/FormInputFile.vue';
+    import axios from 'axios';
+    import Image from 'primevue/image';
+
 
     const { t } = useI18n();
     const toast = useToast();
@@ -296,6 +332,8 @@
         email: t('placeholder.inputText'),
         password: t('placeholder.inputText'),
         password_confirmation: t('placeholder.inputText'),
+        id_no: t('placeholder.inputText'),
+        id_image: t('placeholder.inputText'),
     }
 
     // Define a reactive property to hold the validation schema
@@ -322,6 +360,9 @@
         form.owner = values.owner;
         form.address = values.address;
         form.tel = values.tel;
+        form.email = values.email;
+        form.id_no = values.id_no;
+        form.id_image = selectedImage.value;
 
         await update();
         
@@ -345,6 +386,8 @@
         form.tel = values.tel;
         form.password = values.password;
         form.password_confirmation = values.password_confirmation;
+        form.id_no = values.id_no;
+        form.id_image = selectedImage.value;
 
         await register();
         
@@ -354,6 +397,9 @@
             await showToastSuccess();
             await handleReset();
             await fetchCountry();
+            selectedImage.value = "";
+            const inputFile = document.getElementById('id_image') as HTMLInputElement;
+            inputFile.value = '';
             isCardVisible.value = false;
         }
     })
@@ -412,6 +458,7 @@
         setFieldValue('address', value.address);
         setFieldValue('email', value.email);
         setFieldValue('tel', value.tel);
+        setFieldValue('id_no', value.id_no);
         form.country_id = value.country?.id
 
         isEditing.value = true;
@@ -587,9 +634,71 @@
             }
         }
     };
+
+    const handleFileChange = async (event: any) => {
+        const file = event.target.files[0];
+
+        if (! await isValidFileType(file)) {
+            await showValidationFileMimes();
+            event.target.value = '';
+            return;
+        }
+        if (! await isValidFileSize(file)) {
+            await showValidationFileSize();
+            event.target.value = '';
+            return;
+        }
+
+        await uploadFileImage(file);
+    }
+
+    const isValidFileType = async (file: any) => {
+        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+        return allowedTypes.includes(file.type);
+    }
+
+    const isValidFileSize = async (file: any) => {
+      const maxSizeInBytes = 2 * 1024 * 1024; // 2 MB
+      return file.size <= maxSizeInBytes;
+    }
+
+    const selectedImage = ref();
+
+    const uploadFileImage = async (file: any) => {
+        state.btnLoading = true;
+        try {
+            let formData = new FormData();
+            formData.append('file', file);
+
+            const response = await axios.post(import.meta.env.VITE_APP_BASE_API_URL + 'customer/upload-file', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+
+            selectedImage.value = response.data?.filename;
+            state.btnLoading = false;
+        } catch (error) {
+            await showFailUploadFile(error);
+        }
+    }
+
+    const showFailUploadFile = (error: any) => {
+        toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: error, life: 3000 });
+    }
+
+    const showValidationFileMimes = () => {
+        toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: t('toast.summary.sign_up_valid_file_mimes'), life: 3000 });
+    }
+    const showValidationFileSize = () => {
+        toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: t('toast.summary.sign_up_valid_file_size'), life: 3000 });
+    }
 </script>
 
 <style scoped>
+    .is-margin-top {
+        margin-top: -50px;
+    }
     .card-first {
       height: 100px;
       border: 1px solid #ccc;

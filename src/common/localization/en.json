@@ -17,7 +17,8 @@
         "edit_user": "Edit User",
         "appointment": "Appointment",
         "rent_buy": "Rent - Buy",
-        "real_estate_type": "Product Type"
+        "real_estate_type": "Product Type",
+        "footer": "Footer"
     },
     "placeholder": {
         "inputText": "Please Enter...",
@@ -27,7 +28,8 @@
         "calendarSelect": "Please Select Calendar",
         "textSearch": "Search...",
         "inputTextLocation": "Please Enter Link Location...",
-        "inputTextGarage": "Total Car..."
+        "inputTextGarage": "Total Car...",
+        "inputTextIdNo": "Please Enter Card ID NO..."
     },
     "table": {
         "title": {
@@ -41,7 +43,8 @@
             "user": "All User",
             "appointment": "All Appointment",
             "rent_buy": "All Rent - Buy",
-            "real_estate_type":"All Product Type"
+            "real_estate_type":"All Product Type",
+            "footer": "All Footer"
         },
         "header": {
             "index": "Number",
@@ -87,7 +90,20 @@
             "from_date": "From Date",
             "to_date": "To Date",
             "price": "Price",
-            "total": "Total"
+            "total": "Total",
+            "id_no": "ID NO",
+            "id_image": "ID Image",
+            "footer": {
+                "facebook": "Facebook",
+                "whatsapp": "Whatsapp",
+                "wechat": "Wechat",
+                "line": "Line",
+                "email": "Email",
+                "phone": "Phone Number",
+                "shop_on": "Products",
+                "payment_information": "Payment Information",
+                "customer_service": "Customer Service"
+            }
         },
         "pagination": {
             "show": "show",
@@ -111,7 +127,8 @@
         "pending": "Pending",
         "success": "Success",
         "rent_buy": "Rent - Buy",
-        "sign_up": "Sign Up"
+        "sign_up": "Sign Up",
+        "close": "Close"
     },
     "messages": {
         "country": "Country",
@@ -187,7 +204,19 @@
         "fan": "Fan",
         "none": "None",
         "service_sale": "Sale",
-        "service_rent": "Rent"
+        "service_rent": "Rent",
+        "id_no": "ID NO",
+        "id_image": "ID Image",
+        "footer": "Footer",
+        "facebook": "Facebook",
+        "whatsapp": "Whatsapp",
+        "wechat": "Wechat",
+        "line": "Line",
+        "phone": "Phone Number",
+        "shop_on": "Products",
+        "payment_information": "Payment Information",
+        "customer_service": "Customer Service",
+        "contact_us": "Contact Us"
     },
     "uploadFile": {
         "uploading": "Uploading profile to the system please wait...",
@@ -229,7 +258,9 @@
             "cancel_update": "Cancel Update.",
             "not_found_list_appointment": "Not Found List Appointments",
             "not_found_item": "Not Found Items",
-            "must_be_length_three": "Must be not exceed 3 Items."
+            "must_be_length_three": "Must be not exceed 3 Items.",
+            "sign_up_valid_file_mimes": "Only file are jpg, jpeg, png.",
+            "sign_up_valid_file_size": "File must be no larger than 2 MB."
         },
         "detail": {
             "delete": "has been deleted.",

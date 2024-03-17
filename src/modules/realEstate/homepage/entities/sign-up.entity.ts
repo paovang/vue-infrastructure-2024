@@ -8,6 +8,8 @@ export interface SignUpEntity {
   password?: string;
   password_confirmation?: string;
   country_id?: string;
+  id_image?: string;
+  id_no?: string;
   country?: {
     id?: string;
     name?: string;

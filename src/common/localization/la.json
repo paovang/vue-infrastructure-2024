@@ -17,7 +17,8 @@
         "edit_user": "ອັບເດດ ຂໍ້ມູນຜູ້ໃຊ້ລະບົບ",
         "appointment": "ນັດໝາຍ",
         "rent_buy": "ບໍລິການ ເຊົ່າ - ຂາຍ",
-        "real_estate_type": "ປະເພດຊັບສີນ"
+        "real_estate_type": "ປະເພດຊັບສີນ",
+        "footer": "ສ່ວນທ້າຍ"
     },
     "placeholder": {
         "inputText": "ກະລຸນາປ້ອນກ່ອນ...",
@@ -27,7 +28,8 @@
         "calendarSelect": "ກະລຸນາເລືອກວັນທີ່ກ່ອນ",
         "textSearch": "ຄົ້ນຫາ...",
         "inputTextLocation": "ກະລຸນາປ້ອນ ໃສ່ລີ້ງເເຜນທີ່...",
-        "inputTextGarage": "ກະລຸນາປ້ອນ ຈຳນວນລົດ..."
+        "inputTextGarage": "ກະລຸນາປ້ອນ ຈຳນວນລົດ...",
+        "inputTextIdNo": "ກະລຸນາປ້ອນ ເລກບັດ, ໃບຂັບຂີ່, ໜັງສືຜ່ານເເດນ..."
     },
     "table": {
         "title": {
@@ -41,7 +43,8 @@
             "user": "ລາຍການ ຜູ້ໃຊ້ລະບົບທັງໝົດ",
             "appointment": "ລາຍການ ນັດໝາຍທັງໝົດ",
             "rent_buy": "ລາຍການ ເຊົ່າ - ຂາຍ ທັງໝົດ",
-            "real_estate_type": "ປະເພດຊັບສີນ ທັງໝົດ"
+            "real_estate_type": "ປະເພດຊັບສີນ ທັງໝົດ",
+            "footer": "ສ່ວນທ້າຍ ທັງໝົດ"
         },
         "header": {
             "index": "ລຳດັບ",
@@ -87,7 +90,20 @@
             "from_date": "ເລີ່ມເເຕ່ວັນທີ",
             "to_date": "ຫາວັນທີ",
             "price": "ລາຄາ",
-            "total": "ລວມເປັນເງີນ"   
+            "total": "ລວມເປັນເງີນ",
+            "id_no": "ເລກບັດ, ໃບຂັບຂີ່, ໜັງສືຜ່ານເເດນ",
+            "id_image": "ໄຟລ",
+            "footer": {
+                "facebook": "Facebook",
+                "whatsapp": "Whatsapp",
+                "wechat": "Wechat",
+                "line": "Line",
+                "email": "ອີເມວ",
+                "phone": "ເບີໂທຕິດຕໍ່",
+                "shop_on": "ສີນຄ້າ",
+                "payment_information": "ການຊຳລະເງີນ",
+                "customer_service": "ບໍລິການລູກຄ້າ" 
+            }
         },
         "pagination": {
             "show": "ສະເເດງ",
@@ -111,7 +127,8 @@
         "pending": "ລໍຖ້າ",
         "success": "ສຳເລັດ",
         "rent_buy": "ເຊົ່າ - ຊື້ຂາຍ",
-        "sign_up": "ລົງທະບຽນ"
+        "sign_up": "ລົງທະບຽນ",
+        "close": "ປິດ"
     },
     "messages": {
         "country": "ປະເທດ",
@@ -188,7 +205,19 @@
         "fan": "ພັດລົມ",
         "none": "ບໍ່ມີ",
         "service_sale": "ບໍລິການຂາຍ",
-        "service_rent": "ບໍລິການເຊົ່າ"
+        "service_rent": "ບໍລິການເຊົ່າ",
+        "id_no": "ເລກບັດປະຈຳຕົວ, ໃບຂັບຂີ່, ໜັງສືຜ່ານເເດນ",
+        "id_image": "ໄຟລ",
+        "footer": "ສ່ວນທ້າຍ",
+        "facebook": "Facebook",
+        "whatsapp": "Whatsapp",
+        "wechat": "Wechat",
+        "line": "Line",
+        "phone": "ເບີໂທຕິດຕໍ່",
+        "shop_on": "ສີນຄ້າ",
+        "payment_information": "ການຊຳລະເງີນ",
+        "customer_service": "ບໍລິການລູກຄ້າ" ,
+        "contact_us": "ຕິດຕໍ່ພວກເຮົາ"   
     },
     "uploadFile": {
         "uploading": "ກຳລັງອັບໂຫຼດໂປຮໄຟລເຂົ້າລະບົບ ກະລຸນາລໍຖ້າ...",
@@ -230,7 +259,9 @@
             "cancel_update": "ຍົກເລີກການອັບເດດ.",
             "not_found_list_appointment": "ບໍ່ມີລາຍການນັດໝາຍເເລ້ວ",
             "not_found_item": "ບໍ່ມີລາຍການເເລ້ວ",
-            "must_be_length_three": "ຕ້ອງມີບໍ່ເກີນ 3 ລາຍການ."
+            "must_be_length_three": "ຕ້ອງມີບໍ່ເກີນ 3 ລາຍການ.",
+            "sign_up_valid_file_mimes": "ຕ້ອງເປັນໄຟລ໌ jpg, jpeg, png ເທົ່ານັ້ນ...",
+            "sign_up_valid_file_size": "ໄຟລ໌ຕ້ອງບໍ່ໃຫຍ່ກວ່າ 2 MB."
         },
         "detail": {
             "delete": "ຖືກລຶບອອກເເລ້ວ.",

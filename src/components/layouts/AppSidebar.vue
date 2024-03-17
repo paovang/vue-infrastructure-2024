@@ -146,6 +146,16 @@
           to: 'real.estate.type',
           roles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER],
           permission: GET_PERMISSIONS.REAL_ESTATE_TYPE.VIEW
+        },
+        {
+          key: '13',
+          label: t('sidebar.footer'),
+          name: 'owner-user',
+          icon: 'pi pi-chart-line',
+          color: 'text-red-500',
+          to: 'footer',
+          roles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER],
+          permission: GET_PERMISSIONS.FOOTER.VIEW
         }
       ]
     },
@@ -348,7 +358,8 @@
                       'owner.appointment',
                       'owner.rent.buy',
                       'owner.user',
-                      'real.estate.type'
+                      'real.estate.type',
+                      'footer'
                     ].includes(String(router.currentRoute.value.name)) }"
                   >
                     <li v-for="children in item.children" :key="item.key">

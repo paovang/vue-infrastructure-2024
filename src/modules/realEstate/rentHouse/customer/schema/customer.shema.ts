@@ -8,6 +8,8 @@ interface ErrorMessages {
   email: string;
   password: string;
   password_confirmation: string;
+  id_no: string;
+  id_image: string;
 }
 
 // Define the schema function type alias
@@ -27,6 +29,7 @@ const customerSchemaFunction: CustomerSchemaFunction = (
     address: string().required(errorMessages.address),
     tel: string().required(errorMessages.tel),
     email: string().required(errorMessages.email),
+    id_no: string().required(errorMessages.id_no),
   });
 
   if (isEdit) {
@@ -35,6 +38,7 @@ const customerSchemaFunction: CustomerSchemaFunction = (
       password_confirmation: string().required(
         errorMessages.password_confirmation
       ),
+      id_image: string().required(errorMessages.id_image),
     });
   }
 

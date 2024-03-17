@@ -10,6 +10,7 @@
     placeholder?: string
     value?: string,
     isEditing?: boolean
+    multiple?: boolean
   }>()
 
   const { value, errorMessage } = useField<string>(() => props.name)
@@ -36,7 +37,7 @@
       type="file"
       :aria-describedby="`text-error-${name}`"
       :placeholder="placeholder"
-      multiple
+      :multiple="multiple"
     />
     <small class="p-error" :id="`text-error-${name}`">{{ errorMessage }}</small>
   </div>

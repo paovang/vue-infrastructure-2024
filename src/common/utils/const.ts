@@ -85,4 +85,10 @@ export const GET_PERMISSIONS = {
     UPDATE: "edit-rent-buy",
     DELETE: "delete-rent-buy",
   },
+  FOOTER: {
+    VIEW: "view-footer",
+    CREATE: "create-footer",
+    UPDATE: "edit-footer",
+    DELETE: "delete-footer",
+  },
 };

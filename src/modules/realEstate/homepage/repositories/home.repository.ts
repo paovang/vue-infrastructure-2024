@@ -126,6 +126,8 @@ export class HomeRealEstateRepository implements IHomeRealEstateRepository {
         password: input.password,
         password_confirmation: input.password_confirmation,
         country_id: input.country_id,
+        id_no: input.id_no,
+        id_image: input.id_image,
       },
     });
 
