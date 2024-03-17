@@ -20,9 +20,9 @@
                     <span class="p-input-icon-left">
                     <my-input-text
                         name="email"
-                        label="ອີເມວ"
+                        :label="$t('messages.email')"
                         class="w-18rem"
-                        placeholder="ກະລຸນາປ້ອນອີເມວກ່ອນ..."
+                        :placeholder="$t('placeholder.inputText')" 
                     />
                     </span>
                 </div>
@@ -31,10 +31,10 @@
                     <my-input-text-password
                         :type="showPassword"
                         name="password"
-                        label="ອີເມວ"
+                        :label="$t('messages.password')"
                         class="w-18rem"
                         required
-                        placeholder="ກະລຸນາປ້ອນລະຫັດຜ່ານ..."
+                        :placeholder="$t('placeholder.inputText')" 
                     />
                     <span class="toggle-password" @click="togglePasswordVisibility">
                       <i :class="['pi', showPassword ? 'pi-eye-slash' : 'pi-eye']"></i>
