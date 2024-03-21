@@ -228,23 +228,23 @@
                         {{ item.index + 1 }}
                     </template>
                 </Column>
-                <Column field="id_image" :header="$t('table.header.id_image')">
+                <Column field="id_image" :header="$t('table.header.id_image')" headerStyle="min-width: 8rem">
                     <template #body="{ data }">
-                        <Image :src="data.id_image" alt="Image" preview />
+                        <Image :src="data.id_image" alt="Image" preview style="max-width: 80px;"/>
                     </template>
                 </Column>
-                <Column field="id_no" :header="$t('table.header.id_no')"></Column>
-                <Column field="country.name" :header="$t('table.header.country')"></Column>
-                <Column field="customer_number" :header="$t('table.header.customer_number')"></Column>
+                <Column field="id_no" :header="$t('table.header.id_no')" headerStyle="min-width: 10rem"></Column>
+                <Column field="country.name" :header="$t('table.header.country')" headerStyle="min-width: 5rem"></Column>
+                <Column field="customer_number" :header="$t('table.header.customer_number')" headerStyle="min-width: 12rem"></Column>
                 <Column field="name" :header="$t('table.header.customer')"></Column>
                 <Column field="owner" :header="$t('table.header.owner')"></Column>
                 <Column field="address" :header="$t('table.header.address')"></Column>
-                <Column field="tel" :header="$t('table.header.phone_number')"></Column>
+                <Column field="tel" :header="$t('table.header.phone_number')" headerStyle="min-width: 9rem"></Column>
                 <Column field="email" :header="$t('table.header.email')"></Column>
                 <Column field="status" :header="$t('table.header.status')"></Column>
                 <!-- <Column field="created" :header="$t('table.header.created_at')"></Column> -->
                 <!-- <Column field="updated" :header="$t('table.header.updated_at')"></Column> -->
-                <Column headerStyle="width: 20rem">
+                <Column headerStyle="min-width: 16rem">
                     <template #body="{ data }">
                         <div class="flex flex-wrap gap-2 btn-right">
                             <Button 
@@ -729,3 +729,5 @@
         opacity: 0;
     }
 </style>
+
+<!-- https://froala.com/wysiwyg-editor/docs/overview/ -->

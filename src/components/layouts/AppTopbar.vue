@@ -1,5 +1,5 @@
 <template>
-    <header class="flex align-items-center justify-content-between pl-3 pr-4 h-4rem surface-ground" style="padding-left: 1.5rem !important;">
+    <header class="flex align-items-center justify-content-between pl-3 pr-4 h-4rem surface-ground" style="padding-left: 1.5rem;">
         <div class="flex align-items-center justify-content-center gap-2">
             <div
                 class="cursor-pointer flex align-items-center justify-content-center border-circle hover:bg-gray-200 hover:text-gray-800 hover:border-2 border-gray-500"

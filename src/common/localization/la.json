@@ -18,7 +18,10 @@
         "appointment": "ນັດໝາຍ",
         "rent_buy": "ບໍລິການ ເຊົ່າ - ຂາຍ",
         "real_estate_type": "ປະເພດຊັບສີນ",
-        "footer": "ສ່ວນທ້າຍ"
+        "footer": "ສ່ວນທ້າຍ",
+        "dashboard": "ໜ້າຫຼັກ",
+        "report_real_estate": "ລາຍງານ ອະສັງຫາທັງໝົດ",
+        "report_rent_buy": "ລາຍງານ ເຊົ່າ - ຊື້ຂາຍ ທັງໝົດ"
     },
     "placeholder": {
         "inputText": "ກະລຸນາປ້ອນກ່ອນ...",
@@ -217,7 +220,9 @@
         "shop_on": "ສີນຄ້າ",
         "payment_information": "ການຊຳລະເງີນ",
         "customer_service": "ບໍລິການລູກຄ້າ" ,
-        "contact_us": "ຕິດຕໍ່ພວກເຮົາ"   
+        "contact_us": "ຕິດຕໍ່ພວກເຮົາ",
+        "dashboard": "ໜ້າຫຼັກ",
+        "report": "ລາຍງານ"   
     },
     "uploadFile": {
         "uploading": "ກຳລັງອັບໂຫຼດໂປຮໄຟລເຂົ້າລະບົບ ກະລຸນາລໍຖ້າ...",

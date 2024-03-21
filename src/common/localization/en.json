@@ -18,7 +18,10 @@
         "appointment": "Appointment",
         "rent_buy": "Rent - Buy",
         "real_estate_type": "Product Type",
-        "footer": "Footer"
+        "footer": "Footer",
+        "dashboard": "Dashboard",
+        "report_real_estate": "Report Real Estate",
+        "report_rent_buy": "Report Rent & Buy"
     },
     "placeholder": {
         "inputText": "Please Enter...",
@@ -216,7 +219,10 @@
         "shop_on": "Products",
         "payment_information": "Payment Information",
         "customer_service": "Customer Service",
-        "contact_us": "Contact Us"
+        "contact_us": "Contact Us",
+        "end_date": "End Date",
+        "dashboard": "Dashboard",
+        "report": "ລາຍງານ"
     },
     "uploadFile": {
         "uploading": "Uploading profile to the system please wait...",

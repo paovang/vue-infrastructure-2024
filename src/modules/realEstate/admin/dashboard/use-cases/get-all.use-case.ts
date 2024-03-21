@@ -5,16 +5,16 @@ import {
   IGPaginate,
   IGPaginated,
 } from "@/common/interfaces/pagination.interface";
-import { HouseEntity } from "../entities/house.entity";
-import { HouseRepository } from "../repositories/house.repository";
-import type { IHouseRepository } from "../interfaces/house.interface";
+import { Repository } from "../repositories/repository";
+import type { IRepository } from "../interfaces/interface";
+import { HouseEntity } from "@/modules/realEstate/owner/house/entities/house.entity";
 
 @injectable()
-export class GetAllHouseUseCase
+export class GetAllUseCase
   implements
     IGUseCase<IResponse<IGPaginated<HouseEntity>>, IGPaginate<HouseEntity>>
 {
-  constructor(@inject(HouseRepository) private _api: IHouseRepository) {}
+  constructor(@inject(Repository) private _api: IRepository) {}
 
   async execute(
     input: IGPaginate<
@@ -23,11 +23,10 @@ export class GetAllHouseUseCase
         | "real_estate_type_id"
         | "service_model"
         | "room_type"
-        | "village"
+        | "search"
         | "district_id"
         | "province_id"
-        | "wide"
-        | "long"
+        | "country_id"
       >
     >
   ): Promise<void | IResponse<IGPaginated<HouseEntity>>> {

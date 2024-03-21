@@ -166,14 +166,25 @@
       color: 'text-black-500',
       to: 'settings',
       children: [
-        // {
-        //   key: '1',
-        //   label:  t('sidebar.country'),
-        //   icon: 'pi pi-chart-line',
-        //   color: 'text-red-500',
-        //   to: 'country',
-        //   roles: ['SuperAdmin']
-        // }
+        {
+          key: '1',
+          label:  t('sidebar.report_real_estate'),
+          name: 'admin-report-real-estate',
+          icon: 'pi pi-chart-line',
+          color: 'text-red-500',
+          to: 'report.real.estate',
+          roles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER],
+          permission: GET_PERMISSIONS.RENT_BUY.VIEW
+        },
+        {
+          key: '1',
+          label:  t('sidebar.report_rent_buy'),
+          icon: 'pi pi-chart-line',
+          color: 'text-red-500',
+          to: 'country',
+          roles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER],
+          permission: GET_PERMISSIONS.RENT_BUY.VIEW
+        }
       ]
     },
   ]
@@ -208,6 +219,14 @@
   const permissionsString = localStorage.getItem('permissions') || '';
   const currentPermissions = rolesString ? JSON.parse(permissionsString) : [];
 
+
+  const hasRoleAdmin = () => {
+   if (currentRoles.includes(GET_ROLES.SUPER_ADMIN) || currentRoles.includes(GET_ROLES.ADMIN)) {
+    return true;
+   } else {
+    return false;
+   }
+  }
 
   const hasPermission = (permission: any) => {
    if (currentRoles.includes(GET_ROLES.SUPER_ADMIN) || currentRoles.includes(GET_ROLES.ADMIN)) {
@@ -285,6 +304,15 @@
         }
       }
 
+      /** Owner & Admin Rent-Buy */
+      if (name === 'admin-report-real-estate') {
+        if (permission === 'view-rent-buy' && currentRoles.includes(GET_ROLES.USER)) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+
       return currentPermissions.includes(permission);
     }
   }
@@ -295,7 +323,6 @@
     <aside class="shadow-1 h-screen fixed z-2 surface-overlay">
     <div class="flex flex-column h-full white-space-nowrap">
       <div
-        @click="router.push({ name: 'dashboard' })"
         class="flex align-items-center justify-content-center pt-3 overflow-hidden cursor-pointer"
       >
         <img src="https://logomaker.designfreelogoonline.com/media/productdesigner/logo/resized/1286_bird-01.png" style="width: 38px" />
@@ -304,6 +331,17 @@
       <br/>
         <div class="overflow-y-auto">
             <ul class="list-none p-0 m-0 overflow-hidden">
+              <li v-if="hasRoleAdmin()">
+                  <a 
+                    @click="goToRoute('dashboard')"
+                    :class="{ 'bg-highlight': router.currentRoute.value.name === 'dashboard' }"
+                    v-ripple 
+                    class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
+                  >
+                      <i class="pi pi-chart-line mr-2"></i>
+                      <span class="font-medium">{{ $t('sidebar.dashboard')}}</span>
+                  </a>
+              </li>
               <li v-if="hasPermission(GET_PERMISSIONS.CUSTOMER.VIEW)">
                   <a 
                     @click="goToRoute('customer')"
@@ -359,7 +397,8 @@
                       'owner.rent.buy',
                       'owner.user',
                       'real.estate.type',
-                      'footer'
+                      'footer',
+                      'report_real_estate'
                     ].includes(String(router.currentRoute.value.name)) }"
                   >
                     <li v-for="children in item.children" :key="item.key">

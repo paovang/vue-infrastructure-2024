@@ -9,6 +9,7 @@ export interface HouseEntity {
   real_estate_type_id?: string;
   district_id?: string;
   province_id?: string;
+  country_id?: string;
   service_charge_id?: string;
   real_estate_type?: {
     id?: string;

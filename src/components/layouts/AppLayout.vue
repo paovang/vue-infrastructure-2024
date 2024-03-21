@@ -13,10 +13,11 @@
     <div
       class="layout-content"
       :style="toggle ? '' : 'margin-left: 0rem;transition: 0.2s ease-in-out;'"
+      style="overflow: hidden;"
     >
-      <AppTopbar @toggle-sidebar="() => (toggle = !toggle)" />
+      <AppTopbar @toggle-sidebar="() => (toggle = !toggle)"/>
       <main class="layout-main-container surface-ground">
-        <router-view v-slot="{Component}" >
+        <router-view v-slot="{Component}">
           <template v-if="Component">
             <Suspense>
               <component :is="Component"></component>
