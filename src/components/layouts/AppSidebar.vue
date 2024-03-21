@@ -398,7 +398,7 @@
                       'owner.user',
                       'real.estate.type',
                       'footer',
-                      'report_real_estate'
+                      'report.real.estate'
                     ].includes(String(router.currentRoute.value.name)) }"
                   >
                     <li v-for="children in item.children" :key="item.key">

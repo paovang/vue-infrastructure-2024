@@ -17,7 +17,9 @@ export class Repository implements IRepository {
     const response = await this._api.axios({
       method: "post",
       url: `/admin/create-footer`,
-      data: {},
+      data: {
+        name: input.name,
+      },
     });
 
     return {
@@ -31,7 +33,9 @@ export class Repository implements IRepository {
     const response = await this._api.axios({
       method: "put",
       url: `/admin/update-footer/${input.id}`,
-      data: {},
+      data: {
+        name: input.name,
+      },
     });
 
     return {
