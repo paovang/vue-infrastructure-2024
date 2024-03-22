@@ -8,6 +8,8 @@ import { IResponse } from "@/common/interfaces/response.interface";
 import { DashboardEntity } from "../entities/entity";
 import { IRepository } from "../interfaces/interface";
 import { HouseEntity } from "@/modules/realEstate/owner/house/entities/house.entity";
+import { RentAndBuyEntity } from "@/modules/realEstate/owner/rent_buy/entities/rent-buy-entity";
+import { formatDate } from "@/common/utils/format.date";
 
 @injectable()
 export class Repository implements IRepository {
@@ -124,6 +126,67 @@ export class Repository implements IRepository {
       url: `/admin/dashboard`,
     });
 
-    return response;
+    return response.data;
+  }
+
+  async getAllReportRentBuy(
+    args: IGPaginate<
+      Pick<
+        RentAndBuyEntity,
+        "service_model" | "from_date" | "to_date" | "search" | "customer_id"
+      >
+    >
+  ): Promise<IResponse<IGPaginated<RentAndBuyEntity>>> {
+    const fromDate = args.filter?.from_date;
+    const toDate = args.filter?.to_date;
+    let startDate = "";
+    let endDate = "";
+
+    if (fromDate instanceof Date) {
+      const year = fromDate.getFullYear();
+      const month = (fromDate.getMonth() + 1).toString().padStart(2, "0"); // Adding 1 to month as it's zero-based
+      const day = fromDate.getDate().toString().padStart(2, "0");
+
+      startDate = `${year}-${month}-${day}`;
+    }
+
+    if (toDate instanceof Date) {
+      const year = toDate.getFullYear();
+      const month = (toDate.getMonth() + 1).toString().padStart(2, "0"); // Adding 1 to month as it's zero-based
+      const day = toDate.getDate().toString().padStart(2, "0");
+
+      endDate = `${year}-${month}-${day}`;
+    }
+
+    const response = await this._api.axios({
+      url: "/admin/report-rent-and-buy",
+      params: {
+        page: args.page,
+        per_page: args.limit,
+        service_model: args.filter?.service_model,
+        start_date: startDate ? formatDate(startDate) : null,
+        end_date: endDate ? formatDate(endDate) : null,
+        customer_id: args.filter?.customer_id,
+        search: args.filter?.search,
+      },
+    });
+
+    const { data } = response.data;
+    return {
+      data: {
+        props: data.data.data,
+        total: data.data.pagination.total,
+        summary: data.totalPrice,
+      },
+      status: "success",
+    };
+  }
+
+  async getAllCustomers(): Promise<any> {
+    const response = await this._api.axios({
+      url: `/customers`,
+    });
+
+    return response.data;
   }
 }

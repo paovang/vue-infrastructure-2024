@@ -5,6 +5,7 @@ import {
 import { IResponse } from "@/common/interfaces/response.interface";
 import { DashboardEntity } from "../entities/entity";
 import { HouseEntity } from "@/modules/realEstate/owner/house/entities/house.entity";
+import { RentAndBuyEntity } from "@/modules/realEstate/owner/rent_buy/entities/rent-buy-entity";
 
 export interface IRepository {
   create(input: DashboardEntity): Promise<any>;
@@ -35,4 +36,15 @@ export interface IRepository {
   getAllProvinces(id: HouseEntity): Promise<any>;
 
   getAllDistricts(id: HouseEntity): Promise<any>;
+
+  getAllReportRentBuy(
+    args: IGPaginate<
+      Pick<
+        RentAndBuyEntity,
+        "service_model" | "from_date" | "to_date" | "search" | "customer_id"
+      >
+    >
+  ): Promise<IResponse<IGPaginated<RentAndBuyEntity>>>;
+
+  getAllCustomers(): Promise<any>;
 }

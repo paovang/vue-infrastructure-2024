@@ -47,7 +47,9 @@
             "appointment": "ລາຍການ ນັດໝາຍທັງໝົດ",
             "rent_buy": "ລາຍການ ເຊົ່າ - ຂາຍ ທັງໝົດ",
             "real_estate_type": "ປະເພດຊັບສີນ ທັງໝົດ",
-            "footer": "ສ່ວນທ້າຍ ທັງໝົດ"
+            "footer": "ສ່ວນທ້າຍ ທັງໝົດ",
+            "report_rent_buy": "ລາຍງານ ເຊົ່າ - ຊື້ຂາຍ ທັງໝົດ",
+            "report_real_estate":"ລາຍງານ ອະສັງຫາທັງໝົດ"
         },
         "header": {
             "index": "ລຳດັບ",
@@ -79,7 +81,7 @@
             "role": "ບົດບາດ",
             "permission": "ໜ້າທີ່ຮັບຜິດຊອບ",
             "customer_number": "ລະຫັດລູກຄ້າ",
-            "real_esate_number": "ເລກລະຫັດເຮືອນ",
+            "real_esate_number": "ເລກລະຫັດອະສັງຫາ",
             "bill_number": "ເລກທີ່ບີນ",
             "info_house": "ຂໍ້ມູນເຮືອນ",
             "appointment": "ນັດໝາຍ",
@@ -89,13 +91,20 @@
             "reserve_number": "ລະຫັດນັດໝາຍ",
             "reason": "ເຫດຜົນ",
             "date_rent": "ວັນທີ ຊື້ຂາຍ",
-            "rent_number": "ເລກລະຫັດ ຊື້ຂາຍ",
+            "rent_number": "ເລກລະຫັດ ເຊົ່າ - ຊື້ຂາຍ",
             "from_date": "ເລີ່ມເເຕ່ວັນທີ",
             "to_date": "ຫາວັນທີ",
             "price": "ລາຄາ",
             "total": "ລວມເປັນເງີນ",
             "id_no": "ເລກບັດ, ໃບຂັບຂີ່, ໜັງສືຜ່ານເເດນ",
             "id_image": "ໄຟລ",
+            "real_estate_type":"ປະເພດຊັບສີນ",
+            "account_number": "ເລກລະຫັດບັນຊີ",
+            "account_name": "ຊື່ເຈົ້າຂອງບັນຊີ",
+            "info_account": "ຂໍ້ມູນ ເຈົ້າຂອງບັນຊີ",
+            "garage": "ທີ່ຈອດລົດ",
+            "total_bed": "ຈຳນວນຫ້ອງນອນ",
+            "total_bath": "ຈຳນວນຫ້ອງນ້ຳ",
             "footer": {
                 "facebook": "Facebook",
                 "whatsapp": "Whatsapp",
@@ -131,7 +140,8 @@
         "success": "ສຳເລັດ",
         "rent_buy": "ເຊົ່າ - ຊື້ຂາຍ",
         "sign_up": "ລົງທະບຽນ",
-        "close": "ປິດ"
+        "close": "ປິດ",
+        "rent_buy_from_appoint": "ເຊົ່າ - ຊື້ຂາຍ ຈາກການນັດໝາຍ"
     },
     "messages": {
         "country": "ປະເທດ",
@@ -185,7 +195,7 @@
         "permission": "ໜ້າທີ່ຮັບຜິດຊອບ",
         "date_appointment": "ວັນທີນັດໝາຍ",
         "search": "ຄົ້ນຫາ",
-        "real_esate_number": "ເລກລະຫັດເຮືອນ",
+        "real_esate_number": "ເລກລະຫັດອະສັງຫາ",
         "reserve_number": "ລະຫັດນັດໝາຍ",
         "update_appointment": "ອັບເດດ ການນັດໝາຍ",
         "reason": "ເຫດຜົນ",
@@ -222,7 +232,9 @@
         "customer_service": "ບໍລິການລູກຄ້າ" ,
         "contact_us": "ຕິດຕໍ່ພວກເຮົາ",
         "dashboard": "ໜ້າຫຼັກ",
-        "report": "ລາຍງານ"   
+        "report": "ລາຍງານ",
+        "all": "ທັງໝົດ",
+        "total_price": "ລວມເປັນເງີນທັງໝົດ"   
     },
     "uploadFile": {
         "uploading": "ກຳລັງອັບໂຫຼດໂປຮໄຟລເຂົ້າລະບົບ ກະລຸນາລໍຖ້າ...",

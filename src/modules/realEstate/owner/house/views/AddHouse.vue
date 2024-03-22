@@ -140,7 +140,6 @@
                         class="h-full" 
                     />
                 </div>
-
                 <div class="column is-mobile-12 is-2 set-margin-top">
                     <my-input-text 
                         name="wide" 
@@ -493,6 +492,9 @@
             form.zip_code = value.zipcode;
             form.wide = value.wide;
             form.long = value.long;
+            form.total_bath = value.bath;
+            form.total_bed = value.bed;
+            form.garage = value.garage;
             form.name = value.name;
             form.remark = value.remark;
             form.location = value.location;

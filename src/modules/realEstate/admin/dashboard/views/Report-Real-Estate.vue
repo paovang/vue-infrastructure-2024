@@ -3,7 +3,7 @@
         <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
             <span class="p-input-icon-left w-full sm:w-20rem flex-order-1 sm:flex-order-0">
                 <h2 class="mb-3">
-                    {{ $t('table.title.real_estate') }}
+                    {{ $t('table.title.report_real_estate') }}
                 </h2>
             </span>
             <span class="w-full sm:w-auto flex-order-0 sm:flex-order-1 mb-4 sm:mb-0">

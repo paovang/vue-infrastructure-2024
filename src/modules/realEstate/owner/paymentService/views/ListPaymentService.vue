@@ -71,44 +71,44 @@
                     {{ item.index + 1 }}
                 </template>
             </Column>
-            <Column field="date_payment" :header="$t('table.header.date_payment')"></Column>
-            <Column field="bill_no" :header="$t('table.header.bill_number')"></Column>
-            <Column :header="$t('table.header.info_house')">
+            <Column field="date_payment" :header="$t('table.header.date_payment')" headerStyle="min-width: 12rem"></Column>
+            <Column field="bill_no" :header="$t('table.header.bill_number')" headerStyle="min-width: 8rem"></Column>
+            <Column :header="$t('table.header.info_house')" headerStyle="min-width: 20rem">
                 <template #body="{data}">
                     <span>{{ data.real_estate_list.real_esate_number }}</span>
                     <span> - 
-                        ({{ data.real_estate_list.real_estate_type.name }} / {{ data.real_estate_list.service_model }})
+                        ({{ data.real_estate_list.name }} / {{ data.real_estate_list.real_estate_type.name }} / {{ data.real_estate_list.service_model }})
                     </span>
                 </template>
             </Column>
-            <Column field="service_charge" :header="$t('table.header.amount')">
+            <Column :header="$t('table.header.unit_price')" headerStyle="min-width: 12rem">
+                <template #body="{data}">
+                    <span>{{ formatNumber(data.service_charge, data.service_charge_list.currency) }}</span>
+                    (<span>{{ data.qty }} / {{ data.unit_price }}</span>)
+                </template>
+            </Column>
+            <Column field="service_charge" :header="$t('table.header.total')" headerStyle="min-width: 8rem">
                 <template #body="slotProps">
                     {{ formatCurrency(slotProps.data.amount, slotProps.data) }}
                 </template>
             </Column>
-            <Column :header="$t('table.header.unit_price')">
-                <template #body="{data}">
-                    <span>{{ data.qty }}</span>
-                    <span> / {{ data.unit_price }}</span>
-                </template>
-            </Column>
-            <Column :header="$t('table.header.start_end_date')">
+            <Column :header="$t('table.header.start_end_date')" headerStyle="min-width: 14rem">
                 <template #body="{data}">
                     <span style="color: rgb(4, 4, 209)">{{ data.from_date }}</span>
                     <span style="color: red"> / {{ data.to_date }}</span>
                 </template>
             </Column>
-            <Column field="status" :header="$t('table.header.status')"></Column>
-            <Column headerStyle="width: 10rem">
+            <Column field="status" :header="$t('table.header.status')" headerStyle="min-width: 6rem"></Column>
+            <Column headerStyle="min-width: 8rem">
                 <template #body="{ data }">
                     <div class="flex flex-wrap gap-2 btn-right">
-                        <Button 
+                        <!-- <Button 
                             type="button" 
                             icon="pi pi-eye" 
                             rounded 
                             severity="success"  
                             style="color: white;" 
-                        />
+                        /> -->
                         <Button 
                             type="button" 
                             icon="pi pi-pencil" 
@@ -157,6 +157,7 @@
     import { useConfirm } from "primevue/useconfirm";
     import { useToast } from "primevue/usetoast";
     import { useI18n } from 'vue-i18n';
+import { formatNumber } from '@/common/utils/format.currency';
 
     const { t } = useI18n();
     const toast = useToast();
@@ -225,7 +226,7 @@
     }
 
     const formatCurrency = (value: any, data: any) => {
-        return value.toLocaleString('en-US') + ' ' + data.currency;
+        return value.toLocaleString('en-US') + '' + data.currency;
     };
 
     const onSuccess = async () => {

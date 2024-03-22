@@ -296,6 +296,11 @@
     }
 
     onMounted(async() => {
+        if (setStateFilter.filter) {
+            setStateFilter.filter.status = '';
+            setStateFilter.page = 1;
+            setStateFilter.limit = 10;
+        }
         await initComponent();
     })
     

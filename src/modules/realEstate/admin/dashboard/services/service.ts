@@ -14,6 +14,9 @@ import { HouseEntity } from "@/modules/realEstate/owner/house/entities/house.ent
 import { getAllCountryUseCase } from "../use-cases/get-country.use-case";
 import { getAllProvinceUseCase } from "../use-cases/get-province.use-case";
 import { getAllDistrictUseCase } from "../use-cases/get-district.use-case";
+import { RentAndBuyEntity } from "@/modules/realEstate/owner/rent_buy/entities/rent-buy-entity";
+import { GetAllReportRentBuyUseCase } from "../use-cases/report-rent/get-all.use-case";
+import { getAllCustomerUseCase } from "../use-cases/report-rent/get-all-customer.use-case";
 
 @injectable()
 export class DashboardService {
@@ -30,7 +33,11 @@ export class DashboardService {
     private _reportRealEstateType: ReportRealEstateTypeUseCase,
     @inject(getAllCountryUseCase) private _getCountry: getAllCountryUseCase,
     @inject(getAllProvinceUseCase) private _getProvince: getAllProvinceUseCase,
-    @inject(getAllDistrictUseCase) private _getDistrict: getAllDistrictUseCase
+    @inject(getAllDistrictUseCase) private _getDistrict: getAllDistrictUseCase,
+    @inject(GetAllReportRentBuyUseCase)
+    private _getAllReportRentBuy: GetAllReportRentBuyUseCase,
+    @inject(getAllCustomerUseCase)
+    private _getAllCustomer: getAllCustomerUseCase
   ) {}
 
   async register(input: DashboardEntity) {
@@ -77,5 +84,20 @@ export class DashboardService {
 
   async reportRealEstateTypes(): Promise<any> {
     return await this._reportRealEstateType.execute();
+  }
+
+  async getAllReportRentBuy(
+    input: IGPaginate<
+      Pick<
+        RentAndBuyEntity,
+        "service_model" | "from_date" | "to_date" | "search" | "customer_id"
+      >
+    >
+  ): Promise<void | IResponse<IGPaginated<RentAndBuyEntity>>> {
+    return await this._getAllReportRentBuy.execute(input);
+  }
+
+  async getAllCustomers(): Promise<any> {
+    return await this._getAllCustomer.execute();
   }
 }

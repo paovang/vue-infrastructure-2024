@@ -174,14 +174,15 @@
           color: 'text-red-500',
           to: 'report.real.estate',
           roles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER],
-          permission: GET_PERMISSIONS.RENT_BUY.VIEW
+          permission: GET_PERMISSIONS.REAL_ESTATE.VIEW
         },
         {
-          key: '1',
+          key: '2',
           label:  t('sidebar.report_rent_buy'),
+          name: 'admin-report-rent-buy',
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
-          to: 'country',
+          to: 'report.rent.buy',
           roles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER],
           permission: GET_PERMISSIONS.RENT_BUY.VIEW
         }
@@ -304,8 +305,16 @@
         }
       }
 
-      /** Owner & Admin Rent-Buy */
+      /** Admin Report Real-Estate */
       if (name === 'admin-report-real-estate') {
+        if (permission === 'view-real-estate' && currentRoles.includes(GET_ROLES.USER)) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+      /** Admin Report Rent-Buy */
+      if (name === 'admin-report-rent-buy') {
         if (permission === 'view-rent-buy' && currentRoles.includes(GET_ROLES.USER)) {
           return true;
         } else {

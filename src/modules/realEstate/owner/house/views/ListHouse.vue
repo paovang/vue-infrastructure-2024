@@ -170,18 +170,22 @@
                     {{ item.index + 1 }}
                 </template>
             </Column>
-            <Column field="real_esate_number" :header="$t('table.header.real_esate_number')"></Column>
-            <Column field="real_estate_type.name" :header="$t('table.header.realestate_type')"></Column>
-            <Column field="service_model" :header="$t('table.header.service_model')"></Column>
-            <Column field="room_type" :header="$t('table.header.room_type')"></Column>
-            <Column field="village" :header="$t('table.header.village')"></Column>
-            <Column field="district.name" :header="$t('table.header.district')"></Column>
-            <Column field="district.province.name" :header="$t('table.header.province')"></Column>
-            <Column field="zip_code" :header="$t('table.header.zip_code')"></Column>
-            <Column field="wide" :header="$t('table.header.wide')"></Column>
-            <Column field="long" :header="$t('table.header.long')"></Column>
-            <Column field="status" :header="$t('table.header.status')"></Column>
-            <Column headerStyle="width: 10rem" style="width: 23%">
+            <Column field="real_esate_number" :header="$t('table.header.real_esate_number')" headerStyle="min-width: 11rem"></Column>
+            <Column field="name" :header="$t('table.header.name')" headerStyle="min-width: 8rem"></Column>
+            <Column field="real_estate_type.name" :header="$t('table.header.realestate_type')" headerStyle="min-width: 8rem"></Column>
+            <Column field="service_model" :header="$t('table.header.service_model')" headerStyle="min-width: 8rem"></Column>
+            <Column field="room_type" :header="$t('table.header.room_type')" headerStyle="min-width: 8rem"></Column>
+            <Column field="village" :header="$t('table.header.village')" headerStyle="min-width: 6rem"></Column>
+            <Column field="district.name" :header="$t('table.header.district')" headerStyle="min-width: 6rem"></Column>
+            <Column field="district.province.name" :header="$t('table.header.province')" headerStyle="min-width: 7rem"></Column>
+            <Column field="zip_code" :header="$t('table.header.zip_code')" headerStyle="min-width: 6rem"></Column>
+            <Column field="wide" :header="$t('table.header.wide')" headerStyle="min-width: 6rem"></Column>
+            <Column field="long" :header="$t('table.header.long')" headerStyle="min-width: 6rem"></Column>
+            <Column field="total_bed" :header="$t('table.header.total_bed')" headerStyle="min-width: 8rem"></Column>
+            <Column field="total_bath" :header="$t('table.header.total_bath')" headerStyle="min-width: 8rem"></Column>
+            <Column field="garage" :header="$t('table.header.garage')" headerStyle="min-width: 6rem"></Column>
+            <Column field="status" :header="$t('table.header.status')" headerStyle="min-width: 5rem"></Column>
+            <Column headerStyle="min-width: 14rem">
                 <template #body="{ data }">
                     <div class="flex flex-wrap gap-2 btn-right">
                         <!-- <Button 
@@ -196,6 +200,7 @@
                             :label="data.status"
                             rounded 
                             :severity="getSeverity(data.status)"  
+                            :disabled="isDisabled(data.status)"
                             style="color: white;" 
                             @click="confirmUpdateStatus(data.id)"
                         />
@@ -292,6 +297,10 @@
     // async function clearForm() {
     //     console.log('clear....')
     // }
+
+    const isDisabled = (status: string) => {
+        return status === 'rent' || status === 'buy';
+    }
 
     const getSeverity = (status: string) => {
         switch (status) {

@@ -126,6 +126,22 @@
                         :value="form.zip_code"
                     />
                 </div>
+                <div class="column is-mobile-12 is-2 set-margin-top">
+                    <my-input-text 
+                        name="bed" 
+                        :label="$t('messages.total_bed')"  
+                        :placeholder="$t('placeholder.inputText')"  
+                        class="h-full" 
+                    />
+                </div>
+                <div class="column is-mobile-12 is-2 set-margin-top">
+                    <my-input-text 
+                        name="bath" 
+                        :label="$t('messages.total_bath')"  
+                        :placeholder="$t('placeholder.inputText')"  
+                        class="h-full" 
+                    />
+                </div>
                 <div class="column is-mobile-12 is-2">
                     <my-input-text 
                         name="wide" 
@@ -146,7 +162,16 @@
                         :value="form.long"
                     />
                 </div>
-                <div class="column is-mobile-12 is-4">
+                <div class="column is-mobile-12 is-2 set-margin-top">
+                    <my-input-text 
+                        name="garage" 
+                        :label="$t('messages.garage')"  
+                        required 
+                        :placeholder="$t('placeholder.inputTextGarage')"  
+                        class="h-full" 
+                    />
+                </div>
+                <div class="column is-mobile-12 is-10">
                     <my-input-text 
                         name="location" 
                         :label="$t('messages.location')" 
@@ -423,6 +448,9 @@
         setFieldValue('long', house.long);
         setFieldValue('location', house.location);
         setFieldValue('name', house.name);
+        setFieldValue('bed', house.total_bed);
+        setFieldValue('bath', house.total_bath);
+        setFieldValue('garage', house.garage);
 
         form.room_type = house.room_type;
         form.service_model = house.service_model;
@@ -471,6 +499,10 @@
         form.zip_code = value.zipcode;
         form.wide = value.wide;
         form.long = value.long;
+        form.total_bed = value.bed;
+        form.total_bath = value.bath;
+        form.garage = value.garage;
+        form.name = value.name;
         form.remark = value.remark;
         form.location = value.location;
         form.image = selectedImage.value;

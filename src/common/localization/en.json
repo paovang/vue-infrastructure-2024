@@ -47,7 +47,9 @@
             "appointment": "All Appointment",
             "rent_buy": "All Rent - Buy",
             "real_estate_type":"All Product Type",
-            "footer": "All Footer"
+            "footer": "All Footer",
+            "report_rent_buy": "All Report Rent & Buy",
+            "report_real_estate": "All Report Real Estate"
         },
         "header": {
             "index": "Number",
@@ -96,6 +98,13 @@
             "total": "Total",
             "id_no": "ID NO",
             "id_image": "ID Image",
+            "real_estate_type":"Real Estate Type",
+            "account_number": "Account Number",
+            "account_name": "Account Name",
+            "info_account": "Info Account",
+            "garage": "Garage",
+            "total_bed": "Total Bed",
+            "total_bath": "Total Bath",
             "footer": {
                 "facebook": "Facebook",
                 "whatsapp": "Whatsapp",
@@ -131,7 +140,8 @@
         "success": "Success",
         "rent_buy": "Rent - Buy",
         "sign_up": "Sign Up",
-        "close": "Close"
+        "close": "Close",
+        "rent_buy_from_appoint": "Rent - Buy from Appoint"
     },
     "messages": {
         "country": "Country",
@@ -222,7 +232,9 @@
         "contact_us": "Contact Us",
         "end_date": "End Date",
         "dashboard": "Dashboard",
-        "report": "ລາຍງານ"
+        "report": "ລາຍງານ",
+        "all": "All",
+        "total_price": "Total Price"
     },
     "uploadFile": {
         "uploading": "Uploading profile to the system please wait...",

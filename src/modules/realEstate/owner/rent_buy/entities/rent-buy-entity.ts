@@ -6,6 +6,8 @@ export interface RentAndBuyEntity {
   service_model?: string;
   customer_name?: string;
   customer_tel?: string;
+  customer_id?: string;
+  search?: string;
   date_appointment?: Date | string;
   from_date?: Date | string;
   to_date?: Date | string;

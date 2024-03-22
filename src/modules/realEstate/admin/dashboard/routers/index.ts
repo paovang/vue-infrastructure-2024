@@ -23,14 +23,14 @@ export const dashboardRoute: RouteRecordRaw[] = [
     },
     beforeEnter: roleGuard,
   },
-  // {
-  //   path: "/footer/add",
-  //   name: "add.footer",
-  //   component: () => import("../views/Add-Footer.vue"),
-  //   meta: {
-  //     label: "sidebar.footer",
-  //     requiredRoles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER],
-  //   },
-  //   beforeEnter: roleGuard,
-  // },
+  {
+    path: "/report/rent-buy",
+    name: "report.rent.buy",
+    component: () => import("../views/Report-Rent-Buy.vue"),
+    meta: {
+      label: "sidebar.footer",
+      requiredRoles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER],
+    },
+    beforeEnter: roleGuard,
+  },
 ];

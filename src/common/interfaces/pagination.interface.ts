@@ -7,4 +7,5 @@ export interface IGPaginate<Entity> {
 export interface IGPaginated<Entity> {
   props: Entity[];
   total: number;
+  summary?: any;
 }
