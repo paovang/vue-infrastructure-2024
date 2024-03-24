@@ -8,8 +8,7 @@
             </span>
             <span class="w-full sm:w-auto flex-order-0 sm:flex-order-1 mb-4 sm:mb-0">
                 <Button 
-                    icon="pi pi-plus-circle"
-                    rounded 
+                    :label="$t('button.add')"
                     severity="info" 
                     @click="pushRouteAddHouse()"
                 />
@@ -25,6 +24,7 @@
             tableStyle="min-width: 50rem"
             :loading="state.isLoading" 
             lazy
+            scrollable
             :totalRecords="state.data.total"
             :rows="setStateFilter.limit"
             paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
@@ -165,29 +165,9 @@
                 </div>
             </template>
 
-            <Column field="id" :header="$t('table.header.index')">
-                <template #body="item">
-                    {{ item.index + 1 }}
-                </template>
-            </Column>
-            <Column field="real_esate_number" :header="$t('table.header.real_esate_number')" headerStyle="min-width: 11rem"></Column>
-            <Column field="name" :header="$t('table.header.name')" headerStyle="min-width: 8rem"></Column>
-            <Column field="real_estate_type.name" :header="$t('table.header.realestate_type')" headerStyle="min-width: 8rem"></Column>
-            <Column field="service_model" :header="$t('table.header.service_model')" headerStyle="min-width: 8rem"></Column>
-            <Column field="room_type" :header="$t('table.header.room_type')" headerStyle="min-width: 8rem"></Column>
-            <Column field="village" :header="$t('table.header.village')" headerStyle="min-width: 6rem"></Column>
-            <Column field="district.name" :header="$t('table.header.district')" headerStyle="min-width: 6rem"></Column>
-            <Column field="district.province.name" :header="$t('table.header.province')" headerStyle="min-width: 7rem"></Column>
-            <Column field="zip_code" :header="$t('table.header.zip_code')" headerStyle="min-width: 6rem"></Column>
-            <Column field="wide" :header="$t('table.header.wide')" headerStyle="min-width: 6rem"></Column>
-            <Column field="long" :header="$t('table.header.long')" headerStyle="min-width: 6rem"></Column>
-            <Column field="total_bed" :header="$t('table.header.total_bed')" headerStyle="min-width: 8rem"></Column>
-            <Column field="total_bath" :header="$t('table.header.total_bath')" headerStyle="min-width: 8rem"></Column>
-            <Column field="garage" :header="$t('table.header.garage')" headerStyle="min-width: 6rem"></Column>
-            <Column field="status" :header="$t('table.header.status')" headerStyle="min-width: 5rem"></Column>
-            <Column headerStyle="min-width: 14rem">
+            <Column headerStyle="min-width: 14rem" frozen>
                 <template #body="{ data }">
-                    <div class="flex flex-wrap gap-2 btn-right">
+                    <div class="flex flex-wrap gap-2">
                         <!-- <Button 
                             type="button" 
                             :label="$t('messages.payment')" 
@@ -222,6 +202,27 @@
                     </div>
                 </template>
             </Column>
+            <Column field="id" :header="$t('table.header.index')">
+                <template #body="item">
+                    {{ item.index + 1 }}
+                </template>
+            </Column>
+            <Column field="real_esate_number" :header="$t('table.header.real_esate_number')" headerStyle="min-width: 8rem"></Column>
+            <Column field="name" :header="$t('table.header.name')" headerStyle="min-width: 8rem"></Column>
+            <Column field="real_estate_type.name" :header="$t('table.header.realestate_type')" headerStyle="min-width: 8rem"></Column>
+            <Column field="service_model" :header="$t('table.header.service_model')" headerStyle="min-width: 8rem"></Column>
+            <Column field="room_type" :header="$t('table.header.room_type')" headerStyle="min-width: 8rem"></Column>
+            <Column field="village" :header="$t('table.header.village')" headerStyle="min-width: 6rem"></Column>
+            <Column field="district.name" :header="$t('table.header.district')" headerStyle="min-width: 6rem"></Column>
+            <Column field="district.province.name" :header="$t('table.header.province')" headerStyle="min-width: 7rem"></Column>
+            <Column field="zip_code" :header="$t('table.header.zip_code')" headerStyle="min-width: 6rem"></Column>
+            <Column field="long" :header="$t('table.header.long')" headerStyle="min-width: 7rem"></Column>
+            <Column field="wide" :header="$t('table.header.wide')" headerStyle="min-width: 6rem"></Column>
+            <Column field="total_bed" :header="$t('table.header.total_bed')" headerStyle="min-width: 9rem"></Column>
+            <Column field="total_bath" :header="$t('table.header.total_bath')" headerStyle="min-width: 8rem"></Column>
+            <Column field="garage" :header="$t('table.header.garage')" headerStyle="min-width: 6rem"></Column>
+            <Column field="status" :header="$t('table.header.status')" headerStyle="min-width: 5rem"></Column>
+            <Column field="created_at" :header="$t('table.header.created_at')" headerStyle="min-width: 8rem"></Column>
         </DataTable>
 
         <!-- <payment-service-component

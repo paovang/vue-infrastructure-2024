@@ -5,6 +5,7 @@ interface Permissions {
 
 export interface UserEntity {
   id?: string;
+  profile?: string;
   name: string;
   email?: string;
   password?: string;

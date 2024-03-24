@@ -7,14 +7,24 @@
   import { countryStore } from '@/modules/realEstate/address/stores/country.store';
   import { GET_ROLES } from '@/common/utils/const';
   import { GET_PERMISSIONS } from '../../common/utils/const';
+  import { reportRentBuyStore } from '../../modules/realEstate/admin/dashboard/stores/rent-store';
+import { onMounted, ref } from 'vue';
 
   const { t } = useI18n();
+  const { getAllAppointmentPending, appointmentPending } = reportRentBuyStore();
   
   const { setStateFilter: setStateDistrictFilter } = districtStore();
   const { setStateFilter: setStateProvinceFilter } = provinceStore();
   const { setStateFilter } = countryStore();
   const { setStateFilter: setStateRealEstateServiceFilter } = realEstateServiceStore();
 
+
+  const appointment = ref<Number>(0);
+  onMounted(async() => {
+    await getAllAppointmentPending();
+
+    appointment.value = appointmentPending.data.props;
+  })
 
   export interface menuItem {
     key: string
@@ -68,7 +78,7 @@
           permission: GET_PERMISSIONS.DISTRICT.VIEW
         },
         {
-          key: '5',
+          key: '4',
           label: t('sidebar.service'),
           name: 'admin-service-charge',
           icon: 'pi pi-chart-line',
@@ -78,7 +88,7 @@
           permission: GET_PERMISSIONS.SERVICE_CHARGE.VIEW
         },
         {
-          key: '6',
+          key: '5',
           label: t('sidebar.user'),
           name: 'admin-user',
           icon: 'pi pi-chart-line',
@@ -88,7 +98,7 @@
           permission: GET_PERMISSIONS.ADMIN_USER.VIEW
         },
         {
-          key: '7',
+          key: '6',
           label: t('sidebar.house'),
           name: 'owner-real-estate',
           icon: 'pi pi-chart-line',
@@ -98,7 +108,7 @@
           permission: GET_PERMISSIONS.REAL_ESTATE.VIEW
         },
         {
-          key: '8',
+          key: '7',
           label: t('sidebar.payment_service'),
           name: 'owner-payment-service',
           icon: 'pi pi-chart-line',
@@ -108,17 +118,18 @@
           permission: GET_PERMISSIONS.PAYMENT_REAL_ESTATE.VIEW
         },
         {
-          key: '9',
+          key: '8',
           label: t('sidebar.appointment'),
           name: 'owner-appointment',
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'owner.appointment',
+          qty: appointment,
           roles: [GET_ROLES.ADMIN_OWNER, GET_ROLES.USER_OWNER],
           permission: GET_PERMISSIONS.APPOINTMENT.VIEW
         },
         {
-          key: '10',
+          key: '9',
           label: t('sidebar.rent_buy'),
           name: 'owner-rent-buy',
           icon: 'pi pi-chart-line',
@@ -128,7 +139,7 @@
           permission: GET_PERMISSIONS.RENT_BUY.VIEW
         },
         {
-          key: '11',
+          key: '10',
           label: t('sidebar.user'),
           name: 'owner-user',
           icon: 'pi pi-chart-line',
@@ -138,7 +149,7 @@
           permission: GET_PERMISSIONS.OWNER_USER.VIEW
         },
         {
-          key: '12',
+          key: '11',
           label: t('sidebar.real_estate_type'),
           name: 'owner-user',
           icon: 'pi pi-chart-line',
@@ -148,7 +159,7 @@
           permission: GET_PERMISSIONS.REAL_ESTATE_TYPE.VIEW
         },
         {
-          key: '13',
+          key: '12',
           label: t('sidebar.footer'),
           name: 'owner-user',
           icon: 'pi pi-chart-line',
@@ -325,7 +336,6 @@
       return currentPermissions.includes(permission);
     }
   }
-
 </script>
 
 <template>
@@ -374,7 +384,6 @@
                   </a>
               </li>
             </ul>
-
             <ul class="list-none p-0 m-0 overflow-hidden">
               <li v-for="item in menu" :key="item.key">
                   <div
@@ -405,6 +414,8 @@
                       'owner.appointment',
                       'owner.rent.buy',
                       'owner.user',
+                      'owner.add.user',
+                      'owner.edit.user',
                       'real.estate.type',
                       'footer',
                       'report.real.estate'
@@ -419,11 +430,12 @@
                           class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
                             <i class="pi pi-chart-line mr-2"></i>
                             <span class="font-medium">{{ children.label }}</span>
-                            <!-- <span 
+                            <span 
+                              v-if="children.qty"
                               class="inline-flex align-items-center justify-content-center ml-auto bg-primary border-circle" 
-                              style="min-width: 1.5rem; height: 1.5rem; font-size: 14px !important; background-color: rgb(233, 141, 3) !important;">
-                              3
-                            </span> -->
+                              style="min-width: 1.5rem; height: 1.5rem; font-size: 14px !important; background-color: #d13438 !important;">
+                              {{ children.qty }}
+                            </span>
                         </a>
                     </li>
                   </ul>

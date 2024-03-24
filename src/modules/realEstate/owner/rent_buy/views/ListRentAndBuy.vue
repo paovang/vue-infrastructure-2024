@@ -21,6 +21,7 @@
             tableStyle="min-width: 50rem"
             :loading="state.isLoading" 
             lazy
+            scrollable
             :totalRecords="state.data.total"
             :rows="setStateFilter.limit"
             paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
@@ -79,34 +80,9 @@
                 </div>
             </template>
 
-            <Column field="id" :header="$t('table.header.index')">
-                <template #body="item">
-                    {{ item.index + 1 }}
-                </template>
-            </Column>
-            <Column field="date" :header="$t('table.header.date_rent')" headerStyle="min-width: 8rem"></Column>
-            <Column field="number" :header="$t('table.header.rent_number')" headerStyle="min-width: 10rem"></Column>
-            <Column field="customer_name" :header="$t('table.header.customer_name')" headerStyle="min-width: 8rem"></Column>
-            <Column field="customer_tel" :header="$t('table.header.customer_phone')" headerStyle="min-width: 8rem"></Column>
-            <Column field="real_estate_list.real_esate_number" :header="$t('table.header.real_esate_number')" headerStyle="min-width: 8rem"></Column>
-            <Column field="real_estate_list.name" :header="$t('table.header.name')" headerStyle="min-width: 8rem"></Column>
-            <Column field="real_estate_list.real_estate_type.name" :header="$t('table.header.real_estate_type')" headerStyle="min-width: 8rem"></Column>
-            <Column field="service_model" :header="$t('table.header.service_model')" headerStyle="min-width: 8rem"></Column>
-            <Column field="from_date" :header="$t('table.header.from_date')" headerStyle="min-width: 8rem"></Column>
-            <Column field="to_date" :header="$t('table.header.to_date')" headerStyle="min-width: 8rem"></Column>
-            <Column :header="$t('table.header.price')" headerStyle="min-width: 12rem">
+            <Column headerStyle="min-width: 4rem" frozen>
                 <template #body="{ data }">
-                    {{ formatNumber(data.price , data.currency)  }} - ( {{ data.qty }} / {{ data.unit_price }})
-                </template>
-            </Column>
-            <Column :header="$t('table.header.total')" headerStyle="min-width: 10rem">
-                <template #body="{ data }">
-                    {{ formatNumber(data.total , data.currency) }}
-                </template>
-            </Column>
-            <Column headerStyle="minwidth: 4rem">
-                <template #body="{ data }">
-                    <div class="flex flex-wrap gap-2 btn-right">
+                    <div class="flex flex-wrap gap-2">
                         <Button 
                             type="button" 
                             icon="pi pi-pencil"
@@ -124,6 +100,31 @@
                             @click="handleClick(data.id, data.status)"
                         /> -->
                     </div>
+                </template>
+            </Column>
+            <Column field="id" :header="$t('table.header.index')">
+                <template #body="item">
+                    {{ item.index + 1 }}
+                </template>
+            </Column>
+            <Column field="date" :header="$t('table.header.date_rent')" headerStyle="min-width: 8rem"></Column>
+            <Column field="number" :header="$t('table.header.rent_number')" headerStyle="min-width: 12rem"></Column>
+            <Column field="customer_name" :header="$t('table.header.customer_name')" headerStyle="min-width: 8rem"></Column>
+            <Column field="customer_tel" :header="$t('table.header.customer_phone')" headerStyle="min-width: 8rem"></Column>
+            <Column field="real_estate_list.real_esate_number" :header="$t('table.header.real_esate_number')" headerStyle="min-width: 8rem"></Column>
+            <Column field="real_estate_list.real_estate_type.name" :header="$t('table.header.real_estate_type')" headerStyle="min-width: 8rem"></Column>
+            <Column field="real_estate_list.name" :header="$t('table.header.name')" headerStyle="min-width: 8rem"></Column>
+            <Column field="service_model" :header="$t('table.header.service_model')" headerStyle="min-width: 8rem"></Column>
+            <Column field="from_date" :header="$t('table.header.from_date')" headerStyle="min-width: 8rem"></Column>
+            <Column field="to_date" :header="$t('table.header.to_date')" headerStyle="min-width: 8rem"></Column>
+            <Column :header="$t('table.header.price')" headerStyle="min-width: 15rem">
+                <template #body="{ data }">
+                    {{ formatNumber(data.price , data.currency)  }} - ( {{ data.qty }} / {{ data.unit_price }})
+                </template>
+            </Column>
+            <Column :header="$t('table.header.total')" headerStyle="min-width: 10rem">
+                <template #body="{ data }">
+                    {{ formatNumber(data.total , data.currency) }}
                 </template>
             </Column>
         </DataTable>

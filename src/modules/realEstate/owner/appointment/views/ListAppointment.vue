@@ -16,6 +16,7 @@
             tableStyle="min-width: 50rem"
             :loading="state.isLoading" 
             lazy
+            scrollable
             :totalRecords="state.data.total"
             :rows="setStateFilter.limit"
             paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
@@ -78,26 +79,7 @@
                 </div>
             </template>
 
-            <Column field="id" :header="$t('table.header.index')">
-                <template #body="item">
-                    {{ item.index + 1 }}
-                </template>
-            </Column>
-            <Column field="date_appointment" :header="$t('table.header.date_appointment')"></Column>
-            <Column field="reserve_number" :header="$t('table.header.reserve_number')"></Column>
-            <Column field="customer_name" :header="$t('table.header.customer_name')"></Column>
-            <Column field="customer_tel" :header="$t('table.header.customer_phone')"></Column>
-            <Column field="estate_list.real_esate_number" :header="$t('table.header.real_esate_number')"></Column>
-            <Column field="estate_list.name" :header="$t('table.header.name')"></Column>
-            <Column field="estate_list.service_model" :header="$t('table.header.service_model')"></Column>
-            <Column field="estate_list.room_type" :header="$t('table.header.room_type')"></Column>
-            <Column field="reason" :header="$t('table.header.reason')"></Column>
-            <Column field="status" :header="$t('table.header.status')">
-                <template #body="rowData">
-                    <span :style="{ color: getStatusColor(rowData.data.status) }">{{ rowData.data.status }}</span>
-                </template>
-            </Column>
-            <Column headerStyle="width: 10rem">
+            <Column frozen>
                 <template #body="{ data }">
                     <div class="flex flex-wrap gap-2 btn-right">
                         <Button 
@@ -118,6 +100,25 @@
                             @click="handleClick(data.id, data.status)"
                         /> -->
                     </div>
+                </template>
+            </Column>
+            <Column field="id" :header="$t('table.header.index')">
+                <template #body="item">
+                    {{ item.index + 1 }}
+                </template>
+            </Column>
+            <Column field="date_appointment" :header="$t('table.header.date_appointment')" headerStyle="min-width: 10rem"></Column>
+            <Column field="reserve_number" :header="$t('table.header.reserve_number')" headerStyle="min-width: 8rem"></Column>
+            <Column field="customer_name" :header="$t('table.header.customer_name')" headerStyle="min-width: 8rem"></Column>
+            <Column field="customer_tel" :header="$t('table.header.customer_phone')" headerStyle="min-width: 8rem"></Column>
+            <Column field="estate_list.real_esate_number" :header="$t('table.header.real_esate_number')" headerStyle="min-width: 8rem"></Column>
+            <Column field="estate_list.name" :header="$t('table.header.name')" headerStyle="min-width: 8rem"></Column>
+            <Column field="estate_list.service_model" :header="$t('table.header.service_model')" headerStyle="min-width: 8rem"></Column>
+            <Column field="estate_list.room_type" :header="$t('table.header.room_type')" headerStyle="min-width: 7rem"></Column>
+            <Column field="reason" :header="$t('table.header.reason')" headerStyle="min-width: 8rem"></Column>
+            <Column field="status" :header="$t('table.header.status')" headerStyle="min-width: 8rem">
+                <template #body="rowData">
+                    <span :style="{ color: getStatusColor(rowData.data.status) }">{{ rowData.data.status }}</span>
                 </template>
             </Column>
         </DataTable>
@@ -292,12 +293,12 @@
 
     const fetchAll = async () => {
         await getAll();
-        form.status = 'all';
+        form.status = 'pending';
     }
 
     onMounted(async() => {
         if (setStateFilter.filter) {
-            setStateFilter.filter.status = '';
+            setStateFilter.filter.status = 'pending';
             setStateFilter.page = 1;
             setStateFilter.limit = 10;
         }

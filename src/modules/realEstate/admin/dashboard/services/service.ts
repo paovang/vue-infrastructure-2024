@@ -17,6 +17,7 @@ import { getAllDistrictUseCase } from "../use-cases/get-district.use-case";
 import { RentAndBuyEntity } from "@/modules/realEstate/owner/rent_buy/entities/rent-buy-entity";
 import { GetAllReportRentBuyUseCase } from "../use-cases/report-rent/get-all.use-case";
 import { getAllCustomerUseCase } from "../use-cases/report-rent/get-all-customer.use-case";
+import { getAllAppointmentPendingUseCase } from "../use-cases/report-rent/get-all-appointment-pending.use-case";
 
 @injectable()
 export class DashboardService {
@@ -37,7 +38,9 @@ export class DashboardService {
     @inject(GetAllReportRentBuyUseCase)
     private _getAllReportRentBuy: GetAllReportRentBuyUseCase,
     @inject(getAllCustomerUseCase)
-    private _getAllCustomer: getAllCustomerUseCase
+    private _getAllCustomer: getAllCustomerUseCase,
+    @inject(getAllAppointmentPendingUseCase)
+    private _getAllAppointmentPending: getAllAppointmentPendingUseCase
   ) {}
 
   async register(input: DashboardEntity) {
@@ -99,5 +102,9 @@ export class DashboardService {
 
   async getAllCustomers(): Promise<any> {
     return await this._getAllCustomer.execute();
+  }
+
+  async getAllAppointmentPending(): Promise<any> {
+    return await this._getAllAppointmentPending.execute();
   }
 }

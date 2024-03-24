@@ -7,7 +7,7 @@
                 </h2>
             </span>
             <span>
-                <Button icon="pi pi-plus-circle" rounded @click="pushRouteAddUser"/>
+                <Button :label="$t('button.add')" severity="info" @click="pushRouteAddUser"/>
             </span>
         </div>
         <Divider/>

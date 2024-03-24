@@ -12,7 +12,7 @@
         <br/>
         <form @submit.prevent="onSubmit()" class="flex flex-column gap-3 h-full">
             <div class="columns is-12 is-multiline">
-                <div class="column is-4 is-mobile-12">
+                <div class="column is-2 is-mobile-12">
                     <my-input-text 
                         ref="autoFocusCursor"
                         name="name" 
@@ -22,7 +22,7 @@
                         class="h-full" 
                     />
                 </div>
-                <div class="column is-4 is-mobile-12">
+                <div class="column is-3 is-mobile-12">
                     <my-input-text 
                         ref="autoFocusCursor"
                         name="email" 
@@ -32,7 +32,7 @@
                         class="h-full" 
                     />
                 </div>
-                <div class="column is-4 is-mobile-12">
+                <div class="column is-2 is-mobile-12">
                     <label>
                         {{ $t('messages.role') }}
                         <span class="text-red-500"> *</span>
@@ -46,6 +46,16 @@
                         class="w-full" 
                         optionValue="id"
                         :highlightOnSelect="true" 
+                    />
+                </div>
+                <div class="column is-5 is-mobile-12">
+                    <my-input-file 
+                        name="profile" 
+                        :label="$t('messages.profile')" 
+                        required 
+                        :multiple="true"
+                        class="h-full" 
+                        @change="handleFileChange"
                     />
                 </div>
             </div>
@@ -89,7 +99,12 @@
     import { useForm } from 'vee-validate';
     import { editUserServiceSchema } from '../schemas/user.schema';
     import { useRoute, useRouter } from 'vue-router';
-    
+    import axios from 'axios';
+    import MyInputFile from '@/components/customComponents/FormInputFile.vue';
+    import { validFileTypes, isValidFileSize } from '@/common/utils/validation.file';
+    import { showNotificationToast } from '@/common/utils/toast';
+    import { uploadFileToServer } from '@/common/utils/upload-file';
+
 
     const { form, update, getAllRole, getAllPermission, allPermission, allRole, state, getOne, userGetByOne  } = ownerUserStore();
     const toast = useToast();
@@ -98,6 +113,7 @@
     const router = useRouter();
 
     const permissionIds = ref<number[]>([]);
+    const selectedImage = ref();
 
     const translatedErrorMessages = {
         name: t('placeholder.inputText'),
@@ -114,6 +130,7 @@
         form.email = value.email;
         form.password = value.password;
         form.password_confirmation = value.password_confirmation;
+        form.profile = selectedImage.value;
 
         await update();
 
@@ -121,8 +138,28 @@
             await showWarningValidateBackend();
         } else {
             await showToastSuccess();
+            selectedImage.value = "";
+            const inputFile = document.getElementById('id_image') as HTMLInputElement;
+            inputFile.value = '';
         }   
     })
+
+    const handleFileChange = async (event: any) => {
+        const file = event.target.files[0];
+
+        if (! await validFileTypes(file)) {
+            await showNotificationToast({ toast, error: 'error', summary: t("toast.summary.error"), detail: t("toast.summary.profile_valid_file_mimes") });
+            event.target.value = '';
+            return;
+        }
+        if (! await isValidFileSize(file)) {
+            await showNotificationToast({ toast, error: 'error', summary: t("toast.summary.error"), detail: t("toast.summary.profile_valid_file_size") });
+            event.target.value = '';
+            return;
+        }
+
+        await uploadFileToServer({ axios, file, state, selectedImage, toast, t });
+    }
 
     onMounted(async() => {
         const id = Number(route.params.id);

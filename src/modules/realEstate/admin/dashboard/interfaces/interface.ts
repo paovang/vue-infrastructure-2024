@@ -47,4 +47,6 @@ export interface IRepository {
   ): Promise<IResponse<IGPaginated<RentAndBuyEntity>>>;
 
   getAllCustomers(): Promise<any>;
+
+  getAllAppointmentPending(): Promise<any>;
 }

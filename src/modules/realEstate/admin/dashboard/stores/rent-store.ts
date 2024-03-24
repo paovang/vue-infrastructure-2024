@@ -31,6 +31,12 @@ export const reportRentBuyStore = defineStore("report-rent-buy-store", () => {
     },
   });
 
+  const appointmentPending = reactive<any>({
+    data: {
+      props: "",
+    },
+  });
+
   type FilterType = Pick<
     RentAndBuyEntity,
     "service_model" | "from_date" | "to_date" | "search" | "customer_id"
@@ -73,6 +79,14 @@ export const reportRentBuyStore = defineStore("report-rent-buy-store", () => {
     }
   }
 
+  async function getAllAppointmentPending() {
+    const results = await dashboardService.getAllAppointmentPending();
+
+    if (results && results.data && results?.message === "success") {
+      appointmentPending.data.props = results.data;
+    }
+  }
+
   return {
     form,
     setStateFilter,
@@ -80,5 +94,7 @@ export const reportRentBuyStore = defineStore("report-rent-buy-store", () => {
     getAllReportRentBuy,
     getAllCustomers,
     getCustomers,
+    getAllAppointmentPending,
+    appointmentPending,
   };
 });

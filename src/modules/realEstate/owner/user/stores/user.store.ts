@@ -38,17 +38,18 @@ export const ownerUserStore = defineStore("owner-user-store", () => {
     email: "",
     password: "",
     password_confirmation: "",
+    profile: "",
   });
 
   const allRole = reactive<any>({
     data: {
-      props: "",
+      props: [],
     },
   });
 
   const allPermission = reactive<any>({
     data: {
-      props: "",
+      props: [],
     },
   });
 

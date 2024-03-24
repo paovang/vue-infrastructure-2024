@@ -223,7 +223,7 @@
                             </div>
                             <div class="column is-5">
                                 <label>
-                                    {{ $t('messages.details') }}
+                                    {{ $t('messages.est_m') }}
                                 </label>
                                 <input 
                                     name="detail"

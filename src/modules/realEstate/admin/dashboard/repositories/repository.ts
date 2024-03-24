@@ -189,4 +189,12 @@ export class Repository implements IRepository {
 
     return response.data;
   }
+
+  async getAllAppointmentPending(): Promise<any> {
+    const response = await this._api.axios({
+      url: `/owner/count-appointment-pending`,
+    });
+
+    return response.data;
+  }
 }

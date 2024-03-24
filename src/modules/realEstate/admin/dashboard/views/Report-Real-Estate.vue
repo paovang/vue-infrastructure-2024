@@ -7,12 +7,12 @@
                 </h2>
             </span>
             <span class="w-full sm:w-auto flex-order-0 sm:flex-order-1 mb-4 sm:mb-0">
-                <Button 
+                <!-- <Button 
                     icon="pi pi-plus-circle"
                     rounded 
                     severity="info" 
                     @click="pushRouteAddHouse()"
-                />
+                /> -->
             </span>
         </div>
 
@@ -158,6 +158,11 @@
                     {{ item.index + 1 }}
                 </template>
             </Column>
+            <Column field="image" :header="$t('table.header.image')" headerStyle="min-width: 8rem">
+                <template #body="{ data }">
+                    <Image :src="data.image" alt="Image" preview style="max-width: 80px;"/>
+                </template>
+            </Column>
             <Column field="customer.customer_number" :header="$t('table.header.customer_number')" headerStyle="min-width: 7rem"></Column>
             <Column field="customer.name" :header="$t('table.header.customer')" headerStyle="min-width: 7rem"></Column>
             <Column field="customer.owner" :header="$t('table.header.owner')" headerStyle="min-width: 7rem"></Column>
@@ -174,17 +179,9 @@
             <Column field="wide" :header="$t('table.header.wide')" headerStyle="min-width: 6rem"></Column>
             <Column field="long" :header="$t('table.header.long')" headerStyle="min-width: 6rem"></Column>
             <Column field="status" :header="$t('table.header.status')" headerStyle="min-width: 6rem"></Column>
-            <Column headerStyle="min-width: 7rem">
+            <!-- <Column headerStyle="min-width: 7rem">
                 <template #body="{ data }">
                     <div class="flex flex-wrap gap-2 btn-right">
-                        <!-- <Button 
-                            type="button" 
-                            icon="pi pi-pencil" 
-                            rounded 
-                            severity="warning"  
-                            style="color: white;" 
-                            @click="editHouse(data.id)"
-                        /> -->
                         <Button 
                             type="button" 
                             icon="pi pi-trash" 
@@ -194,13 +191,13 @@
                         />
                     </div>
                 </template>
-            </Column>
+            </Column> -->
         </DataTable>
     </div>
 </template>
 
 <script setup lang="ts">
-    import Button from 'primevue/button';
+    import Image from 'primevue/image';
     import DataTable, { type DataTablePageEvent } from 'primevue/datatable';
     import Column from 'primevue/column';
     import InputText from 'primevue/inputtext';
@@ -209,19 +206,19 @@
     import Dropdown from 'primevue/dropdown';
     import { realEstateServiceStore } from '../../../rentHouse/memberServices/stores/real-estate-service.store';
     import { HouseEntity } from '../../../owner/house/entities/house.entity';
-    import { useConfirm } from "primevue/useconfirm";
-    import { useToast } from "primevue/usetoast";
-    import { useI18n } from 'vue-i18n';
+    // import { useConfirm } from "primevue/useconfirm";
+    // import { useToast } from "primevue/usetoast";
+    // import { useI18n } from 'vue-i18n';
     import { dashboardStore } from '../stores/store';
 
-    const { t } = useI18n();
+    // const { t } = useI18n();
     const router = useRouter()
     const { query } = useRoute()
 
-    const toast = useToast();
-    const confirm = useConfirm();
+    // const toast = useToast();
+    // const confirm = useConfirm();
 
-    const { form, getAllRealEstate, state, setStateFilter, remove, getCountries, getAllCountries, getAllProvinces, getProvinces, getAllDistricts, getDistricts } = dashboardStore();
+    const { form, getAllRealEstate, state, setStateFilter, getCountries, getAllCountries, getAllProvinces, getProvinces, getAllDistricts, getDistricts } = dashboardStore();
     const { getOne, realestateType } = realEstateServiceStore();
 
     const servicemodels = ref([
@@ -261,22 +258,22 @@
     //     router.push({ name: 'owner.edit.house', params: { id: id } });
     // }
 
-    const deleteHouse = async (id: HouseEntity) => {
-        await remove(id);
+    // const deleteHouse = async (id: HouseEntity) => {
+    //     await remove(id);
 
-        if (state.error) {
-            await showWarningValidateBackend();
-        } else {
-            await initComponent();
-        }
-    }
+    //     if (state.error) {
+    //         await showWarningValidateBackend();
+    //     } else {
+    //         await initComponent();
+    //     }
+    // }
 
     async function onPageChange(event: DataTablePageEvent) {
         setStateFilter.page = event.page + 1;
         setStateFilter.limit = event.rows;
 
         const { page, limit } = setStateFilter
-        router.push({ name: 'owner.house', query: 
+        router.push({ name: 'report.real.estate', query: 
             { 
                 page, 
                 limit
@@ -387,32 +384,28 @@
         await getAllRealEstate();
     }
 
-    const confirmDelete = async (id: HouseEntity) => {
-        confirm.require({
-            message: t('confirmDelete.message'),
-            header: t('confirmDelete.header'),
-            rejectLabel: t('confirmDelete.rejectLabel'),
-            acceptLabel: t('confirmDelete.acceptLabel'),
-            rejectClass: 'p-button-secondary p-button-outlined',
-            acceptClass: 'p-button-danger',
-            accept: async () => {
-                await deleteHouse(id);
+    // const confirmDelete = async (id: HouseEntity) => {
+    //     confirm.require({
+    //         message: t('confirmDelete.message'),
+    //         header: t('confirmDelete.header'),
+    //         rejectLabel: t('confirmDelete.rejectLabel'),
+    //         acceptLabel: t('confirmDelete.acceptLabel'),
+    //         rejectClass: 'p-button-secondary p-button-outlined',
+    //         acceptClass: 'p-button-danger',
+    //         accept: async () => {
+    //             await deleteHouse(id);
 
-                toast.add({ severity: 'success', summary: t('toast.summary.delete'), detail: t('toast.detail.delete'), life: 3000 });
-            },
-            reject: () => {
-                toast.add({ severity: 'error', summary: t('toast.summary.cancel_delete'), detail: t('toast.detail.cancel_delete'), life: 3000 });
-            }
-        });
-    }
+    //             toast.add({ severity: 'success', summary: t('toast.summary.delete'), detail: t('toast.detail.delete'), life: 3000 });
+    //         },
+    //         reject: () => {
+    //             toast.add({ severity: 'error', summary: t('toast.summary.cancel_delete'), detail: t('toast.detail.cancel_delete'), life: 3000 });
+    //         }
+    //     });
+    // }
 
-    const showWarningValidateBackend = () => {
-        toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: `${state.error}`, life: 3000 });
-    }
-
-    const pushRouteAddHouse = async () => {
-        router.push({ name: 'owner.add.house' });
-    }
+    // const showWarningValidateBackend = () => {
+    //     toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: `${state.error}`, life: 3000 });
+    // }
 </script>
 
 <style>

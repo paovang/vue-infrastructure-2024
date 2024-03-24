@@ -32,7 +32,8 @@
         "textSearch": "Search...",
         "inputTextLocation": "Please Enter Link Location...",
         "inputTextGarage": "Total Car...",
-        "inputTextIdNo": "Please Enter Card ID NO..."
+        "inputTextIdNo": "Please Enter Card ID NO...",
+        "inputTextAddress": "City, State, Zip Code..."
     },
     "table": {
         "title": {
@@ -76,12 +77,12 @@
             "service_model": "Service Model",
             "village": "Village",
             "zip_code": "Zip Code",
-            "wide": "sqft",
-            "long": "acre Lot",
+            "wide": "acre Lot",
+            "long": "sqft",
             "role": "Role",
             "permission": "Permission",
             "customer_number": "Customer Number",
-            "real_esate_number": "Real Estate Number",
+            "real_esate_number": "Product ID",
             "bill_number": "Bill Number",
             "info_house": "Info House",
             "appointment": "Appointment",
@@ -105,6 +106,7 @@
             "garage": "Garage",
             "total_bed": "Total Bed",
             "total_bath": "Total Bath",
+            "image": "Image",
             "footer": {
                 "facebook": "Facebook",
                 "whatsapp": "Whatsapp",
@@ -167,8 +169,8 @@
         "room_type": "Room Type",
         "village": "Village",
         "zip_code": "Zip Code",
-        "wide": "sqft",
-        "long": "acre Lot",
+        "wide": "acre Lot",
+        "long": "sqft",
         "currency": "Currency",
         "service_charge": "Service Charge",
         "qty": "Quantity",
@@ -180,6 +182,7 @@
         "payment_service": "Payment Service",
         "payment": "Payment",
         "form_register": "Form Register",
+        "est_m": "Est/m",
         "details": "Details",
         "setting_price_for_rent": "Setting The Price For Rent - Sell",
         "profile_and_gallery": "Profile & Gallery",
@@ -195,7 +198,7 @@
         "permission": "Permission",
         "date_appointment": "Date Appointment",
         "search": "Search",
-        "real_esate_number": "Real Estate Number",
+        "real_esate_number": "Product ID",
         "reserve_number": "Reserve Number",
         "update_appointment": "Update Appointment",
         "reason": "Reason",
@@ -234,7 +237,9 @@
         "dashboard": "Dashboard",
         "report": "ລາຍງານ",
         "all": "All",
-        "total_price": "Total Price"
+        "total_price": "Total Price",
+        "confirm": "Confirm",
+        "reject": "Reject"
     },
     "uploadFile": {
         "uploading": "Uploading profile to the system please wait...",
@@ -278,7 +283,9 @@
             "not_found_item": "Not Found Items",
             "must_be_length_three": "Must be not exceed 3 Items.",
             "sign_up_valid_file_mimes": "Only file are jpg, jpeg, png.",
-            "sign_up_valid_file_size": "File must be no larger than 2 MB."
+            "sign_up_valid_file_size": "File must be no larger than 2 MB.",
+            "profile_valid_file_mimes": "Only file are jpg, jpeg, png.",
+            "profile_valid_file_size": "File must be no larger than 2 MB."
         },
         "detail": {
             "delete": "has been deleted.",

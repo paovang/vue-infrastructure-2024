@@ -22,6 +22,7 @@ export class UserRepository implements IUserRepository {
         email: input.email,
         password: input.password,
         password_confirmation: input.password_confirmation,
+        profile: input.profile,
         roleId: input.roleId,
         permissionIds: input.permissionIds,
       },
@@ -41,6 +42,7 @@ export class UserRepository implements IUserRepository {
       data: {
         name: input.name,
         email: input.email,
+        profile: input.profile,
         roleId: input.roleId,
         permissionIds: input.permissionIds,
       },

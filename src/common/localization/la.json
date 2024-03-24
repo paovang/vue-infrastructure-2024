@@ -32,7 +32,8 @@
         "textSearch": "ຄົ້ນຫາ...",
         "inputTextLocation": "ກະລຸນາປ້ອນ ໃສ່ລີ້ງເເຜນທີ່...",
         "inputTextGarage": "ກະລຸນາປ້ອນ ຈຳນວນລົດ...",
-        "inputTextIdNo": "ກະລຸນາປ້ອນ ເລກບັດ, ໃບຂັບຂີ່, ໜັງສືຜ່ານເເດນ..."
+        "inputTextIdNo": "ກະລຸນາປ້ອນ ເລກບັດ, ໃບຂັບຂີ່, ໜັງສືຜ່ານເເດນ...",
+        "inputTextAddress": "ບ້ານ, ເມືອງ, ເເຂວງ..."
     },
     "table": {
         "title": {
@@ -75,13 +76,13 @@
             "room_type": "ປະເພດຫ້ອງ",
             "service_model": "ຮູບເເບບບໍລິການ",
             "village": "ບ້ານ",
-            "zip_code": "ລະຫັດ",
+            "zip_code": "ລະຫັດຮ່ອມ",
             "wide": "ເນື້ອທີ່ດີນ",
             "long": "ເນື້ອທີ່ເຮືອນ",
             "role": "ບົດບາດ",
             "permission": "ໜ້າທີ່ຮັບຜິດຊອບ",
             "customer_number": "ລະຫັດລູກຄ້າ",
-            "real_esate_number": "ເລກລະຫັດອະສັງຫາ",
+            "real_esate_number": "ລະຫັດສີນຄ້າ",
             "bill_number": "ເລກທີ່ບີນ",
             "info_house": "ຂໍ້ມູນເຮືອນ",
             "appointment": "ນັດໝາຍ",
@@ -105,6 +106,7 @@
             "garage": "ທີ່ຈອດລົດ",
             "total_bed": "ຈຳນວນຫ້ອງນອນ",
             "total_bath": "ຈຳນວນຫ້ອງນ້ຳ",
+            "image": "ໂປຮໄຟລ",
             "footer": {
                 "facebook": "Facebook",
                 "whatsapp": "Whatsapp",
@@ -166,7 +168,7 @@
         "service_model": "ຮູບເເບບບໍລິການ",
         "room_type": "ປະເພດຫ້ອງ",
         "village": "ບ້ານ",
-        "zip_code": "ລະຫັດ",
+        "zip_code": "ລະຫັດຮ່ອມ",
         "wide": "ເນື້ອທີ່ດີນ",
         "long": "ເນື້ອທີ່ເຮືອນ",
         "currency": "ສະກຸນເງີນ",
@@ -180,6 +182,7 @@
         "payment_service": "ຊຳລະຄ່າບໍລິການ",
         "payment": "ຊຳລະເງີນ",
         "form_register": "ຟອມລົງທະບຽນ",
+        "est_m": "ຈ່າຍຕໍ່ເດືອນ",
         "details": "ລາຍລະອຽດ",
         "setting_price_for_rent": "ຕັ້ງຄ່າລາຄາ ຊື້ຂາຍ - ເຊົ່າ",
         "profile_and_gallery": "ໂປຮໄຟລ ເເລະ ເເກເລີລີ່",
@@ -195,7 +198,7 @@
         "permission": "ໜ້າທີ່ຮັບຜິດຊອບ",
         "date_appointment": "ວັນທີນັດໝາຍ",
         "search": "ຄົ້ນຫາ",
-        "real_esate_number": "ເລກລະຫັດອະສັງຫາ",
+        "real_esate_number": "ລະຫັດສີນຄ້າ",
         "reserve_number": "ລະຫັດນັດໝາຍ",
         "update_appointment": "ອັບເດດ ການນັດໝາຍ",
         "reason": "ເຫດຜົນ",
@@ -234,7 +237,9 @@
         "dashboard": "ໜ້າຫຼັກ",
         "report": "ລາຍງານ",
         "all": "ທັງໝົດ",
-        "total_price": "ລວມເປັນເງີນທັງໝົດ"   
+        "total_price": "ລວມເປັນເງີນທັງໝົດ",
+        "confirm": "ອະນຸມັດເເລ້ວ",
+        "reject": "ຍົກເລີກ"   
     },
     "uploadFile": {
         "uploading": "ກຳລັງອັບໂຫຼດໂປຮໄຟລເຂົ້າລະບົບ ກະລຸນາລໍຖ້າ...",
@@ -278,7 +283,9 @@
             "not_found_item": "ບໍ່ມີລາຍການເເລ້ວ",
             "must_be_length_three": "ຕ້ອງມີບໍ່ເກີນ 3 ລາຍການ.",
             "sign_up_valid_file_mimes": "ຕ້ອງເປັນໄຟລ໌ jpg, jpeg, png ເທົ່ານັ້ນ...",
-            "sign_up_valid_file_size": "ໄຟລ໌ຕ້ອງບໍ່ໃຫຍ່ກວ່າ 2 MB."
+            "sign_up_valid_file_size": "ໄຟລ໌ຕ້ອງບໍ່ໃຫຍ່ກວ່າ 2 MB.",
+            "profile_valid_file_mimes": "ຕ້ອງເປັນໄຟລ໌ jpg, jpeg, png ເທົ່ານັ້ນ...",
+            "profile_valid_file_size": "ໄຟລ໌ຕ້ອງບໍ່ໃຫຍ່ກວ່າ 2 MB."
         },
         "detail": {
             "delete": "ຖືກລຶບອອກເເລ້ວ.",

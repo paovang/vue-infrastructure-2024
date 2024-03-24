@@ -7,7 +7,7 @@
                 </h2>
             </span>
             <span>
-                <Button icon="pi pi-plus-circle" rounded @click="pushRouteAddUser"/>
+                <Button :label="$t('button.add')" severity="info" @click="pushRouteAddUser"/>
             </span>
         </div>
         <Divider/>
@@ -31,7 +31,7 @@
                     {{ item.index + 1 }}
                 </template>
             </Column>
-            <Column :header="$t('table.header.name')">
+            <Column :header="$t('table.header.name')" headerStyle="min-width: 10rem">
                 <template #body="{data}">
                     {{ data.name }}
                 </template>
@@ -41,7 +41,7 @@
                     {{ data.email }}
                 </template>
             </Column>
-            <Column :header="$t('table.header.role')">
+            <Column :header="$t('table.header.role')" headerStyle="min-width: 10rem">
                 <template #body="{data}">
                     {{ data.role.name }}
                 </template>
@@ -51,7 +51,7 @@
                     {{ conCatPermission(data.permissions) }}
                 </template>
             </Column>
-            <Column headerStyle="width: 10rem">
+            <Column headerStyle="min-width: 8rem">
                 <template #body="{ data }">
                     <div class="flex flex-wrap gap-2 btn-right">
                         <Button 

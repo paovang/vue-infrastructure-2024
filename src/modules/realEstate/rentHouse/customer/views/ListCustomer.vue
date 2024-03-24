@@ -51,7 +51,7 @@
                                     name="address" 
                                     :label="$t('messages.address')"
                                     required 
-                                    :placeholder="$t('placeholder.inputText')" 
+                                    :placeholder="$t('placeholder.inputTextAddress')" 
                                     class="h-full" 
                                 />
                             </div>

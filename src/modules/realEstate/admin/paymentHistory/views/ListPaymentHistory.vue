@@ -6,9 +6,9 @@
                     ປະຫວັດ ການຊຳລະຄ່າບໍລິການ
                 </h2>
             </span>
-            <span>
+            <!-- <span>
                 <Button icon="pi pi-plus-circle" rounded />
-            </span>
+            </span> -->
         </div>
         <Divider/>
         <DataTable 

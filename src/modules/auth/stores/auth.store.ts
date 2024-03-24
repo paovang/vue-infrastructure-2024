@@ -53,7 +53,7 @@ export const useAuthStore = defineStore("auth", () => {
           roleUsers.includes(GET_ROLES.ADMIN) ||
           roleUsers.includes(GET_ROLES.USER)
         ) {
-          router.push({ name: "customer" });
+          router.push({ name: "dashboard" });
         } else if (
           roleUsers.includes(GET_ROLES.ADMIN_OWNER) ||
           roleUsers.includes(GET_ROLES.USER_OWNER)

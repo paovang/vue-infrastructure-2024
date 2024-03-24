@@ -68,6 +68,16 @@
                         :highlightOnSelect="true" 
                     />
                 </div>
+                <div class="column is-4 is-mobile-12">
+                    <my-input-file 
+                        name="profile" 
+                        :label="$t('messages.profile')" 
+                        required 
+                        :multiple="true"
+                        class="h-full" 
+                        @change="handleFileChange"
+                    />
+                </div>
             </div>
             <p style="font-size: 18px; font-weight: bold;">
                 <i class="pi pi-users"></i>
@@ -99,7 +109,7 @@
 <script setup lang="ts">
     import MyInputText from '@/components/customComponents/FormInputText.vue';
     import { ownerUserStore } from '../stores/user.store';
-    import { onMounted } from 'vue';
+    import { onMounted, ref } from 'vue';
     import Dropdown from 'primevue/dropdown';
     import Divider from 'primevue/divider';
     import Checkbox from 'primevue/checkbox';
@@ -109,12 +119,18 @@
     import { useForm } from 'vee-validate';
     import { userServiceSchema } from '../schemas/user.schema';
     import { useRouter } from 'vue-router';
-    
+    import MyInputFile from '@/components/customComponents/FormInputFile.vue';
+    import { validFileTypes, isValidFileSize } from '@/common/utils/validation.file';
+    import { showNotificationToast } from '@/common/utils/toast';
+    import { uploadFileToServer } from '@/common/utils/upload-file';
+    import axios from 'axios';
 
     const { form, register, getAllRole, getAllPermission, allPermission, allRole, state  } = ownerUserStore();
     const toast = useToast();
     const { t } = useI18n();
     const router = useRouter();
+
+    const selectedImage = ref();
 
     const translatedErrorMessages = {
         name: t('placeholder.inputText'),
@@ -132,6 +148,7 @@
         form.email = value.email;
         form.password = value.password;
         form.password_confirmation = value.password_confirmation;
+        form.profile = selectedImage.value;
 
         await register();
 
@@ -140,11 +157,31 @@
         } else {
             await showToastSuccess();
             await handleReset();
+            selectedImage.value = "";
+            const inputFile = document.getElementById('profile') as HTMLInputElement;
+            inputFile.value = '';
         }   
     })
 
     const goBack = async () => { 
         router.push({ name: 'owner.user'});
+    }
+
+    const handleFileChange = async (event: any) => {
+        const file = event.target.files[0];
+
+        if (! await validFileTypes(file)) {
+            await showNotificationToast({ toast, error: 'error', summary: t("toast.summary.error"), detail: t("toast.summary.profile_valid_file_mimes") });
+            event.target.value = '';
+            return;
+        }
+        if (! await isValidFileSize(file)) {
+            await showNotificationToast({ toast, error: 'error', summary: t("toast.summary.error"), detail: t("toast.summary.profile_valid_file_size") });
+            event.target.value = '';
+            return;
+        }
+
+        await uploadFileToServer({ axios, file, state, selectedImage, toast, t });
     }
 
     onMounted(async() => {
