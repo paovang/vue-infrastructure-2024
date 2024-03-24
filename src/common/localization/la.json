@@ -20,7 +20,7 @@
         "real_estate_type": "ປະເພດຊັບສີນ",
         "footer": "ສ່ວນທ້າຍ",
         "dashboard": "ໜ້າຫຼັກ",
-        "report_real_estate": "ລາຍງານ ອະສັງຫາທັງໝົດ",
+        "report_real_estate": "ລາຍງານ ຊັບສີນທັງໝົດ",
         "report_rent_buy": "ລາຍງານ ເຊົ່າ - ຊື້ຂາຍ ທັງໝົດ"
     },
     "placeholder": {
@@ -42,7 +42,7 @@
             "district": "ລາຍການ ເມືອງທັງໝົດ",
             "customer": "ລາຍການ ລູກຄ້າທັງໝົດ",
             "service": "ລາຍການ ຄ່າບໍລິການທັງໝົດ",
-            "real_estate": "ລາຍການ ອະສັງຫາທັງໝົດ",
+            "real_estate": "ລາຍການ ຊັບສີນທັງໝົດ",
             "payment_history": "ປະຫວັດ ການຊຳລະຄ່າບໍລິການ",
             "user": "ລາຍການ ຜູ້ໃຊ້ລະບົບທັງໝົດ",
             "appointment": "ລາຍການ ນັດໝາຍທັງໝົດ",
@@ -50,7 +50,7 @@
             "real_estate_type": "ປະເພດຊັບສີນ ທັງໝົດ",
             "footer": "ສ່ວນທ້າຍ ທັງໝົດ",
             "report_rent_buy": "ລາຍງານ ເຊົ່າ - ຊື້ຂາຍ ທັງໝົດ",
-            "report_real_estate":"ລາຍງານ ອະສັງຫາທັງໝົດ"
+            "report_real_estate":"ລາຍງານ ຊັບສີນທັງໝົດ"
         },
         "header": {
             "index": "ລຳດັບ",
