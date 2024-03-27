@@ -219,7 +219,7 @@
         "air": "Air",
         "fan": "Fan",
         "none": "None",
-        "service_sale": "Sale",
+        "service_sale": "Sales Service",
         "service_rent": "Rent",
         "id_no": "ID NO",
         "id_image": "ID Image",
@@ -239,7 +239,12 @@
         "all": "All",
         "total_price": "Total Price",
         "confirm": "Confirm",
-        "reject": "Reject"
+        "reject": "Reject",
+        "warning_sign_up": "Information should be entered in English, Lao, Thai",
+        "dimensions": "Dimensions must not exceed 2000 x 1900.",
+        "service_daily": "Daily rental service",
+        "service_yearly": "Yearly rental service",
+        "service_monthly": "Monthly rental service"
     },
     "uploadFile": {
         "uploading": "Uploading profile to the system please wait...",
@@ -285,7 +290,11 @@
             "sign_up_valid_file_mimes": "Only file are jpg, jpeg, png.",
             "sign_up_valid_file_size": "File must be no larger than 2 MB.",
             "profile_valid_file_mimes": "Only file are jpg, jpeg, png.",
-            "profile_valid_file_size": "File must be no larger than 2 MB."
+            "profile_valid_file_size": "File must be no larger than 2 MB.",
+            "real_estate_profile_valid_file_mimes": "Only file are jpg, jpeg.",
+            "real_estate_profile_valid_file_size": "File must be no larger than 2 MB.",
+            "real_estate_profile_valid_file_size_1MB": "File must be no larger than 1 MB.",
+            "maximum_allowed_size_5MB": "The total size of all files exceeds the maximum allowed size 5 MB."
         },
         "detail": {
             "delete": "has been deleted.",

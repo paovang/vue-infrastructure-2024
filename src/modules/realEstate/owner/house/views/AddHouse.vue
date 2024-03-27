@@ -293,6 +293,11 @@
                             </label>
                             <input type="file" id="galleryInput" multiple style="display: none" @change="handleFileChangeGallery">
                         </div>
+                        <div class="column is-mobile-12 is-12" v-if="invalidFiles.length > 0">
+                            <p style="color: red" v-for="(item, index) in invalidFiles" :key="index">
+                                {{ index+1 }}. {{ item }}
+                            </p>
+                        </div>
                     </Panel>
                 </div>
                 
@@ -334,6 +339,8 @@
     import { useConfirm } from "primevue/useconfirm";
     import { useRouter } from 'vue-router';
     import { useI18n } from 'vue-i18n';
+    import { isValidFileSize, validFileTypesRealEstate } from '@/common/utils/validation.file';
+    import { showNotificationToast } from '@/common/utils/toast';
 
     const { t } = useI18n();
     const toast = useToast();
@@ -347,6 +354,9 @@
 
     const isShowFileImage = ref<string | null>(null);
     const isShowFileGallery = ref<string>();
+
+    const minWidth = ref<number>(2000);
+    const minHeight = ref<number>(1900);
     
     const goBack = async () => {
         router.push({ name: 'owner.house'});
@@ -361,27 +371,122 @@
       const target = event.target as HTMLInputElement;
       const file = target.files?.[0];
       if (file) {
-        isShowFileImage.value = t('uploadFile.uploading');
-        await uploadFileImage(file);
-        isShowFileImage.value = t('uploadFile.upload_success');
+        if (! await validFileTypesRealEstate(file)) {
+            await showNotificationToast({ toast, error: 'error', summary: t("toast.summary.error"), detail: t("toast.summary.real_estate_profile_valid_file_mimes") });
+            target.value = '';
+            isShowFileImage.value = "";
+            selectedImage.value = '';
+            return;
+        }
+        if (! await isValidFileSize(file)) {
+            await showNotificationToast({ toast, error: 'error', summary: t("toast.summary.error"), detail: t("toast.summary.real_estate_profile_valid_file_size") });
+            target.value = '';
+            isShowFileImage.value = "";
+            selectedImage.value = '';
+            return;
+        }
+
+        const image = new Image();
+        image.src = URL.createObjectURL(file);
+        image.onload = async () => {
+            const width = image.width;
+            const height = image.height;
+
+            if (width > minWidth.value || height > minHeight.value) {
+                isShowFileImage.value = "";
+                selectedImage.value = '';
+                target.value = '';
+                await showDimensions(t('messages.dimensions'));
+            } else {
+                isShowFileImage.value = t('uploadFile.uploading');
+                await uploadFileImage(file);
+                isShowFileImage.value = t('uploadFile.upload_success');
+            }
+        };
       }
     };
 
     const handleClickGalleryFile = () => {
         const input = document.getElementById('galleryInput') as HTMLInputElement;
         input.click();
+        invalidFiles.value = [];
     };
+
+    const invalidFiles = ref<string[]>([]);
 
     const handleFileChangeGallery = async (event: Event) => {
       const target = event.target as HTMLInputElement;
       const files = target.files;
-      if (files) {
-        isShowFileGallery.value = t('uploadFile.uploading') + files.length;
-        await uploadFileGallery(files);
-        isShowFileGallery.value = t('uploadFile.upload_success') + '(' + files.length + ' ' + t('uploadFile.file') + ')';
-      }
-    };
+      const maxSize = 1 * 1024 * 1024;  // 1 MB
+      const totalMaxSize = 5 * 1024 * 1024;  // 5 MB
 
+      if (files) {
+        if (files) {
+            let totalSize = 0;
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                totalSize += file.size;
+
+                try {
+                    await validateFile(file, maxSize);
+                } catch (error: any) {
+                    invalidFiles.value.push(error);
+                }
+            }
+
+            if (totalSize > totalMaxSize) {
+                invalidFiles.value.push(t('toast.summary.maximum_allowed_size_5MB'));
+                isShowFileGallery.value = "";
+                isShowFileGallery.value = "";
+                target.value = "";
+                return;
+            }
+        }
+
+        if (invalidFiles.value.length <= 0) {
+            isShowFileGallery.value = t('uploadFile.uploading') + files.length;
+            await uploadFileGallery(files);
+            isShowFileGallery.value = t('uploadFile.upload_success') + '(' + files.length + ' ' + t('uploadFile.file') + ')';
+        } else {
+            isShowFileGallery.value = "";
+            isShowFileGallery.value = "";
+            target.value = "";
+        }
+      }
+    }
+
+    const validateFile = (file: any, maxSize: number) => {
+        return new Promise((resolve, reject) => {
+            if (file.size > maxSize) {
+                reject(`${file.name}` + ' => ' + t('toast.summary.real_estate_profile_valid_file_size_1MB'));
+            } else {
+                const allowedTypes = ['image/jpeg', 'image/jpg'];
+
+                if (!allowedTypes.includes(file.type)) {
+                    reject(`${file.name}` + ' => ' + t('toast.summary.real_estate_profile_valid_file_mimes'));
+                } else {
+                    const image = new Image();
+                    image.src = URL.createObjectURL(file);
+
+                    image.onload = () => {
+                        const width = image.width;
+                        const height = image.height;
+
+                        if (width > minWidth.value || height > minHeight.value) {
+                            reject(`${file.name}` + ' => ' + t('messages.dimensions'));
+                        } else {
+                            resolve('');
+                        }
+                    }
+
+                    image.onerror = () => {
+                        reject(`Error loading image ${file.name}.`);
+                    }
+                }
+            }
+        })
+    }
 
     const createInputs = ref<HouseEntity['prices']>([
         { price: '', unit_price: '', detail: '' }
@@ -435,10 +540,10 @@
     ]);
 
     const unitPrices = ref([
-        { id: 'sale', name: 'ບໍລິການຂາຍ' },
-        { id: 'day', name: 'ບໍລິການ ເຊົ່າເປັນມື້' },
-        { id: 'month', name: 'ບໍລິການ ເຊົ່າເປັນເດືອນ' },
-        { id: 'year', name: 'ບໍລິການ ເຊົ່າເປັນປີ' },
+        { id: 'sale', name: t('messages.service_sale') },
+        { id: 'day', name: t('messages.service_daily') },
+        { id: 'month', name: t('messages.service_monthly') },
+        { id: 'year', name: t('messages.service_yearly') },
     ]);
 
     const accessToken = localStorage.getItem('token');
@@ -541,7 +646,7 @@
             selectedImage.value = response.data?.filename;
             state.btnLoading = false;
         } catch (error) {
-            console.error('Upload failed:', error);
+            await showUploadFileFail(error);
         }
     }
 
@@ -567,8 +672,16 @@
             selectedGallery.value = gallery;
             state.btnLoading = false;
         } catch (error) {
-            console.error('Upload failed:', error);
+            await showUploadFileFail(error);
         }
+    }
+
+    const showUploadFileFail = (erorr: any) => {
+        toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: erorr, life: 3000 });
+    }
+
+    const showDimensions = (erorr: string) => {
+        toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: erorr, life: 3000 });
     }
 
     const showErrorValidate = (erorr: string) => {

@@ -1,8 +1,13 @@
 <template>
     <div class="signup-form">
-      <h2 style="font-size: 20px; font-weight: bold;">{{ $t('messages.sign_up')}}</h2>
-      <Divider/>
-      <br/>
+      <h2 style="font-size: 20px; font-weight: bold;">
+        {{ $t('messages.sign_up')}}
+    </h2>
+    <Divider/>
+    <p style="font-weight: normal; font-size: 16px; color: brown; margin-top: 10px !important">
+        * {{ $t('messages.warning_sign_up') }}
+    </p>
+    <br/>
       <form @submit.prevent="submitForm">
             <div class="columns is-12 is-multiline">
                 <div class="column is-6 is-mobile-12">

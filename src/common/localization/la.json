@@ -239,7 +239,12 @@
         "all": "ທັງໝົດ",
         "total_price": "ລວມເປັນເງີນທັງໝົດ",
         "confirm": "ອະນຸມັດເເລ້ວ",
-        "reject": "ຍົກເລີກ"   
+        "reject": "ຍົກເລີກ",
+        "warning_sign_up": "ຂໍ້ມູນຄວນໃສ່ເປັນພາສາອັງກິດ, ລາວ, ໄທ",
+        "dimensions": "ຂະໜາດໄຟລຕ້ອງບໍ່ເກີນ 2000 x 1900",
+        "service_daily": "ບໍລິການ ເຊົ່າລາຍວັນ",
+        "service_monthly": "ບໍລິການ ເຊົ່າລາຍເດືອນ",
+        "service_yearly": "ບໍລິການ ເຊົ່າລາຍປີ"   
     },
     "uploadFile": {
         "uploading": "ກຳລັງອັບໂຫຼດໂປຮໄຟລເຂົ້າລະບົບ ກະລຸນາລໍຖ້າ...",
@@ -285,7 +290,11 @@
             "sign_up_valid_file_mimes": "ຕ້ອງເປັນໄຟລ໌ jpg, jpeg, png ເທົ່ານັ້ນ...",
             "sign_up_valid_file_size": "ໄຟລ໌ຕ້ອງບໍ່ໃຫຍ່ກວ່າ 2 MB.",
             "profile_valid_file_mimes": "ຕ້ອງເປັນໄຟລ໌ jpg, jpeg, png ເທົ່ານັ້ນ...",
-            "profile_valid_file_size": "ໄຟລ໌ຕ້ອງບໍ່ໃຫຍ່ກວ່າ 2 MB."
+            "profile_valid_file_size": "ໄຟລ໌ຕ້ອງບໍ່ໃຫຍ່ກວ່າ 2 MB.",
+            "real_estate_profile_valid_file_mimes": "ຕ້ອງເປັນໄຟລ໌ jpg, jpeg ເທົ່ານັ້ນ...",
+            "real_estate_profile_valid_file_size": "ໄຟລ໌ຕ້ອງບໍ່ໃຫຍ່ກວ່າ 2 MB.",
+            "real_estate_profile_valid_file_size_1MB": "ໄຟລ໌ຕ້ອງບໍ່ໃຫຍ່ກວ່າ 1 MB.",
+            "maximum_allowed_size_5MB": "ຂະໜາດທັງໝົດຂອງໄຟລ໌ທັງໝົດເກີນຂະໜາດສູງສຸດທີ່ອະນຸຍາດ 5 MB."
         },
         "detail": {
             "delete": "ຖືກລຶບອອກເເລ້ວ.",
