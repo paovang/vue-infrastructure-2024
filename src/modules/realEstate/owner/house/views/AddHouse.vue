@@ -368,42 +368,42 @@
     };
 
     const handleFileChange = async (event: Event) => {
-      const target = event.target as HTMLInputElement;
-      const file = target.files?.[0];
-      if (file) {
-        if (! await validFileTypesRealEstate(file)) {
-            await showNotificationToast({ toast, error: 'error', summary: t("toast.summary.error"), detail: t("toast.summary.real_estate_profile_valid_file_mimes") });
-            target.value = '';
-            isShowFileImage.value = "";
-            selectedImage.value = '';
-            return;
-        }
-        if (! await isValidFileSize(file)) {
-            await showNotificationToast({ toast, error: 'error', summary: t("toast.summary.error"), detail: t("toast.summary.real_estate_profile_valid_file_size") });
-            target.value = '';
-            isShowFileImage.value = "";
-            selectedImage.value = '';
-            return;
-        }
-
-        const image = new Image();
-        image.src = URL.createObjectURL(file);
-        image.onload = async () => {
-            const width = image.width;
-            const height = image.height;
-
-            if (width > minWidth.value || height > minHeight.value) {
+        const target = event.target as HTMLInputElement;
+        const file = target.files?.[0];
+        if (file) {
+            if (! await validFileTypesRealEstate(file)) {
+                await showNotificationToast({ toast, error: 'error', summary: t("toast.summary.error"), detail: t("toast.summary.real_estate_profile_valid_file_mimes") });
+                target.value = '';
                 isShowFileImage.value = "";
                 selectedImage.value = '';
-                target.value = '';
-                await showDimensions(t('messages.dimensions'));
-            } else {
-                isShowFileImage.value = t('uploadFile.uploading');
-                await uploadFileImage(file);
-                isShowFileImage.value = t('uploadFile.upload_success');
+                return;
             }
-        };
-      }
+            if (! await isValidFileSize(file)) {
+                await showNotificationToast({ toast, error: 'error', summary: t("toast.summary.error"), detail: t("toast.summary.real_estate_profile_valid_file_size") });
+                target.value = '';
+                isShowFileImage.value = "";
+                selectedImage.value = '';
+                return;
+            }
+
+            const image = new Image();
+            image.src = URL.createObjectURL(file);
+            image.onload = async () => {
+                const width = image.width;
+                const height = image.height;
+
+                if (width > minWidth.value || height > minHeight.value) {
+                    isShowFileImage.value = "";
+                    selectedImage.value = '';
+                    target.value = '';
+                    await showDimensions(t('messages.dimensions'));
+                } else {
+                    isShowFileImage.value = t('uploadFile.uploading');
+                    await uploadFileImage(file);
+                    isShowFileImage.value = t('uploadFile.upload_success');
+                }
+            };
+        }
     };
 
     const handleClickGalleryFile = () => {
@@ -421,27 +421,25 @@
       const totalMaxSize = 5 * 1024 * 1024;  // 5 MB
 
       if (files) {
-        if (files) {
-            let totalSize = 0;
+        let totalSize = 0;
 
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                totalSize += file.size;
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            totalSize += file.size;
 
-                try {
-                    await validateFile(file, maxSize);
-                } catch (error: any) {
-                    invalidFiles.value.push(error);
-                }
+            try {
+                await validateFile(file, maxSize);
+            } catch (error: any) {
+                invalidFiles.value.push(error);
             }
+        }
 
-            if (totalSize > totalMaxSize) {
-                invalidFiles.value.push(t('toast.summary.maximum_allowed_size_5MB'));
-                isShowFileGallery.value = "";
-                isShowFileGallery.value = "";
-                target.value = "";
-                return;
-            }
+        if (totalSize > totalMaxSize) {
+            invalidFiles.value.push(t('toast.summary.maximum_allowed_size_5MB'));
+            isShowFileGallery.value = "";
+            isShowFileGallery.value = "";
+            target.value = "";
+            return;
         }
 
         if (invalidFiles.value.length <= 0) {
