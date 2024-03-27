@@ -38,6 +38,7 @@ export const homerealEstateStore = defineStore("home-real-estate-store", () => {
     | "village"
     | "district_id"
     | "province_id"
+    | "country_id"
     | "wide"
     | "long"
     | "search"
@@ -52,6 +53,7 @@ export const homerealEstateStore = defineStore("home-real-estate-store", () => {
       village: "",
       district_id: "",
       province_id: "",
+      country_id: "",
       wide: "",
       long: "",
       search: "",

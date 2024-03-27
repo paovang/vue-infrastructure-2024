@@ -21,9 +21,10 @@ import { onMounted, ref } from 'vue';
 
   const appointment = ref<Number>(0);
   onMounted(async() => {
-    await getAllAppointmentPending();
-
-    appointment.value = appointmentPending.data.props;
+    if (currentRoles.includes(GET_ROLES.ADMIN_OWNER) || currentRoles.includes(GET_ROLES.USER_OWNER)) {
+      await getAllAppointmentPending();
+      appointment.value = appointmentPending.data.props;
+    }
   })
 
   export interface menuItem {

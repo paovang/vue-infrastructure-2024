@@ -57,30 +57,15 @@
                     <span class="text-red-500"> *</span>
                     </label>
                     <Dropdown 
-                        v-model="form.province_id" 
-                        :options="provinces.data.props" 
+                        v-model="form.country_id" 
+                        :options="getCountries.data.props" 
                         optionLabel="name" 
                         placeholder="ກະລຸນາເລືອກກ່ອນ..." 
                         class="w-full" 
                         optionValue="id"
                         :highlightOnSelect="true" 
                         filter
-                        @change="filterDistrictByid(form.province_id)"
-                    />
-                </div>
-                <div class="column is-3 is-mobile-12">
-                    <label>
-                        {{ $t('messages.village') }}
-                        <span class="text-red-500"> *</span>
-                    </label>
-                    <input-text
-                        v-model="filterVillage"
-                        :placeholder="$t('placeholder.inputText')" 
-                        style="font-family: NotoSansLao, Montserrat"
-                        class="w-full"
-                        name="village"
-                        @keyup.enter="onSearch"
-                        @input="onClearSearch"
+                        @change="filterProvinceById(form.country_id)"
                     />
                 </div>
                 <div class="column is-3 is-mobile-12">
@@ -90,7 +75,7 @@
                     </label>
                     <Dropdown 
                         v-model="form.province_id" 
-                        :options="provinces.data.props" 
+                        :options="getProvinces.data.props" 
                         optionLabel="name" 
                         placeholder="ກະລຸນາເລືອກກ່ອນ..." 
                         class="w-full" 
@@ -107,7 +92,7 @@
                     </label>
                     <Dropdown 
                         v-model="form.district_id" 
-                        :options="districts.data.props" 
+                        :options="getDistricts.data.props" 
                         optionLabel="name" 
                         placeholder="Select a City" 
                         class="w-full" 
@@ -115,6 +100,21 @@
                         :highlightOnSelect="true" 
                         filter
                         @change="onSearch"
+                    />
+                </div>
+                <div class="column is-3 is-mobile-12">
+                    <label>
+                        {{ $t('messages.village') }}
+                        <span class="text-red-500"> *</span>
+                    </label>
+                    <input-text
+                        v-model="filterVillage"
+                        :placeholder="$t('placeholder.inputText')" 
+                        style="font-family: NotoSansLao, Montserrat"
+                        class="w-full"
+                        name="village"
+                        @keyup.enter="onSearch"
+                        @input="onClearSearch"
                     />
                 </div>
             </div>
@@ -180,9 +180,10 @@
     import { formatNumber } from '@/common/utils/format.currency';
     import Paginator from 'primevue/paginator';
     import ProgressSpinner from 'primevue/progressspinner';
+    import { dashboardStore } from '@/modules/realEstate/admin/dashboard/stores/store';
 
-    
-    const { form, getAll, state, setStateFilter, getAllData, provinces, districts, realEstateTypes, isProgressBar } = homerealEstateStore();
+    const { getAllCountries, getCountries, getAllProvinces, getProvinces, getAllDistricts, getDistricts } = dashboardStore();
+    const { form, getAll, state, setStateFilter, realEstateTypes, isProgressBar } = homerealEstateStore();
 
     const router = useRouter();
     const { query } = useRoute();
@@ -223,33 +224,36 @@
     }
 
     const filterDistrictByid = async (id: any) => {
-        if (setStateFilter.filter) {
-            setStateFilter.filter.province_id = id;
-        }
+        await getAllDistricts(id);
+        getDistricts.data.props.unshift({ id: 'all', name: 'ທັງໝົດ' });
+        form.district_id = getDistricts.data.props.length > 0 ? getDistricts.data.props[0].id : undefined;
 
-        await getAllData();
-        await selectedDistrict();
-
-        if (setStateFilter.filter) {
-            setStateFilter.filter.district_id = form.district_id === 'all' ? '' : form.district_id;
-            setStateFilter.filter.province_id = form.province_id === 'all' ? '' : form.province_id;
-        }
-
-        await getAll();
+        await onSearch();
     }
 
-    const selectedDistrict = async () => {
-        realEstateTypes.data.props.unshift({ id: 'all', name: 'ທັງໝົດ' });
-        provinces.data.props.unshift({ id: 'all', name: 'ທັງໝົດ' });
-        districts.data.props.unshift({ id: 'all', name: 'ທັງໝົດ' });
-        form.district_id = districts.data.props.length > 0 ? districts.data.props[0].id : undefined;
+    const filterProvinceById = async (id: any) => {
+        await getAllProvinces(id);
+        getProvinces.data.props.unshift({ id: 'all', name: 'ທັງໝົດ' });
+
+        await onSearch();
     }
     
     onMounted(async() => {
         await initComponent();
-        await getAllData();
+        await getAllCountries();
+        getCountries.data.props.unshift({ id: 'all', name: 'ທັງໝົດ' });
+        form.country_id = getCountries.data.props.length > 0 ? getCountries.data.props[0].id : undefined;
+        
+        await getAllProvinces( getCountries.data.props[0].id);
+        getProvinces.data.props.unshift({ id: 'all', name: 'ທັງໝົດ' });
+        form.province_id = getProvinces.data.props.length > 0 ? getProvinces.data.props[0].id : undefined;
+
+        await getAllDistricts(form.province_id as any);
+        getDistricts.data.props.unshift({ id: 'all', name: 'ທັງໝົດ' });
+        form.district_id = getDistricts.data.props.length > 0 ? getDistricts.data.props[0].id : undefined;
+       
         realEstateTypes.data.props.unshift({ id: 'all', name: 'ທັງໝົດ' });
-        provinces.data.props.unshift({ id: 'all', name: 'ທັງໝົດ' });
+        form.real_estate_type_id = realEstateTypes.data.props.length > 0 ? realEstateTypes.data.props[0].id : undefined;
     })
 
     const onSearch = async () => {
@@ -258,6 +262,8 @@
             setStateFilter.filter.service_model = form.service_model === 'all' ? '' : form.service_model;
             setStateFilter.filter.room_type = form.room_type === 'all' ? '' : form.room_type;
             setStateFilter.filter.district_id = form.district_id === 'all' ? '' : form.district_id;
+            setStateFilter.filter.province_id = form.province_id === 'all' ? '' : form.province_id;
+            setStateFilter.filter.country_id = form.country_id === 'all' ? '' : form.country_id;
         }
 
         router.push({
@@ -268,6 +274,8 @@
                 service_model: form.service_model,
                 room_type: form.room_type,
                 district_id: form.district_id,
+                province_id: form.province_id,
+                country_id: form.country_id,
             }
         })
         
@@ -282,14 +290,17 @@
             const serviceModel = query.service_model !== undefined ? String(query.service_model) : undefined;
             const roomType = query.room_type !== undefined ? String(query.room_type) : undefined;
             const districtId = query.district_id !== undefined ? String(query.district_id) : undefined;
-            
+            const provinceId = query.province_id !== undefined ? String(query.province_id) : undefined;
+            const countryId = query.country_id !== undefined ? String(query.country_id) : undefined;
+           
             if (setStateFilter.filter) {
                 setStateFilter.filter.real_estate_type_id = realEstateTypeId !== 'all' ? realEstateTypeId : "";
                 setStateFilter.filter.service_model = serviceModel !== 'all' ? serviceModel : "";
                 setStateFilter.filter.room_type = roomType !== 'all' ? roomType : "";
                 setStateFilter.filter.district_id = districtId !== 'all' ? districtId : "";
+                setStateFilter.filter.province_id = provinceId !== 'all' ? provinceId : "";
+                setStateFilter.filter.country_id = countryId !== 'all' ? countryId : "";
             }
-            
 
             router.push({
                 query: {
@@ -299,6 +310,8 @@
                     service_model: serviceModel,
                     room_type: roomType,
                     district_id: districtId,
+                    province_id: provinceId,
+                    country_id: countryId
                 }
             })
         }
@@ -309,7 +322,6 @@
         await getAll();
         
         form.real_estate_type_id = realEstateTypes.data.props.length > 0 ? realEstateTypes.data.props[0].id : undefined;
-        form.province_id = provinces.data.props.length > 0 ? provinces.data.props[0].id : undefined;
     }
 
     const viewDetail = async (id: string) => {

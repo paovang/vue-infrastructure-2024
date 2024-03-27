@@ -8,6 +8,7 @@ export interface ReserveRealEstateEntity {
   room_type?: string;
   province_id?: string;
   district_id?: string;
+  country_id?: string;
   created_at?: string;
   updated_at?: string;
 }

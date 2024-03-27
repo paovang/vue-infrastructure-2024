@@ -28,6 +28,7 @@ export class GetAllHomeRealEstateUseCase
         | "village"
         | "district_id"
         | "province_id"
+        | "country_id"
         | "wide"
         | "long"
         | "search"

@@ -61,6 +61,7 @@ export class HomeRealEstateRepository implements IHomeRealEstateRepository {
         | "village"
         | "district_id"
         | "province_id"
+        | "country_id"
         | "wide"
         | "long"
         | "search"
@@ -79,6 +80,7 @@ export class HomeRealEstateRepository implements IHomeRealEstateRepository {
         village: args.filter?.village,
         district_id: args.filter?.district_id,
         province_id: args.filter?.province_id,
+        country_id: args.filter?.country_id,
         wide: args.filter?.wide,
         long: args.filter?.long,
       },

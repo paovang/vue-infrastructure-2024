@@ -47,6 +47,11 @@
               <span style="margin-left: 5px;"></span>
               {{ $t('messages.sign_up') }}
             </a>
+            <a class="navbar-item brackets" @click="goToSignIn()">
+              <i class="pi pi-users"></i> 
+              <span style="margin-left: 5px;"></span>
+              {{ $t('messages.sign_in') }}
+            </a>
             <div class="navbar-item has-dropdown is-hoverable">
               <a class="navbar-link">
                 <i class="pi pi-globe"></i>
@@ -80,6 +85,11 @@
 
     const goToSignUp = async () => {
       router.push({ name: 'sign.up'});
+      isNavbarActive.value = false;
+    }
+
+    const goToSignIn = async () => {
+      router.push({ name: 'login'});
       isNavbarActive.value = false;
     }
 
