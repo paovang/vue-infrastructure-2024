@@ -40,7 +40,6 @@
     const {  getAllData, footer } = homerealEstateStore();
 
     const goToFacebook = (value: string) => {
-        console.log(value);
         window.open(value, '_blank');
     }
 

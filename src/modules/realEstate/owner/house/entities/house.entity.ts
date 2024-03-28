@@ -2,6 +2,7 @@ interface Price {
   price?: number | string;
   unit_price?: string;
   detail?: string;
+  est_m?: number | string;
 }
 
 export interface HouseEntity {

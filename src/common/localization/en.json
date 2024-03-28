@@ -44,6 +44,7 @@
             "service": "All Service",
             "real_estate": "All Real Estate",
             "payment_history": "Payment History",
+            "payment_service": "Payment Service",
             "user": "All User",
             "appointment": "All Appointment",
             "rent_buy": "All Rent - Buy",
@@ -107,6 +108,9 @@
             "total_bed": "Total Bed",
             "total_bath": "Total Bath",
             "image": "Image",
+            "created_by": "Created By",
+            "updated_by": "Updated By",
+            "service_charge": "Service Charge",
             "footer": {
                 "facebook": "Facebook",
                 "whatsapp": "Whatsapp",
@@ -221,7 +225,7 @@
         "fan": "Fan",
         "none": "None",
         "service_sale": "Sales Service",
-        "service_rent": "Rent",
+        "service_rent": "Rent Service",
         "id_no": "ID NO",
         "id_image": "ID Image",
         "footer": "Footer",
@@ -245,7 +249,10 @@
         "dimensions": "Dimensions must not exceed 2000 x 1900.",
         "service_daily": "Daily rental service",
         "service_yearly": "Yearly rental service",
-        "service_monthly": "Monthly rental service"
+        "service_monthly": "Monthly rental service",
+        "real_estate_number": "Real Estate Number",
+        "real_estate": "Real Estate",
+        "real_estate_name": "Real Estate Name"
     },
     "uploadFile": {
         "uploading": "Uploading profile to the system please wait...",

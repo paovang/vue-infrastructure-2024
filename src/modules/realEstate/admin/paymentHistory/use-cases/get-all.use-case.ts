@@ -20,7 +20,9 @@ export class GetAllPaymentServiceHistoryHouseUseCase
   ) {}
 
   async execute(
-    input: IGPaginate<Pick<PaymentEntity, "status" | "date_payment">>
+    input: IGPaginate<
+      Pick<PaymentEntity, "status" | "date_payment" | "customer_id">
+    >
   ): Promise<void | IResponse<IGPaginated<PaymentEntity>>> {
     try {
       return await this._api.getAll(input);

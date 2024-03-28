@@ -222,6 +222,8 @@
             <Column field="total_bath" :header="$t('table.header.total_bath')" headerStyle="min-width: 8rem"></Column>
             <Column field="garage" :header="$t('table.header.garage')" headerStyle="min-width: 6rem"></Column>
             <Column field="status" :header="$t('table.header.status')" headerStyle="min-width: 5rem"></Column>
+            <Column field="created_by.name" :header="$t('table.header.created_by')" headerStyle="min-width: 8rem"></Column>
+            <Column field="updated_by.name" :header="$t('table.header.updated_by')" headerStyle="min-width: 8rem"></Column>
             <Column field="created_at" :header="$t('table.header.created_at')" headerStyle="min-width: 8rem"></Column>
         </DataTable>
 

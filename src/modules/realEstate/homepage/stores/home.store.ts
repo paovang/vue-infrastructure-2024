@@ -124,7 +124,6 @@ export const homerealEstateStore = defineStore("home-real-estate-store", () => {
 
   async function getOne(id: number) {
     const response = await service.getOne(id);
-
     if (response && response.data && response.message == "success") {
       realEstateGetOne.data.props = response.data;
     }

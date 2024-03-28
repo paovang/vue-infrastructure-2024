@@ -44,6 +44,7 @@
             "service": "ລາຍການ ຄ່າບໍລິການທັງໝົດ",
             "real_estate": "ລາຍການ ຊັບສີນທັງໝົດ",
             "payment_history": "ປະຫວັດ ການຊຳລະຄ່າບໍລິການ",
+            "payment_service": "ຊຳລະຄ່າບໍລິການ",
             "user": "ລາຍການ ຜູ້ໃຊ້ລະບົບທັງໝົດ",
             "appointment": "ລາຍການ ນັດໝາຍທັງໝົດ",
             "rent_buy": "ລາຍການ ເຊົ່າ - ຂາຍ ທັງໝົດ",
@@ -107,6 +108,9 @@
             "total_bed": "ຈຳນວນຫ້ອງນອນ",
             "total_bath": "ຈຳນວນຫ້ອງນ້ຳ",
             "image": "ໂປຮໄຟລ",
+            "created_by": "ສ້າງໂດຍ",
+            "updated_by": "ອັບເດດໂດຍ",
+            "service_charge": "ຄ່າບໍລິການ",
             "footer": {
                 "facebook": "Facebook",
                 "whatsapp": "Whatsapp",
@@ -245,7 +249,10 @@
         "dimensions": "ຂະໜາດໄຟລຕ້ອງບໍ່ເກີນ 2000 x 1900",
         "service_daily": "ບໍລິການ ເຊົ່າລາຍວັນ",
         "service_monthly": "ບໍລິການ ເຊົ່າລາຍເດືອນ",
-        "service_yearly": "ບໍລິການ ເຊົ່າລາຍປີ"   
+        "service_yearly": "ບໍລິການ ເຊົ່າລາຍປີ",
+        "real_estate_number": "ເລກລະຫັດ ຊັບສີນ",
+        "real_estate": "ຊັບສີນ",
+        "real_estate_name": "ຊື່ຊັບສີນ"   
     },
     "uploadFile": {
         "uploading": "ກຳລັງອັບໂຫຼດໂປຮໄຟລເຂົ້າລະບົບ ກະລຸນາລໍຖ້າ...",

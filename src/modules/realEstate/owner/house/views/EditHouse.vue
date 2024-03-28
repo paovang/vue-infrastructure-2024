@@ -28,7 +28,6 @@
                         optionValue="id"
                         :highlightOnSelect="true" 
                     />
-                    <!-- <small class="p-error">{{ errors.real_estate_type }}</small> -->
                 </div>
                 <div class="column is-mobile-12 is-2">
                     <label>
@@ -38,12 +37,12 @@
                     <Dropdown 
                         style="margin-top: 8px;"
                         v-model="form.service_model" 
-                        :options="servicemodels" 
+                        :options="listServiceModel" 
                         optionLabel="name" 
                         :placeholder="$t('placeholder.dropdownSelect')" 
                         optionValue="id"
                         :highlightOnSelect="true" 
-                        class="w-full" 
+                        class="w-full"
                     />
                 </div>
                 <div class="column is-mobile-12 is-2">
@@ -190,11 +189,6 @@
                         class="h-full" 
                         :value="form.remark"
                     />
-                    <!-- <label>
-                        ລາຍລະອຽດ
-                        <span class="text-red-500"> *</span>
-                    </label>
-                    <Editor editorStyle="height: 320px" /> -->
                 </div>
 
                 <div class="column is-12">
@@ -207,7 +201,7 @@
                                 </label>
                                 <Dropdown 
                                     v-model="input.unit_price" 
-                                    :options="unitPrices" 
+                                    :options="listServices" 
                                     optionLabel="name" 
                                     :placeholder="$t('placeholder.dropdownSelect')"  
                                     class="w-full" 
@@ -228,7 +222,7 @@
                                     style="font-family: 'NotoSansLao','Montserrat', 'sans-serif'; width: 100% !important;" 
                                 />
                             </div>
-                            <div class="column is-5">
+                            <div class="column is-5" v-if="form.service_model === 'rent'">
                                 <label>
                                     {{ $t('messages.details') }}
                                 </label>
@@ -241,6 +235,17 @@
                                     style="font-family: 'NotoSansLao','Montserrat', 'sans-serif'" 
                                 />
                             </div>
+                            <div class="column is-5" v-if="form.service_model === 'sale'">
+                                <label>
+                                    {{ $t('messages.est_m') }}
+                                </label>
+                                <input-number 
+                                    v-model="(input.est_m as number)" 
+                                    :placeholder="$t('placeholder.inputText')"  
+                                    required 
+                                    style="font-family: 'NotoSansLao','Montserrat', 'sans-serif'; width: 100% !important;" 
+                                />
+                            </div>
                             <div class="column is-1">
                                 <a @click="removeInput(index)" class="button is-danger remove-btn" v-if="index > 0" style="margin-top: 22px;">
                                     <i class="pi pi-times-circle"></i>
@@ -248,9 +253,14 @@
                             </div>
                         </div>
                         <div class="column is-mobile-12 is-12">
-                            <a @click="addInput" class="button is-primary">
+                            <Button 
+                                @click="addInput" 
+                                class="button is-primary" 
+                                :disabled="!isCheckForRent"
+                                style="font-family: 'NotoSansLao','Montserrat', 'sans-serif'" 
+                            >
                                 {{ $t('button.add_item') }}  
-                            </a>
+                            </Button>
                         </div>
                     </Panel>
                 </div>
@@ -348,12 +358,10 @@
 
 <script setup lang="ts">
     import MyInputText from '@/components/customComponents/FormInputText.vue';
-    // import MyInputText from '@/components/customComponents/FormEditInputText.vue';
     import MyInputTextArea from '@/components/customComponents/FormEditTextArea.vue';
     import Dropdown from 'primevue/dropdown';
     import { ref, onMounted } from 'vue';
     import Button from 'primevue/button';
-    // import Editor from 'primevue/editor';
     import InputNumber from 'primevue/inputnumber';
     import { useForm } from 'vee-validate';
     import { houseSchema } from '../schema/house.schema';
@@ -367,8 +375,8 @@
     import { useToast } from "primevue/usetoast";
     import axios from 'axios';
     import { useI18n } from 'vue-i18n';
-import { isValidFileSize, validFileTypesRealEstate } from '@/common/utils/validation.file';
-import { showNotificationToast } from '@/common/utils/toast';
+    import { isValidFileSize, validFileTypesRealEstate } from '@/common/utils/validation.file';
+    import { showNotificationToast } from '@/common/utils/toast';
 
     const { t } = useI18n();
     const toast = useToast();
@@ -418,22 +426,26 @@ import { showNotificationToast } from '@/common/utils/toast';
     })
 
     const servicemodels = ref([
-        { id: 'sale', name: 'ບໍລິການຂາຍ' },
-        { id: 'rent', name: 'ບໍລິການເຊົ່າ' }
+        { id: 'sale', name: t('messages.service_sale') },
+        { id: 'rent', name: t('messages.service_rent') },
     ]);
     
     const roomTypes = ref([
-        { id: 'air', name: 'ເເອ' },
-        { id: 'fan', name: 'ພັດລົມ' },
-        { id: 'no', name: 'ບໍ່ມີ' },
+        { id: 'air', name: t('messages.air') },
+        { id: 'fan', name: t('messages.fan') },
+        { id: 'no', name: t('messages.none') },
     ]);
 
     const unitPrices = ref([
-        { id: 'sale', name: 'ບໍລິການຂາຍ' },
-        { id: 'day', name: 'ບໍລິການ ເຊົ່າເປັນມື້' },
-        { id: 'month', name: 'ບໍລິການ ເຊົ່າເປັນເດືອນ' },
-        { id: 'year', name: 'ບໍລິການ ເຊົ່າເປັນປີ' },
+        { id: 'sale', name: t('messages.service_sale') },
+        { id: 'day', name: t('messages.service_daily') },
+        { id: 'month', name: t('messages.service_monthly') },
+        { id: 'year', name: t('messages.service_yearly') },
     ]);
+
+    const isCheckForRent = ref<boolean>(false);
+    const listServices = ref();
+    const listServiceModel = ref();
 
     onMounted(async() => {
         await initComponent();
@@ -445,6 +457,16 @@ import { showNotificationToast } from '@/common/utils/toast';
         await getOne(id);
         await fetchAll();
         state.btnLoading = false;
+
+        if (form.service_model === 'rent') {
+            isCheckForRent.value = true;
+            listServices.value = unitPrices.value.slice(1, 4);
+            listServiceModel.value = servicemodels.value.splice(1, 1);
+        } else {
+            isCheckForRent.value = false;
+            listServices.value = unitPrices.value.slice(0, 1);
+            listServiceModel.value = servicemodels.value.splice(0, 1);
+        }
     }
 
     const fetchAll = async() => {
@@ -467,12 +489,6 @@ import { showNotificationToast } from '@/common/utils/toast';
 
         isShowFileImage.value = house.image;
         isShowFileGallery.value = house.gallery;
-
-        // ใช้ split('/') เพื่อแยกส่วนของ URL ตามเครื่องหมาย '/'
-        // const parts = house.image.split('/');
-
-        // // เลือกส่วนสุดท้ายของ URL ซึ่งเป็นชื่อไฟล์
-        // const filename = parts[parts.length - 1];
 
         setStateProvinceFilter.limit = 1000;
         await getAllProvince();

@@ -2,9 +2,9 @@ import { roleGuard } from "@/common/guards/role.guard";
 import type { RouteRecordRaw } from "vue-router";
 import { GET_ROLES } from "@/common/utils/const";
 
-export const realEstateTypeRoute: RouteRecordRaw[] = [
+export const adminRealEstateTypeRoute: RouteRecordRaw[] = [
   {
-    path: "/real-estate-type",
+    path: "/admin/real-estate-type",
     name: "real.estate.type",
     component: () => import("../views/ListRealEstateType.vue"),
     meta: {

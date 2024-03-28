@@ -2,9 +2,9 @@ import { roleGuard } from "@/common/guards/role.guard";
 import type { RouteRecordRaw } from "vue-router";
 import { GET_ROLES } from "@/common/utils/const";
 
-export const footerRoute: RouteRecordRaw[] = [
+export const adminFooterRoute: RouteRecordRaw[] = [
   {
-    path: "/footer",
+    path: "/admin/footer",
     name: "footer",
     component: () => import("../views/Edit-Footer.vue"),
     meta: {

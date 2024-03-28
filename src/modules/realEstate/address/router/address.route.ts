@@ -2,9 +2,9 @@ import { roleGuard } from "@/common/guards/role.guard";
 import type { RouteRecordRaw } from "vue-router";
 import { GET_ROLES } from "@/common/utils/const";
 
-export const addressRoute: RouteRecordRaw[] = [
+export const adminAddressRoute: RouteRecordRaw[] = [
   {
-    path: "/country",
+    path: "/admin/country",
     name: "country",
     component: () => import("../views/ListCountry.vue"),
     meta: {
@@ -14,7 +14,7 @@ export const addressRoute: RouteRecordRaw[] = [
     beforeEnter: roleGuard,
   },
   {
-    path: "/province",
+    path: "/admin/province",
     name: "province",
     component: () => import("../views/ListProvince.vue"),
     meta: {
@@ -24,7 +24,7 @@ export const addressRoute: RouteRecordRaw[] = [
     beforeEnter: roleGuard,
   },
   {
-    path: "/district",
+    path: "/admin/district",
     name: "district",
     component: () => import("../views/ListDistrict.vue"),
     meta: {

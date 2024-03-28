@@ -200,7 +200,7 @@
                                 </label>
                                 <Dropdown 
                                     v-model="input.unit_price" 
-                                    :options="unitPrices" 
+                                    :options="listServices" 
                                     optionLabel="name" 
                                     :placeholder="$t('placeholder.dropdownSelect')"  
                                     class="w-full" 
@@ -221,9 +221,9 @@
                                     style="font-family: 'NotoSansLao','Montserrat', 'sans-serif'; width: 100% !important;" 
                                 />
                             </div>
-                            <div class="column is-5">
+                            <div class="column is-5" v-if="isCheckForRent">
                                 <label>
-                                    {{ $t('messages.est_m') }}
+                                    {{ $t('messages.details') }}
                                 </label>
                                 <input 
                                     name="detail"
@@ -232,6 +232,17 @@
                                     v-model="input.detail" 
                                     placeholder="ກະລຸນາປ້ອນກ່ອນ..." 
                                     style="font-family: 'NotoSansLao','Montserrat', 'sans-serif'" 
+                                />
+                            </div>
+                            <div class="column is-5" v-if="!isCheckForRent">
+                                <label>
+                                    {{ $t('messages.est_m') }}
+                                </label>
+                                <input-number 
+                                    v-model="(input.est_m as number)" 
+                                    placeholder="ກະລຸນາປ້ອນກ່ອນ..." 
+                                    required 
+                                    style="font-family: 'NotoSansLao','Montserrat', 'sans-serif'; width: 100% !important;" 
                                 />
                             </div>
                             <div class="column is-1">
@@ -323,7 +334,6 @@
     import Dropdown from 'primevue/dropdown';
     import { ref, onMounted } from 'vue';
     import Button from 'primevue/button';
-    // import Editor from 'primevue/editor';
     import InputNumber from 'primevue/inputnumber'
     import { useForm } from 'vee-validate';
     import { houseSchema } from '../schema/house.schema';
@@ -365,7 +375,7 @@
     const handleClick = () => {
         const input = document.getElementById('fileInput') as HTMLInputElement;
         input.click();
-    };
+    }
 
     const handleFileChange = async (event: Event) => {
         const target = event.target as HTMLInputElement;
@@ -487,7 +497,7 @@
     }
 
     const createInputs = ref<HouseEntity['prices']>([
-        { price: '', unit_price: '', detail: '' }
+        { price: '', unit_price: '', detail: '', est_m: '' }
     ]);
 
 
@@ -510,15 +520,18 @@
     const isCheckForRent = ref<boolean>(false);
     const checkServiceModel = async (value: any) => {
         if (value === 'rent') {
-             // Find index of item with id 'sale'
-            // const index = unitPrices.value.findIndex(unit => unit.id === 'sale');
-            // // If found, remove it from unitPrices
-            // if (index !== -1) {
-            //     unitPrices.value.splice(index, 1);
-            // }
             isCheckForRent.value = true;
+            listServices.value = unitPrices.value.slice(1, 4);
+            if (createInputs && createInputs.value) {
+                createInputs.value[0].unit_price = listServices.value[0].id;
+                createInputs.value[0].est_m = 0;
+            }
         } else {
             isCheckForRent.value = false;
+            listServices.value = unitPrices.value.slice(0, 1);
+            if (createInputs && createInputs.value) {
+                createInputs.value[0].unit_price = listServices.value[0].id;
+            }
         }
     }
 
@@ -543,6 +556,7 @@
         { id: 'month', name: t('messages.service_monthly') },
         { id: 'year', name: t('messages.service_yearly') },
     ]);
+    const listServices = ref();
 
     const accessToken = localStorage.getItem('token');
 
@@ -551,6 +565,12 @@
 
     onMounted(async() => {
         await fetchAll();
+
+        if (createInputs && createInputs.value) {
+            createInputs.value[0].unit_price = unitPrices.value[0].id;
+        }
+        
+        listServices.value = unitPrices.value.slice(0, 1);
     })
 
     const fetchAll = async() => {

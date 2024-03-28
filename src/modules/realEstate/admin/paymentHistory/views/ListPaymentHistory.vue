@@ -3,12 +3,9 @@
         <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
             <span class="p-input-icon-left w-full sm:w-20rem flex-order-1 sm:flex-order-0">
                 <h2 class="mb-3">
-                    ປະຫວັດ ການຊຳລະຄ່າບໍລິການ
+                    {{ $t('table.title.payment_service')}}
                 </h2>
             </span>
-            <!-- <span>
-                <Button icon="pi pi-plus-circle" rounded />
-            </span> -->
         </div>
         <Divider/>
         <DataTable 
@@ -21,44 +18,43 @@
             :totalRecords="state.data.total"
             @page="onPageChange"
             :first="first"
+            scrollable
             :rows="setStateFilter.limit"
             paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
             :currentPageReportTemplate="`${$t('table.pagination.show')} {first} ${$t('table.pagination.to')} {last} ${$t('table.pagination.from')} {totalRecords} ${$t('table.pagination.row')}`"
         >
             <template #header>
                 <div class="col-12 md:col-12 flex flex-row">
+                    <div class="col-12 md:col-5">
+                        <label>
+                            {{ $t('messages.owner') }}
+                        </label>
+                        <Dropdown 
+                            name="status"
+                            v-model="form.customer_id" 
+                            :options="getCustomers.data.props" 
+                            :optionLabel="option => `${option.customer_number} > ${option.name} > ${option.owner} > ${option.tel}`" 
+                            placeholder="ກະລຸນາເລືອກກ່ອນ..." 
+                            class="w-full" 
+                            optionValue="id"
+                            :highlightOnSelect="true" 
+                            @change="onSearch"
+                        />
+                    </div>
                     <div class="col-12 md:col-3">
                         <label>
-                            ເຈົ້າຂອງ
+                            {{ $t('messages.payment_date') }}
                         </label>
-                        <Dropdown 
-                            name="status"
-                            v-model="form.status" 
-                            :options="paymentStatues" 
-                            :optionLabel="option => `${option.name}`" 
-                            placeholder="ກະລຸນາເລືອກກ່ອນ..." 
-                            class="w-full" 
-                            optionValue="id"
-                            :highlightOnSelect="true" 
-                            @change="onSearch"
-                        />
-                    </div>
-                    <div class="col-12 md:col-2">
-                        <label>
-                            ວັນທີຊຳລະ
-                        </label>
-                        <Calendar 
+                        <InputText 
                             v-model="paymentDate" 
-                            showIcon iconDisplay="input" 
-                            inputId="icondisplay" 
-                            style="width: 100%;" 
-                            @date-select="onSearch"
-                            @input="onSearch"
+                            type="date" 
+                            style="width: 100% !important" 
+                            @change="onSearch"
                         />
                     </div>
                     <div class="col-12 md:col-2">
                         <label>
-                            ສະຖານະ
+                            {{ $t('messages.status') }}
                         </label>
                         <Dropdown 
                             name="status"
@@ -72,7 +68,14 @@
                             @change="onSearch"
                         />
                     </div>
-                    <div class="col-12 md:col-5" style="text-align: right;">
+                    <div class="col-12 md:col-2" style="text-align: right;">
+                        <Button 
+                            icon="pi pi-search" 
+                            severity="info" 
+                            style="margin-top: 22px !important; color: white" 
+                            @click="onSearch"
+                        />
+                        <span style="margin-left: 10px;"></span>
                         <Button 
                             icon="pi pi-refresh" 
                             severity="warning" 
@@ -83,37 +86,12 @@
                 </div>
             </template>
 
-            <Column field="id" :header="$t('table.header.index')">
+            <Column field="id" :header="$t('table.header.index')" frozen>
                 <template #body="item">
                     {{ item.index + 1 }}
                 </template>
             </Column>
-            <Column :header="$t('table.header.name') +  ' / ' + $t('table.header.owner')">
-                <template #body="{data}">
-                    <span>{{ data.real_estate_list.account.name }}</span>
-                    <span> - {{ data.real_estate_list.account.owner }}</span>
-                </template>
-            </Column>
-            <Column field="date_payment" :header="$t('table.header.date_payment')"></Column>
-            <Column field="service_charge" :header="$t('table.header.amount')">
-                <template #body="slotProps">
-                    {{ formatNumber(slotProps.data.amount, slotProps.data) }}
-                </template>
-            </Column>
-            <Column :header="$t('table.header.unit_price')">
-                <template #body="{data}">
-                    <span>{{ data.qty }}</span>
-                    <span> / {{ data.unit_price }}</span>
-                </template>
-            </Column>
-            <Column :header="$t('table.header.start_end_date')">
-                <template #body="{data}">
-                    <span style="color: rgb(4, 4, 209)">{{ data.from_date }}</span>
-                    <span style="color: red"> / {{ data.to_date }}</span>
-                </template>
-            </Column>
-            <Column field="status" :header="$t('table.header.status')"></Column>
-            <Column headerStyle="width: 10rem">
+            <Column headerStyle="min-width: 4rem" frozen>
                 <template #body="{ data }">
                     <div class="flex flex-wrap gap-2 btn-right">
                         <Button 
@@ -127,6 +105,33 @@
                     </div>
                 </template>
             </Column>
+            <Column :header="$t('table.header.name') +  ' / ' + $t('table.header.owner')" headerStyle="min-width: 12rem">
+                <template #body="{data}">
+                    <span>{{ data.real_estate_list.account.name }}</span>
+                    <span> - {{ data.real_estate_list.account.owner }}</span>
+                </template>
+            </Column>
+            <Column field="bill_no" :header="$t('table.header.bill_number')" headerStyle="min-width: 6rem"></Column>
+            <Column field="date_payment" :header="$t('table.header.date_payment')" headerStyle="min-width: 8rem"></Column>
+            <Column :header="$t('table.header.unit_price')" headerStyle="min-width: 13rem">
+                <template #body="{data}">
+                    {{ formatNumber(data.service_charge, data.currency) }}
+                    ( {{ data.qty }} / {{ data.unit_price }} )
+                </template>
+            </Column>
+            <Column field="amount" :header="$t('table.header.total')">
+                <template #body="{data}">
+                    {{ formatNumber(data.amount, data.currency) }}
+                </template>
+            </Column>
+            <Column :header="$t('table.header.start_end_date')" headerStyle="min-width: 14rem">
+                <template #body="{data}">
+                    <span style="color: rgb(4, 4, 209)">{{ data.from_date }}</span>
+                    <span style="color: red"> / {{ data.to_date }}</span>
+                </template>
+            </Column>
+            <Column field="status" :header="$t('table.header.status')"></Column>
+            <Column field="updated_by.name" :header="$t('table.header.updated_by')" headerStyle="min-width: 8rem"></Column>
         </DataTable>
 
         <payment-history-component
@@ -143,26 +148,28 @@
     import Divider from 'primevue/divider';
     import Button from 'primevue/button';
     import Dropdown from 'primevue/dropdown';
-    import Calendar from 'primevue/calendar';
+    import InputText from 'primevue/inputtext';
     import { PaymentEntity } from '../entities/payment.entity';
     // import { useConfirm } from "primevue/useconfirm";
     // import { useToast } from "primevue/usetoast";
-    // import { useI18n } from 'vue-i18n';
-    import { formatCurrency } from '@/common/utils/format.currency';
+    import { useI18n } from 'vue-i18n';
     import { paymentServiceHistoryStore } from '../stores/payment-history.store';
     import PaymentHistoryComponent from '../components/PaymentHistory.Component.vue';
+    import { formatNumber } from '@/common/utils/format.currency';
+    import { reportRentBuyStore } from '../../dashboard/stores/rent-store';
 
-    // const { t } = useI18n();
+    const { t } = useI18n();
     // const toast = useToast();
     // const confirm = useConfirm();
 
     const { form, getAll, state, setStateFilter } = paymentServiceHistoryStore();
+    const { getAllCustomers, getCustomers } = reportRentBuyStore();
 
     const paymentStatues = ref([
-        { id: 'all', name: 'All' },
-        { id: 'pending', name: 'Pending' },
-        { id: 'confirm', name: 'Confirm' },
-        { id: 'reject', name: 'Reject' },
+        { id: 'all', name: t('messages.all') },
+        { id: 'pending', name: t('messages.pending') },
+        { id: 'confirm', name: t('messages.confirm') },
+        { id: 'reject', name: t('messages.reject') },
     ]);
 
     const paymentDate = ref();
@@ -178,6 +185,7 @@
         if (setStateFilter.filter) { 
             setStateFilter.filter.status = form.status === 'all' ? '' : form.status;
             setStateFilter.filter.date_payment = paymentDate.value;
+            setStateFilter.filter.customer_id = form.customer_id;
         }
         await getAll();
     }
@@ -185,6 +193,7 @@
     const clearSearch = async () => {
         form.status = 'all';
         paymentDate.value = null;
+        form.customer_id = "";
         await onSearch();
     }
 
@@ -208,13 +217,10 @@
         return result
     })
 
-    const formatNumber = (value: any, data: any) => {
-        return formatCurrency(value, data);
-    };
-
     onMounted(async() => {
-        await getAll();
+        await getAllCustomers();
         form.status = 'all';
+        await onSearch();
     });
 </script>   
 <style scoped>

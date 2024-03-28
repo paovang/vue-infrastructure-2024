@@ -47,7 +47,7 @@
               <span style="margin-left: 5px;"></span>
               {{ $t('messages.sign_up') }}
             </a>
-            <a class="navbar-item brackets" @click="goToSignIn()">
+            <a class="navbar-item brackets" @click="goToSignIn()" v-if="!isCheckLogin">
               <i class="pi pi-users"></i> 
               <span style="margin-left: 5px;"></span>
               {{ $t('messages.sign_in') }}

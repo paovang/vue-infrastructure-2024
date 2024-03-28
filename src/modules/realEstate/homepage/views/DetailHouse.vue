@@ -27,8 +27,14 @@
                 <h3 style="font-weight: bold;">
                     <div v-for="(item, index) in realEstateGetOne.data.props.price" :key="index">
                         <div>
-                            {{ formatNumber(item.price, 'LAK') }}
+                            {{ formatNumber(item.price, item.currency) }}
                             <span v-if="item.unit_price">/ {{ item.unit_price }}</span>
+                            <span style="margin-left: 10px;" v-if="realEstateGetOne.data.props.service_model === 'sale'">
+                                <i class="pi pi-arrow-right"></i>
+                            </span>
+                            <span v-if="realEstateGetOne.data.props.service_model === 'sale'" style="margin-left: 10px;">
+                                {{ $t('messages.est_m') }}: {{ formatNumber(item.est_m, item.currency) }}
+                            </span>
                         </div>
                     </div>
                 </h3>
@@ -39,6 +45,17 @@
                     </span>
                     <span>
                         | {{ realEstateGetOne.data.props.name }}
+                    </span>
+                </p>
+                <p style="margin-top: 5px;">
+                    <span>
+                        {{ $t('messages.total_bed') }}: {{ realEstateGetOne.data.props.total_bed }}
+                    </span>
+                    <span>
+                        | {{ $t('messages.total_bath') }}: {{ realEstateGetOne.data.props.total_bath }}
+                    </span>
+                    <span>
+                        | {{ $t('messages.garage') }}: {{ realEstateGetOne.data.props.garage }}
                     </span>
                 </p>
                 <p>
@@ -82,9 +99,7 @@
             </div>
         </div>
         
-        <reserve-component
-            ref="createForm"
-        />
+        <reserve-component ref="createForm" />
     </div>
 </template>
 

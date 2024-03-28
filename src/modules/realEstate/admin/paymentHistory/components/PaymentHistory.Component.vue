@@ -8,7 +8,7 @@
     >
     <div>
         <br/>
-        <Fieldset :legend="$t('messages.info') + ' ' + $t('messages.owner')">
+        <Fieldset :legend="$t('messages.info') + ' ' + $t('messages.owner') + ' & ' + $t('messages.real_estate')">
             <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
                 <span>
                     {{$t('messages.name')}}: {{ props.data.real_estate_list.account.name }}
@@ -24,10 +24,21 @@
                 </span>
             </div>
             <br/>
+            <Divider/>
+            <br/>
             <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
+                <span>
+                    {{$t('messages.real_estate_number')}}: {{ props.data.real_estate_list.real_esate_number }}
+                </span>
+                <span>
+                    {{$t('messages.real_estate_name')}}: {{ props.data.real_estate_list.name }}
+                </span>
                 <span>
                     {{$t('messages.realestate_type')}}: {{ props.data.service_charge_list.real_estate_type.name }}
                 </span>
+            </div>
+            <br/>
+            <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
                 <span>
                     {{ $t('messages.service_model') }}: {{ props.data.real_estate_list.service_model }}
                 </span>
@@ -41,16 +52,34 @@
             <br/>
             <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
                 <span>
+                    {{$t('messages.total_bed')}}: {{ props.data.real_estate_list.total_bed }}
+                </span>
+                <span>
+                    {{ $t('messages.total_bath') }}: {{ props.data.real_estate_list.total_bath }}
+                </span>
+                <span>
+                    {{$t('messages.garage')}}: {{ props.data.real_estate_list.garage }}
+                </span>
+                <span>
                     {{ $t('messages.wide') }}: {{ props.data.real_estate_list.wide }}
                 </span>
                 <span>
                     {{$t('messages.long')}}: {{ props.data.real_estate_list.long }}
                 </span>
-                <span>
-                    {{$t('messages.country')}}: {{ props.data.service_charge_list.country.name }}
-                </span>
+            </div>
+            <br/>
+            <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
                 <span>
                     {{$t('messages.village')}}: {{ props.data.real_estate_list.village }}
+                </span>
+                <span>
+                    {{$t('messages.district')}}: {{ props.data.real_estate_list.district.name }}
+                </span>
+                <span>
+                    {{$t('messages.province')}}: {{ props.data.real_estate_list.province.name }}
+                </span>
+                <span>
+                    {{$t('messages.country')}}: {{ props.data.service_charge_list.country.name }}
                 </span>
             </div>
         </Fieldset>
@@ -58,13 +87,12 @@
         <Fieldset :legend="$t('messages.info') + ' ' + $t('messages.service_charge')">
             <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
                 <span>
-                    {{$t('messages.service_charge')}}: {{ props.data.service_charge }}
+                    {{$t('messages.service_charge')}}: 
+                    {{ formatNumber(props.data.service_charge, props.data.currency) }}
+                    ({{ props.data.qty }} / {{ props.data.unit_price }})
                 </span>
                 <span>
-                    {{$t('messages.qty')}}: {{ props.data.qty }} / {{ props.data.unit_price }}
-                </span>
-                <span>
-                    {{$t('messages.amount')}}: {{ props.data.amount }}
+                    {{$t('messages.total_price')}}: {{ formatNumber(props.data.amount, props.data.currency) }}
                 </span>
                 <span>
                     {{$t('messages.status')}}: {{ props.data.status }}
@@ -87,9 +115,16 @@
         <Divider/>
         <br/>
         <div style="text-align: right;">
-            <Button label="ອະນຸມັດ" @click="updatePayment(props.data.id, 'confirm')" />
+            <Button 
+                :label="$t('messages.confirm')" 
+                @click="updatePayment(props.data.id, 'confirm')" 
+            />
             <span style="margin-left: 10px;">
-                <Button label="ປະຕິເສດ" severity="danger" @click="updatePayment(props.data.id, 'reject')" />
+                <Button 
+                    :label="$t('messages.reject')" 
+                    severity="danger" 
+                    @click="updatePayment(props.data.id, 'reject')" 
+                />
             </span>
         </div>
     </div>
@@ -105,6 +140,7 @@
     // import Button from 'primevue/button';
     import { useI18n } from 'vue-i18n';
     import { useToast } from 'primevue/usetoast';
+    import { formatNumber } from '@/common/utils/format.currency';
 
     const { form, state, updatePaymentService } = paymentServiceHistoryStore();
 

@@ -9,7 +9,9 @@ export interface IPaymentServiceHistoryHouseRepository {
   updatePaymentService(input: PaymentEntity): Promise<any>;
 
   getAll(
-    args: IGPaginate<Pick<PaymentEntity, "status" | "date_payment">>
+    args: IGPaginate<
+      Pick<PaymentEntity, "status" | "date_payment" | "customer_id">
+    >
   ): Promise<IResponse<IGPaginated<PaymentEntity>>>;
 
   getOne(id: number): Promise<any>;

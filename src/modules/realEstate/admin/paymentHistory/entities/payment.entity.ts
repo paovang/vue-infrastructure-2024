@@ -2,6 +2,7 @@ export interface PaymentEntity {
   id?: string;
   real_estate_list_id?: string;
   service_charge_id?: string;
+  customer_id?: string;
   fromDate?: Date;
   date_payment?: Date | null;
   quantity?: number;

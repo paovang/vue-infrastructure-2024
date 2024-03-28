@@ -2,9 +2,9 @@ import { roleGuard } from "@/common/guards/role.guard";
 import { GET_ROLES } from "@/common/utils/const";
 import type { RouteRecordRaw } from "vue-router";
 
-export const customerRoute: RouteRecordRaw[] = [
+export const adminCustomerRoute: RouteRecordRaw[] = [
   {
-    path: "/customer",
+    path: "/admin/customer",
     name: "customer",
     component: () => import("../views/ListCustomer.vue"),
     meta: {

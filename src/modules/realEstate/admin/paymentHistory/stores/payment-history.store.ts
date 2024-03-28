@@ -34,9 +34,13 @@ export const paymentServiceHistoryStore = defineStore(
       fromDate: new Date(),
       quantity: 0,
       paySlip: "",
+      customer_id: "",
     });
 
-    type FilterType = Pick<PaymentEntity, "date_payment" | "status">;
+    type FilterType = Pick<
+      PaymentEntity,
+      "date_payment" | "status" | "customer_id"
+    >;
     const setStateFilter = reactive<IGPaginate<FilterType>>({
       page: 1,
       limit: 10,

@@ -2,9 +2,9 @@ import { roleGuard } from "@/common/guards/role.guard";
 import type { RouteRecordRaw } from "vue-router";
 import { GET_ROLES } from "@/common/utils/const";
 
-export const dashboardRoute: RouteRecordRaw[] = [
+export const adminDashboardRoute: RouteRecordRaw[] = [
   {
-    path: "/dashboard",
+    path: "/admin/dashboard",
     name: "dashboard",
     component: () => import("../views/Dashboard.vue"),
     meta: {
@@ -14,7 +14,7 @@ export const dashboardRoute: RouteRecordRaw[] = [
     beforeEnter: roleGuard,
   },
   {
-    path: "/report/realestate",
+    path: "/admin/report/realestate",
     name: "report.real.estate",
     component: () => import("../views/Report-Real-Estate.vue"),
     meta: {
@@ -24,7 +24,7 @@ export const dashboardRoute: RouteRecordRaw[] = [
     beforeEnter: roleGuard,
   },
   {
-    path: "/report/rent-buy",
+    path: "/admin/report/rent/buy",
     name: "report.rent.buy",
     component: () => import("../views/Report-Rent-Buy.vue"),
     meta: {

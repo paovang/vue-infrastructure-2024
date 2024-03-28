@@ -22,7 +22,7 @@
                 </div>
                 <div class="col-12 md:col-12" style="margin-top: -20px">
                     <div class="flex flex-column">
-                        <my-input-number
+                        <my-input-text
                             name="phone_number"
                             :label="$t('messages.phone_number')"
                             required
@@ -59,7 +59,6 @@
     import { ref } from 'vue';
     import Dialog from 'primevue/dialog';
     import MyInputText from '@/components/customComponents/FormInputText.vue';
-    import MyInputNumber from '@/components/customComponents/FormInputNumber.vue';
     import Calendar from 'primevue/calendar';
     import { homerealEstateStore } from '@/modules/realEstate/homepage/stores/home.store'
     import Button from 'primevue/button';
