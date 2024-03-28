@@ -1,10 +1,10 @@
-import type { RouteRecordRaw } from 'vue-router'
+import type { RouteRecordRaw } from "vue-router";
 
 export const authRoute: RouteRecordRaw[] = [
   {
-    path: '/login',
-    name: 'login',
-    component: () => import('../views/Login.vue'),
-    meta: { label: 'ເຂົ້າລະບົບ' }
-  }
-]
+    path: "/admin/login",
+    name: "login",
+    component: () => import("../views/Login.vue"),
+    meta: { label: "ເຂົ້າລະບົບ" },
+  },
+];

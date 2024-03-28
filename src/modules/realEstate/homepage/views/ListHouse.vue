@@ -381,7 +381,7 @@
 
     @media screen and (max-width: 992px) {
         .detail {
-            width: 250px;
+            width: 250px; 
         }
     }
 
