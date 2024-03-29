@@ -143,8 +143,8 @@
     import InputText from 'primevue/inputtext';
     import UpdateComponent from '../components/Update.Component.vue';
     import { AppointmentEntity } from '../entities/appointment.entity';
+    import { useI18n } from 'vue-i18n';
 
-    // import { useI18n } from 'vue-i18n';
     // import { useToast } from "primevue/usetoast";
     // import { useConfirm } from "primevue/useconfirm";
     // import { AppointmentEntity } from '../entities/appointment.entity';
@@ -153,15 +153,15 @@
     const { form, getAll, setStateFilter, state } = appointmentStore();
     const { query } = useRoute();
     const router = useRouter();
-    // const { t } = useI18n();
+    const { t } = useI18n();
     // const toast = useToast();
     // const confirm = useConfirm();
 
     const statuses = ref([
-        { id: 'all', name: 'ທັງໝົດ' },
-        { id: 'pending', name: 'ລໍຖ້າ' },
-        { id: 'done', name: 'ສຳເລັດ' },
-        { id: 'cancel', name: 'ຍົກເລີກ' }
+        { id: 'all', name: t('messages.all') },
+        { id: 'pending', name: t('messages.pending') },
+        { id: 'done', name: t('messages.success') },
+        { id: 'cancel', name: t('messages.cancel') }
     ]);
     const editForm = ref();
     
@@ -292,8 +292,15 @@
     }
 
     const fetchAll = async () => {
-        await getAll();
         form.status = 'pending';
+        form.date_appointment = "";
+        
+        if (setStateFilter.filter) {
+            setStateFilter.filter.status = form.status === 'all' ? '' : form.status;
+            setStateFilter.filter.date_appointment = "";
+            setStateFilter.filter.name = "";
+        }
+        await getAll();
     }
 
     onMounted(async() => {

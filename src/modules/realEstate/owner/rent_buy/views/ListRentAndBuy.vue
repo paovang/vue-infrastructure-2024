@@ -268,6 +268,15 @@
     }
 
     const fetchAll = async () => {
+        form.from_date = "";
+        form.to_date = "";
+
+        if (setStateFilter.filter) {
+            setStateFilter.filter.service_model = "";
+            setStateFilter.filter.from_date = "";
+            setStateFilter.filter.to_date = "";
+        }
+
         await getAll();
         form.service_model = 'all';
     }

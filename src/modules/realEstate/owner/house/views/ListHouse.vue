@@ -15,14 +15,14 @@
             </span>
         </div>
 
-        <DataTable 
+        <DataTable
             :value="state.data.props" 
             @page="onPageChange"
             paginator 
             :first="first"
             :rowsPerPageOptions="[5, 10, 20, 50]" 
             tableStyle="min-width: 50rem"
-            :loading="state.isLoading" 
+            :loading="state.isLoading"
             lazy
             scrollable
             :totalRecords="state.data.total"
@@ -270,17 +270,18 @@
     const { getAll: getAllDistrict, state: stateDistrict, setStateFilter: setStateDistrictFilter } = districtStore();
 
     const servicemodels = ref([
-        { id: 'all', name: 'ທັງໝົດ' },
-        { id: 'sale', name: 'ຂາຍ' },
-        { id: 'rent', name: 'ເຊົ່າ' }
+        { id: 'all', name: t('messages.all') },
+        { id: 'sale', name: t('messages.service_sale') },
+        { id: 'rent', name: t('messages.service_rent') }
     ]);
 
     const roomTypes = ref([
-        { id: 'all', name: 'ທັງໝົດ' },
-        { id: 'air', name: 'ເເອ' },
-        { id: 'fan', name: 'ພັດລົມ' },
-        { id: 'no', name: 'ບໍ່ມີ' },
+        { id: 'all', name: t('messages.all') },
+        { id: 'air', name: t('messages.air') },
+        { id: 'fan', name: t('messages.fan') },
+        { id: 'no', name: t('messages.none') },
     ]);
+
     // const createForm = ref();
     // const btnLoading = ref(false);
 
@@ -329,8 +330,7 @@
             router.push({
                 query: {
                     page: setStateFilter.page,
-                    limit: setStateFilter.limit,
-                    // real_estate_type_id: query.real_estate_type_id || undefined,
+                    limit: setStateFilter.limit
                 }
             })
         }
@@ -338,6 +338,19 @@
     }
 
     onMounted(async() => {
+        if (setStateFilter.filter) {
+            setStateFilter.filter.real_estate_type_id = '';
+            setStateFilter.filter.service_model = '';
+            setStateFilter.filter.room_type = '';
+            setStateFilter.filter.district_id = '';
+            setStateFilter.filter.province_id = '';
+            setStateFilter.filter.village = '';
+            setStateFilter.filter.wide = '';
+            setStateFilter.filter.long = '';
+            setStateFilter.limit = 10;
+            setStateFilter.page = 1;
+        }
+
         await initComponent();
     })
 

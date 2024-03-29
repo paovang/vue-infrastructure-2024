@@ -200,6 +200,10 @@
     }
 
     onMounted(async() => {
+        if (setStateFilter.filter) { 
+            setStateFilter.filter.status = '';
+            setStateFilter.filter.date_payment = null;
+        }
         await getAll();
         form.status = 'all';
     });

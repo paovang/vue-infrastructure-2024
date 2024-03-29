@@ -252,7 +252,10 @@
         "service_monthly": "Monthly rental service",
         "real_estate_number": "Real Estate Number",
         "real_estate": "Real Estate",
-        "real_estate_name": "Real Estate Name"
+        "real_estate_name": "Real Estate Name",
+        "done": "Done",
+        "cancel": "Cancel",
+        "success": "Success"
     },
     "uploadFile": {
         "uploading": "Uploading profile to the system please wait...",

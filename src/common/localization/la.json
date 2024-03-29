@@ -252,7 +252,10 @@
         "service_yearly": "ບໍລິການ ເຊົ່າລາຍປີ",
         "real_estate_number": "ເລກລະຫັດ ຊັບສີນ",
         "real_estate": "ຊັບສີນ",
-        "real_estate_name": "ຊື່ຊັບສີນ"   
+        "real_estate_name": "ຊື່ຊັບສີນ",
+        "done": "ສຳເລັດ",
+        "cancel": "ຍົກເລີກ",
+        "success": "ສຳເລັດ"   
     },
     "uploadFile": {
         "uploading": "ກຳລັງອັບໂຫຼດໂປຮໄຟລເຂົ້າລະບົບ ກະລຸນາລໍຖ້າ...",
