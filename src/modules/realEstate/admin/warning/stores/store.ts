@@ -22,7 +22,7 @@ export const adminWarningStore = defineStore("admin-warning-store", () => {
     error: "",
   });
 
-  const getFooter = reactive<any>({
+  const getById = reactive<any>({
     data: {
       props: "",
     },
@@ -105,7 +105,7 @@ export const adminWarningStore = defineStore("admin-warning-store", () => {
     state.isLoading = true;
     const response = await service.getOne(id);
     if (response && response.data && response.message === "success") {
-      getFooter.data.props = response.data;
+      getById.data.props = response.data;
       state.isLoading = false;
     }
   }
@@ -138,6 +138,6 @@ export const adminWarningStore = defineStore("admin-warning-store", () => {
     form,
     setStateFilter,
     state,
-    getFooter,
+    getById,
   };
 });

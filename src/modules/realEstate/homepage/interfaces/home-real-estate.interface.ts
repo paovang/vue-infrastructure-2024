@@ -33,4 +33,6 @@ export interface IHomeRealEstateRepository {
   getOne(id: number): Promise<any>;
 
   getAllData(filter: any): Promise<any>;
+
+  getAboutUs(): Promise<any>;
 }

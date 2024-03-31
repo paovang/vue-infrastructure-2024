@@ -23,7 +23,7 @@ export const adminPolicyStore = defineStore("admin-policy-store", () => {
     error: "",
   });
 
-  const getFooter = reactive<any>({
+  const getById = reactive<any>({
     data: {
       props: "",
     },
@@ -106,7 +106,7 @@ export const adminPolicyStore = defineStore("admin-policy-store", () => {
     state.isLoading = true;
     const response = await adminPolicyService.getOne(id);
     if (response && response.data && response.message === "success") {
-      getFooter.data.props = response.data;
+      getById.data.props = response.data;
       state.isLoading = false;
     }
   }
@@ -141,6 +141,6 @@ export const adminPolicyStore = defineStore("admin-policy-store", () => {
     form,
     setStateFilter,
     state,
-    getFooter,
+    getById,
   };
 });

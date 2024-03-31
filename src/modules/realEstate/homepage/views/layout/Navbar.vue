@@ -20,21 +20,6 @@
             <span></span>
           </div>
         </div>
-        <!-- <div id="navbarBasicExample" class="navbar-menu" style="margin-left: 10%;">
-          <div class="navbar-start">
-            <div style="margin-top: 5px; width: 500px !important;">
-              <input-text
-                v-model="filterEverything"
-                  :placeholder="$t('placeholder.textSearch')" 
-                  style="font-family: NotoSansLao, Montserrat;"
-                  class="w-full"
-                  name="search"
-                  @keyup.enter="onSearch"
-                  @input="onClearSearch"
-              />
-            </div>
-          </div>
-        </div> -->
         <div class="navbar-menu" :class="{ 'is-active': isNavbarActive }">
           <div class="navbar-end">
             <a @click="goToProfile()" class="navbar-item brackets" v-if="isCheckLogin">
@@ -216,21 +201,4 @@
     .home-layout-view {
       padding: 0px 0px 0px 10px;
     }
-
-    /* .navbar {
-      background-color: #ff2f00;
-    } */
-    /* .navbar-brand a {
-      color: white !important;
-    } */
-    /* .navbar-menu a {
-      color: white !important;
-      background-color: #ff2f00;
-    }
-    .navbar-menu a:hover {
-      background: black !important;
-    }
-    .navbar-brand .navbar-burger {
-      color: white !important;
-    } */
 </style>

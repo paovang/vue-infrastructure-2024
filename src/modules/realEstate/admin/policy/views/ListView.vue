@@ -29,16 +29,15 @@
                 :currentPageReportTemplate="`${$t('table.pagination.show')} {first} ${$t('table.pagination.to')} {last} ${$t('table.pagination.from')} {totalRecords} ${$t('table.pagination.row')}`"
 
             >
-                <Column field="id" :header="$t('table.header.index')" style="width: 25%">
+                <Column field="id" :header="$t('table.header.index')">
                     <template #body="item">
                         {{ item.index + 1 }}
                     </template>
                 </Column>
-                <Column field="title" :header="$t('table.header.title')" style="width: 25%"></Column>
+                <Column field="title" :header="$t('table.header.title')"></Column>
                 <Column 
                     field="policy_type" 
                     :header="$t('table.header.policy_type')" 
-                    style="width: 25%"
                 >
                     <template #body="{ data }">
                         {{ data.policy_type === 'sign_up' ? $t('messages.sign_up') : $t('messages.policy_return') }}

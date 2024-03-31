@@ -29,13 +29,13 @@
                 :currentPageReportTemplate="`${$t('table.pagination.show')} {first} ${$t('table.pagination.to')} {last} ${$t('table.pagination.from')} {totalRecords} ${$t('table.pagination.row')}`"
 
             >
-                <Column field="id" :header="$t('table.header.index')" style="width: 25%">
+                <Column field="id" :header="$t('table.header.index')">
                     <template #body="item">
                         {{ item.index + 1 }}
                     </template>
                 </Column>
-                <Column field="title" :header="$t('table.header.title')" style="width: 25%"></Column>
-                <Column field="link_videos" :header="$t('table.header.link_videos')" style="width: 25%"></Column>
+                <Column field="title" :header="$t('table.header.title')"></Column>
+                <Column field="link_videos" :header="$t('table.header.link_videos')"></Column>
                 <Column headerStyle="width: 10rem">
                     <template #body="{ data }">
                         <div class="flex flex-wrap gap-2 btn-right">

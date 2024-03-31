@@ -142,4 +142,13 @@ export class HomeRealEstateRepository implements IHomeRealEstateRepository {
       status: "success",
     };
   }
+
+  async getAboutUs(): Promise<any> {
+    const response = await this._api.axios({
+      method: "get",
+      url: `/customer/about-us`,
+    });
+
+    return response.data;
+  }
 }

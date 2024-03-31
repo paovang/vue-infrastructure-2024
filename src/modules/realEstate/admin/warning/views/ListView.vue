@@ -29,7 +29,7 @@
                 :currentPageReportTemplate="`${$t('table.pagination.show')} {first} ${$t('table.pagination.to')} {last} ${$t('table.pagination.from')} {totalRecords} ${$t('table.pagination.row')}`"
 
             >
-                <Column field="id" :header="$t('table.header.index')" style="width: 25%">
+                <Column field="id" :header="$t('table.header.index')">
                     <template #body="item">
                         {{ item.index + 1 }}
                     </template>

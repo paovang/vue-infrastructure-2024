@@ -12,6 +12,7 @@ import { ReserveRealEstateEntity } from "../entities/reserve.entity";
 import { GetAllDataHomeRealEstateUseCase } from "../use-cases/get-all-data";
 import { RegisterCustomerUseCase } from "../use-cases/register.use-case";
 import { SignUpEntity } from "../entities/sign-up.entity";
+import { GetAboutUsUseCase } from "../use-cases/get-about-us.use-case";
 
 @injectable()
 export class HomeRealEstateService {
@@ -24,7 +25,8 @@ export class HomeRealEstateService {
     private _reserve: ReserveRealEstateUseCase,
     @inject(GetAllDataHomeRealEstateUseCase)
     private _getAllData: GetAllDataHomeRealEstateUseCase,
-    @inject(RegisterCustomerUseCase) private _register: RegisterCustomerUseCase
+    @inject(RegisterCustomerUseCase) private _register: RegisterCustomerUseCase,
+    @inject(GetAboutUsUseCase) private _getAboutUs: GetAboutUsUseCase
   ) {}
 
   async reserve(input: ReserveRealEstateEntity) {
@@ -61,5 +63,9 @@ export class HomeRealEstateService {
 
   async register(input: SignUpEntity): Promise<any> {
     return await this._register.execute(input);
+  }
+
+  async getAboutUs(): Promise<any> {
+    return await this._getAboutUs.execute();
   }
 }

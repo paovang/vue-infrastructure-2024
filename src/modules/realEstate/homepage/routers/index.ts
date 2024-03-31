@@ -38,6 +38,14 @@ export const homeRoute: RouteRecordRaw[] = [
           skipAuthCheck: true,
         },
       },
+      {
+        path: "/about/us",
+        name: "about.us",
+        component: () => import("../views/About-Us.vue"),
+        meta: {
+          skipAuthCheck: true,
+        },
+      },
     ],
   },
 ];

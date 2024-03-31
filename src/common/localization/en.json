@@ -270,7 +270,14 @@
         "success": "Success",
         "rule_sign_up": "Rule Sign Up",
         "policy_return": "Policy Return",
-        "policy": "Policy"
+        "policy": "Policy",
+        "title": "Title",
+        "description": "Description",
+        "about": "About Us",
+        "warning": "Warning",
+        "link_videos": "Link Videos",
+        "home": "Home",
+        "real_esate": "Real Estate"
     },
     "uploadFile": {
         "uploading": "Uploading profile to the system please wait...",

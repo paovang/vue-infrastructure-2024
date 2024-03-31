@@ -35,7 +35,6 @@ export class Repository implements IRepository {
       method: "put",
       url: `/admin/update-policy/${input.id}`,
       data: {
-        policy_type: input.policy_type,
         title: input.title,
         description: input.description,
       },
@@ -83,7 +82,7 @@ export class Repository implements IRepository {
 
   async getOne(id: PEntity): Promise<any> {
     const response = await this._api.axios({
-      url: `/admin/list-footer/${id}`,
+      url: `/admin/list-policy/${id}`,
     });
 
     return response.data;

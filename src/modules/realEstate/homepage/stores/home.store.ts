@@ -205,6 +205,20 @@ export const homerealEstateStore = defineStore("home-real-estate-store", () => {
     formSignUp.password_confirmation = "";
   }
 
+  const aboutUs = reactive<any>({
+    data: {
+      props: "",
+    },
+  });
+
+  async function getAboutUs() {
+    const response = await service.getAboutUs();
+
+    if (response && response.data && response.message === "success") {
+      aboutUs.data.props = response.data;
+    }
+  }
+
   return {
     state,
     getAll,
@@ -222,5 +236,7 @@ export const homerealEstateStore = defineStore("home-real-estate-store", () => {
     register,
     isProgressBar,
     footer,
+    getAboutUs,
+    aboutUs,
   };
 });

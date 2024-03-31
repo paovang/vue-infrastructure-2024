@@ -17,7 +17,7 @@ export class Repository implements IRepository {
       method: "post",
       url: `/admin/create-warning`,
       data: {
-        wechat: input.description,
+        description: input.description,
       },
     });
 
@@ -33,7 +33,7 @@ export class Repository implements IRepository {
       method: "put",
       url: `/admin/update-warning/${input.id}`,
       data: {
-        wechat: input.description,
+        description: input.description,
       },
     });
 
@@ -47,7 +47,7 @@ export class Repository implements IRepository {
   async delete(id: PEntity): Promise<IResponse<PEntity>> {
     const response = await this._api.axios({
       method: "delete",
-      url: `/admin/delete-about/${id}`,
+      url: `/admin/delete-warning/${id}`,
     });
 
     return {

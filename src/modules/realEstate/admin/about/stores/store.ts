@@ -22,7 +22,7 @@ export const adminAboutStore = defineStore("admin-about-store", () => {
     error: "",
   });
 
-  const getFooter = reactive<any>({
+  const getById = reactive<any>({
     data: {
       props: "",
     },
@@ -105,7 +105,7 @@ export const adminAboutStore = defineStore("admin-about-store", () => {
     state.isLoading = true;
     const response = await service.getOne(id);
     if (response && response.data && response.message === "success") {
-      getFooter.data.props = response.data;
+      getById.data.props = response.data;
       state.isLoading = false;
     }
   }
@@ -127,6 +127,7 @@ export const adminAboutStore = defineStore("admin-about-store", () => {
 
   async function clearData() {
     form.title = "";
+    form.link_videos = "";
     form.description = "";
   }
 
@@ -139,6 +140,6 @@ export const adminAboutStore = defineStore("admin-about-store", () => {
     form,
     setStateFilter,
     state,
-    getFooter,
+    getById,
   };
 });
