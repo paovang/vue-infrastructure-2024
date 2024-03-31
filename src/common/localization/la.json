@@ -21,7 +21,10 @@
         "footer": "ສ່ວນທ້າຍ",
         "dashboard": "ໜ້າຫຼັກ",
         "report_real_estate": "ລາຍງານ ຊັບສີນທັງໝົດ",
-        "report_rent_buy": "ລາຍງານ ເຊົ່າ - ຊື້ຂາຍ ທັງໝົດ"
+        "report_rent_buy": "ລາຍງານ ເຊົ່າ - ຊື້ຂາຍ ທັງໝົດ",
+        "warning": "ຄຳເຕືອນ",
+        "policy": "ນະໂຍບາຍ",
+        "about": "ກ່ຽວກັບພວກເຮົາ"
     },
     "placeholder": {
         "inputText": "ກະລຸນາປ້ອນກ່ອນ...",
@@ -51,7 +54,10 @@
             "real_estate_type": "ປະເພດຊັບສີນ ທັງໝົດ",
             "footer": "ສ່ວນທ້າຍ ທັງໝົດ",
             "report_rent_buy": "ລາຍງານ ເຊົ່າ - ຊື້ຂາຍ ທັງໝົດ",
-            "report_real_estate":"ລາຍງານ ຊັບສີນທັງໝົດ"
+            "report_real_estate":"ລາຍງານ ຊັບສີນທັງໝົດ",
+            "warning": "ຄຳເຕືອນ",
+            "policy": "ນະໂຍບາຍ ທັງໝົດ",
+            "about": "ກ່ຽວກັບພວກເຮົາ"
         },
         "header": {
             "index": "ລຳດັບ",
@@ -99,7 +105,7 @@
             "price": "ລາຄາ",
             "total": "ລວມເປັນເງີນ",
             "id_no": "ເລກບັດ, ໃບຂັບຂີ່, ໜັງສືຜ່ານເເດນ",
-            "id_image": "ໄຟລ",
+            "id_image": "ໄຟລເອກະສານ",
             "real_estate_type":"ປະເພດຊັບສີນ",
             "account_number": "ເລກລະຫັດບັນຊີ",
             "account_name": "ຊື່ເຈົ້າຂອງບັນຊີ",
@@ -111,6 +117,12 @@
             "created_by": "ສ້າງໂດຍ",
             "updated_by": "ອັບເດດໂດຍ",
             "service_charge": "ຄ່າບໍລິການ",
+            "profile": "ໂປຮໄຟລ",
+            "title": "ຫົວຂໍ້",
+            "desciption": "ລາຍລະອຽດ",
+            "policy_type": "ປະເພດ ນະໂຍບາຍ",
+            "link_videos": "ລີ້ງວີດີໂອ",
+            "warning": "ຄຳເຕືອນ",
             "footer": {
                 "facebook": "Facebook",
                 "whatsapp": "Whatsapp",
@@ -228,7 +240,7 @@
         "service_sale": "ບໍລິການຂາຍ",
         "service_rent": "ບໍລິການເຊົ່າ",
         "id_no": "ເລກບັດປະຈຳຕົວ, ໃບຂັບຂີ່, ໜັງສືຜ່ານເເດນ",
-        "id_image": "ໄຟລ",
+        "id_image": "ໄຟລເອກະສານ",
         "footer": "ສ່ວນທ້າຍ",
         "facebook": "Facebook",
         "whatsapp": "Whatsapp",
@@ -255,7 +267,10 @@
         "real_estate_name": "ຊື່ຊັບສີນ",
         "done": "ສຳເລັດ",
         "cancel": "ຍົກເລີກ",
-        "success": "ສຳເລັດ"   
+        "success": "ສຳເລັດ",
+        "rule_sign_up": "ກົດລະບຽບ ການລົງທະບຽນ",
+        "policy_return": "ຄືນສີນຄ້າ",
+        "policy":"ນະໂຍບາຍ"   
     },
     "uploadFile": {
         "uploading": "ກຳລັງອັບໂຫຼດໂປຮໄຟລເຂົ້າລະບົບ ກະລຸນາລໍຖ້າ...",

@@ -10,6 +10,9 @@ export interface SignUpEntity {
   country_id?: string;
   id_image?: string;
   id_no?: string;
+  check_rule?: boolean;
+  isValidToServer?: boolean;
+  profile?: string;
   country?: {
     id?: string;
     name?: string;

@@ -1,0 +1,1 @@
+function l(i){var e;const o=i.value.$el,t=o.getBoundingClientRect();t.top>=0&&t.bottom<=window.innerHeight?(e=o.querySelector("input"))==null||e.focus():(window.scrollTo({top:window.scrollY+t.top-window.innerHeight/2,behavior:"smooth"}),setTimeout(()=>{var n;(n=o.querySelector("input"))==null||n.focus()},500))}export{l as s};

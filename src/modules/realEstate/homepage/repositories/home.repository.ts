@@ -118,7 +118,7 @@ export class HomeRealEstateRepository implements IHomeRealEstateRepository {
   async register(input: SignUpEntity): Promise<IResponse<SignUpEntity>> {
     const response = await this._api.axios({
       method: "post",
-      url: "/customer/register",
+      url: `/customer/register`,
       data: {
         name: input.name,
         owner: input.owner,
@@ -130,6 +130,9 @@ export class HomeRealEstateRepository implements IHomeRealEstateRepository {
         country_id: input.country_id,
         id_no: input.id_no,
         id_image: input.id_image,
+        profile: input.profile,
+        rule: input.check_rule,
+        is_valid: input.isValidToServer,
       },
     });
 

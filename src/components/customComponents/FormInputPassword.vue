@@ -10,6 +10,7 @@
     placeholder?: string
     value?: string,
     isEditing?: boolean
+    disabled?: boolean
   }>()
 
   const { value, errorMessage } = useField<string>(() => props.name)
@@ -38,6 +39,7 @@
       :placeholder="placeholder"
       style="width: 100% !important"
       toggleMask
+      :disabled="disabled"
     />
     <small class="p-error" :id="`text-error-${name}`">{{ errorMessage }}</small>
   </div>

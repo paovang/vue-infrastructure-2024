@@ -13,6 +13,7 @@ export interface UserEntity {
   permissions?: Permissions;
   permissionIds?: (number | string)[];
   roleId?: number | string;
+  profile?: string;
   created_at?: string;
   updated_at?: string;
 }

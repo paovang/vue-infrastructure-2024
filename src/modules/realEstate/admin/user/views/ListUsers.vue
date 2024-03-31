@@ -31,6 +31,11 @@
                     {{ item.index + 1 }}
                 </template>
             </Column>
+            <Column field="profile" :header="$t('table.header.profile')" headerStyle="min-width: 8rem" frozen>
+                <template #body="{ data }">
+                    <Image :src="data.profile" alt="Image" preview style="max-width: 80px;"/>
+                </template>
+            </Column>
             <Column :header="$t('table.header.name')">
                 <template #body="{data}">
                     {{ data.name }}
@@ -85,7 +90,7 @@
     import Column from 'primevue/column'; 
     import { conCatPermission } from '../../../../../common/utils/concat';
     import { useRouter } from 'vue-router';
-
+    import Image from 'primevue/image';
 
     const { getAll, state, setStateFilter  } = adminUserStore();
     const router = useRouter();

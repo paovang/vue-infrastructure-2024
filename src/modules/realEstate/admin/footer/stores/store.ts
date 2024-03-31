@@ -1,5 +1,5 @@
 import { reactive } from "vue";
-import { FooterEntity } from "../entities/footer.entity";
+import { FooterEntity } from "../entities/entity";
 import { FooterService } from "../services/service";
 import { defineStore } from "pinia";
 import { container } from "tsyringe";

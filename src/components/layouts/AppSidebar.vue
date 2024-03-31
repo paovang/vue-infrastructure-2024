@@ -8,7 +8,7 @@
   import { GET_ROLES } from '@/common/utils/const';
   import { GET_PERMISSIONS } from '../../common/utils/const';
   import { reportRentBuyStore } from '../../modules/realEstate/admin/dashboard/stores/rent-store';
-import { onMounted, ref } from 'vue';
+  import { onMounted, ref } from 'vue';
 
   const { t } = useI18n();
   const { getAllAppointmentPending, appointmentPending } = reportRentBuyStore();
@@ -168,7 +168,37 @@ import { onMounted, ref } from 'vue';
           to: 'footer',
           roles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER],
           permission: GET_PERMISSIONS.FOOTER.VIEW
-        }
+        },
+        {
+          key: '13',
+          label: t('sidebar.policy'),
+          name: 'admin-policy',
+          icon: 'pi pi-chart-line',
+          color: 'text-red-500',
+          to: 'admin.policy',
+          roles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER],
+          permission: GET_PERMISSIONS.PROVINCE.VIEW
+        },
+        {
+          key: '14',
+          label: t('sidebar.about'),
+          name: 'admin-about',
+          icon: 'pi pi-chart-line',
+          color: 'text-red-500',
+          to: 'admin.about',
+          roles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER],
+          permission: GET_PERMISSIONS.PROVINCE.VIEW
+        },
+        {
+          key: '15',
+          label: t('sidebar.warning'),
+          name: 'admin-warning',
+          icon: 'pi pi-chart-line',
+          color: 'text-red-500',
+          to: 'admin.warning',
+          roles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER],
+          permission: GET_PERMISSIONS.PROVINCE.VIEW
+        },
       ]
     },
     {
@@ -419,7 +449,13 @@ import { onMounted, ref } from 'vue';
                       'owner.edit.user',
                       'real.estate.type',
                       'footer',
-                      'report.real.estate'
+                      'report.real.estate',
+                      'admin.policy',
+                      'admin.edit.policy',
+                      'admin.about',
+                      'admin.edit.about',
+                      'admin.warning',
+                      'admin.edit.warning',
                     ].includes(String(router.currentRoute.value.name)) }"
                   >
                     <li v-for="children in item.children" :key="item.key">

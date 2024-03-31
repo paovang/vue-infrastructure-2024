@@ -14,6 +14,14 @@ export interface CustomerEntity {
     id?: string;
     name?: string;
   };
+  user_id?: string;
+  profile?: string;
+  user?: {
+    id?: string;
+    name?: string;
+    email?: string;
+    profile?: string;
+  };
   created_at?: string;
   updated_at?: string;
 }

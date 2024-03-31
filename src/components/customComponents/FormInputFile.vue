@@ -11,6 +11,7 @@
     value?: string,
     isEditing?: boolean
     multiple?: boolean
+    disabled?: boolean
   }>()
 
   const { value, errorMessage } = useField<string>(() => props.name)
@@ -38,6 +39,7 @@
       :aria-describedby="`text-error-${name}`"
       :placeholder="placeholder"
       :multiple="multiple"
+      :disabled="disabled"
     />
     <small class="p-error" :id="`text-error-${name}`">{{ errorMessage }}</small>
   </div>

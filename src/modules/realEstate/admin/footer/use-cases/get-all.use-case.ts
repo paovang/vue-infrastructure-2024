@@ -5,7 +5,7 @@ import {
   IGPaginate,
   IGPaginated,
 } from "@/common/interfaces/pagination.interface";
-import { FooterEntity } from "../entities/footer.entity";
+import { FooterEntity } from "../entities/entity";
 import { FooterRepository } from "../repositories/repository";
 import type { IFooterRepository } from "../interfaces/interface";
 

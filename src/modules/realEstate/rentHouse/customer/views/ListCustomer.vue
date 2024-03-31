@@ -81,7 +81,8 @@
                                 <my-input-password 
                                     name="password"
                                     :label="$t('messages.password')" 
-                                    :placeholder="$t('placeholder.inputText')"  
+                                    :placeholder="$t('placeholder.inputText')"
+                                    :disabled="isEditing"  
                                 />
                             </div>
                             <div class="col-12 md:col-3">
@@ -89,11 +90,22 @@
                                     name="password_confirmation"
                                     :label="$t('messages.confirm_password')" 
                                     :placeholder="$t('placeholder.inputText')"  
+                                    :disabled="isEditing"  
                                 />
                             </div>
                         </div>
                         <div class="col-12 md:col-12 flex flex-row is-margin-top">
-                            <div class="col-12 md:col-6">
+                            <div class="col-12 md:col-4">
+                                <my-input-file 
+                                    name="profile" 
+                                    :label="$t('messages.profile')" 
+                                    required 
+                                    :multiple="true"
+                                    class="h-full" 
+                                    @change="handleProfileFileChange"
+                                />
+                            </div>
+                            <div class="col-12 md:col-4">
                                 <my-input-text 
                                     name="id_no" 
                                     :label="$t('messages.id_no')" 
@@ -102,7 +114,7 @@
                                     class="h-full" 
                                 />
                             </div>
-                            <div class="col-12 md:col-6">
+                            <div class="col-12 md:col-4">
                                 <my-input-file 
                                     name="id_image" 
                                     :label="$t('messages.id_image')" 
@@ -164,6 +176,7 @@
                 @page="onPageChange"
                 paginator
                 :first="first"
+                scrollable
                 :rows="setStateFilter.limit"
                 paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
                 :rowsPerPageOptions="[5, 10, 25]"
@@ -228,23 +241,7 @@
                         {{ item.index + 1 }}
                     </template>
                 </Column>
-                <Column field="id_image" :header="$t('table.header.id_image')" headerStyle="min-width: 8rem">
-                    <template #body="{ data }">
-                        <Image :src="data.id_image" alt="Image" preview style="max-width: 80px;"/>
-                    </template>
-                </Column>
-                <Column field="id_no" :header="$t('table.header.id_no')" headerStyle="min-width: 10rem"></Column>
-                <Column field="country.name" :header="$t('table.header.country')" headerStyle="min-width: 5rem"></Column>
-                <Column field="customer_number" :header="$t('table.header.customer_number')" headerStyle="min-width: 12rem"></Column>
-                <Column field="name" :header="$t('table.header.customer')"></Column>
-                <Column field="owner" :header="$t('table.header.owner')"></Column>
-                <Column field="address" :header="$t('table.header.address')"></Column>
-                <Column field="tel" :header="$t('table.header.phone_number')" headerStyle="min-width: 9rem"></Column>
-                <Column field="email" :header="$t('table.header.email')"></Column>
-                <Column field="status" :header="$t('table.header.status')"></Column>
-                <!-- <Column field="created" :header="$t('table.header.created_at')"></Column> -->
-                <!-- <Column field="updated" :header="$t('table.header.updated_at')"></Column> -->
-                <Column headerStyle="min-width: 16rem">
+                <Column headerStyle="min-width: 17rem" frozen>
                     <template #body="{ data }">
                         <div class="flex flex-wrap gap-2 btn-right">
                             <Button 
@@ -259,6 +256,14 @@
                                 icon="pi pi-eye" 
                                 rounded 
                                 severity="info"  
+                                style="color: white;" 
+                                @click="editItem(data)"
+                            />
+                            <Button 
+                                type="button" 
+                                icon="pi pi-lock" 
+                                rounded 
+                                severity="danger"  
                                 style="color: white;" 
                                 @click="editItem(data)"
                             />
@@ -280,6 +285,26 @@
                         </div>
                     </template>
                 </Column>
+                <Column :header="$t('table.header.profile')" headerStyle="min-width: 8rem" frozen>
+                    <template #body="{ data }">
+                        <Image :src="data.user.profile" alt="Image" preview style="max-width: 80px;"/>
+                    </template>
+                </Column>
+                <Column field="id_image" :header="$t('table.header.id_image')" headerStyle="min-width: 8rem" frozen>
+                    <template #body="{ data }">
+                        <Image :src="data.id_image" alt="Image" preview style="max-width: 80px;"/>
+                    </template>
+                </Column>
+                <Column field="id_no" :header="$t('table.header.id_no')" headerStyle="min-width: 10rem"></Column>
+                <Column field="country.name" :header="$t('table.header.country')" headerStyle="min-width: 5rem"></Column>
+                <Column field="customer_number" :header="$t('table.header.customer_number')" headerStyle="min-width: 8rem"></Column>
+                <Column field="name" :header="$t('table.header.customer')" headerStyle="min-width: 8rem"></Column>
+                <Column field="owner" :header="$t('table.header.owner')" headerStyle="min-width: 8rem"></Column>
+                <Column field="address" :header="$t('table.header.address')" headerStyle="min-width: 10rem"></Column>
+                <Column field="tel" :header="$t('table.header.phone_number')" headerStyle="min-width: 8rem"></Column>
+                <Column field="email" :header="$t('table.header.email')"></Column>
+                <Column field="status" :header="$t('table.header.status')" headerStyle="min-width: 5rem"></Column>
+                <Column field="created" :header="$t('table.header.created_at')" headerStyle="min-width: 8rem"></Column>
             </DataTable>
         </div>
     </div>
@@ -307,6 +332,9 @@
     import MyInputFile from '@/components/customComponents/FormInputFile.vue';
     import axios from 'axios';
     import Image from 'primevue/image';
+    import { validFileTypes, isValidFileSize } from '@/common/utils/validation.file';
+    import { showNotificationToast } from '@/common/utils/toast';
+    import { uploadFileToServer } from '@/common/utils/upload-file';
 
 
     const { t } = useI18n();
@@ -363,6 +391,7 @@
         form.email = values.email;
         form.id_no = values.id_no;
         form.id_image = selectedImage.value;
+        form.profile = selectedProfile.value;
 
         await update();
         
@@ -375,6 +404,14 @@
             isCardVisible.value = false;
             isEditing.value = false;
             isValidate.value = true;
+            
+            selectedImage.value = "";
+            const inputFile = document.getElementById('id_image') as HTMLInputElement;
+            inputFile.value = '';
+
+            selectedProfile.value = "";
+            const inputProfileFile = document.getElementById('profile') as HTMLInputElement;
+            inputProfileFile.value = '';
         }
     })
 
@@ -424,6 +461,8 @@
     const clearForm = async () => {
         state.btnLoading = false;
         await handleReset(); 
+        isEditing.value = false;
+        isCardVisible.value = false;
     }
 
     const RefreshData = async() => {
@@ -459,7 +498,10 @@
         setFieldValue('email', value.email);
         setFieldValue('tel', value.tel);
         setFieldValue('id_no', value.id_no);
-        form.country_id = value.country?.id
+        form.country_id = value.country?.id;
+        if (value.user) {
+            form.user_id = value.user.id;
+        }
 
         isEditing.value = true;
         isCardVisible.value = true;
@@ -633,65 +675,42 @@
                 }, 500); // Adjust the timeout based on your scroll duration
             }
         }
-    };
+    }
 
+    const selectedImage = ref();
     const handleFileChange = async (event: any) => {
         const file = event.target.files[0];
 
-        if (! await isValidFileType(file)) {
-            await showValidationFileMimes();
+        if (! await validFileTypes(file)) {
+            await showNotificationToast({ toast, error: 'error', summary: t("toast.summary.error"), detail: t("toast.summary.profile_valid_file_mimes") });
             event.target.value = '';
             return;
         }
         if (! await isValidFileSize(file)) {
-            await showValidationFileSize();
+            await showNotificationToast({ toast, error: 'error', summary: t("toast.summary.error"), detail: t("toast.summary.profile_valid_file_size") });
             event.target.value = '';
             return;
         }
 
-        await uploadFileImage(file);
+        await uploadFileToServer({ axios, file, state, selectedImage, toast, t });
     }
 
-    const isValidFileType = async (file: any) => {
-        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
-        return allowedTypes.includes(file.type);
-    }
+    const selectedProfile = ref();
+    const handleProfileFileChange = async (event: any) => {
+        const file = event.target.files[0];
 
-    const isValidFileSize = async (file: any) => {
-      const maxSizeInBytes = 2 * 1024 * 1024; // 2 MB
-      return file.size <= maxSizeInBytes;
-    }
-
-    const selectedImage = ref();
-
-    const uploadFileImage = async (file: any) => {
-        state.btnLoading = true;
-        try {
-            let formData = new FormData();
-            formData.append('file', file);
-
-            const response = await axios.post(import.meta.env.VITE_APP_BASE_API_URL + 'customer/upload-file', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-
-            selectedImage.value = response.data?.filename;
-            state.btnLoading = false;
-        } catch (error) {
-            await showFailUploadFile(error);
+        if (! await validFileTypes(file)) {
+            await showNotificationToast({ toast, error: 'error', summary: t("toast.summary.error"), detail: t("toast.summary.profile_valid_file_mimes") });
+            event.target.value = '';
+            return;
         }
-    }
+        if (! await isValidFileSize(file)) {
+            await showNotificationToast({ toast, error: 'error', summary: t("toast.summary.error"), detail: t("toast.summary.profile_valid_file_size") });
+            event.target.value = '';
+            return;
+        }
 
-    const showFailUploadFile = (error: any) => {
-        toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: error, life: 3000 });
-    }
-
-    const showValidationFileMimes = () => {
-        toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: t('toast.summary.sign_up_valid_file_mimes'), life: 3000 });
-    }
-    const showValidationFileSize = () => {
-        toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: t('toast.summary.sign_up_valid_file_size'), life: 3000 });
+        await uploadFileToServer({ axios, file, state, selectedImage: selectedProfile, toast, t });
     }
 </script>
 

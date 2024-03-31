@@ -70,7 +70,10 @@ export const homerealEstateStore = defineStore("home-real-estate-store", () => {
     room_type: "all",
   });
 
-  const formSignUp = reactive<SignUpEntity>({});
+  const formSignUp = reactive<SignUpEntity>({
+    check_rule: false,
+    isValidToServer: true,
+  });
 
   const realEstateGetOne = reactive<any>({
     data: {

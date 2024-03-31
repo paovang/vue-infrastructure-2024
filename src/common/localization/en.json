@@ -21,7 +21,10 @@
         "footer": "Footer",
         "dashboard": "Dashboard",
         "report_real_estate": "Report Real Estate",
-        "report_rent_buy": "Report Rent & Buy"
+        "report_rent_buy": "Report Rent & Buy",
+        "warning": "Warning",
+        "policy": "Policy",
+        "about": "about"
     },
     "placeholder": {
         "inputText": "Please Enter...",
@@ -51,7 +54,10 @@
             "real_estate_type":"All Product Type",
             "footer": "All Footer",
             "report_rent_buy": "All Report Rent & Buy",
-            "report_real_estate": "All Report Real Estate"
+            "report_real_estate": "All Report Real Estate",
+            "warning": "Warning",
+            "policy": "Policy",
+            "about": "about"
         },
         "header": {
             "index": "Number",
@@ -111,6 +117,12 @@
             "created_by": "Created By",
             "updated_by": "Updated By",
             "service_charge": "Service Charge",
+            "profile": "Profile",
+            "title": "Title",
+            "desciption": "Desciption",
+            "policy_type": "Policy Type",
+            "link_videos": "Link Videos",
+            "warning": "Warning",
             "footer": {
                 "facebook": "Facebook",
                 "whatsapp": "Whatsapp",
@@ -255,7 +267,10 @@
         "real_estate_name": "Real Estate Name",
         "done": "Done",
         "cancel": "Cancel",
-        "success": "Success"
+        "success": "Success",
+        "rule_sign_up": "Rule Sign Up",
+        "policy_return": "Policy Return",
+        "policy": "Policy"
     },
     "uploadFile": {
         "uploading": "Uploading profile to the system please wait...",

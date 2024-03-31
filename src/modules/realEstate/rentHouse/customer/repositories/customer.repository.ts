@@ -50,6 +50,8 @@ export class CustomerRepository implements ICustomerRepository {
         country_id: input.country_id,
         id_no: input.id_no,
         id_image: input.id_image,
+        profile: input.profile,
+        user_id: input.user_id,
       },
     });
 

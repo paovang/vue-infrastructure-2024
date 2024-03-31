@@ -30,6 +30,14 @@ export const homeRoute: RouteRecordRaw[] = [
           skipAuthCheck: true,
         },
       },
+      {
+        path: "/confirm/sign-up",
+        name: "confirm.sign.up",
+        component: () => import("../views/Confirm-SignUp.vue"),
+        meta: {
+          skipAuthCheck: true,
+        },
+      },
     ],
   },
 ];

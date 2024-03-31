@@ -1,1 +1,0 @@
-async function n(e){return["image/jpeg","image/jpg"].includes(e.type)}async function t(e){return["image/jpeg","image/jpg","image/png"].includes(e.type)}async function l(e){return e.size<=2097152}async function o({toast:e,error:a,summary:i,detail:s}){e.add({severity:a,summary:i,detail:s,life:3e3})}export{t as a,l as i,o as s,n as v};

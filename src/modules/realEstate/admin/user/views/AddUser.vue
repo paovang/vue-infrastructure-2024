@@ -68,6 +68,16 @@
                         :highlightOnSelect="true" 
                     />
                 </div>
+                <div class="column is-4 is-mobile-12">
+                    <my-input-file 
+                        name="profile" 
+                        :label="$t('messages.profile')" 
+                        required 
+                        :multiple="true"
+                        class="h-full" 
+                        @change="handleFileChange"
+                    />
+                </div>
             </div>
             <p style="font-size: 18px; font-weight: bold;">
                 <i class="pi pi-users"></i>
@@ -99,7 +109,7 @@
 <script setup lang="ts">
     import MyInputText from '@/components/customComponents/FormInputText.vue';
     import { adminUserStore } from '../stores/user.store';
-    import { onMounted } from 'vue';
+    import { onMounted, ref } from 'vue';
     import Dropdown from 'primevue/dropdown';
     import Divider from 'primevue/divider';
     import Checkbox from 'primevue/checkbox';
@@ -109,7 +119,12 @@
     import { useForm } from 'vee-validate';
     import { userServiceSchema } from '../schemas/user.schema';
     import { useRouter } from 'vue-router';
-    
+    import MyInputFile from '@/components/customComponents/FormInputFile.vue';
+    import { showNotificationToast } from '@/common/utils/toast';
+    import { uploadFileToServer } from '@/common/utils/upload-file';
+    import { isValidFileSize, validFileTypes } from '@/common/utils/validation.file';
+    import axios from 'axios';
+
 
     const { form, register, getAllRole, getAllPermission, allPermission, allRole, state  } = adminUserStore();
     const toast = useToast();
@@ -132,6 +147,7 @@
         form.email = value.email;
         form.password = value.password;
         form.password_confirmation = value.password_confirmation;
+        form.profile = selectedImage.value;
 
         await register();
 
@@ -140,6 +156,10 @@
         } else {
             await showToastSuccess();
             await handleReset();
+            
+            selectedImage.value = "";
+            const inputFile = document.getElementById('profile') as HTMLInputElement;
+            inputFile.value = '';
         }   
     })
 
@@ -153,6 +173,24 @@
 
         form.roleId = allRole.data.props.length > 0 ? allRole.data.props[0].id : undefined;
     });
+
+    const selectedImage = ref();
+    const handleFileChange = async (event: any) => {
+        const file = event.target.files[0];
+
+        if (! await validFileTypes(file)) {
+            await showNotificationToast({ toast, error: 'error', summary: t("toast.summary.error"), detail: t("toast.summary.profile_valid_file_mimes") });
+            event.target.value = '';
+            return;
+        }
+        if (! await isValidFileSize(file)) {
+            await showNotificationToast({ toast, error: 'error', summary: t("toast.summary.error"), detail: t("toast.summary.profile_valid_file_size") });
+            event.target.value = '';
+            return;
+        }
+
+        await uploadFileToServer({ axios, file, state, selectedImage, toast, t });
+    }
 
     const showWarningValidateBackend = () => {
         toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: `${state.error}`, life: 3000 });

@@ -24,6 +24,7 @@ export class UserRepository implements IUserRepository {
         password_confirmation: input.password_confirmation,
         roleId: input.roleId,
         permissionIds: input.permissionIds,
+        profile: input.profile,
       },
     });
 
@@ -43,6 +44,7 @@ export class UserRepository implements IUserRepository {
         email: input.email,
         roleId: input.roleId,
         permissionIds: input.permissionIds,
+        profile: input.profile,
       },
     });
 

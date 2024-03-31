@@ -4,7 +4,7 @@ import {
   IGPaginated,
 } from "@/common/interfaces/pagination.interface";
 import { IResponse } from "@/common/interfaces/response.interface";
-import { FooterEntity } from "../entities/footer.entity";
+import { FooterEntity } from "../entities/entity";
 import { CreateUseCase } from "../use-cases/create.use-case";
 import { GetAllUseCase } from "../use-cases/get-all.use-case";
 import { UpdateUseCase } from "../use-cases/update.use-case";

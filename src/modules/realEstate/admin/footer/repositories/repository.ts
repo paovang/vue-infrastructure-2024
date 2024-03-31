@@ -5,7 +5,7 @@ import {
   IGPaginated,
 } from "@/common/interfaces/pagination.interface";
 import { IResponse } from "@/common/interfaces/response.interface";
-import { FooterEntity } from "../entities/footer.entity";
+import { FooterEntity } from "../entities/entity";
 import { IFooterRepository } from "../interfaces/interface";
 
 @injectable()

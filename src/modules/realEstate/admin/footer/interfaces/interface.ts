@@ -3,7 +3,7 @@ import {
   IGPaginated,
 } from "@/common/interfaces/pagination.interface";
 import { IResponse } from "@/common/interfaces/response.interface";
-import { FooterEntity } from "../entities/footer.entity";
+import { FooterEntity } from "../entities/entity";
 
 export interface IFooterRepository {
   create(input: FooterEntity): Promise<any>;

@@ -16,6 +16,9 @@ import { ownerUserRoute } from "@/modules/realEstate/owner/user/routers";
 import { adminRealEstateTypeRoute } from "@/modules/realEstate/admin/real-estate-type/routers";
 import { adminFooterRoute } from "@/modules/realEstate/admin/footer/routers";
 import { adminDashboardRoute } from "@/modules/realEstate/admin/dashboard/routers";
+import { adminPolicyRoute } from "@/modules/realEstate/admin/policy/routers";
+import { adminAboutRoute } from "@/modules/realEstate/admin/about/routers";
+import { adminWarningRoute } from "@/modules/realEstate/admin/warning/routers";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,6 +36,9 @@ const router = createRouter({
         ...adminFooterRoute,
         ...adminPaymentHistoryRoute,
         ...adminDashboardRoute,
+        ...adminPolicyRoute,
+        ...adminAboutRoute,
+        ...adminWarningRoute,
         ...ownerHouseRoute,
         ...ownerAppointmentRoute,
         ...ownerRentAndBuyRoute,

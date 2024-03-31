@@ -24,6 +24,7 @@
                         class="w-full" 
                         optionValue="id"
                         :highlightOnSelect="true" 
+                        ref="autoFocusCursor"
                     />
                 </div>
                 <div class="column is-6 is-mobile-12" style="margin-top: -10px;">
@@ -85,23 +86,14 @@
                         :placeholder="$t('placeholder.inputText')"  
                     />
                 </div>
-                <div class="column is-12 is-mobile-12" style="margin-top: -10px;">
-                    <my-input-text 
-                        name="id_no" 
-                        :label="$t('messages.id_no')" 
-                        required 
-                        :placeholder="$t('placeholder.inputTextIdNo')"  
-                        class="h-full" 
-                    />
-                </div>
                 <div class="column is-12 is-mobile-12 is-margin-top">
                     <my-input-file 
-                        name="id_image" 
-                        :label="$t('messages.id_image')" 
+                        name="profile" 
+                        :label="$t('messages.profile')" 
                         required 
                         :multiple="true"
                         class="h-full" 
-                        @change="handleFileChange"
+                        @change="handleProfileFileChange"
                     />
                 </div>
             </div>
@@ -124,19 +116,24 @@
     import MyInputPassword from '@/components/customComponents/FormInputPassword.vue';
     import Button from 'primevue/button';
     import { useI18n } from 'vue-i18n';
-    import { useForm } from 'vee-validate'
+    import { useForm } from 'vee-validate';
     import { signUpSchema } from '../schemas/sign-up.schema';
     import { homerealEstateStore } from '../stores/home.store';
     import { onMounted, ref } from 'vue';
     import Dropdown from 'primevue/dropdown';
     import { useToast } from 'primevue/usetoast';
     import axios from 'axios';
-
+    import { uploadFileToServer } from '@/common/utils/upload-file';
+    import { isValidFileSize, validFileTypes } from '@/common/utils/validation.file';
+    import { showNotificationToast } from '@/common/utils/toast';
+    import { useRouter } from 'vue-router';
+    import { scrollToTop } from '@/common/utils/scroll-top';
 
     const { formSignUp, countries, getAllData, state, register } = homerealEstateStore();
 
     const { t } = useI18n();
     const toast = useToast();
+    const router = useRouter();
 
     const translatedErrorMessages = {
         name: t('placeholder.inputText'),
@@ -152,102 +149,69 @@
     })
 
     onMounted(async() => {
+        await scrollToInput();
+        await handleReset();
         await getAllData();
         formSignUp.country_id = countries.data.props.length > 0 ? countries.data.props[0].id : null;
     })
 
     const submitForm = handleSubmit(async (value: any) => {
-        formSignUp.name = value.name;
-        formSignUp.owner = value.owner;
-        formSignUp.address = value.address;
-        formSignUp.email = value.email;
-        formSignUp.phone_number = value.phone_number;
-        formSignUp.password = value.password;
-        formSignUp.password_confirmation = value.password_confirmation;
-        formSignUp.id_no = value.id_no;
-        formSignUp.id_image = selectedImage.value;
-
+        formSignUp.name = String(value.name);
+        formSignUp.owner = String(value.owner);
+        formSignUp.address = String(value.address);
+        formSignUp.email = String(value.email);
+        formSignUp.phone_number = String(value.phone_number);
+        formSignUp.password = String(value.password);
+        formSignUp.password_confirmation = String(value.password_confirmation);
+        formSignUp.profile = selectedProfile.value;
+        formSignUp.isValidToServer = true;
+        
         await register();
 
         if (state.error) {
-            await showWarningValidateBackend();
+                await showWarningValidateBackend();
         } else {
-            await showToastSuccess();
-            await handleReset();
-            await getAllData();
-            selectedImage.value = "";
-            const inputFile = document.getElementById('id_image') as HTMLInputElement;
-            inputFile.value = '';
-
-            formSignUp.country_id = countries.data.props.length > 0 ? countries.data.props[0].id : null;
+            router.push({ name: 'confirm.sign.up', query: { 
+                name: value.name,
+                owner: value.owner,
+                address: value.address,
+                email: value.email,
+                phone_number: value.phone_number,
+                password: value.password,
+                password_confirmation: value.password_confirmation,
+                profile: selectedProfile.value,
+                country_id: formSignUp.country_id
+            }})
         }
-    });
-
-    const handleFileChange = async (event: any) => {
-        const file = event.target.files[0];
-
-        if (! await isValidFileType(file)) {
-            await showValidationFileMimes();
-            event.target.value = '';
-            return;
-        }
-        if (! await isValidFileSize(file)) {
-            await showValidationFileSize();
-            event.target.value = '';
-            return;
-        }
-
-        await uploadFileImage(file);
-    }
-
-    const isValidFileType = async (file: any) => {
-        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
-        return allowedTypes.includes(file.type);
-    }
-
-    const isValidFileSize = async (file: any) => {
-      const maxSizeInBytes = 2 * 1024 * 1024; // 2 MB
-      return file.size <= maxSizeInBytes;
-    }
-
-    const selectedImage = ref();
-
-    const uploadFileImage = async (file: any) => {
-        state.btnLoading = true;
-        try {
-            let formData = new FormData();
-            formData.append('file', file);
-
-            const response = await axios.post(import.meta.env.VITE_APP_BASE_API_URL + 'customer/upload-file', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-
-            selectedImage.value = response.data?.filename;
-            state.btnLoading = false;
-        } catch (error) {
-            await showFailUploadFile(error);
-        }
-    }
-
-    const showFailUploadFile = (error: any) => {
-        toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: error, life: 3000 });
-    }
+    })
 
     const showWarningValidateBackend = () => {
         toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: `${state.error}`, life: 3000 });
     }
 
-    const showToastSuccess = () => {
-        toast.add({ severity: 'success', summary: t('toast.summary.success'), detail: t('toast.detail.successfully'), life: 3000 });
+    const selectedProfile = ref();
+    const handleProfileFileChange = async (event: any) => {
+        const file = event.target.files[0];
+
+        if (! await validFileTypes(file)) {
+            await showNotificationToast({ toast, error: 'error', summary: t("toast.summary.error"), detail: t("toast.summary.profile_valid_file_mimes") });
+            event.target.value = '';
+            return;
+        }
+        if (! await isValidFileSize(file)) {
+            await showNotificationToast({ toast, error: 'error', summary: t("toast.summary.error"), detail: t("toast.summary.profile_valid_file_size") });
+            event.target.value = '';
+            return;
+        }
+
+        await uploadFileToServer({ axios, file, state, selectedImage: selectedProfile, toast, t });
     }
 
-    const showValidationFileMimes = () => {
-        toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: t('toast.summary.sign_up_valid_file_mimes'), life: 3000 });
-    }
-    const showValidationFileSize = () => {
-        toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: t('toast.summary.sign_up_valid_file_size'), life: 3000 });
+    const autoFocusCursor = ref();
+    const scrollToInput = async () => {
+        if (autoFocusCursor.value) {
+            await scrollToTop(autoFocusCursor);
+        }
     }
 </script>
   
@@ -255,7 +219,7 @@
     @import 'bulma/css/bulma.css';
 
     .signup-form {
-        width: 40%;
+        width: 60%;
         margin: 0 auto;
     }
 

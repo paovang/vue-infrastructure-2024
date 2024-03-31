@@ -22,6 +22,7 @@
             :totalRecords="state.data.total"
             @page="onPageChange"
             :first="first"
+            scrollable
             :rows="setStateFilter.limit"
             paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
             :currentPageReportTemplate="`${$t('table.pagination.show')} {first} ${$t('table.pagination.to')} {last} ${$t('table.pagination.from')} {totalRecords} ${$t('table.pagination.row')}`"
@@ -31,29 +32,9 @@
                     {{ item.index + 1 }}
                 </template>
             </Column>
-            <Column :header="$t('table.header.name')" headerStyle="min-width: 10rem">
-                <template #body="{data}">
-                    {{ data.name }}
-                </template>
-            </Column>
-            <Column :header="$t('table.header.email')">
-                <template #body="{data}">
-                    {{ data.email }}
-                </template>
-            </Column>
-            <Column :header="$t('table.header.role')" headerStyle="min-width: 10rem">
-                <template #body="{data}">
-                    {{ data.role.name }}
-                </template>
-            </Column>
-            <Column :header="$t('table.header.permission')">
-                <template #body="{data}">
-                    {{ conCatPermission(data.permissions) }}
-                </template>
-            </Column>
-            <Column headerStyle="min-width: 8rem">
+            <Column headerStyle="min-width: 8rem" frozen>
                 <template #body="{ data }">
-                    <div class="flex flex-wrap gap-2 btn-right">
+                    <div class="flex flex-wrap gap-2">
                         <Button 
                             type="button" 
                             icon="pi pi-pencil" 
@@ -73,6 +54,31 @@
                     </div>
                 </template>
             </Column>
+            <Column field="profile" :header="$t('table.header.profile')" headerStyle="min-width: 8rem" frozen>
+                <template #body="{ data }">
+                    <Image :src="data.profile" alt="Image" preview style="max-width: 80px;"/>
+                </template>
+            </Column>
+            <Column :header="$t('table.header.name')" headerStyle="min-width: 10rem">
+                <template #body="{data}">
+                    {{ data.name }}
+                </template>
+            </Column>
+            <Column :header="$t('table.header.email')" headerStyle="min-width: 3rem">
+                <template #body="{data}">
+                    {{ data.email }}
+                </template>
+            </Column>
+            <Column :header="$t('table.header.role')" headerStyle="min-width: 8rem">
+                <template #body="{data}">
+                    {{ data.role.name }}
+                </template>
+            </Column>
+            <Column :header="$t('table.header.permission')" headerStyle="min-width: 20rem">
+                <template #body="{data}">
+                    {{ conCatPermission(data.permissions) }}
+                </template>
+            </Column>
         </DataTable>
     </div>
 </template>
@@ -84,12 +90,14 @@
     import Button from 'primevue/button';
     import DataTable, { type DataTablePageEvent } from 'primevue/datatable';
     import Column from 'primevue/column'; 
-    import { conCatPermission } from '../../../../../common/utils/concat';
+    import { conCatPermission } from '@/common/utils/concat';
     import { useRouter } from 'vue-router';
     import { UserEntity } from '../entities/user.entity';
     import { useToast } from 'primevue/usetoast';
     import { useI18n } from 'vue-i18n';
     import { useConfirm } from 'primevue/useconfirm';
+    import Image from 'primevue/image';
+
 
     const { t } = useI18n();
     const toast = useToast();
