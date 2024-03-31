@@ -4,7 +4,7 @@
             {{ aboutUs.data.props.title }}
         </p>
         <br/>
-        <div>
+        <div v-if="aboutUs.data.props.link_videos">
             <iframe 
                 class="iframe-link_videos"
                 :src="`https://www.youtube.com/embed/${aboutUs.data.props.link_videos}`" 
