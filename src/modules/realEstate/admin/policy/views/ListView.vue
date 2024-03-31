@@ -92,8 +92,8 @@
         setStateFilter.page = event.page + 1;
         setStateFilter.limit = event.rows;
 
-        const { page, limit, filter } = setStateFilter
-        push({ name: 'admin.policy', query: { page, limit, search: filter?.policy_type ? filter.policy_type : undefined } })
+        const { page, limit } = setStateFilter
+        push({ name: 'admin.policy', query: { page, limit } })
 
         await getAll();
     }
@@ -112,18 +112,12 @@
             setStateFilter.page = query.page ? Number(query.page) : 1
             setStateFilter.limit = query.limit ? Number(query.limit) : 10
             
-            if (setStateFilter.filter?.email === '') {
-                setStateFilter.filter.email = query.search ? (query.search as string) : '';
-                push({ query: { page: setStateFilter.page, limit: setStateFilter.limit, search: undefined } })
-            } else {
-                push({
-                    query: {
-                        page: setStateFilter.page,
-                        limit: setStateFilter.limit,
-                        search: setStateFilter.filter?.email,
-                    }
-                })
-            }
+            push({
+                query: {
+                    page: setStateFilter.page,
+                    limit: setStateFilter.limit
+                }
+            })
         }
         await getAll()
     }

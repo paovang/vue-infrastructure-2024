@@ -107,7 +107,7 @@
     import Button from 'primevue/button';
     import { footerStore } from '../stores/store';
     import { onMounted } from 'vue';
-    import { FooterEntity } from '../entities/footer.entity';
+    import { FooterEntity } from '../entities/entity';
     import { useForm } from 'vee-validate';
     import { footerSchema } from '../schema/shema';
     import { useI18n } from 'vue-i18n';
