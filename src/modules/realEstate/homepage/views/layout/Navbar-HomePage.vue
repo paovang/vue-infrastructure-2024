@@ -6,11 +6,11 @@
                     {{ $t('messages.home')}}
                 </a>
 
-                <a class="navbar-item" @click="goToHome">
+                <a class="navbar-item" @click="goToHome" :class="{ 'is-active-tab': isCurrentRoute('home') }">
                     {{ $t('messages.real_estate')}}
                 </a>
 
-                <a class="navbar-item" @click="goToAbout">
+                <a class="navbar-item" @click="goToAbout" :class="{ 'is-active-tab': isCurrentRoute('about.us') }">
                     {{ $t('messages.about')}}
                 </a>
             </div>
@@ -32,10 +32,11 @@
 </template>
 
 <script setup lang="ts">
-    import { useRouter } from 'vue-router';
+    import { useRoute, useRouter } from 'vue-router';
 
 
     const router = useRouter();
+    const route = useRoute();
 
     const goToHome = async () => {
         await router.push({ name: 'home'});
@@ -44,6 +45,10 @@
 
     const goToAbout = async () => {
         await router.push({ name: 'about.us'});
+    }
+
+    const isCurrentRoute = (routeName: string) => {
+        return route.name === routeName;
     }
 </script>
 
@@ -56,6 +61,10 @@
         top: 0;
         width: 100%;
         z-index: 1000;
+    }
+
+    .is-active-tab {
+        background: #32323222;
     }
 
     @media only screen and (max-width: 767px) {

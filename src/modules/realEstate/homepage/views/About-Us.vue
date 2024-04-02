@@ -1,5 +1,6 @@
 <template>
     <div>
+        <br/>
         <p style="font-size: 18px; font-weight: bold;">
             {{ aboutUs.data.props.title }}
         </p>
@@ -22,7 +23,6 @@
 <script setup lang="ts">
     import { onMounted } from 'vue';
     import { homerealEstateStore } from '../stores/home.store';
-
 
     const { getAboutUs, aboutUs } = homerealEstateStore();
 
