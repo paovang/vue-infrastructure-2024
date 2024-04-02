@@ -21,7 +21,7 @@ export function authGuard(router: Router) {
               )
             )
           ) {
-            next({ name: "customer" });
+            next({ name: "dashboard" });
           } else {
             next({ name: "owner.house" });
           }
@@ -30,7 +30,7 @@ export function authGuard(router: Router) {
         }
       } else {
         if (to.name !== "login") {
-          next({ name: "login" });
+          next({ name: "sign.in" });
         } else {
           next();
         }

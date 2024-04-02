@@ -32,12 +32,22 @@
               <span style="margin-left: 5px;"></span>
               {{ $t('messages.sign_up') }}
             </a>
-            <a class="navbar-item brackets" @click="goToSignIn()" :class="{ 'is-active-tab': isCurrentRoute('login') }" v-if="!isCheckLogin">
+            <a class="navbar-item brackets" @click="goToSignIn()" :class="{ 'is-active-tab': isCurrentRoute('sign.in') }" v-if="!isCheckLogin">
               <i class="pi pi-users"></i> 
               <span style="margin-left: 5px;"></span>
               {{ $t('messages.sign_in') }}
             </a>
             <div class="navbar-item has-dropdown is-hoverable">
+              <!-- <Dropdown 
+                v-model="selectDropdownLocale" 
+                :options="locales" 
+                optionLabel="name" 
+                class="w-full md:w-14rem" 
+                style="color: white !important; width: 120px !important;"
+                optionValue="code"
+                :highlightOnSelect="true" 
+                @change="setLocale(selectDropdownLocale)"
+              /> -->
               <a class="navbar-link">
                 <i class="pi pi-globe"></i>
                 <span style="margin-right: 5px;"></span>
@@ -81,22 +91,22 @@
               </li>
               <Divider style="margin-top: 15px;" />
               <li style="margin-top: 15px;">
-                <a class="navbar-item">
+                <a class="navbar-item" @click="goToHome">
                   {{ $t('messages.home') }}
                 </a>
               </li>
               <li>
-                <a class="navbar-item">{{ $t('messages.real_estate') }}</a
+                <a class="navbar-item" @click="goToHome">{{ $t('messages.real_estate') }}</a
                 >
               </li>
               <li>
-                <a class="navbar-item">{{ $t('messages.about') }}</a>
+                <a class="navbar-item" @click="goToAbout">{{ $t('messages.about') }}</a>
               </li>
               <li>
-                <a class="navbar-item">{{ $t('messages.sign_up') }}</a>
+                <a class="navbar-item" @click="goToSignUp">{{ $t('messages.sign_up') }}</a>
               </li>
               <li>
-                <a class="navbar-item">{{ $t('messages.sign_in') }}</a>
+                <a class="navbar-item" @click="goToSignIn">{{ $t('messages.sign_in') }}</a>
               </li>
             </ul>
           </div>
@@ -124,13 +134,18 @@
 
     const getProfile = 'https://lab-108-bucket.s3.ap-southeast-1.amazonaws.com/assistant-logo/profile-logo.jpeg';
 
+    const goToAbout = async () => {
+      await router.push({ name: 'about.us'});
+      isNavbarActive.value = false;
+    }
+
     const goToSignUp = async () => {
       router.push({ name: 'sign.up'});
       isNavbarActive.value = false;
     }
 
     const goToSignIn = async () => {
-      router.push({ name: 'login'});
+      router.push({ name: 'sign.in'});
       isNavbarActive.value = false;
     }
 
@@ -150,7 +165,6 @@
         }
       }
 
-      // router.push({ name: 'sign.up'});
       isNavbarActive.value = false;
     }
     

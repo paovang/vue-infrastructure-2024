@@ -23,6 +23,6 @@ export const roleGuard = (to: any, from: any, next: any) => {
   if (hasRequiredRole(userRoles, requiredRoles)) {
     next();
   } else {
-    next({ name: "customer" });
+    next({ name: "dashboard" });
   }
 };

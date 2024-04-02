@@ -21,6 +21,8 @@
                         class="h-full" 
                     />
                 </div>
+                <div ref="editor"></div>
+
                 <div class="column is-12 is-mobile-12" style="margin-top: -30px;">
                     <label>
                         {{ $t('messages.description')}}
@@ -45,7 +47,7 @@
 
 <script setup lang="ts">
     import { useForm } from 'vee-validate';
-    import { onMounted } from 'vue';
+    import { onMounted, ref } from 'vue';
     import { adminPolicyStore } from '../stores/store';
     import { useRoute, useRouter } from 'vue-router';
     import { PEntity } from '../entities/entity';
@@ -55,7 +57,9 @@
     import Editor from 'primevue/editor';
     import { useI18n } from 'vue-i18n';
     import { useToast } from 'primevue/usetoast';
+    import Quill from 'quill';
 
+    const editor = ref<Quill | null>(null);
 
     const { getOne, getById, form, state, update } = adminPolicyStore();
 

@@ -28,18 +28,18 @@
                 </div>
               <div style="margin-top: -30px;">
                 <div class="password-input-container">
-                    <my-input-text-password
-                        :type="showPassword"
-                        name="password"
-                        :label="$t('messages.password')"
-                        class="w-18rem"
-                        required
-                        :placeholder="$t('placeholder.inputText')" 
-                    />
-                    <span class="toggle-password" @click="togglePasswordVisibility">
-                      <i :class="['pi', showPassword ? 'pi-eye-slash' : 'pi-eye']"></i>
-                    </span>
-                  </div>
+                  <my-input-text-password
+                      :type="showPassword"
+                      name="password"
+                      :label="$t('messages.password')"
+                      class="w-18rem"
+                      required
+                      :placeholder="$t('placeholder.inputText')" 
+                  />
+                  <span class="toggle-password" @click="togglePasswordVisibility">
+                    <i :class="['pi', showPassword ? 'pi-eye-slash' : 'pi-eye']"></i>
+                  </span>
+                </div>
               </div>
             </div>
             <div style="margin-top: 20px;">

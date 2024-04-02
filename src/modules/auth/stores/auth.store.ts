@@ -32,9 +32,6 @@ export const useAuthStore = defineStore("auth", () => {
     try {
       const result = await authService.login(item);
       if (result.status === "success" && result.data) {
-        // localStorage.setItem("token", result.data.access_token);
-        // localStorage.setItem("roles", result.data.authUser.roles);
-        // localStorage.setItem("permissions", result.data.authUser.permissions);
         localStorage.setItem("token", result.data.access_token);
         localStorage.setItem(
           "roles",
@@ -84,7 +81,7 @@ export const useAuthStore = defineStore("auth", () => {
     localStorage.removeItem("roles");
     localStorage.removeItem("permissions");
 
-    router.push({ name: "login" });
+    router.push({ name: "home" });
   }
 
   return { state, form, login, logout };

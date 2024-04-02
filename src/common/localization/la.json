@@ -277,7 +277,10 @@
         "warning": "ຄຳເຕືອນ",
         "link_videos": "ລີ້ງວີດີໂອ",
         "home": "ໜ້າຫຼັກ",
-        "real_esate": "ຊັບສີນ"
+        "real_esate": "ຊັບສີນ",
+        "welcome_to_login": "ຍີນດີຕ້ອນຮັບ ເຂົ້າສູ່ລະບົບ",
+        "not_account": "ຍັງບໍ່ມີບັນຊີ",
+        "forgot_password": "ລືມລະຫັດຜ່ານ"
     },
     "uploadFile": {
         "uploading": "ກຳລັງອັບໂຫຼດໂປຮໄຟລເຂົ້າລະບົບ ກະລຸນາລໍຖ້າ...",
@@ -336,7 +339,9 @@
             "success_duplicate": "ສຳເນົາຂໍ້ມູນສຳເລັດ.",
             "cancel_duplicate": "ຖືກຍົກເລີກການສຳເນົາເເລ້ວ.",
             "choose_file": "ກະລຸນາເລືອກໄຟລກ່ອນ.",
-            "cancel_update": "ການຍົກເລີກການອັບເດດ."
+            "cancel_update": "ການຍົກເລີກການອັບເດດ.",
+            "login_success": "ເຂົ້າສູ່ລະບົບ ສຳເລັດ.",
+            "check_email_password": "ກວດສອບອີເມວ ຫຼື ລະຫັດຜ່ານ."
         }
     },
     "dialog": {
