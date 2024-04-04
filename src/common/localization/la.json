@@ -24,7 +24,8 @@
         "report_rent_buy": "ລາຍງານ ເຊົ່າ - ຊື້ຂາຍ ທັງໝົດ",
         "warning": "ຄຳເຕືອນ",
         "policy": "ນະໂຍບາຍ",
-        "about": "ກ່ຽວກັບພວກເຮົາ"
+        "about": "ກ່ຽວກັບພວກເຮົາ",
+        "profile": "ໂປຮໄຟລ"
     },
     "placeholder": {
         "inputText": "ກະລຸນາປ້ອນກ່ອນ...",
@@ -280,7 +281,9 @@
         "real_esate": "ຊັບສີນ",
         "welcome_to_login": "ຍີນດີຕ້ອນຮັບ ເຂົ້າສູ່ລະບົບ",
         "not_account": "ຍັງບໍ່ມີບັນຊີ",
-        "forgot_password": "ລືມລະຫັດຜ່ານ"
+        "forgot_password": "ລືມລະຫັດຜ່ານ",
+        "my_profile": "ໂປຮໄຟລ໌ ຂອງຂ້ອຍ",
+        "sign_out": "ອອກຈາກລະບົບ "
     },
     "uploadFile": {
         "uploading": "ກຳລັງອັບໂຫຼດໂປຮໄຟລເຂົ້າລະບົບ ກະລຸນາລໍຖ້າ...",

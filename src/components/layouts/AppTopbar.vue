@@ -31,7 +31,7 @@
         <div>
             <a class="cursor-pointer" @click="visibleRight = true">
                 <img
-                src="https://api.duniagames.co.id/api/content/upload/file/10936507621668659213.jpg"
+                :src="getUserProfile.data.props.profile"
                 class="mr-3 bg-no-repeat border-circle lg:mr-0"
                 style="width: 32px; height: 32px"
                 />
@@ -39,16 +39,27 @@
         </div>
     </header>
     <Sidebar v-model:visible="visibleRight" position="right" class="w-full sm:w-25rem">
-    <h2>paovang</h2>
+    <h2>{{ getUserProfile.data.props.name }}</h2>
     <ul class="list-none mt-3 p-0">
-      <li>
+      <li @click="gotToUserOwnerProfile" v-if="getUserProfile.data.props.role.name === 'admin-owner'">
         <a
           class="cursor-pointer flex surface-border mb-3 p-3 align-items-center border-1 surface-border border-round hover:surface-hover transition-colors transition-duration-150"
         >
           <span> <i class="pi pi-user text-xl text-color"></i> </span>
           <div class="ml-3">
-            <span class="mb-2 font-semibold">Profile</span>
-            <p class="text-color-secondary m-0">ຂໍ້ມູນໂປຼໄຟລ໌</p>
+            <span class="mb-2 font-semibold">{{ $t('messages.profile') }}</span>
+            <p class="text-color-secondary m-0">{{ $t('messages.my_profile') }}</p>
+          </div>
+        </a>
+      </li>
+      <li @click="gotToUserProfile" v-if="getUserProfile.data.props.role.name !== 'admin-owner'">
+        <a
+          class="cursor-pointer flex surface-border mb-3 p-3 align-items-center border-1 surface-border border-round hover:surface-hover transition-colors transition-duration-150"
+        >
+          <span> <i class="pi pi-user"></i> </span>
+          <div class="ml-3">
+            <span class="mb-2 font-semibold">{{ $t('messages.profile') }}</span>
+            <p class="text-color-secondary m-0">{{ $t('messages.my_profile') }}</p>
           </div>
         </a>
       </li>
@@ -56,10 +67,9 @@
         <a
           class="cursor-pointer flex surface-border mb-3 p-3 align-items-center border-1 surface-border border-round hover:surface-hover transition-colors transition-duration-150"
         >
-          <span> <i class="pi pi-power-off text-xl text-color"></i> </span>
+          <span> <i class="pi pi-power-off text-xl" style="color: brown"></i> </span>
           <div class="ml-3">
-            <span class="mb-2 font-semibold">Sign Out</span>
-            <p class="text-color-secondary m-0">ອອກຈາກລະບົບ</p>
+            <span class="mb-2 font-semibold" style="color: brown">{{ $t('messages.sign_out') }}</span>
           </div>
         </a>
       </li>
@@ -71,20 +81,23 @@
   import Breadcrumb from 'primevue/breadcrumb'
   import Sidebar from 'primevue/sidebar'
   import { ref, onMounted } from "vue";
-  import { RouteLocationNormalizedLoaded, onBeforeRouteUpdate, useRoute } from 'vue-router';
+  import { RouteLocationNormalizedLoaded, onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
   import { useAuthStore } from '../../modules/auth/stores/auth.store'
   import Dropdown from 'primevue/dropdown';
   import { useI18n } from 'vue-i18n';
+  import { adminUserStore } from '@/modules/realEstate/admin/user/stores/user.store';
 
   const { t } = useI18n();
   
   const { logout } = useAuthStore();
+  const { getUserProfile, getProfile  } = adminUserStore();
 
   const breadcrumbItems = ref<Array<string>>([]);
   const visibleRight = ref(false);
   const emit = defineEmits<{ (e: 'toggleSidebar'): void }>();
   const items = ref();
   const route = useRoute();
+  const router = useRouter()
 
   const selectedLocale = ref();
   const locales = ref([
@@ -94,6 +107,20 @@
       { name: 'Tiếng Việt', code: 'vi' },
       { name: 'China', code: 'lk' },
   ]);
+
+  const gotToUserProfile = () => {
+    visibleRight.value = false;
+    router.push({
+      name: 'admin.user.profile'
+    })
+  }
+
+  const gotToUserOwnerProfile = () => {
+    visibleRight.value = false;
+    router.push({
+      name: 'owner.user.profile'
+    })
+  }
 
   const setLocale = async () => {
     await localStorage.setItem('locale', selectedLocale.value);
@@ -123,6 +150,7 @@
     selectedLocale.value = locale;
 
     getBreadcrumbItems(route)
+    await getProfile();
   })
 </script>
 

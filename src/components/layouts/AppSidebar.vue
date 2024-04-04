@@ -18,12 +18,12 @@
   const { setStateFilter } = countryStore();
   const { setStateFilter: setStateRealEstateServiceFilter } = realEstateServiceStore();
 
-
   const appointment = ref<Number>(0);
+
   onMounted(async() => {
     if (currentRoles.includes(GET_ROLES.ADMIN_OWNER) || currentRoles.includes(GET_ROLES.USER_OWNER)) {
       await getAllAppointmentPending();
-      appointment.value = appointmentPending.data.props;
+      appointment.value = appointmentPending.data.props ? appointmentPending.data.props : 0;
     }
   })
 

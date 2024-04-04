@@ -98,6 +98,27 @@ export class UserRepository implements IUserRepository {
     return response.data;
   }
 
+  async getUserProfile(): Promise<any> {
+    const roleUsers = localStorage.getItem("roles");
+    let url = "";
+
+    if (
+      (roleUsers && roleUsers.includes(GET_ROLES.ADMIN_OWNER)) ||
+      (roleUsers && roleUsers.includes(GET_ROLES.USER_OWNER))
+    ) {
+      url = `/owner/get-user-owner-profile`;
+    } else {
+      url = `/admin/get-user-profile`;
+    }
+
+    const response = await this._api.axios({
+      method: "get",
+      url: url,
+    });
+
+    return response.data;
+  }
+
   async getAllRoles(): Promise<any> {
     const response = await this._api.axios({
       method: "get",
@@ -120,5 +141,23 @@ export class UserRepository implements IUserRepository {
     });
 
     return response.data;
+  }
+
+  async updateProfile(input: UserEntity): Promise<IResponse<UserEntity>> {
+    const response = await this._api.axios({
+      method: "put",
+      url: `/admin/update-user-profile/${input.id}`,
+      data: {
+        name: input.name,
+        email: input.email,
+        profile: input.profile,
+      },
+    });
+
+    return {
+      data: response.data,
+      message: "ອັບເດດ ຂໍ້ມູນສຳເລັດເເລ້ວ",
+      status: "success",
+    };
   }
 }

@@ -164,6 +164,42 @@ export const ownerUserStore = defineStore("owner-user-store", () => {
     }
   }
 
+  const getUserProfile = reactive<any>({
+    data: {
+      props: "",
+    },
+  });
+
+  async function getProfile() {
+    const response = await service.getProfile();
+
+    if (response && response.data && response.message === "success") {
+      getUserProfile.data.props = response.data;
+    }
+  }
+
+  async function updateProfile() {
+    state.isLoading = true;
+    state.btnLoading = true;
+
+    try {
+      await service.updateProfile(form);
+
+      state.error = "";
+      form.name = "";
+    } catch (error: any) {
+      let responseError = "";
+      if (error.response.status === 422) {
+        responseError = Object.keys(error.response.data.errors)
+          .map((key) => `${key}: ${error.response.data.errors[key].join(", ")}`)
+          .join("; ");
+      }
+      state.error = responseError;
+    }
+    state.isLoading = false;
+    state.btnLoading = false;
+  }
+
   async function clearData() {
     form.name = "";
     form.email = "";
@@ -187,5 +223,8 @@ export const ownerUserStore = defineStore("owner-user-store", () => {
     allPermission,
     getAllPermission,
     userGetByOne,
+    updateProfile,
+    getProfile,
+    getUserProfile,
   };
 });

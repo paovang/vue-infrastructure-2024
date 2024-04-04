@@ -12,6 +12,8 @@ import { UserEntity } from "../entities/user.entity";
 import { GetAllRoleUseCase } from "../use-cases/get-all-roles.use-case";
 import { GetAllPermissionUseCase } from "../use-cases/get-all-permission.use-case";
 import { GetOneUseCase } from "../use-cases/get-one.use-case";
+import { GetUserProfileUseCase } from "../use-cases/get-user-profile.use-case";
+import { UpdateUserProfileUseCase } from "../use-cases/update-profile.use-case";
 
 @injectable()
 export class UserService {
@@ -23,7 +25,11 @@ export class UserService {
     @inject(GetAllRoleUseCase) private _getAllRole: GetAllRoleUseCase,
     @inject(GetOneUseCase) private _getOne: GetOneUseCase,
     @inject(GetAllPermissionUseCase)
-    private _getAllPermission: GetAllPermissionUseCase
+    private _getAllPermission: GetAllPermissionUseCase,
+    @inject(GetUserProfileUseCase)
+    private _getUserProfile: GetUserProfileUseCase,
+    @inject(UpdateUserProfileUseCase)
+    private _updateProfile: UpdateUserProfileUseCase
   ) {}
 
   async register(input: UserEntity) {
@@ -54,5 +60,13 @@ export class UserService {
 
   async getAllPermission() {
     return await this._getAllPermission.execute();
+  }
+
+  async getProfile() {
+    return await this._getUserProfile.execute();
+  }
+
+  async updateProfile(input: UserEntity) {
+    return await this._updateProfile.execute(input);
   }
 }

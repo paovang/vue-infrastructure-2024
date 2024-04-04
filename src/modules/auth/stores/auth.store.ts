@@ -31,6 +31,7 @@ export const useAuthStore = defineStore("auth", () => {
 
     try {
       const result = await authService.login(item);
+
       if (result.status === "success" && result.data) {
         localStorage.setItem("token", result.data.access_token);
         localStorage.setItem(
@@ -51,11 +52,17 @@ export const useAuthStore = defineStore("auth", () => {
           roleUsers.includes(GET_ROLES.USER)
         ) {
           router.push({ name: "dashboard" });
+          router.afterEach(() => {
+            window.location.reload();
+          });
         } else if (
           roleUsers.includes(GET_ROLES.ADMIN_OWNER) ||
           roleUsers.includes(GET_ROLES.USER_OWNER)
         ) {
           router.push({ name: "owner.house" });
+          router.afterEach(() => {
+            window.location.reload();
+          });
         }
       } else {
         state.errorMessage = result.message ? result.message : "";

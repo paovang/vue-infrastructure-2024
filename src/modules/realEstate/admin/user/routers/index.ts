@@ -33,4 +33,14 @@ export const adminUserRoute: RouteRecordRaw[] = [
     },
     beforeEnter: roleGuard,
   },
+  {
+    path: "/admin/user/profile",
+    name: "admin.user.profile",
+    component: () => import("../views/UserProfile.vue"),
+    meta: {
+      label: "sidebar.profile",
+      requiredRoles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER],
+    },
+    beforeEnter: roleGuard,
+  },
 ];

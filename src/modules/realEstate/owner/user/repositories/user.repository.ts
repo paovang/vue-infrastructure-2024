@@ -121,4 +121,37 @@ export class UserRepository implements IUserRepository {
 
     return response.data;
   }
+
+  async getUserProfile(): Promise<any> {
+    const response = await this._api.axios({
+      method: "get",
+      url: "/owner/get-user-owner-profile",
+    });
+
+    return response.data;
+  }
+
+  async updateProfile(input: UserEntity): Promise<IResponse<UserEntity>> {
+    const response = await this._api.axios({
+      method: "put",
+      url: `/owner/update-user-owner-profile/${input.id}`,
+      data: {
+        customer_id: input.customer_id,
+        name: input.name,
+        owner: input.owner,
+        email: input.email,
+        address: input.address,
+        tel: input.tel,
+        id_no: input.id_no,
+        profile: input.profile,
+        id_image: input.id_image,
+      },
+    });
+
+    return {
+      data: response.data,
+      message: "ອັບເດດ ຂໍ້ມູນສຳເລັດເເລ້ວ",
+      status: "success",
+    };
+  }
 }

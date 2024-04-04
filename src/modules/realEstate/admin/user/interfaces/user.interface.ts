@@ -21,4 +21,8 @@ export interface IUserRepository {
   getAllRoles(): Promise<any>;
 
   getAllPermissions(): Promise<any>;
+
+  getUserProfile(): Promise<any>;
+
+  updateProfile(input: UserEntity): Promise<any>;
 }

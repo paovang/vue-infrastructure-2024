@@ -35,7 +35,12 @@
                         {{ $t('messages.description')}}
                         <span class="text-red-500"> *</span>
                     </label>
-                    <Editor editorStyle="min-height: 400px" v-model="getById.data.props.description" style="margin-top: 10px;" />
+                    <QuillEditor 
+                        :toolbar="toolbarOptions"
+                        v-model:content="getById.data.props.description" 
+                        content-type="html" 
+                        style="display: flex" 
+                    />
                 </div>
             </div>
             <div class="column is-12 is-mobile-12" style="text-align: right;">
@@ -61,7 +66,8 @@
     import Button from 'primevue/button';
     import Divider from 'primevue/divider';
     import MyInputText from '@/components/customComponents/FormInputText.vue';
-    import Editor from 'primevue/editor';
+    import { QuillEditor } from "@vueup/vue-quill";
+    import "@vueup/vue-quill/dist/vue-quill.snow.css";
     import { useI18n } from 'vue-i18n';
     import { useToast } from 'primevue/usetoast';
 
@@ -91,6 +97,16 @@
             await getData();
         }
     })
+
+    const toolbarOptions = [
+        [{ 'size': ['small', false, 'large', 'huge'] }],
+        ['bold', 'italic', 'underline', 'strike'],
+        ['link', 'image', 'video'],         
+        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        [{ 'color': [] }, { 'background': [] }],
+        [{ 'font': [] }],
+        [{ 'align': [] }]
+    ];
 
     const showWarningValidateBackend = () => {
         toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: `${state.error}`, life: 3000 });

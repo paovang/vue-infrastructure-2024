@@ -21,17 +21,19 @@
                         class="h-full" 
                     />
                 </div>
-                <div ref="editor"></div>
-
                 <div class="column is-12 is-mobile-12" style="margin-top: -30px;">
                     <label>
                         {{ $t('messages.description')}}
                         <span class="text-red-500"> *</span>
                     </label>
-                    <Editor editorStyle="min-height: 400px" v-model="getById.data.props.description" style="margin-top: 10px;" />
+                    <QuillEditor 
+                        :toolbar="toolbarOptions"
+                        v-model:content="getById.data.props.description" 
+                        content-type="html" 
+                    />
                 </div>
             </div>
-            <div class="column is-12 is-mobile-12" style="text-align: right;">
+            <div class="column is-12 is-mobile-12" style="text-align: right; margin-top: -20px">
                 <Button 
                     style="font-family: 'NotoSansLao','Montserrat', 'sans-serif'"
                     type="submit"
@@ -47,19 +49,17 @@
 
 <script setup lang="ts">
     import { useForm } from 'vee-validate';
-    import { onMounted, ref } from 'vue';
+    import { onMounted } from 'vue';
     import { adminPolicyStore } from '../stores/store';
     import { useRoute, useRouter } from 'vue-router';
     import { PEntity } from '../entities/entity';
     import Button from 'primevue/button';
     import Divider from 'primevue/divider';
     import MyInputText from '@/components/customComponents/FormInputText.vue';
-    import Editor from 'primevue/editor';
     import { useI18n } from 'vue-i18n';
     import { useToast } from 'primevue/usetoast';
-    import Quill from 'quill';
-
-    const editor = ref<Quill | null>(null);
+    import { QuillEditor } from "@vueup/vue-quill";
+    import "@vueup/vue-quill/dist/vue-quill.snow.css";
 
     const { getOne, getById, form, state, update } = adminPolicyStore();
 
@@ -85,6 +85,16 @@
             await getData();
         }
     })
+
+    const toolbarOptions = [
+        [{ 'size': ['small', false, 'large', 'huge'] }],
+        ['bold', 'italic', 'underline', 'strike'],
+        ['link', 'image', 'video'],         
+        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        [{ 'color': [] }, { 'background': [] }],
+        [{ 'font': [] }],
+        [{ 'align': [] }]
+    ];
 
     const showWarningValidateBackend = () => {
         toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: `${state.error}`, life: 3000 });
