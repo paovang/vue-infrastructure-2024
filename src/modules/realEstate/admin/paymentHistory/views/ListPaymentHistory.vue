@@ -34,7 +34,7 @@
                             v-model="form.customer_id" 
                             :options="getCustomers.data.props" 
                             :optionLabel="option => `${option.customer_number} > ${option.name} > ${option.owner} > ${option.tel}`" 
-                            placeholder="ກະລຸນາເລືອກກ່ອນ..." 
+                            :placeholder="$t('placeholder.dropdownSelect')" 
                             class="w-full" 
                             optionValue="id"
                             :highlightOnSelect="true" 
@@ -61,7 +61,7 @@
                             v-model="form.status" 
                             :options="paymentStatues" 
                             :optionLabel="option => `${option.name}`" 
-                            placeholder="ກະລຸນາເລືອກກ່ອນ..." 
+                            :placeholder="$t('placeholder.dropdownSelect')" 
                             class="w-full" 
                             optionValue="id"
                             :highlightOnSelect="true" 
@@ -105,23 +105,27 @@
                     </div>
                 </template>
             </Column>
+            <Column field="date_payment" :header="$t('table.header.date_payment')" headerStyle="min-width: 8rem"></Column>
+            <Column field="bill_no" :header="$t('table.header.bill_number')" headerStyle="min-width: 6rem"></Column>
             <Column :header="$t('table.header.name') +  ' / ' + $t('table.header.owner')" headerStyle="min-width: 12rem">
                 <template #body="{data}">
                     <span>{{ data.real_estate_list.account.name }}</span>
                     <span> - {{ data.real_estate_list.account.owner }}</span>
                 </template>
             </Column>
-            <Column field="bill_no" :header="$t('table.header.bill_number')" headerStyle="min-width: 6rem"></Column>
-            <Column field="date_payment" :header="$t('table.header.date_payment')" headerStyle="min-width: 8rem"></Column>
-            <Column :header="$t('table.header.unit_price')" headerStyle="min-width: 13rem">
+            <Column :header="$t('table.header.unit_price')" headerStyle="min-width: 10rem">
                 <template #body="{data}">
-                    {{ formatNumber(data.service_charge, data.currency) }}
-                    ( {{ data.qty }} / {{ data.unit_price }} )
+                    (<span>{{ data.qty }} / {{ data.unit_price }}</span>)
                 </template>
             </Column>
-            <Column field="amount" :header="$t('table.header.total')">
-                <template #body="{data}">
-                    {{ formatNumber(data.amount, data.currency) }}
+            <Column field="service_charges" :header="$t('table.header.service')" headerStyle="min-width: 13rem">
+                <template #body="{ data }">
+                    {{ conCatServiceChargePrices(data.payment_service_charges) }}
+                </template>
+            </Column>
+            <Column field="service_charges" :header="$t('table.header.total')" headerStyle="min-width: 14rem">
+                <template #body="{ data }">
+                    {{ conCatAndTotalServiceChargePrices(data.payment_service_charges, data.qty) }}
                 </template>
             </Column>
             <Column :header="$t('table.header.start_end_date')" headerStyle="min-width: 14rem">
@@ -150,17 +154,13 @@
     import Dropdown from 'primevue/dropdown';
     import InputText from 'primevue/inputtext';
     import { PaymentEntity } from '../entities/payment.entity';
-    // import { useConfirm } from "primevue/useconfirm";
-    // import { useToast } from "primevue/usetoast";
     import { useI18n } from 'vue-i18n';
     import { paymentServiceHistoryStore } from '../stores/payment-history.store';
     import PaymentHistoryComponent from '../components/PaymentHistory.Component.vue';
-    import { formatNumber } from '@/common/utils/format.currency';
     import { reportRentBuyStore } from '../../dashboard/stores/rent-store';
+    import { conCatAndTotalServiceChargePrices, conCatServiceChargePrices } from '@/common/utils/concat';
 
     const { t } = useI18n();
-    // const toast = useToast();
-    // const confirm = useConfirm();
 
     const { form, getAll, state, setStateFilter } = paymentServiceHistoryStore();
     const { getAllCustomers, getCustomers } = reportRentBuyStore();
@@ -223,6 +223,7 @@
         await onSearch();
     });
 </script>   
+
 <style scoped>
     .btn-right {
         display: flex;

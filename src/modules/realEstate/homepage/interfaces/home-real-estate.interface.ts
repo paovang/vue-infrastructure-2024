@@ -35,4 +35,8 @@ export interface IHomeRealEstateRepository {
   getAllData(filter: any): Promise<any>;
 
   getAboutUs(): Promise<any>;
+
+  getCurrencies(): Promise<any>;
+
+  getAllPolicy(): Promise<any>;
 }

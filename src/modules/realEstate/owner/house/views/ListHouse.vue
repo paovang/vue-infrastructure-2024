@@ -458,13 +458,13 @@
         await getAll();
         await getOne();
 
-        realestateType.props.unshift({ id: 'all', name: 'ທັງໝົດ' });
+        realestateType.props.unshift({ id: 'all', name: t('messages.all') });
        
         form.room_type = 'all';
         form.service_model = 'all';
         setStateProvinceFilter.limit = 1000;
         await getAllProvince();
-        stateProvince.data.props.unshift({ id: 'all', name: 'ທັງໝົດ' });
+        stateProvince.data.props.unshift({ id: 'all', name: t('messages.all') });
 
         form.real_estate_type_id = realestateType.props.length > 0 ? realestateType.props[0].id : undefined;
         form.province_id = stateProvince.data.props.length > 0 ? stateProvince.data.props[0].id : undefined;
@@ -472,7 +472,7 @@
         if (setStateDistrictFilter.filter) {
             setStateDistrictFilter.filter.province_id = form.province_id;
             await getAllDistrict();
-            stateDistrict.data.props.unshift({ id: 'all', name: 'ທັງໝົດ' });
+            stateDistrict.data.props.unshift({ id: 'all', name: t('messages.all') });
             await selectedDistrict();
 
         }
@@ -486,7 +486,7 @@
         if (setStateDistrictFilter.filter) {
             setStateDistrictFilter.filter.province_id = id;
             await getAllDistrict();
-            stateDistrict.data.props.unshift({ id: 'all', name: 'ທັງໝົດ' });
+            stateDistrict.data.props.unshift({ id: 'all', name: t('messages.all') });
             await selectedDistrict();
 
             if (setStateFilter.filter) {

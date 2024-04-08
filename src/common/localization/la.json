@@ -8,10 +8,10 @@
         "province": "ເເຂວງ",
         "district": "ເມືອງ",
         "service": "ຄ່າບໍລິການ",
-        "house": "ເຮືອນ ຫຼື ຫ້ອງເຊົ່າ",
-        "add_house": "ເພີ່ມ ເຮືອນ ຫຼື ຫ້ອງເຊົ່າ",
+        "house": "ຊັບສີນ",
+        "add_house": "ເພີ່ມ ຊັບສີນ",
         "payment_service": "ຊຳລະຄ່າບໍລິການ",
-        "edit_house": "ເເກ້ໄຂ ເຮືອນ ຫຼື ຫ້ອງເຊົ່າ",
+        "edit_house": "ເເກ້ໄຂ ຊັບສີນ",
         "user": "ຜູ້ໃຊ້ລະບົບ",
         "add_user": "ເພີ່ມ ຜູ້ໃຊ້ລະບົບ",
         "edit_user": "ອັບເດດ ຂໍ້ມູນຜູ້ໃຊ້ລະບົບ",
@@ -37,7 +37,7 @@
         "inputTextLocation": "ກະລຸນາປ້ອນ ໃສ່ລີ້ງເເຜນທີ່...",
         "inputTextGarage": "ກະລຸນາປ້ອນ ຈຳນວນລົດ...",
         "inputTextIdNo": "ກະລຸນາປ້ອນ ເລກບັດ, ໃບຂັບຂີ່, ໜັງສືຜ່ານເເດນ...",
-        "inputTextAddress": "ບ້ານ, ເມືອງ, ເເຂວງ..."
+        "inputTextAddress": "ຮ່ອມ, ບ້ານ, ເມືອງ, ເເຂວງ..."
     },
     "table": {
         "title": {
@@ -67,8 +67,8 @@
             "district": "ຊື່ເມືອງ",
             "customer": "ຊື່ລູກຄ້າ",
             "currency": "ສະກຸນເງີນ",
-            "owner": "ເຈົ້າຂອງ",
-            "name": "ຊື່",
+            "owner": "ຊື່ເຈົ້າຂອງ",
+            "name": "ຊື່ຜູ້ຂາຍ",
             "address": "ທີ່ຢູ່ປະຈຸບັນ",
             "email": "ອີເມວ",
             "phone_number": "ເບີໂທລະສັບ",
@@ -92,7 +92,7 @@
             "customer_number": "ລະຫັດລູກຄ້າ",
             "real_esate_number": "ລະຫັດສີນຄ້າ",
             "bill_number": "ເລກທີ່ບີນ",
-            "info_house": "ຂໍ້ມູນເຮືອນ",
+            "info_house": "ຂໍ້ມູນຊັບສີນ",
             "appointment": "ນັດໝາຍ",
             "customer_name": "ຊື່ລູກຄ້າ",
             "customer_phone": "ເບີໂທຕິດຕໍ່",
@@ -160,7 +160,8 @@
         "rent_buy": "ເຊົ່າ - ຊື້ຂາຍ",
         "sign_up": "ລົງທະບຽນ",
         "close": "ປິດ",
-        "rent_buy_from_appoint": "ເຊົ່າ - ຊື້ຂາຍ ຈາກການນັດໝາຍ"
+        "rent_buy_from_appoint": "ເຊົ່າ - ຊື້ຂາຍ ຈາກການນັດໝາຍ",
+        "payment": "ຊຳລະເງີນ"
     },
     "messages": {
         "country": "ປະເທດ",
@@ -168,11 +169,11 @@
         "district": "ເມືອງ",
         "customer": "ລູກຄ້າ",
         "service": "ບໍລິການ",
-        "house": "ເຮືອນ ຫຼື ຫ້ອງເຊົ່າ",
+        "house": "ຊັບສີນ",
         "form_register_customer": "ຟອມລົງທະບຽນ ຂໍ້ມູນລູກຄ້າ",
         "select": "ເລືອກ",
-        "name": "ຊື່",
-        "owner": "ເຈົ້າຂອງ",
+        "owner": "ຊື່ເຈົ້າຂອງ",
+        "name": "ຊື່ຜູ້ຂາຍ",
         "phone_number": "ເບີໂທລະສັບ",
         "email": "ອີເມວ",
         "address": "ທີ່ຢູ່ປະຈຸບັນ",
@@ -199,7 +200,7 @@
         "payment_service": "ຊຳລະຄ່າບໍລິການ",
         "payment": "ຊຳລະເງີນ",
         "form_register": "ຟອມລົງທະບຽນ",
-        "est_m": "ຈ່າຍຕໍ່ເດືອນ",
+        "est_m": "ຈ່າຍປະມານຕໍ່ເດືອນ",
         "details": "ລາຍລະອຽດ",
         "setting_price_for_rent": "ຕັ້ງຄ່າລາຄາ ຊື້ຂາຍ - ເຊົ່າ",
         "profile_and_gallery": "ໂປຮໄຟລ ເເລະ ເເກເລີລີ່",
@@ -263,6 +264,9 @@
         "service_daily": "ບໍລິການ ເຊົ່າລາຍວັນ",
         "service_monthly": "ບໍລິການ ເຊົ່າລາຍເດືອນ",
         "service_yearly": "ບໍລິການ ເຊົ່າລາຍປີ",
+        "day": "ມື້",
+        "month": "ເດືອນ",
+        "year": "ປີ",
         "real_estate_number": "ເລກລະຫັດ ຊັບສີນ",
         "real_estate": "ຊັບສີນ",
         "real_estate_name": "ຊື່ຊັບສີນ",
@@ -351,7 +355,8 @@
         "header": {
             "update_payment_service": "ອັບເດດ ການຊຳລະຄ່າບໍລິການ",
             "manage_appointment": "ຈັດການ ການນັດໝາຍ",
-            "manage_Rent_Buy": "ຈັດການ ເຊົ່າ - ຊື້ຂາຍ"
+            "manage_Rent_Buy": "ຈັດການ ເຊົ່າ - ຊື້ຂາຍ",
+            "service_charge": "ຄ່າບໍລິການ"
         }
     },
     "footer": {

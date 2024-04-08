@@ -43,4 +43,14 @@ export const ownerUserRoute: RouteRecordRaw[] = [
     },
     beforeEnter: roleGuard,
   },
+  {
+    path: "/owner/user/owner/profile",
+    name: "owner.user.owner.profile",
+    component: () => import("../views/UserOwnerProfile.vue"),
+    meta: {
+      label: "sidebar.profile",
+      requiredRoles: [GET_ROLES.ADMIN_OWNER, GET_ROLES.USER_OWNER],
+    },
+    beforeEnter: roleGuard,
+  },
 ];

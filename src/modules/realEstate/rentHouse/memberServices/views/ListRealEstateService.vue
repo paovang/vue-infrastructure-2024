@@ -1,79 +1,6 @@
 <template>
     <div>
         <div class="card">
-            <form @submit.prevent="isEditing ? onUpdate() : onSubmit()" class="flex flex-column gap-3 h-full">
-                <div class="columns is-12">
-                    <div class="column is-mobile-12 is-2">
-                        <label>
-                            {{ $t('messages.select')}} {{ $t('messages.country')}}
-                            <span class="text-red-500"> *</span>
-                        </label>
-                        <Dropdown 
-                            style="margin-top: 8px; width: 100% !important"
-                            v-model="form.country_id" 
-                            :options="stateCountry.data.props" 
-                            optionLabel="name" 
-                            optionValue="id"
-                            :highlightOnSelect="true" 
-                            :placeholder="$t('placeholder.dropdownSelect')" 
-                            class="w-full md:w-14rem" 
-                        />
-                    </div>
-                    <div class="column is-mobile-12 is-3">
-                        <label>
-                            {{ $t('messages.select')}} {{ $t('messages.realestate_type')}}
-                            <span class="text-red-500"> *</span>
-                        </label>
-                        <Dropdown 
-                            style="margin-top: 8px; width: 100% !important"
-                            v-model="form.real_estate_type_id" 
-                            :options="realestateType.props" 
-                            optionLabel="name" 
-                            optionValue="id"
-                            :highlightOnSelect="true" 
-                            :placeholder="$t('placeholder.dropdownSelect')" 
-                            class="w-full md:w-14rem" 
-                        />
-                    </div>
-                    <div class="column is-mobile-12 is-2">
-                        <label>
-                            {{ $t('messages.select')}} {{ $t('messages.unit_price')}}
-                            <span class="text-red-500"> *</span>
-                        </label>
-                        <Dropdown 
-                            style="margin-top: 8px; width: 100% !important"
-                            v-model="form.unit_price" 
-                            :options="unitPrices" 
-                            optionLabel="name" 
-                            optionValue="id"
-                            :highlightOnSelect="true" 
-                            :placeholder="$t('placeholder.dropdownSelect')"  
-                            class="w-full md:w-14rem" 
-                        />
-                    </div>
-                    <div class="column is-mobile-12 is-3">
-                        <my-input-number
-                            ref="autoFocusCursor"
-                            name="service_charge"
-                            :label="$t('messages.price')"
-                            required
-                            :placeholder="$t('placeholder.inputNumber')" 
-                        />
-                    </div>
-                    <div class="column is-mobile-12 is-2">
-                        <Button
-                            type="submit"
-                            severity="warning" 
-                            :loading="state.btnLoading"
-                            style="margin-top: 30px; font-family: 'NotoSansLao','Montserrat', 'sans-serif'"
-                        >
-                            <i :class="isEditing ? 'pi pi-pencil' : 'pi pi-plus-circle' " style="margin-right: 5px;"></i>
-                            {{ isEditing ? $t('button.edit') : $t('button.save') }} {{ $t('messages.service')}}
-                        </Button>
-                    </div>
-                </div>
-            </form>
-            <hr style="margin-top: 5px;"/>
             <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
                 <span class="p-input-icon-left w-full sm:w-20rem flex-order-1 sm:flex-order-0">
                     <h2 class="mb-3" style="font-weight: bold; font-size: 24px;">
@@ -83,14 +10,22 @@
                 <span class="w-full sm:w-auto flex-order-0 sm:flex-order-1 mb-4 sm:mb-0">
                     <Button 
                         style="color: white;"
+                        :label="$t('button.add')"
+                        severity="info" 
+                        :loading="state.btnLoading"
+                        @click="addItem()"
+                    />
+                    <span style="margin-left: 10px;"></span>
+                    <Button 
+                        style="color: white;"
                         icon="pi pi-refresh"
-                        rounded 
                         severity="warning" 
                         :loading="state.btnLoading"
                         @click="refreshData()"
                     />
                 </span>
             </div>
+            <hr style="margin-top: 5px;"/>
             <DataTable 
                 :value="state.data.props" 
                 paginator 
@@ -110,15 +45,14 @@
                         {{ item.index + 1 }}
                     </template>
                 </Column>
-                <Column field="country.name" :header="$t('table.header.country')" style="width: 20%"></Column>
-                <Column field="real_estate_type.name" :header="$t('table.header.realestate_type')" style="width: 20%;"></Column>
-                <Column field="service_charge" :header="$t('table.header.service')" style="width: 20%;">
-                    <template #body="slotProps">
-                        {{ formatCurrency(slotProps.data.service_charge, slotProps.data) }}
+                <Column field="real_estate_type.name" :header="$t('table.header.realestate_type')"></Column>
+                <Column field="service_charges" :header="$t('table.header.service')">
+                    <template #body="{ data }">
+                        {{ conCatServiceChargePrices(data.service_charges) }}
                     </template>
                 </Column>
-                <Column field="unit_price" :header="$t('table.header.unit_price')" style="width: 20%"></Column>
-                <Column headerStyle="width: 10rem">
+                <Column field="unit_price" :header="$t('table.header.unit_price')"></Column>
+                <Column headerStyle="min-width: 6rem">
                     <template #body="{ data }">
                         <div class="flex flex-wrap gap-2 btn-right">
                             <Button 
@@ -127,7 +61,7 @@
                                 rounded 
                                 severity="warning"  
                                 style="color: white;" 
-                                @click="editItem(data)"
+                                @click="EditItem(data)"
                             />
                             <Button 
                                 type="button" 
@@ -141,83 +75,68 @@
                 </Column>
             </DataTable>
         </div>
+
+        <add-real-estate-service-charge 
+            ref="createForm" 
+            @on-success="onSuccess"
+            :realestate-type="realestateType"
+            :unit-prices="unitPrices"
+            :currencies="currencies"
+        />
+
+        <edit-real-estate-service-charge 
+            ref="editForm" 
+            @on-success="onSuccess"
+            :data="data"
+            :realestate-type="realestateType"
+            :unit-prices="unitPrices"
+            :currencies="currencies"
+        />
+
     </div>
 </template>
 
 <script setup lang="ts">
     import { ref, onMounted, computed } from 'vue';
-    import MyInputNumber from '@/components/customComponents/FormInputNumber.vue';
-    import Dropdown from 'primevue/dropdown';
     import { realEstateServiceStore } from '../stores/real-estate-service.store';
-    import { countryStore } from '@/modules/realEstate/address/stores/country.store';
     import { useRoute, useRouter } from 'vue-router';
     import Button from 'primevue/button';
-    import { useForm } from 'vee-validate';
-    import { realEstateServiceSchema } from '../schema/real-estate-service.schema';
     import { useToast } from "primevue/usetoast";
     import DataTable, { type DataTablePageEvent } from 'primevue/datatable';
     import Column from 'primevue/column';
     import { RealEstateServiceEntity } from '../entities/real-estate-service.entity';
     import { useConfirm } from "primevue/useconfirm";
     import { useI18n } from 'vue-i18n';
+    import { conCatServiceChargePrices } from '@/common/utils/concat';
+    import addRealEstateServiceCharge from '../components/Add.Component.vue';
+    import editRealEstateServiceCharge from '../components/Edit.Component.vue';
+    import { homerealEstateStore } from '@/modules/realEstate/homepage/stores/home.store';
 
     const { t } = useI18n();
     const toast = useToast();
     const confirm = useConfirm();
 
     const isEditing = ref(false);   
-    const autoFocusCursor = ref();
 
-    const { register, update, remove, getOne, getAll, form, state, setStateFilter, realestateType, unitPrices } = realEstateServiceStore();
-    const { getAll: getAllCountry, state: stateCountry, setStateFilter: setStateCountyFilter } = countryStore();
+    const unitPrices = ref([
+        { id: 'day', name: t('messages.day') },
+        { id: 'month', name: t('messages.month') },
+        { id: 'year', name: t('messages.year') },
+    ]);
+
+    const { remove, getOne, getAll, form, state, setStateFilter, realestateType } = realEstateServiceStore();
+    const { getCurrencies, currencies } = homerealEstateStore();
 
     const { push } = useRouter()
     const { query } = useRoute()
 
-    const translatedErrorMessages = {
-        service_charge: t('placeholder.inputText')
+    const createForm = ref();
+    const addItem = async () => {
+        createForm.value.visible = true;
     }
-    const { handleSubmit, handleReset, setFieldValue } = useForm<any>({
-        validationSchema: realEstateServiceSchema(translatedErrorMessages)
-    })
 
-    const onSubmit = handleSubmit(async(value) => {
-        form.service_charge = value.service_charge;
-
-        await register();
-        
-        if (state.error) {
-            await showWarningValidateBackend();
-        } else {
-            await showToastSuccess();
-            await handleReset();
-            await fetchCountry();
-        }
-    })
-
-    const onUpdate = handleSubmit(async(value) => {
-        form.service_charge = value.service_charge;
-
-        await update();
-        
-        if (state.error) {
-            await showWarningValidateBackend();
-        } else {
-            isEditing.value = false;
-            await showToastSuccess();
-            await handleReset();
-            await fetchCountry();
-        }
-    })
-
-    const editItem = async(value: RealEstateServiceEntity) => {
-        isEditing.value = true;
-        setFieldValue('service_charge', value.service_charge);
-        form.id = value.id;
-        form.country_id = value.country?.id;
-        form.real_estate_type_id = value.real_estate_type?.id;
-        form.unit_price = value.unit_price;
-        await scrollToInput();
+    const onSuccess = async () => {
+        await fetchData();
     }
 
     async function onPageChange(event: DataTablePageEvent) {
@@ -240,20 +159,17 @@
     })
 
     onMounted(async () => {
-        await initComponent();
         await fetchData();
     })
 
 
     const fetchData = async () => {
+        await initComponent();
         await fetchCountry();
+        await getCurrencies();
     }
 
     const fetchCountry = async () => {
-        setStateCountyFilter.limit = 200;
-        await getAllCountry();
-        form.country_id = stateCountry.data.props.length > 0 ? stateCountry.data.props[0].id : undefined;
-
         await getOne();
         form.real_estate_type_id = realestateType.props.length > 0 ? realestateType.props[0].id : undefined;
     }
@@ -279,10 +195,16 @@
         await getAll()
     }
 
+    const data = ref();
+    const editForm = ref();
+    const EditItem = async (value: any) => {
+        data.value = value;
+        editForm.value.visible = true;
+    }   
+
     const deleteItem = async (id: RealEstateServiceEntity) => {
         await remove(id);
         await fetchData();
-        await handleReset();
         await fetchCountry();
     }
 
@@ -304,52 +226,14 @@
         });
     }
 
-    const showToastSuccess = () => {
-        toast.add({ severity: 'success', summary: t('toast.summary.success'), detail: t('toast.detail.successfully'), life: 3000 });
-    }
-
-    const showWarningValidateBackend = () => {
-        toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: `${state.error}`, life: 3000 });
-    }
-
     const refreshData = async () => {
         state.btnLoading = true;
-        await handleReset();
         await getAll();
         await fetchCountry();
         form.unit_price = 'day';
         isEditing.value = false;
         state.btnLoading = false;
     }
-
-    const formatCurrency = (value: any, data: any) => {
-        return  value.toLocaleString('en-US') + ' ' + data.country.currency;
-        // return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-    };
-
-    const scrollToInput = async () => {
-        // Ensure nameInput is available
-        if (autoFocusCursor.value) {
-            const inputElement = autoFocusCursor.value.$el;
-            const inputRect = inputElement.getBoundingClientRect();
-
-            // Check if the input is already in the viewport
-            if (inputRect.top >= 0 && inputRect.bottom <= window.innerHeight) {
-                inputElement.querySelector('input')?.focus();
-            } else {
-                // If not, scroll to the input element
-                window.scrollTo({
-                    top: window.scrollY + inputRect.top - window.innerHeight / 2,
-                    behavior: 'smooth',
-                });
-
-                // Focus on the input after scrolling completes
-                setTimeout(() => {
-                    inputElement.querySelector('input')?.focus();
-                }, 500); // Adjust the timeout based on your scroll duration
-            }
-        }
-    };
 
 </script>
 

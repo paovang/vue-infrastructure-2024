@@ -17,14 +17,14 @@ export class RealEstateServiceRepository
   async create(
     input: RealEstateServiceEntity
   ): Promise<IResponse<RealEstateServiceEntity>> {
+    console.log(input);
     const response = await this._api.axios({
       method: "post",
       url: "/admin/service-charge",
       params: {
-        country_id: input.country_id,
         real_estate_type_id: input.real_estate_type_id,
-        service_charge: input.service_charge,
         unit_price: input.unit_price,
+        service_charges: input.serviceChargePrices,
       },
     });
 
@@ -38,14 +38,14 @@ export class RealEstateServiceRepository
   async update(
     input: RealEstateServiceEntity
   ): Promise<IResponse<RealEstateServiceEntity>> {
+    console.log(input.serviceChargePrices);
     const response = await this._api.axios({
       method: "put",
       url: "/admin/service-charge/" + input.id,
       params: {
-        country_id: input.country_id,
         real_estate_type_id: input.real_estate_type_id,
-        service_charge: input.service_charge,
         unit_price: input.unit_price,
+        service_charges: input.serviceChargePrices,
       },
     });
 

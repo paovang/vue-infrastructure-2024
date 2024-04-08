@@ -208,10 +208,10 @@
     import { HouseEntity } from '../../../owner/house/entities/house.entity';
     // import { useConfirm } from "primevue/useconfirm";
     // import { useToast } from "primevue/usetoast";
-    // import { useI18n } from 'vue-i18n';
+    import { useI18n } from 'vue-i18n';
     import { dashboardStore } from '../stores/store';
 
-    // const { t } = useI18n();
+    const { t } = useI18n();
     const router = useRouter()
     const { query } = useRoute()
 
@@ -222,16 +222,16 @@
     const { getOne, realestateType } = realEstateServiceStore();
 
     const servicemodels = ref([
-        { id: 'all', name: 'ທັງໝົດ' },
-        { id: 'sale', name: 'ຂາຍ' },
-        { id: 'rent', name: 'ເຊົ່າ' }
+        { id: 'all', name: t('messages.all') },
+        { id: 'sale', name: t('messages.service_sale') },
+        { id: 'rent', name: t('messages.service_rent') }
     ]);
 
     const roomTypes = ref([
-        { id: 'all', name: 'ທັງໝົດ' },
-        { id: 'air', name: 'ເເອ' },
-        { id: 'fan', name: 'ພັດລົມ' },
-        { id: 'no', name: 'ບໍ່ມີ' },
+        { id: 'all', name: t('messages.all') },
+        { id: 'air', name: t('messages.air') },
+        { id: 'fan', name: t('messages.fan') },
+        { id: 'no', name: t('messages.none') },
     ]);
 
     async function initComponent() {
@@ -329,24 +329,24 @@
         await getAllRealEstate();
         await getOne();
 
-        realestateType.props.unshift({ id: 'all', name: 'ທັງໝົດ' });
+        realestateType.props.unshift({ id: 'all', name: t('messages.all') });
        
         form.room_type = 'all';
         form.service_model = 'all';
 
         /** Get Countries */
         await getAllCountries();
-        await getCountries.data.props.unshift({ id: 'all', name: 'ທັງໝົດ' });
+        await getCountries.data.props.unshift({ id: 'all', name: t('messages.all') });
         form.country_id = getCountries.data.props.length > 0 ? getCountries.data.props[0].id : undefined;
 
         await getAllProvinces(getCountries.data.props[0].id as HouseEntity);
-        getProvinces.data.props.unshift({ id: 'all', name: 'ທັງໝົດ' });
+        getProvinces.data.props.unshift({ id: 'all', name: t('messages.all') });
 
         form.real_estate_type_id = realestateType.props.length > 0 ? realestateType.props[0].id : undefined;
         form.province_id = getProvinces.data.props.length > 0 ? getProvinces.data.props[0].id : undefined;
         
         await getAllDistricts(getProvinces.data.props[0].id);
-        await getDistricts.data.props.unshift({ id: 'all', name: 'ທັງໝົດ' });
+        await getDistricts.data.props.unshift({ id: 'all', name: t('messages.all') });
         await selectedDistrict();
     }
 
@@ -357,7 +357,7 @@
     const filterProvinceById = async (id: any) => {
         if (setStateFilter.filter) {
             await getAllProvinces(id);
-            getProvinces.data.props.unshift({ id: 'all', name: 'ທັງໝົດ' });
+            getProvinces.data.props.unshift({ id: 'all', name: t('messages.all') });
             form.province_id = getProvinces.data.props.length > 0 ? getProvinces.data.props[0].id : undefined;
 
             if (setStateFilter.filter) {
@@ -372,7 +372,7 @@
 
     const filterDistrictByid = async (id: any) => {
         await getAllDistricts(id);
-        await getDistricts.data.props.unshift({ id: 'all', name: 'ທັງໝົດ' });
+        await getDistricts.data.props.unshift({ id: 'all', name: t('messages.all') });
         await selectedDistrict();
 
         if (setStateFilter.filter) {

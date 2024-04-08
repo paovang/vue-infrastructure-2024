@@ -44,7 +44,7 @@
                         {{ realEstateGetOne.data.props.status }}
                     </span>
                     <span>
-                        | {{ realEstateGetOne.data.props.name }}
+                        | {{ $t('messages.name') }}: {{ realEstateGetOne.data.props.name }}
                     </span>
                 </p>
                 <p style="margin-top: 5px;">

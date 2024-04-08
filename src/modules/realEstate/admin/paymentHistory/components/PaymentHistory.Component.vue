@@ -78,9 +78,9 @@
                 <span>
                     {{$t('messages.province')}}: {{ props.data.real_estate_list.province.name }}
                 </span>
-                <span>
+                <!-- <span>
                     {{$t('messages.country')}}: {{ props.data.service_charge_list.country.name }}
-                </span>
+                </span> -->
             </div>
         </Fieldset>
         <br/>
@@ -88,24 +88,29 @@
             <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
                 <span>
                     {{$t('messages.service_charge')}}: 
-                    {{ formatNumber(props.data.service_charge, props.data.currency) }}
+                    {{ conCatServiceChargePrices(props.data.payment_service_charges) }}
                     ({{ props.data.qty }} / {{ props.data.unit_price }})
                 </span>
+            </div>
+            <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
                 <span>
-                    {{$t('messages.total_price')}}: {{ formatNumber(props.data.amount, props.data.currency) }}
+                    {{$t('messages.total_price')}}: {{ conCatAndTotalServiceChargePrices(props.data.payment_service_charges, props.data.qty) }}
                 </span>
+            </div>
+            <div>
                 <span>
                     {{$t('messages.status')}}: {{ props.data.status }}
                 </span>
-            </div>
-            <br/>
-            <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
+                <span style="margin-left: 40px;"></span>
                 <span>
                     {{$t('messages.payment_date')}}: {{ props.data.date_payment }}
                 </span>
+            </div>
+            <div>
                 <span>
                     {{$t('messages.from_date')}}: {{ props.data.from_date }}
                 </span>
+                <span style="margin-left: 40px;"></span>
                 <span>
                     {{$t('messages.to_date')}}: {{ props.data.to_date }}
                 </span>
@@ -137,10 +142,9 @@
     import Divider from 'primevue/divider';
     import Button from 'primevue/button';
     import { paymentServiceHistoryStore } from '../stores/payment-history.store';
-    // import Button from 'primevue/button';
     import { useI18n } from 'vue-i18n';
     import { useToast } from 'primevue/usetoast';
-    import { formatNumber } from '@/common/utils/format.currency';
+import { conCatAndTotalServiceChargePrices, conCatServiceChargePrices } from '@/common/utils/concat';
 
     const { form, state, updatePaymentService } = paymentServiceHistoryStore();
 

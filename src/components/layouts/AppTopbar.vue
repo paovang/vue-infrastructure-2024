@@ -41,7 +41,7 @@
     <Sidebar v-model:visible="visibleRight" position="right" class="w-full sm:w-25rem">
     <h2>{{ getUserProfile.data.props.name }}</h2>
     <ul class="list-none mt-3 p-0">
-      <li @click="gotToUserOwnerProfile" v-if="getUserProfile.data.props.role.name === 'admin-owner'">
+      <li @click="gotToAdminOwnerProfile" v-if="getUserProfile.data.props.role.name === 'admin-owner'">
         <a
           class="cursor-pointer flex surface-border mb-3 p-3 align-items-center border-1 surface-border border-round hover:surface-hover transition-colors transition-duration-150"
         >
@@ -52,7 +52,18 @@
           </div>
         </a>
       </li>
-      <li @click="gotToUserProfile" v-if="getUserProfile.data.props.role.name !== 'admin-owner'">
+      <li @click="gotToUserOwnerProfile" v-if="getUserProfile.data.props.role.name === 'user-owner'">
+        <a
+          class="cursor-pointer flex surface-border mb-3 p-3 align-items-center border-1 surface-border border-round hover:surface-hover transition-colors transition-duration-150"
+        >
+          <span> <i class="pi pi-user text-xl text-color"></i> </span>
+          <div class="ml-3">
+            <span class="mb-2 font-semibold">{{ $t('messages.profile') }}</span>
+            <p class="text-color-secondary m-0">{{ $t('messages.my_profile') }}</p>
+          </div>
+        </a>
+      </li>
+      <li @click="gotToUserProfile" v-if="getUserProfile.data.props.role.name !== 'admin-owner' && getUserProfile.data.props.role.name !== 'user-owner' ">
         <a
           class="cursor-pointer flex surface-border mb-3 p-3 align-items-center border-1 surface-border border-round hover:surface-hover transition-colors transition-duration-150"
         >
@@ -115,10 +126,17 @@
     })
   }
 
-  const gotToUserOwnerProfile = () => {
+  const gotToAdminOwnerProfile = () => {
     visibleRight.value = false;
     router.push({
       name: 'owner.user.profile'
+    })
+  }
+
+  const gotToUserOwnerProfile = () => {
+    visibleRight.value = false;
+    router.push({
+      name: 'owner.user.owner.profile'
     })
   }
 

@@ -40,7 +40,7 @@
                             style="margin-top: 8px;"
                             v-model="form.service_charge_id" 
                             :options="findRealEstateService.data.props" 
-                            :optionLabel="option => `${option.unit_price} - ${formatNumber(option.service_charge, option.currency)}`" 
+                            :optionLabel="option => `${option.unit_price} - ${conCatServiceChargePrices(option.service_charges)}`" 
                             :placeholder="$t('placeholder.dropdownSelect')" 
                             class="w-full" 
                             optionValue="id"
@@ -132,6 +132,7 @@
     import { useToast } from 'primevue/usetoast';
     import { useI18n } from 'vue-i18n';
     import { formatNumber } from '@/common/utils/format.currency';
+import { conCatServiceChargePrices } from '@/common/utils/concat';
 
 
     const { t } = useI18n();

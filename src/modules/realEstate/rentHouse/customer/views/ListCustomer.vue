@@ -601,7 +601,7 @@
     onMounted(async () => {
         await initComponent();
         await fetchData();
-        stateCountry.data.props.unshift({ id: 'all', name: 'ທັງໝົດ' });
+        stateCountry.data.props.unshift({ id: 'all', name: t('messages.all') });
     })
 
     const fetchData = async () => {

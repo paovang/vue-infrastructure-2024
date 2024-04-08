@@ -219,6 +219,34 @@ export const homerealEstateStore = defineStore("home-real-estate-store", () => {
     }
   }
 
+  const currencies = reactive<any>({
+    data: {
+      props: [],
+    },
+  });
+
+  async function getCurrencies() {
+    const response = await service.getCurrencies();
+
+    if (response && response.data && response.message === "success") {
+      currencies.data.props = response.data;
+    }
+  }
+
+  const policy = reactive<any>({
+    data: {
+      props: "",
+    },
+  });
+
+  async function getAllPolicy() {
+    const response = await service.getAllPolicy();
+
+    if (response && response.data && response.message === "success") {
+      policy.data.props = response.data;
+    }
+  }
+
   return {
     state,
     getAll,
@@ -238,5 +266,9 @@ export const homerealEstateStore = defineStore("home-real-estate-store", () => {
     footer,
     getAboutUs,
     aboutUs,
+    getCurrencies,
+    currencies,
+    getAllPolicy,
+    policy,
   };
 });

@@ -151,4 +151,22 @@ export class HomeRealEstateRepository implements IHomeRealEstateRepository {
 
     return response.data;
   }
+
+  async getCurrencies(): Promise<any> {
+    const response = await this._api.axios({
+      method: "get",
+      url: `/currencies`,
+    });
+
+    return response.data;
+  }
+
+  async getAllPolicy(): Promise<any> {
+    const response = await this._api.axios({
+      method: "get",
+      url: `/policy`,
+    });
+
+    return response.data;
+  }
 }

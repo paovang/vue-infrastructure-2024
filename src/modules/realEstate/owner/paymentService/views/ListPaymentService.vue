@@ -7,7 +7,7 @@
                 </h2>
             </span>
             <span>
-                <Button :label="$t('button.add')" severity="info"  @click="paymentService" />
+                <Button :label="$t('button.payment')" severity="info"  @click="paymentService" />
             </span>
         </div>
         <Divider/>
@@ -27,44 +27,44 @@
             :currentPageReportTemplate="`${$t('table.pagination.show')} {first} ${$t('table.pagination.to')} {last} ${$t('table.pagination.from')} {totalRecords} ${$t('table.pagination.row')}`"
         >
             <template #header>
-                    <div class="col-12 md:col-12 flex flex-row">
-                        <div class="col-12 md:col-3">
-                            <label>
-                                {{ $t('messages.payment_date')}}
-                            </label>
-                            <Calendar 
-                                v-model="paymentDate" 
-                                showIcon
-                                style="width: 100%;" 
-                                @date-select="onSearch"
-                                @input="onSearch"
-                            />
-                        </div>
-                        <div class="col-12 md:col-3">
-                            <label>
-                                {{ $t('messages.status')}}
-                            </label>
-                            <Dropdown 
-                                name="status"
-                                v-model="form.status" 
-                                :options="paymentStatues" 
-                                :optionLabel="option => `${option.name}`" 
-                                :placeholder="$t('placeholder.dropdownSelect')" 
-                                class="w-full" 
-                                optionValue="id"
-                                :highlightOnSelect="true" 
-                                @change="onSearch"
-                            />
-                        </div>
-                        <div class="col-12 md:col-6" style="text-align: right;">
-                            <Button 
-                                icon="pi pi-refresh" 
-                                severity="warning" 
-                                style="margin-top: 22px !important; color: white" 
-                                @click="clearSearch"
-                            />
-                        </div>
+                <div class="col-12 md:col-12 flex flex-row">
+                    <div class="col-12 md:col-3">
+                        <label>
+                            {{ $t('messages.payment_date')}}
+                        </label>
+                        <Calendar 
+                            v-model="paymentDate" 
+                            showIcon
+                            style="width: 100%;" 
+                            @date-select="onSearch"
+                            @input="onSearch"
+                        />
                     </div>
+                    <div class="col-12 md:col-3">
+                        <label>
+                            {{ $t('messages.status')}}
+                        </label>
+                        <Dropdown 
+                            name="status"
+                            v-model="form.status" 
+                            :options="paymentStatues" 
+                            :optionLabel="option => `${option.name}`" 
+                            :placeholder="$t('placeholder.dropdownSelect')" 
+                            class="w-full" 
+                            optionValue="id"
+                            :highlightOnSelect="true" 
+                            @change="onSearch"
+                        />
+                    </div>
+                    <div class="col-12 md:col-6" style="text-align: right;">
+                        <Button 
+                            icon="pi pi-refresh" 
+                            severity="warning" 
+                            style="margin-top: 22px !important; color: white" 
+                            @click="clearSearch"
+                        />
+                    </div>
+                </div>
             </template>
 
             <Column headerStyle="min-width: 8rem" frozen>
@@ -100,7 +100,7 @@
                     {{ item.index + 1 }}
                 </template>
             </Column>
-            <Column field="date_payment" :header="$t('table.header.date_payment')" headerStyle="min-width: 12rem"></Column>
+            <Column field="date_payment" :header="$t('table.header.date_payment')" headerStyle="min-width: 10rem"></Column>
             <Column field="bill_no" :header="$t('table.header.bill_number')" headerStyle="min-width: 8rem"></Column>
             <Column :header="$t('table.header.info_house')" headerStyle="min-width: 20rem">
                 <template #body="{data}">
@@ -110,15 +110,19 @@
                     </span>
                 </template>
             </Column>
-            <Column :header="$t('table.header.unit_price')" headerStyle="min-width: 14rem">
+            <Column :header="$t('table.header.unit_price')" headerStyle="min-width: 10rem">
                 <template #body="{data}">
-                    <span>{{ formatNumber(data.service_charge, data.service_charge_list.currency) }}</span>
                     (<span>{{ data.qty }} / {{ data.unit_price }}</span>)
                 </template>
             </Column>
-            <Column field="service_charge" :header="$t('table.header.total')" headerStyle="min-width: 8rem">
-                <template #body="slotProps">
-                    {{ formatCurrency(slotProps.data.amount, slotProps.data) }}
+            <Column field="service_charges" :header="$t('table.header.service')" headerStyle="min-width: 13rem">
+                <template #body="{ data }">
+                    {{ conCatServiceChargePrices(data.payment_service_charges) }}
+                </template>
+            </Column>
+            <Column field="service_charges" :header="$t('table.header.total')" headerStyle="min-width: 14rem">
+                <template #body="{ data }">
+                    {{ conCatAndTotalServiceChargePrices(data.payment_service_charges, data.qty) }}
                 </template>
             </Column>
             <Column :header="$t('table.header.start_end_date')" headerStyle="min-width: 14rem">
@@ -164,7 +168,7 @@
     import { useConfirm } from "primevue/useconfirm";
     import { useToast } from "primevue/usetoast";
     import { useI18n } from 'vue-i18n';
-    import { formatNumber } from '@/common/utils/format.currency';
+    import { conCatAndTotalServiceChargePrices, conCatServiceChargePrices } from '@/common/utils/concat';
 
     const { t } = useI18n();
     const toast = useToast();
@@ -235,10 +239,6 @@
     const paymentService = async () => {
         createForm.value.visible = true;
     }
-
-    const formatCurrency = (value: any, data: any) => {
-        return value.toLocaleString('en-US') + '' + data.currency;
-    };
 
     const onSuccess = async () => {
         await getAll();

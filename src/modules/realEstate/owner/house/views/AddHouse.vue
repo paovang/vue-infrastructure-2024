@@ -216,7 +216,7 @@
                                 </label>
                                 <input-number 
                                     v-model="(input.price as number)" 
-                                    placeholder="ກະລຸນາປ້ອນກ່ອນ..." 
+                                    :placeholder="$t('placeholder.inputNumber')" 
                                     required 
                                     style="font-family: 'NotoSansLao','Montserrat', 'sans-serif'; width: 100% !important;" 
                                 />

@@ -13,6 +13,8 @@ import { GetAllDataHomeRealEstateUseCase } from "../use-cases/get-all-data";
 import { RegisterCustomerUseCase } from "../use-cases/register.use-case";
 import { SignUpEntity } from "../entities/sign-up.entity";
 import { GetAboutUsUseCase } from "../use-cases/get-about-us.use-case";
+import { GetAllCurrenciesUseCase } from "../use-cases/get-currency";
+import { GetAllPolicyUseCase } from "../use-cases/get-all-policy.use-case";
 
 @injectable()
 export class HomeRealEstateService {
@@ -26,7 +28,10 @@ export class HomeRealEstateService {
     @inject(GetAllDataHomeRealEstateUseCase)
     private _getAllData: GetAllDataHomeRealEstateUseCase,
     @inject(RegisterCustomerUseCase) private _register: RegisterCustomerUseCase,
-    @inject(GetAboutUsUseCase) private _getAboutUs: GetAboutUsUseCase
+    @inject(GetAboutUsUseCase) private _getAboutUs: GetAboutUsUseCase,
+    @inject(GetAllCurrenciesUseCase)
+    private _getAllCurrencies: GetAllCurrenciesUseCase,
+    @inject(GetAllPolicyUseCase) private _getAllPolicy: GetAllPolicyUseCase
   ) {}
 
   async reserve(input: ReserveRealEstateEntity) {
@@ -67,5 +72,13 @@ export class HomeRealEstateService {
 
   async getAboutUs(): Promise<any> {
     return await this._getAboutUs.execute();
+  }
+
+  async getCurrencies(): Promise<any> {
+    return await this._getAllCurrencies.execute();
+  }
+
+  async getAllPolicy(): Promise<any> {
+    return await this._getAllPolicy.execute();
   }
 }

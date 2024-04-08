@@ -112,7 +112,7 @@
             <Column field="customer_name" :header="$t('table.header.customer_name')" headerStyle="min-width: 8rem"></Column>
             <Column field="customer_tel" :header="$t('table.header.customer_phone')" headerStyle="min-width: 8rem"></Column>
             <Column field="real_estate_list.real_esate_number" :header="$t('table.header.real_esate_number')" headerStyle="min-width: 8rem"></Column>
-            <Column field="real_estate_list.real_estate_type.name" :header="$t('table.header.real_estate_type')" headerStyle="min-width: 8rem"></Column>
+            <Column field="real_estate_list.real_estate_type.name" :header="$t('table.header.real_estate_type')" headerStyle="min-width: 10rem"></Column>
             <Column field="real_estate_list.name" :header="$t('table.header.name')" headerStyle="min-width: 8rem"></Column>
             <Column field="service_model" :header="$t('table.header.service_model')" headerStyle="min-width: 8rem"></Column>
             <Column field="from_date" :header="$t('table.header.from_date')" headerStyle="min-width: 8rem"></Column>
@@ -174,9 +174,9 @@
     const toast = useToast();
 
     const serviceModels = ref([
-        { id: 'all', name: 'ທັງໝົດ' },
-        { id: 'rent', name: 'ເຊົ່າ' },
-        { id: 'buy', name: 'ຊື້ຂາຍ' }
+        { id: 'all', name: t('messages.all') },
+        { id: 'rent', name: t('messages.service_rent') },
+        { id: 'buy', name: t('messages.service_sale') }
     ]);
     const createFromAppointment = ref();
     const editRentAndBuy = ref();

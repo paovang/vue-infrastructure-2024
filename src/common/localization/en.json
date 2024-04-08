@@ -37,7 +37,7 @@
         "inputTextLocation": "Please Enter Link Location...",
         "inputTextGarage": "Total Car...",
         "inputTextIdNo": "Please Enter Card ID NO...",
-        "inputTextAddress": "City, State, Zip Code..."
+        "inputTextAddress": "Address, City, State, Zip Code..."
     },
     "table": {
         "title": {
@@ -67,8 +67,8 @@
             "district": "District",
             "customer": "Customer",
             "currency": "Currency",
-            "owner": "Owner",
-            "name": "Name",
+            "owner": "Owner Name",
+            "name": "Agent Name",
             "address": "Address",
             "email": "Email",
             "status": "Status",
@@ -152,7 +152,7 @@
         "add_item": "Add Item",
         "save_data": "Save Data",
         "edit_data": "Edit Data",
-        "appointment": "Appointment",
+        "appointment": "Appointment Agent",
         "update": "Update",
         "cancel": "Cacel",
         "pending": "Pending",
@@ -160,7 +160,8 @@
         "rent_buy": "Rent - Buy",
         "sign_up": "Sign Up",
         "close": "Close",
-        "rent_buy_from_appoint": "Rent - Buy from Appoint"
+        "rent_buy_from_appoint": "Rent - Buy from Appoint",
+        "payment": "Payment"
     },
     "messages": {
         "country": "Country",
@@ -171,8 +172,8 @@
         "house": "House & Building",
         "form_register_customer": "Form Register Customer",
         "select": "Select",
-        "name": "Name",
-        "owner": "Owner",
+        "owner": "Owner Name",
+        "name": "Agent Name",
         "phone_number": "Phone Number",
         "email": "Email",
         "address": "Address",
@@ -263,6 +264,9 @@
         "service_daily": "Daily rental service",
         "service_yearly": "Yearly rental service",
         "service_monthly": "Monthly rental service",
+        "day": "Day",
+        "month": "Month",
+        "year": "Year",
         "real_estate_number": "Real Estate Number",
         "real_estate": "Real Estate",
         "real_estate_name": "Real Estate Name",
@@ -351,7 +355,8 @@
         "header": {
             "update_payment_service": "Update payment service",
             "manage_appointment": "Manage Appointment",
-            "manage_Rent_Buy": "Manage Rent - Buy"
+            "manage_Rent_Buy": "Manage Rent - Buy",
+            "service Charge": "Service Charge"
         }
     },
     "footer": {
