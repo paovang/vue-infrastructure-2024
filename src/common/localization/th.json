@@ -25,7 +25,8 @@
         "warning": "คำเตือน",
         "policy": "นโยบาย",
         "about": "เกี่ยวกับเรา",
-        "profile": "โปรไฟล์"
+        "profile": "โปรไฟล์",
+        "qrcode_bank": "คิวอาร์โค้ด ธนาคาร"
     },
     "placeholder": {
         "inputText": "โปรดพิมพ์ที่นี่...",
@@ -58,7 +59,8 @@
             "report_real_estate":"รายงานทรัพย์สินทั้งหมด",
             "warning": "คำเตือน",
             "policy": "นโยบายทั้งหมด",
-            "about": "เกี่ยวกับเรา"
+            "about": "เกี่ยวกับเรา",
+            "qrcode_bank": "คิวอาร์โค้ด ธนาคารทั้งหมด"
         },
         "header": {
             "index": "ลำดับ",
@@ -124,6 +126,7 @@
             "policy_type": "ประเภทนโยบาย",
             "link_videos": "ลิงก์วิดีโอ",
             "warning": "คำเตือน",
+            "qrcode_bank":"คิวอาร์โค้ด",
             "footer": {
                 "facebook": "Facebook",
                 "whatsapp": "Whatsapp",
@@ -287,7 +290,8 @@
         "not_account": "ยังไม่มีบัญชี",
         "forgot_password": "ลืมรหัสผ่าน",
         "my_profile": "โปรไฟล์ของฉัน",
-        "sign_out": "ออกจากระบบ"
+        "sign_out": "ออกจากระบบ",
+        "qrcode_bank": "คิวอาร์โค้ด"
     },
     "uploadFile": {
         "uploading": "กำลังอัปโหลดไฟล์เข้าสู่ระบบ โปรดรอ...",

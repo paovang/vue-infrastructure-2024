@@ -15,7 +15,7 @@
                             />
                         </div>
                     </div>
-                    <div class="col-12 md:col-4">
+                    <div class="col-12 md:col-5">
                         <div class="flex flex-column h-full">
                             <Dropdown 
                                 v-model="form.country_id" 
@@ -28,15 +28,24 @@
                             />
                         </div>
                     </div>
-                    <div class="col-12 md:col-3 flex flex-column">
+                    <div class="col-12 md:col-2 flex flex-column">
                         <Button 
-                            style="width: 70%; display: flex; justify-content: center;"
-                            type="submit" 
-                            severity="warning"
-                            :loading="state.btnLoading"
+                            type="submit"
+                            v-if="!isEditing"
+                            :disabled="validationPermissions(GET_PERMISSIONS.PROVINCE.CREATE)"
                         >
-                            <i :class="`${isEditing ? 'pi pi-pencil' : 'pi pi-plus-circle'}`" style="margin-right: 8px;"></i>
-                            {{ isEditing ? $t('button.edit') : $t('button.save') }} {{ $t('messages.province') }}
+                            <i class="pi pi-plus-circle" style="margin-right: 8px;"></i>
+                            {{ $t('button.save') }} {{ $t('messages.province') }}
+                        </Button>
+
+                        <Button 
+                            type="submit"
+                            severity="warning"
+                            v-if="isEditing"
+                            :disabled="validationPermissions(GET_PERMISSIONS.PROVINCE.UPDATE)"
+                        >
+                            <i class="pi pi-plus-circle" style="margin-right: 8px;"></i>
+                            {{ $t('button.edit') }} {{ $t('messages.province') }}
                         </Button>
                     </div>
                 </div>
@@ -106,6 +115,7 @@
                                 severity="warning"  
                                 style="color: white;" 
                                 @click="editItem(data)"
+                                :disabled="validationPermissions(GET_PERMISSIONS.PROVINCE.UPDATE)"
                             />
                             <Button 
                                 type="button" 
@@ -113,6 +123,7 @@
                                 rounded 
                                 severity="danger"
                                 @click="confirmDelete(data.id)" 
+                                :disabled="validationPermissions(GET_PERMISSIONS.PROVINCE.DELETE)"
                             />
                         </div>
                     </template>
@@ -139,6 +150,8 @@
     import { useConfirm } from "primevue/useconfirm";
     import Dropdown from 'primevue/dropdown';
     import { useI18n } from 'vue-i18n';
+    import { validationPermissions } from '@/common/utils/validation-permissions';
+    import { GET_PERMISSIONS } from '@/common/utils/const';
 
     const { t } = useI18n();
     const toast = useToast();

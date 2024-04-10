@@ -98,7 +98,6 @@
     import { useConfirm } from 'primevue/useconfirm';
     import Image from 'primevue/image';
 
-
     const { t } = useI18n();
     const toast = useToast();
     const confirm = useConfirm();

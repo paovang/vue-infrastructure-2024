@@ -4,15 +4,17 @@
             <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
                 <span class="p-input-icon-left w-full sm:w-20rem flex-order-1 sm:flex-order-0">
                     <h2 class="mb-3">
-                        {{ $t('table.title.warning') }}
+                        {{ $t('table.title.qrcode_bank') }}
                     </h2>
                 </span>
-                <!-- <span class="w-full sm:w-auto flex-order-0 sm:flex-order-1 mb-4 sm:mb-0">
+                <span class="w-full sm:w-auto flex-order-0 sm:flex-order-1 mb-4 sm:mb-0">
                     <Button 
-                        :label="$t('button.add') + ' ' + $t('messages.policy')"
+                        :label="$t('button.add') + ' ' + $t('messages.qrcode_bank')"
                         severity="info" 
+                        @click="addQrcodeBank"
+                        :disabled="validationPermissions(GET_PERMISSIONS.BANK_QRCODE.CREATE)"
                     />
-                </span> -->
+                </span>
             </div>
             <DataTable 
                 :value="state.data.props" 
@@ -34,52 +36,64 @@
                         {{ item.index + 1 }}
                     </template>
                 </Column>
-                <Column field="description" :header="$t('table.header.warning')"></Column>
+                <Column field="filename" :header="$t('table.header.qrcode_bank')" headerStyle="min-width: 8rem" frozen>
+                    <template #body="{ data }">
+                        <Image :src="data.filename" alt="Image" preview style="max-width: 80px;"/>
+                    </template>
+                </Column>
                 <Column headerStyle="width: 10rem">
                     <template #body="{ data }">
                         <div class="flex flex-wrap gap-2 btn-right">
                             <Button 
                                 type="button" 
-                                icon="pi pi-pencil" 
-                                rounded 
-                                severity="warning"  
-                                style="color: white;" 
-                                @click="editItem(data.id)"
-                                :disabled="validationPermissions(GET_PERMISSIONS.WARNING.UPDATE)"
-                            />
-                            <!-- <Button 
-                                type="button" 
                                 icon="pi pi-trash" 
                                 rounded 
                                 severity="danger"
-                            /> -->
+                                @click="confirmDelete(data.id)"
+                                :disabled="validationPermissions(GET_PERMISSIONS.BANK_QRCODE.DELETE)"
+                            />
                         </div>
                     </template>
                 </Column>
             </DataTable>
         </div>
+
+        <add-qrcode
+            ref="createForm" 
+            :form="form"
+            :state="state"
+            :register="register"
+            @on-success="onSuccess"
+        />
     </div>
   </template>
   
   <script setup lang="ts">
-    import { onMounted, computed } from 'vue';
+    import { onMounted, computed, ref } from 'vue';
     import DataTable, { type DataTablePageEvent } from 'primevue/datatable';
     import Column from 'primevue/column';
     import Button from 'primevue/button';
-    import { adminWarningStore } from '../stores/store';
+    import { adminQrCodeBankStore } from '../stores/store';
     import { useRoute, useRouter } from 'vue-router';
+    import Image from 'primevue/image';
+    import AddQrcode from '../components/Add.Component.vue';
+    import { PEntity } from '../entities/entity';
+    import { useConfirm } from 'primevue/useconfirm';
+    import { useI18n } from 'vue-i18n';
+    import { useToast } from 'primevue/usetoast';
     import { validationPermissions } from '@/common/utils/validation-permissions';
     import { GET_PERMISSIONS } from '@/common/utils/const';
 
-
     const { push } = useRouter()
-    
     const { query } = useRoute()
+    const confirm = useConfirm();
+    const toast = useToast();
+    const { t } = useI18n();
+    const { form, getAll, state, setStateFilter, register, remove } = adminQrCodeBankStore();
 
-    const { getAll, state, setStateFilter } = adminWarningStore();
-
-    const editItem = (id: string) => {
-        push({ name: 'admin.edit.warning', params: { id: id} });
+    const createForm = ref();
+    const addQrcodeBank = () => {
+        createForm.value.visible = true;
     }
 
     async function onPageChange(event: DataTablePageEvent) {
@@ -87,9 +101,13 @@
         setStateFilter.limit = event.rows;
 
         const { page, limit } = setStateFilter
-        push({ name: 'admin.warning', query: { page, limit} })
-
+        push({ name: 'admin.qrcode.bank', query: { page, limit} })
+        
         await getAll();
+    }
+
+    const onSuccess = async () => {
+        await initComponent();
     }
 
     const first = computed(() => {
@@ -116,6 +134,24 @@
         await getAll()
     }
 
+    const confirmDelete = async (id: PEntity) => {
+        confirm.require({
+            message: t('confirmDelete.message'),
+            header: t('confirmDelete.header'),
+            rejectLabel: t('confirmDelete.rejectLabel'),
+            acceptLabel: t('confirmDelete.acceptLabel'),
+            rejectClass: 'p-button-secondary p-button-outlined',
+            acceptClass: 'p-button-danger',
+            accept: async () => {
+                await remove(id);
+                
+                toast.add({ severity: 'success', summary: t('toast.summary.delete'), detail: t('toast.detail.delete'), life: 3000 });
+            },
+            reject: () => {
+                toast.add({ severity: 'error', summary: t('toast.summary.cancel_delete'), detail: t('toast.detail.cancel_delete'), life: 3000 });
+            }
+        });
+    }    
     
     onMounted(async () => {
         await initComponent();

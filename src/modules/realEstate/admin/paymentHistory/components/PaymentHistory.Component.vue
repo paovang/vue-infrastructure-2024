@@ -123,12 +123,14 @@
             <Button 
                 :label="$t('messages.confirm')" 
                 @click="updatePayment(props.data.id, 'confirm')" 
+                :disabled="validationPermissions(GET_PERMISSIONS.PAYMENT_HISTORY.CONFIRM)"
             />
             <span style="margin-left: 10px;">
                 <Button 
                     :label="$t('messages.reject')" 
                     severity="danger" 
                     @click="updatePayment(props.data.id, 'reject')" 
+                    :disabled="validationPermissions(GET_PERMISSIONS.PAYMENT_HISTORY.REJECT)"
                 />
             </span>
         </div>
@@ -144,7 +146,9 @@
     import { paymentServiceHistoryStore } from '../stores/payment-history.store';
     import { useI18n } from 'vue-i18n';
     import { useToast } from 'primevue/usetoast';
-import { conCatAndTotalServiceChargePrices, conCatServiceChargePrices } from '@/common/utils/concat';
+    import { conCatAndTotalServiceChargePrices, conCatServiceChargePrices } from '@/common/utils/concat';
+    import { GET_PERMISSIONS } from '@/common/utils/const';
+    import { validationPermissions } from '@/common/utils/validation-permissions';
 
     const { form, state, updatePaymentService } = paymentServiceHistoryStore();
 

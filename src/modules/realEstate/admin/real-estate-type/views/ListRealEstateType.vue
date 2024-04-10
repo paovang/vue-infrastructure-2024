@@ -21,6 +21,7 @@
                             type="submit" 
                             severity="warning"
                             :loading="state.btnLoading"
+                            :disabled="validationPermissions(GET_PERMISSIONS.REAL_ESTATE_TYPE.CREATE)"
                         >
                             <i :class="`${isEditing ? 'pi pi-pencil' : 'pi pi-plus-circle'}`" style="margin-right: 8px;"></i>
                             {{ isEditing ? $t('button.edit') : $t('button.save') }}
@@ -94,6 +95,7 @@
                                 severity="warning"  
                                 style="color: white;" 
                                 @click="editItem(data)"
+                                :disabled="validationPermissions(GET_PERMISSIONS.REAL_ESTATE_TYPE.UPDATE)"
                             />
                             <Button 
                                 type="button" 
@@ -101,6 +103,7 @@
                                 rounded 
                                 severity="danger"
                                 @click="confirmDelete(data.id)" 
+                                :disabled="validationPermissions(GET_PERMISSIONS.REAL_ESTATE_TYPE.DELETE)"
                             />
                         </div>
                     </template>
@@ -125,6 +128,8 @@
     import { useI18n } from 'vue-i18n';
     import { realEstateTypeSchema } from '../schema/real-estate-type.shema';
     import { RealEstateTypeEntity } from '../entities/real-estate-type.entity';
+    import { validationPermissions } from '@/common/utils/validation-permissions';
+    import { GET_PERMISSIONS } from '@/common/utils/const';
 
     const { t } = useI18n();
     const toast = useToast();

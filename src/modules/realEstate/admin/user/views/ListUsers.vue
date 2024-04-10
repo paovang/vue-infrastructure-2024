@@ -7,7 +7,12 @@
                 </h2>
             </span>
             <span>
-                <Button :label="$t('button.add')" severity="info" @click="pushRouteAddUser"/>
+                <Button 
+                :label="$t('button.add')" 
+                severity="info" 
+                @click="pushRouteAddUser"
+                :disabled="validationPermissions(GET_PERMISSIONS.ADMIN_USER.CREATE)"
+            />
             </span>
         </div>
         <Divider/>
@@ -66,6 +71,7 @@
                             severity="warning"
                             style="color: white" 
                             @click="editUser(data.id)"
+                            :disabled="validationPermissions(GET_PERMISSIONS.ADMIN_USER.UPDATE)"
                         />
                         <Button 
                             type="button" 
@@ -73,6 +79,7 @@
                             rounded 
                             severity="danger"
                             style="color: white" 
+                            :disabled="validationPermissions(GET_PERMISSIONS.ADMIN_USER.DELETE)"
                         />
                     </div>
                 </template>
@@ -91,6 +98,8 @@
     import { conCatPermission } from '../../../../../common/utils/concat';
     import { useRouter } from 'vue-router';
     import Image from 'primevue/image';
+    import { GET_PERMISSIONS } from '@/common/utils/const';
+    import { validationPermissions } from '@/common/utils/validation-permissions';
 
     const { getAll, state, setStateFilter  } = adminUserStore();
     const router = useRouter();

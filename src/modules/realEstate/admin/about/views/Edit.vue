@@ -48,6 +48,7 @@
                     style="font-family: 'NotoSansLao','Montserrat', 'sans-serif'"
                     type="submit"
                     severity="info" 
+                    :disabled="validationPermissions(GET_PERMISSIONS.ABOUT_US.UPDATE)"
                 >
                     <i class="pi pi-save" style="margin-right: 8px;"></i>
                     {{ $t('button.edit_data') }}
@@ -70,6 +71,8 @@
     import "@vueup/vue-quill/dist/vue-quill.snow.css";
     import { useI18n } from 'vue-i18n';
     import { useToast } from 'primevue/usetoast';
+    import { validationPermissions } from '@/common/utils/validation-permissions';
+    import { GET_PERMISSIONS } from '@/common/utils/const';
 
 
     const { getOne, getById, form, state, update } = adminAboutStore();

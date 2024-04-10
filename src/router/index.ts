@@ -19,6 +19,7 @@ import { adminDashboardRoute } from "@/modules/realEstate/admin/dashboard/router
 import { adminPolicyRoute } from "@/modules/realEstate/admin/policy/routers";
 import { adminAboutRoute } from "@/modules/realEstate/admin/about/routers";
 import { adminWarningRoute } from "@/modules/realEstate/admin/warning/routers";
+import { adminQrcodeBankRoute } from "@/modules/realEstate/admin/qrcode-bank/routers";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,6 +40,7 @@ const router = createRouter({
         ...adminPolicyRoute,
         ...adminAboutRoute,
         ...adminWarningRoute,
+        ...adminQrcodeBankRoute,
         ...ownerHouseRoute,
         ...ownerAppointmentRoute,
         ...ownerRentAndBuyRoute,

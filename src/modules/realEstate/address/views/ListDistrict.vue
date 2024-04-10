@@ -30,12 +30,22 @@
                     </div>
                     <div class="col-12 md:col-2 flex flex-column">
                         <Button 
-                            type="submit" 
-                            severity="warning"
-                            :loading="state.btnLoading"
+                            type="submit"
+                            v-if="!isEditing"
+                            :disabled="validationPermissions(GET_PERMISSIONS.DISTRICT.CREATE)"
                         >
-                            <i :class="`${isEditing ? 'pi pi-pencil' : 'pi pi-plus-circle'}`" style="margin-right: 8px;"></i>
-                            {{ isEditing ? $t('button.edit') : $t('button.save') }} {{ $t('messages.district') }}
+                            <i class="pi pi-plus-circle" style="margin-right: 8px;"></i>
+                            {{ $t('button.save') }} {{ $t('messages.district') }}
+                        </Button>
+
+                        <Button 
+                            type="submit"
+                            severity="warning"
+                            v-if="isEditing"
+                            :disabled="validationPermissions(GET_PERMISSIONS.DISTRICT.UPDATE)"
+                        >
+                            <i class="pi pi-plus-circle" style="margin-right: 8px;"></i>
+                            {{ $t('button.edit') }} {{ $t('messages.district') }}
                         </Button>
                     </div>
                 </div>
@@ -105,6 +115,7 @@
                                 severity="warning"  
                                 style="color: white;" 
                                 @click="editItem(data)"
+                                :disabled="validationPermissions(GET_PERMISSIONS.DISTRICT.UPDATE)"
                             />
                             <Button 
                                 type="button" 
@@ -112,6 +123,7 @@
                                 rounded 
                                 severity="danger"
                                 @click="confirmDelete(data.id)" 
+                                :disabled="validationPermissions(GET_PERMISSIONS.DISTRICT.DELETE)"
                             />
                         </div>
                     </template>
@@ -138,6 +150,8 @@
     import Dropdown from 'primevue/dropdown';
     import { DistrictEntity } from '../entities/district.entity';
     import { useI18n } from 'vue-i18n';
+    import { GET_PERMISSIONS } from '@/common/utils/const';
+    import { validationPermissions } from '@/common/utils/validation-permissions';
 
     const { t } = useI18n();
     const toast = useToast();

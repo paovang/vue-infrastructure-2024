@@ -29,12 +29,22 @@
                     </div>
                     <div class="col-12 md:col-2 flex flex-column">
                         <Button 
-                            type="submit" 
-                            severity="warning"
-                            :loading="state.btnLoading"
+                            type="submit"
+                            v-if="!isEditing"
+                            :disabled="validationPermissions(GET_PERMISSIONS.COUNTRY.CREATE)"
                         >
-                            <i :class="`${isEditing ? 'pi pi-pencil' : 'pi pi-plus-circle'}`" style="margin-right: 8px;"></i>
-                            {{ isEditing ? $t('button.edit') : $t('button.save') }} {{ $t('messages.country') }}
+                            <i class="pi pi-plus-circle" style="margin-right: 8px;"></i>
+                            {{ $t('button.save') }} {{ $t('messages.country') }}
+                        </Button>
+
+                        <Button 
+                            type="submit"
+                            severity="warning"
+                            v-if="isEditing"
+                            :disabled="validationPermissions(GET_PERMISSIONS.COUNTRY.UPDATE)"
+                        >
+                            <i class="pi pi-plus-circle" style="margin-right: 8px;"></i>
+                            {{ $t('button.edit') }} {{ $t('messages.country') }}
                         </Button>
                     </div>
                 </div>
@@ -106,6 +116,7 @@
                                 severity="warning"  
                                 style="color: white;" 
                                 @click="editItem(data)"
+                                :disabled="validationPermissions(GET_PERMISSIONS.COUNTRY.UPDATE)"
                             />
                             <Button 
                                 type="button" 
@@ -113,6 +124,7 @@
                                 rounded 
                                 severity="danger"
                                 @click="confirmDelete(data.id)" 
+                                :disabled="validationPermissions(GET_PERMISSIONS.COUNTRY.DELETE)"
                             />
                         </div>
                     </template>
@@ -137,6 +149,8 @@
     import { CountryEntity } from '../entities/country.entity';
     import { useConfirm } from "primevue/useconfirm";
     import { useI18n } from 'vue-i18n';
+    import { GET_PERMISSIONS } from '@/common/utils/const';
+    import { validationPermissions } from '@/common/utils/validation-permissions';
 
     const { t } = useI18n();
     const toast = useToast();
@@ -148,6 +162,9 @@
     const { query } = useRoute()
 
     const { register, update, remove, getAll, form, state, setStateFilter } = countryStore();
+
+    // const permissionsString = localStorage.getItem(PERMISSION_KEY) || '';
+    // const currentPermissions = permissionsString ? JSON.parse(permissionsString) : [];
 
     const translatedErrorMessages = {
         name: t('placeholder.inputText'),

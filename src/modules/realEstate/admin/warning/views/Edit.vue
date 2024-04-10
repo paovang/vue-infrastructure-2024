@@ -27,6 +27,7 @@
                     style="font-family: 'NotoSansLao','Montserrat', 'sans-serif'"
                     type="submit"
                     severity="info" 
+                    :disabled="validationPermissions(GET_PERMISSIONS.WARNING.UPDATE)"
                 >
                     <i class="pi pi-save" style="margin-right: 8px;"></i>
                     {{ $t('button.edit_data') }}
@@ -47,6 +48,8 @@
     import MyInputTextArea from '@/components/customComponents/FormTextArea.vue';
     import { useI18n } from 'vue-i18n';
     import { useToast } from 'primevue/usetoast';
+    import { GET_PERMISSIONS } from '@/common/utils/const';
+    import { validationPermissions } from '@/common/utils/validation-permissions';
 
 
     const { getOne, getById, form, state, update } = adminWarningStore();

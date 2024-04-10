@@ -46,13 +46,14 @@
                                 severity="warning"  
                                 style="color: white;" 
                                 @click="editItem(data.id)"
+                                :disabled="validationPermissions(GET_PERMISSIONS.ABOUT_US.UPDATE)"
                             />
-                            <Button 
+                            <!-- <Button 
                                 type="button" 
                                 icon="pi pi-trash" 
                                 rounded 
                                 severity="danger"
-                            />
+                            /> -->
                         </div>
                     </template>
                 </Column>
@@ -68,6 +69,8 @@
     import Button from 'primevue/button';
     import { adminAboutStore } from '../stores/store';
     import { useRoute, useRouter } from 'vue-router';
+    import { validationPermissions } from '@/common/utils/validation-permissions';
+    import { GET_PERMISSIONS } from '@/common/utils/const';
 
 
     const { push } = useRouter()

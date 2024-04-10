@@ -132,8 +132,7 @@
     import { useToast } from 'primevue/usetoast';
     import { useI18n } from 'vue-i18n';
     import { formatNumber } from '@/common/utils/format.currency';
-import { conCatServiceChargePrices } from '@/common/utils/concat';
-
+    import { conCatServiceChargePrices } from '@/common/utils/concat';
 
     const { t } = useI18n();
     const toast = useToast();

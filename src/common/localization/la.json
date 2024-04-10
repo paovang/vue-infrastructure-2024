@@ -25,7 +25,8 @@
         "warning": "ຄຳເຕືອນ",
         "policy": "ນະໂຍບາຍ",
         "about": "ກ່ຽວກັບພວກເຮົາ",
-        "profile": "ໂປຮໄຟລ"
+        "profile": "ໂປຮໄຟລ",
+        "qrcode_bank": "ຄີວອາໂຄດ ທະນາຄານ"
     },
     "placeholder": {
         "inputText": "ກະລຸນາປ້ອນກ່ອນ...",
@@ -58,7 +59,8 @@
             "report_real_estate":"ລາຍງານ ຊັບສີນທັງໝົດ",
             "warning": "ຄຳເຕືອນ",
             "policy": "ນະໂຍບາຍ ທັງໝົດ",
-            "about": "ກ່ຽວກັບພວກເຮົາ"
+            "about": "ກ່ຽວກັບພວກເຮົາ",
+            "qrcode_bank": "ຄີວອາໂຄດ ທະນາຄານທັງໝົດ"
         },
         "header": {
             "index": "ລຳດັບ",
@@ -124,6 +126,7 @@
             "policy_type": "ປະເພດ ນະໂຍບາຍ",
             "link_videos": "ລີ້ງວີດີໂອ",
             "warning": "ຄຳເຕືອນ",
+            "qrcode_bank":"ຄີວອາໂຄດ",
             "footer": {
                 "facebook": "Facebook",
                 "whatsapp": "Whatsapp",
@@ -287,7 +290,8 @@
         "not_account": "ຍັງບໍ່ມີບັນຊີ",
         "forgot_password": "ລືມລະຫັດຜ່ານ",
         "my_profile": "ໂປຮໄຟລ໌ ຂອງຂ້ອຍ",
-        "sign_out": "ອອກຈາກລະບົບ "
+        "sign_out": "ອອກຈາກລະບົບ",
+        "qrcode_bank": "ຄີວອາໂຄດ"
     },
     "uploadFile": {
         "uploading": "ກຳລັງອັບໂຫຼດໂປຮໄຟລເຂົ້າລະບົບ ກະລຸນາລໍຖ້າ...",

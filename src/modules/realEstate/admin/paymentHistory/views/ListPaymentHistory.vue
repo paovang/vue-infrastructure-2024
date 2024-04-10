@@ -101,6 +101,7 @@
                             :severity="data.status === 'confirm' ? 'success' : 'danger'"
                             style="color: white" 
                             @click="editItem(data)"
+                            :disabled="validationPermissions(GET_PERMISSIONS.PAYMENT_HISTORY.CONFIRM)"
                         />
                     </div>
                 </template>
@@ -159,6 +160,8 @@
     import PaymentHistoryComponent from '../components/PaymentHistory.Component.vue';
     import { reportRentBuyStore } from '../../dashboard/stores/rent-store';
     import { conCatAndTotalServiceChargePrices, conCatServiceChargePrices } from '@/common/utils/concat';
+    import { validationPermissions } from '@/common/utils/validation-permissions';
+    import { GET_PERMISSIONS } from '@/common/utils/const';
 
     const { t } = useI18n();
 

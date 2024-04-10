@@ -14,6 +14,7 @@
                         severity="info" 
                         :loading="state.btnLoading"
                         @click="addItem()"
+                        :disabled="validationPermissions(GET_PERMISSIONS.SERVICE_CHARGE.CREATE)"
                     />
                     <span style="margin-left: 10px;"></span>
                     <Button 
@@ -62,6 +63,7 @@
                                 severity="warning"  
                                 style="color: white;" 
                                 @click="EditItem(data)"
+                                :disabled="validationPermissions(GET_PERMISSIONS.SERVICE_CHARGE.UPDATE)"
                             />
                             <Button 
                                 type="button" 
@@ -69,6 +71,7 @@
                                 rounded 
                                 severity="danger"
                                 @click="confirmDelete(data.id)" 
+                                :disabled="validationPermissions(GET_PERMISSIONS.SERVICE_CHARGE.DELETE)"
                             />
                         </div>
                     </template>
@@ -111,6 +114,8 @@
     import addRealEstateServiceCharge from '../components/Add.Component.vue';
     import editRealEstateServiceCharge from '../components/Edit.Component.vue';
     import { homerealEstateStore } from '@/modules/realEstate/homepage/stores/home.store';
+    import { validationPermissions } from '@/common/utils/validation-permissions';
+    import { GET_PERMISSIONS } from '@/common/utils/const';
 
     const { t } = useI18n();
     const toast = useToast();

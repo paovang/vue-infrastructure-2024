@@ -99,6 +99,7 @@
                         style="font-family: 'NotoSansLao','Montserrat', 'sans-serif'"
                         type="submit"
                         severity="info" 
+                        :disabled="validationPermissions(GET_PERMISSIONS.FOOTER.UPDATE)"
                     >
                         <i class="pi pi-save" style="margin-right: 8px;"></i>
                         {{ $t('button.edit_data') }}
@@ -122,6 +123,8 @@
     import { useToast } from 'primevue/usetoast';
     import { QuillEditor } from "@vueup/vue-quill";
     import "@vueup/vue-quill/dist/vue-quill.snow.css";
+    import { GET_PERMISSIONS } from '@/common/utils/const';
+    import { validationPermissions } from '@/common/utils/validation-permissions';
 
 
     const { t } = useI18n();

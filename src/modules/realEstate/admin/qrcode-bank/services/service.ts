@@ -38,7 +38,7 @@ export class PService {
   }
 
   async getAll(
-    input: IGPaginate<Pick<PEntity, "description">>
+    input: IGPaginate<Pick<PEntity, "filename">>
   ): Promise<void | IResponse<IGPaginated<PEntity>>> {
     return await this._getAll.execute(input);
   }

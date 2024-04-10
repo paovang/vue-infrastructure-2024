@@ -152,7 +152,7 @@
         {
           key: '11',
           label: t('sidebar.real_estate_type'),
-          name: 'owner-user',
+          name: 'admin-real_estate_type',
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'real.estate.type',
@@ -162,7 +162,7 @@
         {
           key: '12',
           label: t('sidebar.footer'),
-          name: 'owner-user',
+          name: 'admin-footer',
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'footer',
@@ -177,17 +177,17 @@
           color: 'text-red-500',
           to: 'admin.policy',
           roles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER],
-          permission: GET_PERMISSIONS.PROVINCE.VIEW
+          permission: GET_PERMISSIONS.POLICY.VIEW
         },
         {
           key: '14',
           label: t('sidebar.about'),
-          name: 'admin-about',
+          name: 'admin-about-us',
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'admin.about',
           roles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER],
-          permission: GET_PERMISSIONS.PROVINCE.VIEW
+          permission: GET_PERMISSIONS.ABOUT_US.VIEW
         },
         {
           key: '15',
@@ -197,7 +197,17 @@
           color: 'text-red-500',
           to: 'admin.warning',
           roles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER],
-          permission: GET_PERMISSIONS.PROVINCE.VIEW
+          permission: GET_PERMISSIONS.WARNING.VIEW
+        },
+        {
+          key: '16',
+          label: t('sidebar.qrcode_bank'),
+          name: 'admin-qrocde-bank',
+          icon: 'pi pi-chart-line',
+          color: 'text-red-500',
+          to: 'admin.qrcode.bank',
+          roles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER],
+          permission: GET_PERMISSIONS.BANK_QRCODE.VIEW
         },
       ]
     },
@@ -216,7 +226,7 @@
           color: 'text-red-500',
           to: 'report.real.estate',
           roles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER],
-          permission: GET_PERMISSIONS.REAL_ESTATE.VIEW
+          permission: GET_PERMISSIONS.REPORT_REAL_ESTATE.VIEW
         },
         {
           key: '2',
@@ -226,7 +236,7 @@
           color: 'text-red-500',
           to: 'report.rent.buy',
           roles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER],
-          permission: GET_PERMISSIONS.RENT_BUY.VIEW
+          permission: GET_PERMISSIONS.REPORT_RENT_Buy.VIEW
         }
       ]
     },
@@ -285,84 +295,64 @@
     } else {
       /** Owner & Admin User */
       if (name === 'owner-user') {
-        if (permission === 'view-user' && currentRoles.includes(GET_ROLES.USER_OWNER)) {
+        if (currentPermissions.includes(permission) && currentRoles.includes(GET_ROLES.USER_OWNER)) {
           return true;
         } else {
           return false;
         }
       }
       if (name === 'admin-user') {
-        if (permission === 'view-user' && currentRoles.includes(GET_ROLES.USER)) {
+        if (currentPermissions.includes(permission) && currentRoles.includes(GET_ROLES.USER)) {
           return true;
         } else {
           return false;
         }
       }
 
-      /** Owner & Admin Real-Estate */
-      if (name === 'owner-real-estate') {
-        if (permission === 'view-real-estate' && currentRoles.includes(GET_ROLES.USER_OWNER)) {
-          return true;
-        } else {
-          return false;
-        }
-      }
-      if (name === 'admin-real-estate') {
-        if (permission === 'view-real-estate' && currentRoles.includes(GET_ROLES.USER)) {
-          return true;
-        } else {
-          return false;
-        }
-      }
+      // /** Owner Real-Estate */
+      // if (name === 'owner-real-estate') {
+      //   if (currentPermissions.includes(permission) && currentRoles.includes(GET_ROLES.USER_OWNER)) {
+      //     return true;
+      //   } else {
+      //     return false;
+      //   }
+      // }
 
-      /** Owner & Admin Appointment */
-      if (name === 'owner-appointment') {
-        if (permission === 'view-appointment' && currentRoles.includes(GET_ROLES.USER_OWNER)) {
-          return true;
-        } else {
-          return false;
-        }
-      }
-      if (name === 'admin-appointment') {
-        if (permission === 'view-appointment' && currentRoles.includes(GET_ROLES.USER)) {
-          return true;
-        } else {
-          return false;
-        }
-      }
+      // /** Owner Appointment */
+      // if (name === 'owner-appointment') {
+      //   if (currentPermissions.includes(permission) && currentRoles.includes(GET_ROLES.USER_OWNER)) {
+      //     return true;
+      //   } else {
+      //     return false;
+      //   }
+      // }
 
-      /** Owner & Admin Rent-Buy */
-      if (name === 'owner-rent-buy') {
-        if (permission === 'view-rent-buy' && currentRoles.includes(GET_ROLES.USER_OWNER)) {
-          return true;
-        } else {
-          return false;
-        }
-      }
-      if (name === 'admin-rent-buy') {
-        if (permission === 'view-rent-buy' && currentRoles.includes(GET_ROLES.USER)) {
-          return true;
-        } else {
-          return false;
-        }
-      }
+      // /** Owner Rent-Buy */
+      // if (name === 'owner-rent-buy') {
+      //   if (currentPermissions.includes(permission) && currentRoles.includes(GET_ROLES.USER_OWNER)) {
+      //     return true;
+      //   } else {
+      //     return false;
+      //   }
+      // }
 
-      /** Admin Report Real-Estate */
-      if (name === 'admin-report-real-estate') {
-        if (permission === 'view-real-estate' && currentRoles.includes(GET_ROLES.USER)) {
-          return true;
-        } else {
-          return false;
-        }
-      }
-      /** Admin Report Rent-Buy */
-      if (name === 'admin-report-rent-buy') {
-        if (permission === 'view-rent-buy' && currentRoles.includes(GET_ROLES.USER)) {
-          return true;
-        } else {
-          return false;
-        }
-      }
+      // /** Admin Report Rent & Buy */
+      // if (name === 'admin-report-rent-buy') {
+      //   if (currentPermissions.includes(permission) && currentRoles.includes(GET_ROLES.USER)) {
+      //     return true;
+      //   } else {
+      //     return false;
+      //   }
+      // }
+
+      // /** Admin Report Real-Estate */
+      // if (name === 'admin-report-real-estate') {
+      //   if (currentPermissions.includes(permission) && currentRoles.includes(GET_ROLES.USER)) {
+      //     return true;
+      //   } else {
+      //     return false;
+      //   }
+      // }
 
       return currentPermissions.includes(permission);
     }
@@ -456,6 +446,7 @@
                       'admin.edit.about',
                       'admin.warning',
                       'admin.edit.warning',
+                      'admin.qrcode.bank',
                     ].includes(String(router.currentRoute.value.name)) }"
                   >
                     <li v-for="children in item.children" :key="item.key">

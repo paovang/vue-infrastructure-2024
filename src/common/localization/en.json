@@ -25,7 +25,8 @@
         "warning": "Warning",
         "policy": "Policy",
         "about": "about",
-        "profile": "Profile"
+        "profile": "Profile",
+        "qrcode_bank": "QR Code Bank"
     },
     "placeholder": {
         "inputText": "Please Enter...",
@@ -58,7 +59,8 @@
             "report_real_estate": "All Report Real Estate",
             "warning": "Warning",
             "policy": "Policy",
-            "about": "about"
+            "about": "about",
+            "qrcode_bank":"All QR Code Bank"
         },
         "header": {
             "index": "Number",
@@ -124,6 +126,7 @@
             "policy_type": "Policy Type",
             "link_videos": "Link Videos",
             "warning": "Warning",
+            "qrcode_bank": "QR Code",
             "footer": {
                 "facebook": "Facebook",
                 "whatsapp": "Whatsapp",
@@ -287,7 +290,8 @@
         "not_account": "Dont't have an account",
         "forgot_password": "Forgot Password",
         "my_profile": "My Profile",
-        "sign_out": "Sign out"
+        "sign_out": "Sign out",
+        "qrcode_bank": "QR Code"
     },
     "uploadFile": {
         "uploading": "Uploading profile to the system please wait...",
