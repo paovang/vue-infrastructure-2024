@@ -100,7 +100,12 @@
             <Divider style="margin-top: -10px;"/>
             <br/>
             <div style="text-align: right;">
-                <Button type="submit" :label="$t('button.save_data')" :loading="state.btnLoading" />
+                <Button 
+                    type="submit" 
+                    :label="$t('button.save_data')" 
+                    :loading="state.btnLoading" 
+                    :disabled="validationPermissions(GET_PERMISSIONS.OWNER_USER.CREATE)"
+                />
             </div>
         </form>
     </div>
@@ -124,6 +129,8 @@
     import { showNotificationToast } from '@/common/utils/toast';
     import { uploadFileToServer } from '@/common/utils/upload-file';
     import axios from 'axios';
+    import { GET_PERMISSIONS } from '@/common/utils/const';
+    import { validationPermissions } from '@/common/utils/validation-permissions';
 
     const { form, register, getAllRole, getAllPermission, allPermission, allRole, state  } = ownerUserStore();
     const toast = useToast();

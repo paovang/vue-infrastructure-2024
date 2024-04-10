@@ -7,7 +7,12 @@
                 </h2>
             </span>
             <span>
-                <Button :label="$t('button.add')" severity="info" @click="pushRouteAddUser"/>
+                <Button 
+                    :label="$t('button.add')" 
+                    severity="info" 
+                    @click="pushRouteAddUser"
+                    :disabled="validationPermissions(GET_PERMISSIONS.OWNER_USER.CREATE)"
+                />
             </span>
         </div>
         <Divider/>
@@ -42,6 +47,7 @@
                             severity="warning"
                             style="color: white" 
                             @click="editUser(data.id)"
+                            :disabled="validationPermissions(GET_PERMISSIONS.OWNER_USER.UPDATE)"
                         />
                         <Button 
                             type="button" 
@@ -50,6 +56,7 @@
                             severity="danger"
                             style="color: white" 
                             @click="confirmDelete(data.id)"
+                            :disabled="validationPermissions(GET_PERMISSIONS.OWNER_USER.DELETE)"
                         />
                     </div>
                 </template>
@@ -97,6 +104,8 @@
     import { useI18n } from 'vue-i18n';
     import { useConfirm } from 'primevue/useconfirm';
     import Image from 'primevue/image';
+    import { GET_PERMISSIONS } from '@/common/utils/const';
+    import { validationPermissions } from '@/common/utils/validation-permissions';
 
     const { t } = useI18n();
     const toast = useToast();

@@ -11,6 +11,7 @@
                     :label="$t('button.add')"
                     severity="info" 
                     @click="pushRouteAddHouse()"
+                    :disabled="validationPermissions(GET_PERMISSIONS.REAL_ESTATE.CREATE)"
                 />
             </span>
         </div>
@@ -180,7 +181,7 @@
                             :label="data.status"
                             rounded 
                             :severity="getSeverity(data.status)"  
-                            :disabled="isDisabled(data.status)"
+                            :disabled="isDisabled(data.status) || validationPermissions(GET_PERMISSIONS.REAL_ESTATE.UPDATE)"
                             style="color: white;" 
                             @click="confirmUpdateStatus(data.id)"
                         />
@@ -191,6 +192,7 @@
                             severity="warning"  
                             style="color: white;" 
                             @click="editHouse(data.id)"
+                            :disabled="validationPermissions(GET_PERMISSIONS.REAL_ESTATE.UPDATE)"
                         />
                         <Button 
                             type="button" 
@@ -198,6 +200,7 @@
                             rounded 
                             severity="danger"
                             @click="confirmDelete(data.id)"
+                            :disabled="validationPermissions(GET_PERMISSIONS.REAL_ESTATE.DELETE)"
                         />
                     </div>
                 </template>
@@ -256,6 +259,8 @@
     import { useToast } from "primevue/usetoast";
     // import PaymentServiceComponent from '../components/PaymentService.component.vue';
     import { useI18n } from 'vue-i18n';
+    import { GET_PERMISSIONS } from '@/common/utils/const';
+    import { validationPermissions } from '@/common/utils/validation-permissions';
 
     const { t } = useI18n();
     const router = useRouter()

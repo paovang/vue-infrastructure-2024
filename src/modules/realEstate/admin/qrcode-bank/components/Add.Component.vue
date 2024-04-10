@@ -109,7 +109,7 @@
     }
 
     const showWarningValidateBackend = () => {
-        toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: `${state.error}`, life: 3000 });
+        toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: `${props.state.error}`, life: 3000 });
     }
 
     const showToastSuccess = () => {

@@ -164,6 +164,7 @@
                         :severity="!isCardVisible ? 'info' : 'danger'" 
                         @click="toggleIsCardVisible"
                         :loading="state.btnLoading"
+                        :disabled="validationPermissions(GET_PERMISSIONS.CUSTOMER.CREATE)"
                     />
                 </span>
             </div>
@@ -250,8 +251,9 @@
                                 rounded
                                 :severity="data.status === 'open' ? 'success' : 'danger'"
                                 @click="confirmUpdateStatus(data.id)" 
+                                :disabled="validationPermissions(GET_PERMISSIONS.CUSTOMER.UPDATE)"
                             />
-                            <Button 
+                            <!-- <Button 
                                 type="button" 
                                 icon="pi pi-eye" 
                                 rounded 
@@ -266,7 +268,7 @@
                                 severity="danger"  
                                 style="color: white;" 
                                 @click="editItem(data)"
-                            />
+                            /> -->
                             <Button 
                                 type="button" 
                                 icon="pi pi-pencil" 
@@ -274,6 +276,7 @@
                                 severity="warning"  
                                 style="color: white;" 
                                 @click="editItem(data)"
+                                :disabled="validationPermissions(GET_PERMISSIONS.CUSTOMER.UPDATE)"
                             />
                             <Button 
                                 type="button" 
@@ -281,6 +284,7 @@
                                 rounded 
                                 severity="danger"
                                 @click="confirmDelete(data.id)" 
+                                :disabled="validationPermissions(GET_PERMISSIONS.CUSTOMER.DELETE)"
                             />
                         </div>
                     </template>
@@ -335,6 +339,8 @@
     import { validFileTypes, isValidFileSize } from '@/common/utils/validation.file';
     import { showNotificationToast } from '@/common/utils/toast';
     import { uploadFileToServer } from '@/common/utils/upload-file';
+    import { validationPermissions } from '@/common/utils/validation-permissions';
+    import { GET_PERMISSIONS } from '@/common/utils/const';
 
 
     const { t } = useI18n();

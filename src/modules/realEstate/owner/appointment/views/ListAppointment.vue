@@ -88,8 +88,8 @@
                             rounded 
                             severity="danger"  
                             style="color: white;" 
-                            :disabled="data.status === 'done' ? true : false"
                             @click="handleClick(data.id, data.status)"
+                            :disabled="validationPermissions(GET_PERMISSIONS.APPOINTMENT.UPDATE)"
                         />
                         <!-- <Button 
                             type="button" 
@@ -144,6 +144,8 @@
     import UpdateComponent from '../components/Update.Component.vue';
     import { AppointmentEntity } from '../entities/appointment.entity';
     import { useI18n } from 'vue-i18n';
+    import { GET_PERMISSIONS } from '@/common/utils/const';
+    import { validationPermissions } from '@/common/utils/validation-permissions';
 
     // import { useToast } from "primevue/usetoast";
     // import { useConfirm } from "primevue/useconfirm";

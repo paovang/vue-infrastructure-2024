@@ -7,7 +7,12 @@
                 </h2>
             </span>
             <span>
-                <Button :label="$t('button.payment')" severity="info"  @click="paymentService" />
+                <Button 
+                :label="$t('button.payment')" 
+                severity="info" 
+                @click="paymentService"      
+                :disabled="validationPermissions(GET_PERMISSIONS.PAYMENT_REAL_ESTATE.CREATE)" 
+            />
             </span>
         </div>
         <Divider/>
@@ -84,6 +89,7 @@
                             severity="warning"  
                             style="color: white;" 
                             @click="editItem(data)"
+                            :disabled="validationPermissions(GET_PERMISSIONS.PAYMENT_REAL_ESTATE.UPDATE)"
                         />
                         <Button 
                             type="button" 
@@ -91,6 +97,7 @@
                             rounded 
                             severity="danger"
                             @click="confirmDelete(data.id)"
+                            :disabled="validationPermissions(GET_PERMISSIONS.PAYMENT_REAL_ESTATE.DELETE)"
                         />
                     </div>
                 </template>
@@ -169,6 +176,8 @@
     import { useToast } from "primevue/usetoast";
     import { useI18n } from 'vue-i18n';
     import { conCatAndTotalServiceChargePrices, conCatServiceChargePrices } from '@/common/utils/concat';
+    import { validationPermissions } from '@/common/utils/validation-permissions';
+    import { GET_PERMISSIONS } from '@/common/utils/const';
 
     const { t } = useI18n();
     const toast = useToast();

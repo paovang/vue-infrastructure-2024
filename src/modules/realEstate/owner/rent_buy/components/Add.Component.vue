@@ -106,7 +106,12 @@
             </div>
             <div class="col-12 md:col-12">
                 <div class="flex flex-column">
-                    <Button type="submit" :label="$t('button.save') +  ' ' + $t('button.rent_buy')" :loading="btnLoading"/>
+                    <Button 
+                        type="submit" 
+                        :label="$t('button.save') +  ' ' + $t('button.rent_buy')" 
+                        :loading="btnLoading"
+                        :disabled="validationPermissions(GET_PERMISSIONS.RENT_BUY.CREATE)"
+                    />
                 </div>
             </div>
         </form>
@@ -128,6 +133,8 @@
     import MyInputNumber from '@/components/customComponents/FormInputNumber.vue';
     import { formatNumber } from '@/common/utils/format.currency';
     import myInputText from '@/components/customComponents/FormInputText.vue';
+import { GET_PERMISSIONS } from '@/common/utils/const';
+import { validationPermissions } from '@/common/utils/validation-permissions';
 
 
     const { form, create, state, getRealEstatePrices, stateGetPrice, stateGetRealEstateOnline, getRealEstateOnline } = rentAndBuyStore();

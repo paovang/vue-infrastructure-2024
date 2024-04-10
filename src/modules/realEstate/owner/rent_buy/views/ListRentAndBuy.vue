@@ -7,9 +7,18 @@
                 </h2>
             </span>
             <span>
-                <Button :label="$t('button.rent_buy_from_appoint')" severity="warning"  @click="addRentAndBuyFromAppointment" />
+                <Button 
+                    :label="$t('button.rent_buy_from_appoint')" 
+                    severity="warning"  
+                    @click="addRentAndBuyFromAppointment" 
+                    :disabled="validationPermissions(GET_PERMISSIONS.RENT_BUY.CREATE)"
+                />
                 <span style="margin-left: 20px;"></span>
-                <Button :label="$t('button.rent_buy')"  @click="addRentAndBuy" />
+                <Button 
+                    :label="$t('button.rent_buy')"  
+                    @click="addRentAndBuy" 
+                    :disabled="validationPermissions(GET_PERMISSIONS.RENT_BUY.CREATE)"
+                />
             </span>
         </div>
         <DataTable 
@@ -90,6 +99,7 @@
                             severity="warning"  
                             style="color: white;" 
                             @click="editItem(data)"
+                            :disabled="validationPermissions(GET_PERMISSIONS.RENT_BUY.UPDATE)"
                         />
                         <!-- <Button 
                             type="button" 
@@ -164,6 +174,8 @@
     import { useToast } from 'primevue/usetoast';
     import { appointmentStore } from '../../appointment/stores/appointment.store';
     import { RentAndBuyEntity } from '../entities/rent-buy-entity';
+import { GET_PERMISSIONS } from '@/common/utils/const';
+import { validationPermissions } from '@/common/utils/validation-permissions';
 
     const { form, getAll, setStateFilter, state, stateGetRealEstateOnline } = rentAndBuyStore();
     const { state: stateAppointment } = appointmentStore();

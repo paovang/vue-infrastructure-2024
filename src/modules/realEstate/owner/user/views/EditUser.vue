@@ -80,7 +80,12 @@
             <Divider style="margin-top: -10px;"/>
             <br/>
             <div style="text-align: right;">
-                <Button type="submit" :label="$t('button.edit_data')" :loading="state.btnLoading" />
+                <Button 
+                    type="submit" 
+                    :label="$t('button.edit_data')" 
+                    :loading="state.btnLoading" 
+                    :disabled="validationPermissions(GET_PERMISSIONS.OWNER_USER.UPDATE)"
+                />
             </div>
         </form>
     </div>
@@ -104,6 +109,8 @@
     import { validFileTypes, isValidFileSize } from '@/common/utils/validation.file';
     import { showNotificationToast } from '@/common/utils/toast';
     import { uploadFileToServer } from '@/common/utils/upload-file';
+    import { GET_PERMISSIONS } from '@/common/utils/const';
+    import { validationPermissions } from '@/common/utils/validation-permissions';
 
 
     const { form, update, getAllRole, getAllPermission, allPermission, allRole, state, getOne, userGetByOne  } = ownerUserStore();

@@ -346,6 +346,7 @@
                         type="submit"
                         severity="info" 
                         :loading="state.btnLoading"
+                        :disabled="validationPermissions(GET_PERMISSIONS.REAL_ESTATE.UPDATE)"
                     >
                         <i class="pi pi-save" style="margin-right: 8px;"></i>
                         {{ $t('button.edit_data') }}
@@ -377,6 +378,8 @@
     import { useI18n } from 'vue-i18n';
     import { isValidFileSize, validFileTypesRealEstate } from '@/common/utils/validation.file';
     import { showNotificationToast } from '@/common/utils/toast';
+    import { GET_PERMISSIONS } from '@/common/utils/const';
+    import { validationPermissions } from '@/common/utils/validation-permissions';
 
     const { t } = useI18n();
     const toast = useToast();
