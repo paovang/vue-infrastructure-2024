@@ -448,6 +448,7 @@
                       'admin.warning',
                       'admin.edit.warning',
                       'admin.qrcode.bank',
+                      'report.rent.buy'
                     ].includes(String(router.currentRoute.value.name)) }"
                   >
                     <li v-for="children in item.children" :key="item.key">
