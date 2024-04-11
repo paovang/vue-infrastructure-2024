@@ -302,8 +302,7 @@
                 <Column field="id_no" :header="$t('table.header.id_no')" headerStyle="min-width: 10rem"></Column>
                 <Column field="country.name" :header="$t('table.header.country')" headerStyle="min-width: 5rem"></Column>
                 <Column field="customer_number" :header="$t('table.header.customer_number')" headerStyle="min-width: 8rem"></Column>
-                <Column field="name" :header="$t('table.header.customer')" headerStyle="min-width: 8rem"></Column>
-                <Column field="owner" :header="$t('table.header.owner')" headerStyle="min-width: 8rem"></Column>
+                <Column field="name" :header="$t('table.header.full_name')" headerStyle="min-width: 8rem"></Column>
                 <Column field="address" :header="$t('table.header.address')" headerStyle="min-width: 10rem"></Column>
                 <Column field="tel" :header="$t('table.header.phone_number')" headerStyle="min-width: 8rem"></Column>
                 <Column field="email" :header="$t('table.header.email')"></Column>

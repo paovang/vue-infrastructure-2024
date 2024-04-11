@@ -121,7 +121,6 @@ export class HomeRealEstateRepository implements IHomeRealEstateRepository {
       url: `/customer/register`,
       data: {
         name: input.name,
-        owner: input.owner,
         address: input.address,
         tel: input.phone_number,
         email: input.email,

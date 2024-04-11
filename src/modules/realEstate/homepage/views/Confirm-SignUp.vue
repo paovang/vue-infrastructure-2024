@@ -121,7 +121,6 @@
             const value = query;
             
             formSignUp.name = String(value.name);
-            formSignUp.owner = String(value.owner);
             formSignUp.address = String(value.address);
             formSignUp.email = String(value.email);
             formSignUp.phone_number = String(value.phone_number);

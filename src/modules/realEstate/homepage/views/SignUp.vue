@@ -30,22 +30,13 @@
                 <div class="column is-6 is-mobile-12" style="margin-top: -10px;">
                     <my-input-text 
                         name="name" 
-                        :label="$t('messages.name')" 
+                        :label="$t('messages.full_name')" 
                         required 
                         :placeholder="$t('placeholder.inputText')"  
                         class="h-full" 
                     />
                 </div>
-                <div class="column is-6 is-mobile-12 is-margin-top">
-                    <my-input-text 
-                        name="owner" 
-                        :label="$t('messages.owner')" 
-                        required 
-                        :placeholder="$t('placeholder.inputText')"  
-                        class="h-full" 
-                    />
-                </div>
-                <div class="column is-6 is-mobile-12 is-margin-top">
+                <div class="column is-12 is-mobile-12 is-margin-top">
                     <my-input-text 
                         name="address" 
                         :label="$t('messages.address')" 
@@ -137,7 +128,6 @@
 
     const translatedErrorMessages = {
         name: t('placeholder.inputText'),
-        owner: t('placeholder.inputText'),
         address: t('placeholder.inputText'),
         phone_number: t('placeholder.inputText'),
         email: t('placeholder.inputText'),
@@ -157,7 +147,6 @@
 
     const submitForm = handleSubmit(async (value: any) => {
         formSignUp.name = String(value.name);
-        formSignUp.owner = String(value.owner);
         formSignUp.address = String(value.address);
         formSignUp.email = String(value.email);
         formSignUp.phone_number = String(value.phone_number);
@@ -173,7 +162,6 @@
         } else {
             router.push({ name: 'confirm.sign.up', query: { 
                 name: value.name,
-                owner: value.owner,
                 address: value.address,
                 email: value.email,
                 phone_number: value.phone_number,

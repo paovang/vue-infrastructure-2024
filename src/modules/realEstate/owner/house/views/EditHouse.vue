@@ -64,7 +64,7 @@
                 <div class="column is-mobile-12 is-2">
                     <my-input-text 
                         name="name" 
-                        :label="$t('messages.name')" 
+                        :label="$t('messages.real_estate_name')" 
                         required 
                         :placeholder="$t('placeholder.inputText')"  
                         class="h-full" 

@@ -123,7 +123,7 @@
             <Column field="customer_tel" :header="$t('table.header.customer_phone')" headerStyle="min-width: 8rem"></Column>
             <Column field="real_estate_list.real_esate_number" :header="$t('table.header.real_esate_number')" headerStyle="min-width: 8rem"></Column>
             <Column field="real_estate_list.real_estate_type.name" :header="$t('table.header.real_estate_type')" headerStyle="min-width: 10rem"></Column>
-            <Column field="real_estate_list.name" :header="$t('table.header.name')" headerStyle="min-width: 8rem"></Column>
+            <Column field="real_estate_list.name" :header="$t('table.header.real_estate_name')" headerStyle="min-width: 8rem"></Column>
             <Column field="service_model" :header="$t('table.header.service_model')" headerStyle="min-width: 8rem"></Column>
             <Column field="from_date" :header="$t('table.header.from_date')" headerStyle="min-width: 8rem"></Column>
             <Column field="to_date" :header="$t('table.header.to_date')" headerStyle="min-width: 8rem"></Column>
