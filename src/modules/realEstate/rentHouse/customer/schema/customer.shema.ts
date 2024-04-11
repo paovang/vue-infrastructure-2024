@@ -2,7 +2,6 @@ import { object, string, ObjectSchema } from "yup";
 
 interface ErrorMessages {
   name: string;
-  owner: string;
   address: string;
   tel: string;
   email: string;
@@ -25,7 +24,6 @@ const customerSchemaFunction: CustomerSchemaFunction = (
 ) => {
   let schema = object({
     name: string().required(errorMessages.name),
-    owner: string().required(errorMessages.owner),
     address: string().required(errorMessages.address),
     tel: string().required(errorMessages.tel),
     email: string().required(errorMessages.email),

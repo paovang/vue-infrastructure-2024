@@ -31,22 +31,13 @@
                                 <my-input-text 
                                     ref="autoFocusCursor"
                                     name="name" 
-                                    :label="$t('messages.name')"
+                                    :label="$t('messages.full_name')"
                                     required 
                                     :placeholder="$t('placeholder.inputText')" 
                                     class="h-full" 
                                 />
                             </div>
-                            <div class="col-12 md:col-3">
-                                <my-input-text 
-                                    name="owner" 
-                                    :label="$t('messages.owner')"
-                                    required 
-                                    :placeholder="$t('placeholder.inputText')" 
-                                    class="h-full" 
-                                />
-                            </div>
-                            <div class="col-12 md:col-3">
+                            <div class="col-12 md:col-6">
                                 <my-input-text 
                                     name="address" 
                                     :label="$t('messages.address')"
@@ -204,7 +195,7 @@
                                 <i class="pi pi-search" style="margin-top: -10px"/>
                                 <input-text
                                     v-model="filteredName"
-                                    :placeholder="`${$t('placeholder.textSearch')} (${$t('messages.name')}, ${$t('messages.owner')})`"  
+                                    :placeholder="`${$t('placeholder.textSearch')} (${$t('messages.full_name')})`"  
                                     style="font-family: NotoSansLao, Montserrat"
                                     class="w-full"
                                     @keyup.enter="onSearch"
@@ -359,7 +350,6 @@
 
     const translatedErrorMessages = {
         name: t('placeholder.inputText'),
-        owner: t('placeholder.inputText'),
         address: t('placeholder.inputText'),
         tel: t('placeholder.inputText'),
         email: t('placeholder.inputText'),
@@ -390,7 +380,6 @@
     const onUpdate = handleSubmit(async(values) => {
         form.id = values.id;
         form.name = values.name;
-        form.owner = values.owner;
         form.address = values.address;
         form.tel = values.tel;
         form.email = values.email;
@@ -422,7 +411,6 @@
 
     const onSubmit = handleSubmit(async(values) => {
         form.name = values.name;
-        form.owner = values.owner;
         form.address = values.address;
         form.email = values.email;
         form.tel = values.tel;
@@ -430,6 +418,7 @@
         form.password_confirmation = values.password_confirmation;
         form.id_no = values.id_no;
         form.id_image = selectedImage.value;
+        form.profile = selectedProfile.value;
 
         await register();
         
@@ -498,7 +487,6 @@
     const editItem = async (value: CustomerEntity) => {
         setFieldValue('id', value.id);
         setFieldValue('name', value.name);
-        setFieldValue('owner', value.owner);
         setFieldValue('address', value.address);
         setFieldValue('email', value.email);
         setFieldValue('tel', value.tel);

@@ -18,13 +18,13 @@ export class CustomerRepository implements ICustomerRepository {
       url: "/admin/account",
       data: {
         name: input.name,
-        owner: input.owner,
         address: input.address,
         tel: input.tel,
         email: input.email,
         password: input.password,
         password_confirmation: input.password_confirmation,
         country_id: input.country_id,
+        profile: input.profile,
         id_no: input.id_no,
         id_image: input.id_image,
       },
@@ -43,7 +43,6 @@ export class CustomerRepository implements ICustomerRepository {
       url: "/admin/account/" + input.id,
       data: {
         name: input.name,
-        owner: input.owner,
         address: input.address,
         tel: input.tel,
         email: input.email,
