@@ -212,7 +212,7 @@
       ]
     },
     {
-      key: '1',
+      key: '2',
       label: t('sidebar.report'),
       icon: 'pi pi-chart-line',
       color: 'text-black-500',
@@ -408,6 +408,7 @@
             <ul class="list-none p-0 m-0 overflow-hidden">
               <li v-for="item in menu" :key="item.key">
                   <div
+                      v-if="item.key === '1' || currentRoles.includes(GET_ROLES.SUPER_ADMIN) || currentRoles.includes(GET_ROLES.ADMIN) || currentRoles.includes(GET_ROLES.USER)"
                       v-ripple
                       v-styleclass="{
                           selector: '@next',
