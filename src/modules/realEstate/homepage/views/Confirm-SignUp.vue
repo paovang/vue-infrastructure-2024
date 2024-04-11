@@ -14,7 +14,7 @@
         <br/>
         <div class="flex align-items-center">
             <Checkbox v-model="formSignUp.check_rule" inputId="ingredient1" name="rule" binary />
-            <label for="ingredient1" class="ml-2"> ຂ້ອຍເຫັນດີ </label>
+            <label for="ingredient1" class="ml-2"> {{ $t('messages.i_gree') }} </label>
         </div>
         <br/>
         <div class="column is-12 is-mobile-12" style="margin-top: -10px;">

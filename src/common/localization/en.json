@@ -291,7 +291,8 @@
         "forgot_password": "Forgot Password",
         "my_profile": "My Profile",
         "sign_out": "Sign out",
-        "qrcode_bank": "QR Code"
+        "qrcode_bank": "QR Code",
+        "i_gree": "I Gree"
     },
     "uploadFile": {
         "uploading": "Uploading profile to the system please wait...",

@@ -76,7 +76,9 @@
                     <span>, {{ $t('messages.wide') }}: {{ realEstateGetOne.data.props.wide }} m</span>
                 </p>
                 <Divider/>
-                <p v-if="realEstateGetOne.data.props.remark" style="font-size: 18px; font-weight: bold; margin-top: 5px;">ລາຍລະອຽດ:</p>
+                <p v-if="realEstateGetOne.data.props.remark" style="font-size: 18px; font-weight: bold; margin-top: 5px;">
+                    {{ $t('messages.details') }}:
+                </p>
                 <p>
                     {{ realEstateGetOne.data.props.remark }}
                 </p>
