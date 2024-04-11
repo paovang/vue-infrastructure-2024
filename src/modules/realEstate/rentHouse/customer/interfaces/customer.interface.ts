@@ -19,4 +19,6 @@ export interface ICustomerRepository {
   getById(id: number): Promise<any>;
 
   updateStatus(id: CustomerEntity): Promise<any>;
+
+  changePassword(input: CustomerEntity): Promise<any>;
 }

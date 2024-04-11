@@ -166,7 +166,8 @@
         "sign_up": "สมัครสมาชิก",
         "close": "ปิด",
         "rent_buy_from_appoint": "เช่า - ซื้อ จากการนัดหมาย",
-        "payment": "ชำระเงิน"
+        "payment": "ชำระเงิน",
+        "change_password": "เปลี่ยนรหัสผ่าน"
     },
     "messages": {
         "country": "ประเทศ",
@@ -295,7 +296,8 @@
         "my_profile": "โปรไฟล์ของฉัน",
         "sign_out": "ออกจากระบบ",
         "qrcode_bank": "คิวอาร์โค้ด",
-        "i_gree": "ฉันเห็นดี"
+        "i_gree": "ฉันเห็นดี",
+        "change_password": "เปลี่ยนรหัสผ่าน"
     },
     "uploadFile": {
         "uploading": "กำลังอัปโหลดไฟล์เข้าสู่ระบบ โปรดรอ...",

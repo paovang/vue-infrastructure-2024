@@ -166,7 +166,8 @@
         "sign_up": "ລົງທະບຽນ",
         "close": "ປິດ",
         "rent_buy_from_appoint": "ເຊົ່າ - ຊື້ຂາຍ ຈາກການນັດໝາຍ",
-        "payment": "ຊຳລະເງີນ"
+        "payment": "ຊຳລະເງີນ",
+        "change_password": "ປ່ຽນລະຫັດຜ່ານ"
     },
     "messages": {
         "country": "ປະເທດ",
@@ -295,7 +296,8 @@
         "my_profile": "ໂປຮໄຟລ໌ ຂອງຂ້ອຍ",
         "sign_out": "ອອກຈາກລະບົບ",
         "qrcode_bank": "ຄີວອາໂຄດ",
-        "i_gree": "ຂ້ອຍເຫັນດີ"
+        "i_gree": "ຂ້ອຍເຫັນດີ",
+        "change_password": "ປ່ຽນລະຫັດຜ່ານ"
     },
     "uploadFile": {
         "uploading": "ກຳລັງອັບໂຫຼດໂປຮໄຟລເຂົ້າລະບົບ ກະລຸນາລໍຖ້າ...",

@@ -166,7 +166,8 @@
         "sign_up": "Sign Up",
         "close": "Close",
         "rent_buy_from_appoint": "Rent - Buy from Appoint",
-        "payment": "Payment"
+        "payment": "Payment",
+        "change_password": "Change Password"
     },
     "messages": {
         "country": "Country",
@@ -295,7 +296,8 @@
         "my_profile": "My Profile",
         "sign_out": "Sign out",
         "qrcode_bank": "QR Code",
-        "i_gree": "I Gree"
+        "i_gree": "I Gree",
+        "change_password": "Change Password"
     },
     "uploadFile": {
         "uploading": "Uploading profile to the system please wait...",

@@ -74,6 +74,16 @@
           </div>
         </a>
       </li>
+      <li @click="changePassword(getUserProfile.data.props.id)">
+        <a
+          class="cursor-pointer flex surface-border mb-3 p-3 align-items-center border-1 surface-border border-round hover:surface-hover transition-colors transition-duration-150"
+        >
+          <span> <i class="pi pi-lock text-xl text-color"></i> </span>
+          <div class="ml-3">
+            <span class="mb-2 font-semibold">{{ $t('messages.change_password') }}</span>
+          </div>
+        </a>
+      </li>
       <li @click="logout()">
         <a
           class="cursor-pointer flex surface-border mb-3 p-3 align-items-center border-1 surface-border border-round hover:surface-hover transition-colors transition-duration-150"
@@ -86,6 +96,14 @@
       </li>
     </ul>
   </Sidebar>
+
+  <change-user-password
+      ref="editForm" 
+      :form="form"
+      :user-id="userId"
+      :change-user-password="changeUserPassword"
+      :state="state"
+  />
 </template>
 
 <script setup lang="ts">
@@ -97,11 +115,14 @@
   import Dropdown from 'primevue/dropdown';
   import { useI18n } from 'vue-i18n';
   import { adminUserStore } from '@/modules/realEstate/admin/user/stores/user.store';
+  import { customerStore } from '@/modules/realEstate/rentHouse/customer/stores/customer.store';
+  import ChangeUserPassword from '@/modules/realEstate/rentHouse/customer/components/Change-User-Password.Component.vue';
 
   const { t } = useI18n();
   
   const { logout } = useAuthStore();
   const { getUserProfile, getProfile  } = adminUserStore();
+  const { form, state, changeUserPassword } = customerStore();
 
   const breadcrumbItems = ref<Array<string>>([]);
   const visibleRight = ref(false);
@@ -118,6 +139,14 @@
       { name: 'Tiếng Việt', code: 'vi' },
       { name: 'China', code: 'lk' },
   ]);
+
+  const editForm = ref();
+  const userId = ref();
+  const changePassword = async (id: any) => {
+    visibleRight.value = false;
+      userId.value = id;
+      editForm.value.visible = true;
+  }
 
   const gotToUserProfile = () => {
     visibleRight.value = false;

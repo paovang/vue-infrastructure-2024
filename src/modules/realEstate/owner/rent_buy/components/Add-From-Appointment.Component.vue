@@ -112,8 +112,8 @@
     import MyInputNumber from '@/components/customComponents/FormInputNumber.vue';
     import { appointmentStore } from '@/modules/realEstate/owner/appointment/stores/appointment.store';
     import { formatNumber } from '@/common/utils/format.currency';
-import { GET_PERMISSIONS } from '@/common/utils/const';
-import { validationPermissions } from '@/common/utils/validation-permissions';
+    import { GET_PERMISSIONS } from '@/common/utils/const';
+    import { validationPermissions } from '@/common/utils/validation-permissions';
 
 
     const { state: stateAppointment, setStateFilter: setStateFilterAppointment, getAll: getAllAppointment } = appointmentStore();

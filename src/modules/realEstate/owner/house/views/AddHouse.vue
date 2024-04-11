@@ -538,8 +538,15 @@
         }
     }
 
+    const translatedErrorMessages = {
+        village: t('placeholder.inputText'),
+        location: t('placeholder.inputText'),
+        name: t('placeholder.inputText'),
+        wide: t('placeholder.inputText')
+    }
+
     const { handleSubmit } = useForm<any>({
-        validationSchema: houseSchema
+        validationSchema: houseSchema(translatedErrorMessages)
     })
 
     const servicemodels = ref([

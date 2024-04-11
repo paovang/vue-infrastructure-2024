@@ -10,6 +10,7 @@ import { GetAllCustomerUseCase } from "../use-cases/get-all-use-case";
 import { UpdateCustomerUseCase } from "../use-cases/update-use-case";
 import { DeleteCustomerUseCase } from "../use-cases/delete.use-case";
 import { UpdateStatusCustomerUseCase } from "../use-cases/update-status.use-case";
+import { ChangePasswordUseCase } from "../use-cases/change-password.use-case";
 
 @injectable()
 export class CustomerService {
@@ -19,7 +20,9 @@ export class CustomerService {
     @inject(UpdateCustomerUseCase) private _update: UpdateCustomerUseCase,
     @inject(DeleteCustomerUseCase) private _delete: DeleteCustomerUseCase,
     @inject(UpdateStatusCustomerUseCase)
-    private _updateStatus: UpdateStatusCustomerUseCase
+    private _updateStatus: UpdateStatusCustomerUseCase,
+    @inject(ChangePasswordUseCase)
+    private _changePassword: ChangePasswordUseCase
   ) {}
 
   async register(input: CustomerEntity) {
@@ -42,5 +45,9 @@ export class CustomerService {
 
   async updateStatus(id: CustomerEntity): Promise<any> {
     return await this._updateStatus.execute(id);
+  }
+
+  async changePassword(input: CustomerEntity): Promise<any> {
+    return await this._changePassword.execute(input);
   }
 }

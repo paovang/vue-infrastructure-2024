@@ -251,15 +251,15 @@
                                 severity="info"  
                                 style="color: white;" 
                                 @click="editItem(data)"
-                            />
+                            /> -->
                             <Button 
                                 type="button" 
                                 icon="pi pi-lock" 
                                 rounded 
                                 severity="danger"  
                                 style="color: white;" 
-                                @click="editItem(data)"
-                            /> -->
+                                @click="changePassword(data.user.id)"
+                            />
                             <Button 
                                 type="button" 
                                 icon="pi pi-pencil" 
@@ -301,6 +301,15 @@
                 <Column field="created" :header="$t('table.header.created_at')" headerStyle="min-width: 8rem"></Column>
             </DataTable>
         </div>
+
+        <change-user-password
+            ref="editForm" 
+            :form="form"
+            :user-id="userId"
+            :change-user-password="changeUserPassword"
+            :state="state"
+            @on-success="onSuccess"
+        />
     </div>
   </template>
   
@@ -331,6 +340,7 @@
     import { uploadFileToServer } from '@/common/utils/upload-file';
     import { validationPermissions } from '@/common/utils/validation-permissions';
     import { GET_PERMISSIONS } from '@/common/utils/const';
+    import ChangeUserPassword from '../components/Change-User-Password.Component.vue';
 
 
     const { t } = useI18n();
@@ -340,12 +350,12 @@
     const isEditing = ref(false);   
     const autoFocusCursor = ref();
     const isCardVisible = ref(false);
-    const isValidate = ref<boolean>(true);
+    const isValidate = ref<boolean>(true); 
 
     const { push } = useRouter()
     const { query } = useRoute()
 
-    const { register, update, remove, getAll, form, state, setStateFilter, updateStatus } = customerStore();
+    const { register, update, remove, getAll, form, state, setStateFilter, updateStatus, changeUserPassword } = customerStore();
     const { getAll: getAllCountry, state: stateCountry, setStateFilter: setStateCountyFilter } = countryStore();
 
     const translatedErrorMessages = {
@@ -357,6 +367,19 @@
         password_confirmation: t('placeholder.inputText'),
         id_no: t('placeholder.inputText'),
         id_image: t('placeholder.inputText'),
+    }
+
+    const editForm = ref();
+    const userId = ref();
+    const changePassword = async (id: any) => {
+        userId.value = id;
+        editForm.value.visible = true;
+    }
+
+    const onSuccess = async () => {
+        await initComponent();
+        await fetchData();
+        stateCountry.data.props.unshift({ id: 'all', name: t('messages.all') });
     }
 
     // Define a reactive property to hold the validation schema

@@ -228,6 +228,7 @@
             <Column field="created_by.name" :header="$t('table.header.created_by')" headerStyle="min-width: 8rem"></Column>
             <Column field="updated_by.name" :header="$t('table.header.updated_by')" headerStyle="min-width: 8rem"></Column>
             <Column field="created_at" :header="$t('table.header.created_at')" headerStyle="min-width: 8rem"></Column>
+            <Column field="updated_at" :header="$t('table.header.updated_at')" headerStyle="min-width: 8rem"></Column>
         </DataTable>
 
         <!-- <payment-service-component

@@ -153,6 +153,27 @@ export const customerStore = defineStore("customer-store", () => {
     }
   }
 
+  async function changeUserPassword() {
+    state.isLoading = true;
+
+    try {
+      await service.changePassword(form);
+      await getAll();
+
+      state.error = "";
+      form.name = "";
+    } catch (error: any) {
+      let responseError = "";
+      if (error.response.status === 422) {
+        responseError = Object.keys(error.response.data.errors)
+          .map((key) => `${key}: ${error.response.data.errors[key].join(", ")}`)
+          .join("; ");
+      }
+      state.error = responseError;
+    }
+    state.isLoading = false;
+  }
+
   return {
     register,
     update,
@@ -163,5 +184,6 @@ export const customerStore = defineStore("customer-store", () => {
     setStateFilter,
     state,
     updateStatus,
+    changeUserPassword,
   };
 });

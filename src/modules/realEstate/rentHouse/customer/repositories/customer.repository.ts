@@ -112,4 +112,23 @@ export class CustomerRepository implements ICustomerRepository {
       status: "success",
     };
   }
+
+  async changePassword(
+    input: CustomerEntity
+  ): Promise<IResponse<CustomerEntity>> {
+    const response = await this._api.axios({
+      method: "put",
+      url: "/change-password/" + input.user_id,
+      data: {
+        password: input.password,
+        password_confirmation: input.password_confirmation,
+      },
+    });
+
+    return {
+      data: response.data,
+      message: "ອັບເດດ ຂໍ້ມູນສຳເລັດເເລ້ວ",
+      status: "success",
+    };
+  }
 }

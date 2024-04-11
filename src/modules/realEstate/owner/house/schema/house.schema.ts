@@ -1,8 +1,25 @@
-import { object, string, type ObjectSchema } from "yup";
+import { object, string, ObjectSchema } from "yup";
 
-export const houseSchema: ObjectSchema<any> = object({
-  village: string().required("ກະລຸນາປ້ອນກ່ອນ..."),
-  location: string().required("ກະລຸນາປ້ອນກ່ອນ..."),
-  name: string().required("ກະລຸນາປ້ອນກ່ອນ..."),
-  wide: string().required("ກະລຸນາປ້ອນກ່ອນ..."),
-});
+interface ErrorMessages {
+  village: string;
+  location: string;
+  name: string;
+  wide: string;
+}
+
+// Define the schema function type alias
+type HouseSchemaFunction = (
+  errorMessages: ErrorMessages
+) => ObjectSchema<ErrorMessages>;
+
+// Define the schema function
+const houseSchemaFunction: HouseSchemaFunction = (errorMessages) =>
+  object({
+    village: string().required(errorMessages.village),
+    location: string().required(errorMessages.location),
+    name: string().required(errorMessages.name),
+    wide: string().required(errorMessages.wide),
+  });
+
+// Assign the schema function to customerSchema
+export const houseSchema = houseSchemaFunction;
