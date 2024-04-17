@@ -177,6 +177,7 @@ export class Repository implements IRepository {
         props: data.data.data,
         total: data.data.pagination.total,
         summary: data.totalPrice,
+        currency: data.currency,
       },
       status: "success",
     };

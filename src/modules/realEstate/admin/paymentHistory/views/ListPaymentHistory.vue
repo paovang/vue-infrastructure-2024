@@ -108,10 +108,12 @@
             </Column>
             <Column field="date_payment" :header="$t('table.header.date_payment')" headerStyle="min-width: 8rem"></Column>
             <Column field="bill_no" :header="$t('table.header.bill_number')" headerStyle="min-width: 6rem"></Column>
+            <Column field="real_estate_list.real_esate_number" :header="$t('table.header.real_esate_number')" headerStyle="min-width: 6rem"></Column>
+            <Column field="real_estate_list.name" :header="$t('table.header.real_estate_name')" headerStyle="min-width: 6rem"></Column>
             <Column :header="$t('table.header.name') +  ' / ' + $t('table.header.owner')" headerStyle="min-width: 12rem">
                 <template #body="{data}">
-                    <span>{{ data.real_estate_list.account.name }}</span>
-                    <span> - {{ data.real_estate_list.account.owner }}</span>
+                    <span>{{ data.real_estate_list.agent_name }}</span>
+                    <span> - {{ data.real_estate_list.owner_name }}</span>
                 </template>
             </Column>
             <Column :header="$t('table.header.unit_price')" headerStyle="min-width: 10rem">

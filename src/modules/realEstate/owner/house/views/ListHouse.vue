@@ -32,8 +32,23 @@
             :currentPageReportTemplate="`${$t('table.pagination.show')} {first} ${$t('table.pagination.to')} {last} ${$t('table.pagination.from')} {totalRecords} ${$t('table.pagination.row')}`"
         >
             <template #header>
-                <div class="col-12 md:col-12 flex flex-row">
-                    <div class="col-12 md:col-3">
+                <div class="col-12 md:col-12 flex flex-row" style="margin-top: -15px">
+                    <div class="col-12 md:col-6">
+                        <label>
+                            {{ $t('messages.search') }}
+                            <span class="text-red-500"> *</span>
+                        </label>
+                        <input-text
+                            v-model="filterVillage"
+                            :placeholder="$t('placeholder.textSearch')" 
+                            style="font-family: NotoSansLao, Montserrat"
+                            class="w-full"
+                            name="village"
+                            @keyup.enter="onSearch"
+                            @input="onClearSearch"
+                        />
+                    </div>
+                    <div class="col-12 md:col-2">
                         <label>
                             {{ $t('messages.realestate_type') }}
                             <span class="text-red-500"> *</span>
@@ -50,7 +65,7 @@
                             @change="onSearch"
                         />
                     </div>
-                    <div class="col-12 md:col-3">
+                    <div class="col-12 md:col-2">
                         <label>
                             {{ $t('messages.service_model') }}
                             <span class="text-red-500"> *</span>
@@ -66,7 +81,7 @@
                             @change="onSearch"
                         />
                     </div>
-                    <div class="col-12 md:col-3">
+                    <div class="col-12 md:col-2">
                         <label>
                             {{ $t('messages.room_type') }}
                             <span class="text-red-500"> *</span>
@@ -82,7 +97,10 @@
                             @change="onSearch"
                         />
                     </div>
-                    <div class="col-12 md:col-3">
+                </div>
+                <div class="col-12 md:col-12 flex flex-row" style="margin-top: -15px">
+                    
+                    <!-- <div class="col-12 md:col-3">
                         <label>
                             {{ $t('messages.province') }}
                             <span class="text-red-500"> *</span>
@@ -98,71 +116,7 @@
                             filter
                             @change="filterDistrictByid(form.province_id)"
                         />
-                    </div>
-                </div>
-                <div class="col-12 md:col-12 flex flex-row">
-                    <div class="col-12 md:col-3">
-                        <label>
-                            {{ $t('messages.district') }}
-                            <span class="text-red-500"> *</span>
-                        </label>
-                        <Dropdown 
-                            v-model="form.district_id" 
-                            :options="stateDistrict.data.props" 
-                            optionLabel="name" 
-                            :placeholder="$t('placeholder.dropdownSelect')" 
-                            class="w-full" 
-                            optionValue="id"
-                            :highlightOnSelect="true" 
-                            filter
-                            @change="onSearch"
-                        />
-                    </div>
-                    <div class="col-12 md:col-3">
-                        <label>
-                            {{ $t('messages.village') }}
-                            <span class="text-red-500"> *</span>
-                        </label>
-                        <input-text
-                            v-model="filterVillage"
-                            :placeholder="$t('placeholder.inputText')" 
-                            style="font-family: NotoSansLao, Montserrat"
-                            class="w-full"
-                            name="village"
-                            @keyup.enter="onSearch"
-                            @input="onClearSearch"
-                        />
-                    </div>
-                    <div class="col-12 md:col-3">
-                        <label>
-                            {{ $t('messages.wide') }}
-                            <span class="text-red-500"> *</span>
-                        </label>
-                        <input-text
-                            v-model="filterWide"
-                            :placeholder="$t('placeholder.inputText')" 
-                            style="font-family: NotoSansLao, Montserrat"
-                            class="w-full"
-                            name="wide"
-                            @keyup.enter="onSearch"
-                            @input="onClearSearch"
-                        />
-                    </div>
-                    <div class="col-12 md:col-3">
-                        <label>
-                            {{ $t('messages.long') }}
-                            <span class="text-red-500"> *</span>
-                        </label>
-                        <input-text
-                            v-model="filterLong"
-                            :placeholder="$t('placeholder.inputText')" 
-                            style="font-family: NotoSansLao, Montserrat"
-                            class="w-full"
-                            name="long"
-                            @keyup.enter="onSearch"
-                            @input="onClearSearch"
-                        />
-                    </div>
+                    </div> -->
                 </div>
             </template>
 
@@ -215,10 +169,12 @@
             <Column field="real_estate_type.name" :header="$t('table.header.realestate_type')" headerStyle="min-width: 8rem"></Column>
             <Column field="service_model" :header="$t('table.header.service_model')" headerStyle="min-width: 8rem"></Column>
             <Column field="room_type" :header="$t('table.header.room_type')" headerStyle="min-width: 8rem"></Column>
-            <Column field="village" :header="$t('table.header.village')" headerStyle="min-width: 6rem"></Column>
-            <Column field="district.name" :header="$t('table.header.district')" headerStyle="min-width: 6rem"></Column>
-            <Column field="district.province.name" :header="$t('table.header.province')" headerStyle="min-width: 7rem"></Column>
-            <Column field="zip_code" :header="$t('table.header.zip_code')" headerStyle="min-width: 6rem"></Column>
+            <Column field="owner_name" :header="$t('table.header.owner')" headerStyle="min-width: 8rem"></Column>
+            <Column field="agent_name" :header="$t('table.header.name')" headerStyle="min-width: 8rem"></Column>
+            <Column field="village" :header="$t('table.header.address')" headerStyle="min-width: 15rem"></Column>
+            <!-- <Column field="district.name" :header="$t('table.header.district')" headerStyle="min-width: 6rem"></Column>
+            <Column field="district.province.name" :header="$t('table.header.province')" headerStyle="min-width: 7rem"></Column> -->
+            <!-- <Column field="zip_code" :header="$t('table.header.zip_code')" headerStyle="min-width: 6rem"></Column> -->
             <Column field="long" :header="$t('table.header.long')" headerStyle="min-width: 7rem"></Column>
             <Column field="wide" :header="$t('table.header.wide')" headerStyle="min-width: 6rem"></Column>
             <Column field="total_bed" :header="$t('table.header.total_bed')" headerStyle="min-width: 9rem"></Column>
@@ -442,23 +398,23 @@
         }
     })
 
-    const filterWide = computed<string>({
-        get: () => setStateFilter.filter!.wide || '',
-        set: (value) => {
-            if (setStateFilter.filter) {
-                setStateFilter.filter.wide = value;
-            }
-        }
-    })
+    // const filterWide = computed<string>({
+    //     get: () => setStateFilter.filter!.wide || '',
+    //     set: (value) => {
+    //         if (setStateFilter.filter) {
+    //             setStateFilter.filter.wide = value;
+    //         }
+    //     }
+    // })
 
-    const filterLong = computed<string>({
-        get: () => setStateFilter.filter!.long || '',
-        set: (value) => {
-            if (setStateFilter.filter) {
-                setStateFilter.filter.long = value;
-            }
-        }
-    })
+    // const filterLong = computed<string>({
+    //     get: () => setStateFilter.filter!.long || '',
+    //     set: (value) => {
+    //         if (setStateFilter.filter) {
+    //             setStateFilter.filter.long = value;
+    //         }
+    //     }
+    // })
 
     const fetchAll = async() => {
         await getAll();
@@ -488,21 +444,21 @@
         form.district_id = stateDistrict.data.props.length > 0 ? stateDistrict.data.props[0].id : undefined;
     }
 
-    const filterDistrictByid = async (id: any) => {
-        if (setStateDistrictFilter.filter) {
-            setStateDistrictFilter.filter.province_id = id;
-            await getAllDistrict();
-            stateDistrict.data.props.unshift({ id: 'all', name: t('messages.all') });
-            await selectedDistrict();
+    // const filterDistrictByid = async (id: any) => {
+    //     if (setStateDistrictFilter.filter) {
+    //         setStateDistrictFilter.filter.province_id = id;
+    //         await getAllDistrict();
+    //         stateDistrict.data.props.unshift({ id: 'all', name: t('messages.all') });
+    //         await selectedDistrict();
 
-            if (setStateFilter.filter) {
-                setStateFilter.filter.district_id = form.district_id === 'all' ? '' : form.district_id;
-                setStateFilter.filter.province_id = form.province_id === 'all' ? '' : form.province_id;
-            }
+    //         if (setStateFilter.filter) {
+    //             setStateFilter.filter.district_id = form.district_id === 'all' ? '' : form.district_id;
+    //             setStateFilter.filter.province_id = form.province_id === 'all' ? '' : form.province_id;
+    //         }
 
-            await getAll();
-        }
-    }
+    //         await getAll();
+    //     }
+    // }
 
     const confirmDelete = async (id: HouseEntity) => {
         confirm.require({

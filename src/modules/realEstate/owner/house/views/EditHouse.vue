@@ -70,7 +70,7 @@
                         class="h-full" 
                     />
                 </div>
-                <div class="column is-mobile-12 is-2">
+                <!-- <div class="column is-mobile-12 is-2">
                     <label>
                         {{ $t('messages.province') }}
                         <span class="text-red-500"> *</span>
@@ -104,18 +104,36 @@
                         :highlightOnSelect="true" 
                         filter
                     />
+                </div> -->
+                <div class="column is-mobile-12 is-2">
+                    <my-input-text 
+                        name="agent_name" 
+                        :label="$t('messages.name')" 
+                        required 
+                        :placeholder="$t('placeholder.inputText')"  
+                        class="h-full" 
+                    />
                 </div>
                 <div class="column is-mobile-12 is-2">
                     <my-input-text 
+                        name="owner_name" 
+                        :label="$t('messages.owner')" 
+                        required 
+                        :placeholder="$t('placeholder.inputText')"  
+                        class="h-full" 
+                    />
+                </div>
+                <div class="column is-mobile-12 is-4 set-margin-top">
+                    <my-input-text 
                         name="village" 
-                        :label="$t('messages.village')" 
+                        :label="$t('messages.address')" 
                         required 
                         :placeholder="$t('placeholder.inputText')" 
                         class="h-full" 
                         :value="form.village"
                     />
                 </div>
-                <div class="column is-mobile-12 is-2">
+                <!-- <div class="column is-mobile-12 is-2">
                     <my-input-text 
                         name="zipcode" 
                         :label="$t('messages.zip_code')" 
@@ -124,7 +142,7 @@
                         class="h-full" 
                         :value="form.zip_code"
                     />
-                </div>
+                </div> -->
                 <div class="column is-mobile-12 is-2 set-margin-top">
                     <my-input-text 
                         name="bed" 
@@ -141,7 +159,7 @@
                         class="h-full" 
                     />
                 </div>
-                <div class="column is-mobile-12 is-2">
+                <div class="column is-mobile-12 is-2 set-margin-top">
                     <my-input-text 
                         name="wide" 
                         :label="$t('messages.wide')" 
@@ -151,7 +169,7 @@
                         :value="form.wide"
                     />
                 </div>
-                <div class="column is-mobile-12 is-2">
+                <div class="column is-mobile-12 is-2 set-margin-top">
                     <my-input-text 
                         name="long" 
                         :label="$t('messages.long')" 
@@ -170,7 +188,7 @@
                         class="h-full" 
                     />
                 </div>
-                <div class="column is-mobile-12 is-10">
+                <div class="column is-mobile-12 is-10 set-margin-top">
                     <my-input-text 
                         name="location" 
                         :label="$t('messages.location')" 
@@ -180,7 +198,7 @@
                         :value="form.location"
                     />
                 </div>
-                <div class="column is-mobile-12 is-12">
+                <div class="column is-mobile-12 is-12 set-margin-top">
                     <my-input-text-area 
                         name="remark" 
                         :label="$t('messages.remark')" 
@@ -370,8 +388,8 @@
     import Divider from 'primevue/divider';
     import { realEstateServiceStore } from '@/modules/realEstate/rentHouse/memberServices/stores/real-estate-service.store';
     import { houseStore } from '@/modules/realEstate/owner/house/stores/house.store';
-    import { provinceStore } from '@/modules/realEstate/address/stores/province.store';
-    import { districtStore } from '@/modules/realEstate/address/stores/district.store';
+    // import { provinceStore } from '@/modules/realEstate/address/stores/province.store';
+    // import { districtStore } from '@/modules/realEstate/address/stores/district.store';
     import { useRouter, useRoute } from 'vue-router';
     import { useToast } from "primevue/usetoast";
     import axios from 'axios';
@@ -388,8 +406,8 @@
 
     const { form, state, update, getOne, houseGetByOne, deleteGallery, updateGallery, addGallery } = houseStore();
     const { getOne: getOneRealEstateService, realestateType } = realEstateServiceStore();
-    const { getAll: getAllProvince, state: stateProvince, setStateFilter: setStateProvinceFilter } = provinceStore();
-    const { getAll: getAllDistrict, state: stateDistrict, setStateFilter: setStateDistrictFilter } = districtStore();
+    // const { getAll: getAllProvince, state: stateProvince, setStateFilter: setStateProvinceFilter } = provinceStore();
+    // const { getAll: getAllDistrict, state: stateDistrict, setStateFilter: setStateDistrictFilter } = districtStore();
 
     const isShowFileImage = ref();
     const selectedImage = ref();
@@ -482,7 +500,9 @@
         const house = houseGetByOne.data.props;
 
         setFieldValue('village', house.village);
-        setFieldValue('zipcode', house.zip_code);
+        setFieldValue('agent_name', house.agent_name);
+        setFieldValue('owner_name', house.owner_name);
+        // setFieldValue('zipcode', house.zip_code);
         setFieldValue('wide', house.wide);
         setFieldValue('long', house.long);
         setFieldValue('location', house.location);
@@ -499,37 +519,39 @@
         isShowFileImage.value = house.image;
         isShowFileGallery.value = house.gallery;
 
-        setStateProvinceFilter.limit = 1000;
-        await getAllProvince();
+        // setStateProvinceFilter.limit = 1000;
+        // await getAllProvince();
         await getOneRealEstateService();
 
         form.real_estate_type_id = house.real_estate_type ? house.real_estate_type.id : undefined;
         form.province_id = house.province ? house.province.id : undefined;
 
-        if (setStateDistrictFilter.filter) {
-            setStateDistrictFilter.filter.province_id = form.province_id;
-            await getAllDistrict();
-            await selectedDistrict();
-        }
+        // if (setStateDistrictFilter.filter) {
+        //     setStateDistrictFilter.filter.province_id = form.province_id;
+        //     await getAllDistrict();
+        //     await selectedDistrict();
+        // }
     }
 
-    const filterDistrictByid = async (id: any) => {
-        if (setStateDistrictFilter.filter) {
-            setStateDistrictFilter.filter.province_id = id;
-            await getAllDistrict();
-            await selectedDistrict();
-        }
-    }
+    // const filterDistrictByid = async (id: any) => {
+    //     if (setStateDistrictFilter.filter) {
+    //         setStateDistrictFilter.filter.province_id = id;
+    //         await getAllDistrict();
+    //         await selectedDistrict();
+    //     }
+    // }
 
-    const selectedDistrict = async () => {
-        form.district_id = houseGetByOne.data.props.district ? houseGetByOne.data.props.district.id : undefined;
-    }
+    // const selectedDistrict = async () => {
+    //     form.district_id = houseGetByOne.data.props.district ? houseGetByOne.data.props.district.id : undefined;
+    // }
 
     const onSubmit = handleSubmit(async (value) => {
         form.id = String(route.params.id);
         form.village = value.village;
         form.name = value.name;
-        form.zip_code = value.zipcode;
+        form.agent_name = value.agent_name;
+        form.owner_name = value.owner_name;
+        // form.zip_code = value.zipcode;
         form.wide = value.wide;
         form.long = value.long;
         form.total_bed = value.bed;
@@ -855,5 +877,7 @@
     .upload-box:hover {
         cursor: pointer;
     }
-
+    .set-margin-top {
+        margin-top: -20px;
+    }
 </style>

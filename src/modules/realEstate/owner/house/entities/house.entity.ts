@@ -19,6 +19,8 @@ export interface HouseEntity {
   service_model?: string;
   image?: string;
   name?: string;
+  agent_name?: string;
+  owner_name?: string;
   room_type?: string;
   village?: string;
   district?: {

@@ -8,4 +8,5 @@ export interface IGPaginated<Entity> {
   props: Entity[];
   total: number;
   summary?: any;
+  currency?: string;
 }

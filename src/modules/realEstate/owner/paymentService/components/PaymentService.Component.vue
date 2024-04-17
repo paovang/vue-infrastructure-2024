@@ -25,6 +25,7 @@
                             class="w-full" 
                             optionValue="id"
                             :highlightOnSelect="true" 
+                            filter
                             @change="filterRealEstateService(form.id)"
                         />
                     </div>
@@ -158,7 +159,7 @@
         validationSchema: paymentSchema
     })
 
-    const { getAll, state: stateHouse, findRealEstateServiceById, findRealEstateService } = houseStore();
+    const { getAll, state: stateHouse, findRealEstateServiceById, findRealEstateService, setStateFilter } = houseStore();
     const { form, state, paymentService } = paymentStore();
 
     const onSubmit = handleSubmit(async (value) => {
@@ -238,6 +239,8 @@
     });
 
     const fetchAll = async() => {
+        setStateFilter.limit = 1000;
+        setStateFilter.page = 1;
         await getAll();
         form.id = stateHouse.data.props ? stateHouse.data.props[0].id : undefined;
         await findRealEstateServiceById(form.id as any);

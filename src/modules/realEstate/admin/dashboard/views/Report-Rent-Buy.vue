@@ -6,10 +6,10 @@
                     {{ $t('table.title.report_rent_buy') }} 
                 </h2>
             </span>
-            <!-- <span>
+            <span v-if="form.customer_id !== 'all' && state.data.summary">
                 {{  $t('messages.total_price') }} :
-                {{ formatNumber(state.data.summary, 'LAK') }}
-            </span> -->
+                {{ formatNumber(state.data.summary, state.data.currency) }}
+            </span>
         </div>
         <DataTable 
             :value="state.data.props" 
@@ -255,10 +255,19 @@
     })
 
     onMounted(async() => {
-        await getAllReportRentBuy();
         await getAllCustomers();
         form.service_model = "all";
+        getCustomers.data.props.unshift({ id: 'all', name: t('messages.all'), customer_number: t('messages.all'), tel: t('messages.all') });
         form.customer_id = getCustomers.data.props.length > 0 ? getCustomers.data.props[0].id : undefined;
+        
+        // if (setStateFilter.filter) {
+        //     setStateFilter.filter.service_model = form.service_model === 'all' ? '' : form.service_model;
+        //     setStateFilter.filter.from_date = form.from_date;
+        //     setStateFilter.filter.to_date = form.to_date;
+        //     setStateFilter.filter.customer_id = form.customer_id;
+        // }
+
+        await getAllReportRentBuy();
     })
 </script>
 

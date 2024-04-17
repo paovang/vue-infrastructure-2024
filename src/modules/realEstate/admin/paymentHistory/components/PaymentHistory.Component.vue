@@ -11,10 +11,10 @@
         <Fieldset :legend="$t('messages.info') + ' ' + $t('messages.owner') + ' & ' + $t('messages.real_estate')">
             <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
                 <span>
-                    {{$t('messages.name')}}: {{ props.data.real_estate_list.account.name }}
+                    {{$t('messages.owner')}}: {{ props.data.real_estate_list.owner_name }}
                 </span>
                 <span>
-                    {{$t('messages.owner')}}: {{ props.data.real_estate_list.account.owner }}
+                    {{$t('messages.name')}}: {{ props.data.real_estate_list.agent_name }}
                 </span>
                 <span>
                     {{$t('messages.phone_number')}}: {{ props.data.real_estate_list.account.tel }}
@@ -46,17 +46,14 @@
                     {{$t('messages.room_type')}}: {{ props.data.real_estate_list.room_type }}
                 </span>
                 <span>
-                    {{$t('messages.zip_code')}}: {{ props.data.real_estate_list.zip_code }}
-                </span>
-            </div>
-            <br/>
-            <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
-                <span>
                     {{$t('messages.total_bed')}}: {{ props.data.real_estate_list.total_bed }}
                 </span>
                 <span>
                     {{ $t('messages.total_bath') }}: {{ props.data.real_estate_list.total_bath }}
                 </span>
+            </div>
+            <br/>
+            <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
                 <span>
                     {{$t('messages.garage')}}: {{ props.data.real_estate_list.garage }}
                 </span>
@@ -66,21 +63,9 @@
                 <span>
                     {{$t('messages.long')}}: {{ props.data.real_estate_list.long }}
                 </span>
-            </div>
-            <br/>
-            <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
                 <span>
-                    {{$t('messages.village')}}: {{ props.data.real_estate_list.village }}
+                    {{$t('messages.address')}}: {{ props.data.real_estate_list.village }}
                 </span>
-                <span>
-                    {{$t('messages.district')}}: {{ props.data.real_estate_list.district.name }}
-                </span>
-                <span>
-                    {{$t('messages.province')}}: {{ props.data.real_estate_list.province.name }}
-                </span>
-                <!-- <span>
-                    {{$t('messages.country')}}: {{ props.data.service_charge_list.country.name }}
-                </span> -->
             </div>
         </Fieldset>
         <br/>
@@ -92,11 +77,13 @@
                     ({{ props.data.qty }} / {{ props.data.unit_price }})
                 </span>
             </div>
+            <br/>
             <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
                 <span>
                     {{$t('messages.total_price')}}: {{ conCatAndTotalServiceChargePrices(props.data.payment_service_charges, props.data.qty) }}
                 </span>
             </div>
+            <br/>
             <div>
                 <span>
                     {{$t('messages.status')}}: {{ props.data.status }}
@@ -106,6 +93,7 @@
                     {{$t('messages.payment_date')}}: {{ props.data.date_payment }}
                 </span>
             </div>
+            <br/>
             <div>
                 <span>
                     {{$t('messages.from_date')}}: {{ props.data.from_date }}

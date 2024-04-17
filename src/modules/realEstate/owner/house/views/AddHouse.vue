@@ -73,6 +73,24 @@
                     />
                 </div>
                 <div class="column is-mobile-12 is-2">
+                    <my-input-text 
+                        name="agent_name" 
+                        :label="$t('messages.name')" 
+                        required 
+                        :placeholder="$t('placeholder.inputText')"  
+                        class="h-full" 
+                    />
+                </div>
+                <div class="column is-mobile-12 is-2">
+                    <my-input-text 
+                        name="owner_name" 
+                        :label="$t('messages.owner')" 
+                        required 
+                        :placeholder="$t('placeholder.inputText')"  
+                        class="h-full" 
+                    />
+                </div>
+                <!-- <div class="column is-mobile-12 is-2">
                     <label>
                         {{ $t('messages.province') }}
                         <span class="text-red-500"> *</span>
@@ -106,24 +124,24 @@
                         :highlightOnSelect="true" 
                         filter
                     />
-                </div>
-                <div class="column is-mobile-12 is-2 set-margin-top">
+                </div> -->
+                <div class="column is-mobile-12 is-4 set-margin-top">
                     <my-input-text 
                         name="village" 
-                        :label="$t('messages.village')" 
+                        :label="$t('messages.address')" 
                         required 
-                        :placeholder="$t('placeholder.inputText')"  
+                        :placeholder="$t('placeholder.inputTextAddress')"  
                         class="h-full" 
                     />
                 </div>
-                <div class="column is-mobile-12 is-2 set-margin-top">
+                <!-- <div class="column is-mobile-12 is-2 set-margin-top">
                     <my-input-text 
                         name="zipcode" 
                         :label="$t('messages.zip_code')" 
                         :placeholder="$t('placeholder.inputText')"  
                         class="h-full" 
                     />
-                </div>
+                </div> -->
                 <div class="column is-mobile-12 is-2 set-margin-top">
                     <my-input-text 
                         name="bed" 
@@ -343,8 +361,8 @@
     import Divider from 'primevue/divider';
     import { realEstateServiceStore } from '@/modules/realEstate/rentHouse/memberServices/stores/real-estate-service.store';
     import { houseStore } from '@/modules/realEstate/owner/house/stores/house.store'
-    import { provinceStore } from '@/modules/realEstate/address/stores/province.store';
-    import { districtStore } from '@/modules/realEstate/address/stores/district.store';
+    // import { provinceStore } from '@/modules/realEstate/address/stores/province.store';
+    // import { districtStore } from '@/modules/realEstate/address/stores/district.store';
     import { useToast } from "primevue/usetoast";
     import { HouseEntity } from '../entities/house.entity';
     import { useConfirm } from "primevue/useconfirm";
@@ -362,8 +380,8 @@
 
     const { form, state, register, } = houseStore();
     const { getOne, realestateType } = realEstateServiceStore();
-    const { getAll: getAllProvince, state: stateProvince, setStateFilter: setStateProvinceFilter } = provinceStore();
-    const { getAll: getAllDistrict, state: stateDistrict, setStateFilter: setStateDistrictFilter } = districtStore();
+    // const { getAll: getAllProvince, state: stateProvince, setStateFilter: setStateProvinceFilter } = provinceStore();
+    // const { getAll: getAllDistrict, state: stateDistrict, setStateFilter: setStateDistrictFilter } = districtStore();
 
     const isShowFileImage = ref<string | null>(null);
     const isShowFileGallery = ref<string>();
@@ -587,42 +605,42 @@
         form.room_type = 'air';
         form.service_model = 'sale';
         
-        setStateProvinceFilter.limit = 1000;
-        await getAllProvince();
+        // setStateProvinceFilter.limit = 1000;
+        // await getAllProvince();
         await getOne();
 
         form.real_estate_type_id = realestateType.props.length > 0 ? realestateType.props[0].id : undefined;
-        form.province_id = stateProvince.data.props.length > 0 ? stateProvince.data.props[0].id : undefined;
+        // form.province_id = stateProvince.data.props.length > 0 ? stateProvince.data.props[0].id : undefined;
 
-        if (setStateDistrictFilter.filter) {
-            setStateDistrictFilter.filter.province_id = form.province_id;
-            await getAllDistrict();
-            await selectedDistrict();
-        }
+        // if (setStateDistrictFilter.filter) {
+        //     setStateDistrictFilter.filter.province_id = form.province_id;
+        //     await getAllDistrict();
+        //     await selectedDistrict();
+        // }
     }
 
-    const filterDistrictByid = async (id: any) => {
-        if (setStateDistrictFilter.filter) {
-            setStateDistrictFilter.filter.province_id = id;
-            await getAllDistrict();
-            await selectedDistrict();
-        }
-    }
+    // const filterDistrictByid = async (id: any) => {
+    //     if (setStateDistrictFilter.filter) {
+    //         setStateDistrictFilter.filter.province_id = id;
+    //         await getAllDistrict();
+    //         await selectedDistrict();
+    //     }
+    // }
 
-    const selectedDistrict = async () => {
-        form.district_id = stateDistrict.data.props.length > 0 ? stateDistrict.data.props[0].id : undefined;
-    }
+    // const selectedDistrict = async () => {
+    //     form.district_id = stateDistrict.data.props.length > 0 ? stateDistrict.data.props[0].id : undefined;
+    // }
 
     const onSubmit = handleSubmit(async (value) => {
-        if(!form.district_id) {
-            await showErrorValidate(t('placeholder.dropdownSelect') + ' ' + t('messages.district'))
-        } else if(!selectedImage.value) {
+        if(!selectedImage.value) {
             await showErrorValidate(t('placeholder.dropdownSelect') + ' ' + t('messages.image'))
         } else if(!selectedGallery.value) {
             await showErrorValidate(t('placeholder.dropdownSelect') + ' ' + t('messages.gallery'))
         } else {
             form.village = value.village;
-            form.zip_code = value.zipcode;
+            form.agent_name = value.agent_name;
+            form.owner_name = value.owner_name;
+            // form.zip_code = value.zipcode;
             form.wide = value.wide;
             form.long = value.long;
             form.total_bath = value.bath;

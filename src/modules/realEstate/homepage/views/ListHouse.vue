@@ -2,7 +2,7 @@
     <div>
         <div class="card">
             <div class="columns is-12 is-multiline" style="margin-top: -30px;">
-                <div class="column is-4 is-mobile-12">
+                <div class="column is-3 is-mobile-12">
                     <label>
                         {{ $t('messages.realestate_type') }}
                         <span class="text-red-500"> *</span>
@@ -19,7 +19,7 @@
                         @change="onSearch"
                     />
                 </div>
-                <div class="column is-4 is-mobile-12">
+                <div class="column is-3 is-mobile-12">
                     <label>
                         {{ $t('messages.service_model') }}
                         <span class="text-red-500"> *</span>
@@ -35,7 +35,7 @@
                         @change="onSearch"
                     />
                 </div>
-                <div class="column is-4 is-mobile-12">
+                <div class="column is-3 is-mobile-12">
                     <label>
                         {{ $t('messages.room_type') }}
                         <span class="text-red-500"> *</span>
@@ -68,7 +68,7 @@
                         @change="filterProvinceById(form.country_id)"
                     />
                 </div>
-                <div class="column is-3 is-mobile-12">
+                <!-- <div class="column is-3 is-mobile-12">
                     <label>
                         {{ $t('messages.province') }}
                     <span class="text-red-500"> *</span>
@@ -116,7 +116,7 @@
                         @keyup.enter="onSearch"
                         @input="onClearSearch"
                     />
-                </div>
+                </div> -->
             </div>
         </div>
         <Divider style="margin-top: -20px;" />
@@ -149,9 +149,9 @@
                             <span>{{ $t('messages.long') }}: {{ item.long }}</span>
                         </p>
                         <p class="detail">
-                            {{  item.village }},
-                            {{  item.district?.name }},
-                            {{  item.province?.name }}
+                            {{  item.village }}
+                            <!-- {{  item.district?.name }},
+                            {{  item.province?.name }} -->
                         </p>
                         </template>
                     </Card>
@@ -172,7 +172,7 @@
 <script setup lang='ts'>
     import { useRouter, useRoute } from 'vue-router';
     import Card from 'primevue/card';
-    import InputText from 'primevue/inputtext';
+    // import InputText from 'primevue/inputtext';
     import Divider from 'primevue/divider';
     import { homerealEstateStore } from '@/modules/realEstate/homepage/stores/home.store'
     import { onMounted, ref, computed } from 'vue';
@@ -183,7 +183,7 @@
     import { dashboardStore } from '@/modules/realEstate/admin/dashboard/stores/store';
     import { useI18n } from 'vue-i18n';
 
-    const { getAllCountries, getCountries, getAllProvinces, getProvinces, getAllDistricts, getDistricts } = dashboardStore();
+    const { getAllCountries, getCountries, getAllProvinces, getProvinces } = dashboardStore();
     const { form, getAll, state, setStateFilter, realEstateTypes, isProgressBar } = homerealEstateStore();
 
     const router = useRouter();
@@ -203,35 +203,35 @@
         { id: 'no', name: t('messages.none') },
     ]);
 
-    const filterVillage = computed<string>({
-        get: () => setStateFilter.filter!.village || '',
-        set: (value) => {
-            if (setStateFilter.filter) {
-                setStateFilter.filter.village = value;
-            }
-        }
-    })
+    // const filterVillage = computed<string>({
+    //     get: () => setStateFilter.filter!.village || '',
+    //     set: (value) => {
+    //         if (setStateFilter.filter) {
+    //             setStateFilter.filter.village = value;
+    //         }
+    //     }
+    // })
 
-    async function onClearSearch(e: any) {
-        const fieldName = e.target.name;
+    // async function onClearSearch(e: any) {
+    //     const fieldName = e.target.name;
 
-        if (e.target.value === '') {
-            if (fieldName === 'village') {
-                if (setStateFilter.filter?.village !== undefined) {
-                    setStateFilter.filter.village = ''
-                }
-            }
-            await getAll();
-        }
-    }
+    //     if (e.target.value === '') {
+    //         if (fieldName === 'village') {
+    //             if (setStateFilter.filter?.village !== undefined) {
+    //                 setStateFilter.filter.village = ''
+    //             }
+    //         }
+    //         await getAll();
+    //     }
+    // }
 
-    const filterDistrictByid = async (id: any) => {
-        await getAllDistricts(id);
-        getDistricts.data.props.unshift({ id: 'all', name: t('messages.all') });
-        form.district_id = getDistricts.data.props.length > 0 ? getDistricts.data.props[0].id : undefined;
+    // const filterDistrictByid = async (id: any) => {
+    //     await getAllDistricts(id);
+    //     getDistricts.data.props.unshift({ id: 'all', name: t('messages.all') });
+    //     form.district_id = getDistricts.data.props.length > 0 ? getDistricts.data.props[0].id : undefined;
 
-        await onSearch();
-    }
+    //     await onSearch();
+    // }
 
     const filterProvinceById = async (id: any) => {
         await getAllProvinces(id);
@@ -246,13 +246,13 @@
         getCountries.data.props.unshift({ id: 'all', name: t('messages.all') });
         form.country_id = getCountries.data.props.length > 0 ? getCountries.data.props[0].id : undefined;
         
-        await getAllProvinces( getCountries.data.props[0].id);
-        getProvinces.data.props.unshift({ id: 'all', name: t('messages.all') });
-        form.province_id = getProvinces.data.props.length > 0 ? getProvinces.data.props[0].id : undefined;
+        // await getAllProvinces( getCountries.data.props[0].id);
+        // getProvinces.data.props.unshift({ id: 'all', name: t('messages.all') });
+        // form.province_id = getProvinces.data.props.length > 0 ? getProvinces.data.props[0].id : undefined;
 
-        await getAllDistricts(form.province_id as any);
-        getDistricts.data.props.unshift({ id: 'all', name: t('messages.all') });
-        form.district_id = getDistricts.data.props.length > 0 ? getDistricts.data.props[0].id : undefined;
+        // await getAllDistricts(form.province_id as any);
+        // getDistricts.data.props.unshift({ id: 'all', name: t('messages.all') });
+        // form.district_id = getDistricts.data.props.length > 0 ? getDistricts.data.props[0].id : undefined;
        
         realEstateTypes.data.props.unshift({ id: 'all', name: t('messages.all') });
         form.real_estate_type_id = realEstateTypes.data.props.length > 0 ? realEstateTypes.data.props[0].id : undefined;
@@ -263,8 +263,8 @@
             setStateFilter.filter.real_estate_type_id = form.real_estate_type_id === 'all' ? '' : form.real_estate_type_id;
             setStateFilter.filter.service_model = form.service_model === 'all' ? '' : form.service_model;
             setStateFilter.filter.room_type = form.room_type === 'all' ? '' : form.room_type;
-            setStateFilter.filter.district_id = form.district_id === 'all' ? '' : form.district_id;
-            setStateFilter.filter.province_id = form.province_id === 'all' ? '' : form.province_id;
+            // setStateFilter.filter.district_id = form.district_id === 'all' ? '' : form.district_id;
+            // setStateFilter.filter.province_id = form.province_id === 'all' ? '' : form.province_id;
             setStateFilter.filter.country_id = form.country_id === 'all' ? '' : form.country_id;
         }
 
@@ -275,8 +275,8 @@
                 real_estate_type_id: form.real_estate_type_id,
                 service_model: form.service_model,
                 room_type: form.room_type,
-                district_id: form.district_id,
-                province_id: form.province_id,
+                // district_id: form.district_id,
+                // province_id: form.province_id,
                 country_id: form.country_id,
             }
         })
@@ -291,16 +291,16 @@
             const realEstateTypeId = query.real_estate_type_id !== undefined ? String(query.real_estate_type_id) : undefined;
             const serviceModel = query.service_model !== undefined ? String(query.service_model) : undefined;
             const roomType = query.room_type !== undefined ? String(query.room_type) : undefined;
-            const districtId = query.district_id !== undefined ? String(query.district_id) : undefined;
-            const provinceId = query.province_id !== undefined ? String(query.province_id) : undefined;
+            // const districtId = query.district_id !== undefined ? String(query.district_id) : undefined;
+            // const provinceId = query.province_id !== undefined ? String(query.province_id) : undefined;
             const countryId = query.country_id !== undefined ? String(query.country_id) : undefined;
            
             if (setStateFilter.filter) {
                 setStateFilter.filter.real_estate_type_id = realEstateTypeId !== 'all' ? realEstateTypeId : "";
                 setStateFilter.filter.service_model = serviceModel !== 'all' ? serviceModel : "";
                 setStateFilter.filter.room_type = roomType !== 'all' ? roomType : "";
-                setStateFilter.filter.district_id = districtId !== 'all' ? districtId : "";
-                setStateFilter.filter.province_id = provinceId !== 'all' ? provinceId : "";
+                // setStateFilter.filter.district_id = districtId !== 'all' ? districtId : "";
+                // setStateFilter.filter.province_id = provinceId !== 'all' ? provinceId : "";
                 setStateFilter.filter.country_id = countryId !== 'all' ? countryId : "";
             }
 
@@ -311,8 +311,8 @@
                     real_estate_type_id: realEstateTypeId,
                     service_model: serviceModel,
                     room_type: roomType,
-                    district_id: districtId,
-                    province_id: provinceId,
+                    // district_id: districtId,
+                    // province_id: provinceId,
                     country_id: countryId
                 }
             })

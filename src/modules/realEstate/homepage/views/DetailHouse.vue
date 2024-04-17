@@ -44,7 +44,7 @@
                         {{ realEstateGetOne.data.props.status }}
                     </span>
                     <span>
-                        | {{ $t('messages.name') }}: {{ realEstateGetOne.data.props.name }}
+                        | {{ $t('messages.name') }}: {{ realEstateGetOne.data.props.owner_name }}
                     </span>
                 </p>
                 <p style="margin-top: 5px;">
@@ -65,8 +65,8 @@
                 </p>
                 <p>
                     <span>{{ realEstateGetOne.data.props.village }}</span>
-                    <span>, {{ realEstateGetOne.data.props.district?.name }}</span>
-                    <span>, {{ realEstateGetOne.data.props.province?.name }}</span>
+                    <!-- <span>, {{ realEstateGetOne.data.props.district?.name }}</span>
+                    <span>, {{ realEstateGetOne.data.props.province?.name }}</span> -->
                 </p>
                 <p>
                     <span v-if="realEstateGetOne.data.props.zip_code">

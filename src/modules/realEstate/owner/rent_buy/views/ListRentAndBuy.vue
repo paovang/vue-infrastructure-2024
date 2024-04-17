@@ -174,8 +174,8 @@
     import { useToast } from 'primevue/usetoast';
     import { appointmentStore } from '../../appointment/stores/appointment.store';
     import { RentAndBuyEntity } from '../entities/rent-buy-entity';
-import { GET_PERMISSIONS } from '@/common/utils/const';
-import { validationPermissions } from '@/common/utils/validation-permissions';
+    import { GET_PERMISSIONS } from '@/common/utils/const';
+    import { validationPermissions } from '@/common/utils/validation-permissions';
 
     const { form, getAll, setStateFilter, state, stateGetRealEstateOnline } = rentAndBuyStore();
     const { state: stateAppointment } = appointmentStore();

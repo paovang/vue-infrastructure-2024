@@ -19,6 +19,7 @@ export const reportRentBuyStore = defineStore("report-rent-buy-store", () => {
       props: [],
       total: 0,
       summary: "",
+      currency: "",
     },
     isLoading: false,
     btnLoading: false,
@@ -67,6 +68,7 @@ export const reportRentBuyStore = defineStore("report-rent-buy-store", () => {
       state.data.props = results.data.props;
       state.data.total = results.data.total;
       state.data.summary = results.data.summary;
+      state.data.currency = results.data.currency;
       state.isLoading = false;
     }
   }

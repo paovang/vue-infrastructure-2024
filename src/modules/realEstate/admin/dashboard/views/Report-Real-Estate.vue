@@ -31,8 +31,8 @@
             :currentPageReportTemplate="`${$t('table.pagination.show')} {first} ${$t('table.pagination.to')} {last} ${$t('table.pagination.from')} {totalRecords} ${$t('table.pagination.row')}`"
         >
             <template #header>
-                <div class="col-12 md:col-12 flex flex-row">
-                    <div class="col-12 md:col-6">
+                <div class="col-12 md:col-12 flex flex-row is-margin-top">
+                    <div class="col-12 md:col-12">
                         <label>
                             {{ $t('messages.search') }}
                             <span class="text-red-500"> *</span>
@@ -47,7 +47,8 @@
                             @input="onClearSearch"
                         />
                     </div>
-                    
+                </div>
+                <div class="col-12 md:col-12 flex flex-row is-margin-top">
                     <div class="col-12 md:col-3">
                         <label>
                             {{ $t('messages.realestate_type') }}
@@ -81,8 +82,6 @@
                             @change="onSearch"
                         />
                     </div>
-                </div>
-                <div class="col-12 md:col-12 flex flex-row">
                     <div class="col-12 md:col-3">
                         <label>
                             {{ $t('messages.room_type') }}
@@ -116,7 +115,7 @@
                             @change="filterProvinceById(form.country_id)"
                         />
                     </div>
-                    <div class="col-12 md:col-3">
+                    <!-- <div class="col-12 md:col-3">
                         <label>
                             {{ $t('messages.province') }}
                             <span class="text-red-500"> *</span>
@@ -149,7 +148,7 @@
                             filter
                             @change="onSearch"
                         />
-                    </div>
+                    </div> -->
                 </div>
             </template>
 
@@ -170,11 +169,13 @@
             <Column field="real_estate_type.name" :header="$t('table.header.realestate_type')" headerStyle="min-width: 7rem"></Column>
             <Column field="service_model" :header="$t('table.header.service_model')" headerStyle="min-width: 7rem"></Column>
             <Column field="room_type" :header="$t('table.header.room_type')" headerStyle="min-width: 6rem"></Column>
+            <Column field="owner_name" :header="$t('table.header.owner')" headerStyle="min-width: 6rem"></Column>
+            <Column field="agent_name" :header="$t('table.header.name')" headerStyle="min-width: 6rem"></Column>
             <Column field="country.name" :header="$t('table.header.country')" headerStyle="min-width: 6rem"></Column>
-            <Column field="district.province.name" :header="$t('table.header.province')" headerStyle="min-width: 8rem"></Column>
-            <Column field="district.name" :header="$t('table.header.district')" headerStyle="min-width: 7rem"></Column>
-            <Column field="village" :header="$t('table.header.village')" headerStyle="min-width: 7rem"></Column>
-            <Column field="zip_code" :header="$t('table.header.zip_code')" headerStyle="min-width: 6rem"></Column>
+            <!-- <Column field="district.province.name" :header="$t('table.header.province')" headerStyle="min-width: 8rem"></Column> -->
+            <!-- <Column field="district.name" :header="$t('table.header.district')" headerStyle="min-width: 7rem"></Column> -->
+            <Column field="village" :header="$t('table.header.address')" headerStyle="min-width: 12rem"></Column>
+            <!-- <Column field="zip_code" :header="$t('table.header.zip_code')" headerStyle="min-width: 6rem"></Column> -->
             <Column field="wide" :header="$t('table.header.wide')" headerStyle="min-width: 6rem"></Column>
             <Column field="long" :header="$t('table.header.long')" headerStyle="min-width: 6rem"></Column>
             <Column field="status" :header="$t('table.header.status')" headerStyle="min-width: 6rem"></Column>
@@ -369,19 +370,19 @@
         }
     }
 
-    const filterDistrictByid = async (id: any) => {
-        await getAllDistricts(id);
-        await getDistricts.data.props.unshift({ id: 'all', name: t('messages.all') });
-        await selectedDistrict();
+    // const filterDistrictByid = async (id: any) => {
+    //     await getAllDistricts(id);
+    //     await getDistricts.data.props.unshift({ id: 'all', name: t('messages.all') });
+    //     await selectedDistrict();
 
-        if (setStateFilter.filter) {
-            setStateFilter.filter.country_id = form.country_id === 'all' ? '' : form.country_id;
-            setStateFilter.filter.district_id = form.district_id === 'all' ? '' : form.district_id;
-            setStateFilter.filter.province_id = form.province_id === 'all' ? '' : form.province_id;
-        }
+    //     if (setStateFilter.filter) {
+    //         setStateFilter.filter.country_id = form.country_id === 'all' ? '' : form.country_id;
+    //         setStateFilter.filter.district_id = form.district_id === 'all' ? '' : form.district_id;
+    //         setStateFilter.filter.province_id = form.province_id === 'all' ? '' : form.province_id;
+    //     }
 
-        await getAllRealEstate();
-    }
+    //     await getAllRealEstate();
+    // }
 
     // const confirmDelete = async (id: HouseEntity) => {
     //     confirm.require({
@@ -411,5 +412,8 @@
     .btn-right {
         display: flex;
         justify-content: flex-end;
+    }
+    .is-margin-top {
+        margin-top: -15px;
     }
 </style>
