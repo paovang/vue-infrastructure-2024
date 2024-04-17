@@ -7,13 +7,13 @@
               <input-text
                 v-model="filterEverything"
                   :placeholder="$t('placeholder.textSearch')" 
-                  style="font-family: NotoSansLao, Montserrat;"
                   class="w-full"
                   name="search"
                   @keyup.enter="onSearch"
                   @input="onClearSearch"
               />
-            </div>
+              <Button :label="$t('messages.search')" @click="onSearch" />
+          </div>
           <div class="navbar-burger" @click="toggleNavbar" data-target="navMenu">
             <span></span>
             <span></span>
@@ -125,130 +125,131 @@
   import { homerealEstateStore } from '../../stores/home.store';
   import Divider from 'primevue/divider';
   import Dropdown from 'primevue/dropdown';
+  import Button from 'primevue/button';
 
 
   const { getAll, setStateFilter } = homerealEstateStore();
 
-    const router = useRouter();
-    const route = useRoute();
+  const router = useRouter();
+  const route = useRoute();
 
-    const getProfile = 'https://lab-108-bucket.s3.ap-southeast-1.amazonaws.com/assistant-logo/profile-logo.jpeg';
+  const getProfile = 'https://lab-108-bucket.s3.ap-southeast-1.amazonaws.com/assistant-logo/profile-logo.jpeg';
 
-    const goToAbout = async () => {
-      await router.push({ name: 'about.us'});
-      isNavbarActive.value = false;
-    }
+  const goToAbout = async () => {
+    await router.push({ name: 'about.us'});
+    isNavbarActive.value = false;
+  }
 
-    const goToSignUp = async () => {
-      router.push({ name: 'sign.up'});
-      isNavbarActive.value = false;
-    }
+  const goToSignUp = async () => {
+    router.push({ name: 'sign.up'});
+    isNavbarActive.value = false;
+  }
 
-    const goToSignIn = async () => {
-      router.push({ name: 'sign.in'});
-      isNavbarActive.value = false;
-    }
+  const goToSignIn = async () => {
+    router.push({ name: 'sign.in'});
+    isNavbarActive.value = false;
+  }
 
-    const goToProfile = async () => { 
-      const getRoles = localStorage.getItem('roles');
+  const goToProfile = async () => { 
+    const getRoles = localStorage.getItem('roles');
 
-      if (getRoles) {
-        // Parse roles from localStorage
-        const parsedRoles = JSON.parse(getRoles);
+    if (getRoles) {
+      // Parse roles from localStorage
+      const parsedRoles = JSON.parse(getRoles);
 
-        // Check if the user has any of the specified roles
-        if (parsedRoles.includes(GET_ROLES.SUPER_ADMIN) || parsedRoles.includes(GET_ROLES.ADMIN) || parsedRoles.includes(GET_ROLES.USER)) {
-          // If the user has any of the specified roles, push to the admin profile route
-          router.push({ name: 'customer' });
-        } else {
-          router.push({ name: 'owner.house' });
-        }
-      }
-
-      isNavbarActive.value = false;
-    }
-    
-    const goToHome = async () => {
-      await router.push({ name: 'home'});
-      window.location.reload();
-    }
-
-    const isNavbarActive = ref(false);
-
-    const toggleNavbar = async () => {
-      isNavbarActive.value = !isNavbarActive.value;
-    }
-
-    const isCheckLogin = ref();
-    const selectedLocale = ref();
-    const selectDropdownLocale = ref();
-    const locales = ref([
-      { name: 'English', code: 'en' },
-      { name: 'ລາວ', code: 'la' },
-      { name: 'ไทย', code: 'th' },
-      { name: 'Tiếng Việt', code: 'vi' },
-      { name: '中国人', code: 'lk' },
-    ]);
-
-    const setLocale = async (locale: string) => {
-      await localStorage.setItem('locale', locale);
-      window.location.reload();
-    }
-
-    const getLocales = async (locale: string) => {
-      switch (locale) {
-        case 'en':
-          return 'English';
-        case 'la':
-          return 'ລາວ';
-        case 'th':
-          return 'ไทย';
-        case 'vi':
-          return 'Tiếng Việt';
-        case 'lk':
-          return '中国人';
-        default:
-          return 'English';
+      // Check if the user has any of the specified roles
+      if (parsedRoles.includes(GET_ROLES.SUPER_ADMIN) || parsedRoles.includes(GET_ROLES.ADMIN) || parsedRoles.includes(GET_ROLES.USER)) {
+        // If the user has any of the specified roles, push to the admin profile route
+        router.push({ name: 'customer' });
+      } else {
+        router.push({ name: 'owner.house' });
       }
     }
 
-    onMounted(async () => {
-      const locale = localStorage.getItem('locale') || 'en';
-      const getLocale = await getLocales(locale);
-      selectedLocale.value = getLocale;
-      selectDropdownLocale.value = locale;
-      isCheckLogin.value = localStorage.getItem('token') || "";
-    })
+    isNavbarActive.value = false;
+  }
+  
+  const goToHome = async () => {
+    await router.push({ name: 'home'});
+    window.location.reload();
+  }
 
-    const filterEverything = computed<string>({
-        get: () => setStateFilter.filter!.search || '',
-        set: (value) => {
-            if (setStateFilter.filter) {
-                setStateFilter.filter.search = value;
-            }
-        }
-    })
+  const isNavbarActive = ref(false);
 
-    async function onClearSearch(e: any) {
-      const fieldName = e.target.name;
+  const toggleNavbar = async () => {
+    isNavbarActive.value = !isNavbarActive.value;
+  }
 
-      if (e.target.value === '') {
-        if (fieldName === 'search') {
-          if (setStateFilter.filter?.search !== undefined) {
-              setStateFilter.filter.search = ''
+  const isCheckLogin = ref();
+  const selectedLocale = ref();
+  const selectDropdownLocale = ref();
+  const locales = ref([
+    { name: 'English', code: 'en' },
+    { name: 'ລາວ', code: 'la' },
+    { name: 'ไทย', code: 'th' },
+    { name: 'Tiếng Việt', code: 'vi' },
+    { name: '中国人', code: 'lk' },
+  ]);
+
+  const setLocale = async (locale: string) => {
+    await localStorage.setItem('locale', locale);
+    window.location.reload();
+  }
+
+  const getLocales = async (locale: string) => {
+    switch (locale) {
+      case 'en':
+        return 'English';
+      case 'la':
+        return 'ລາວ';
+      case 'th':
+        return 'ไทย';
+      case 'vi':
+        return 'Tiếng Việt';
+      case 'lk':
+        return '中国人';
+      default:
+        return 'English';
+    }
+  }
+
+  onMounted(async () => {
+    const locale = localStorage.getItem('locale') || 'en';
+    const getLocale = await getLocales(locale);
+    selectedLocale.value = getLocale;
+    selectDropdownLocale.value = locale;
+    isCheckLogin.value = localStorage.getItem('token') || "";
+  })
+
+  const filterEverything = computed<string>({
+      get: () => setStateFilter.filter!.search || '',
+      set: (value) => {
+          if (setStateFilter.filter) {
+              setStateFilter.filter.search = value;
           }
-        }
-        await getAll();
       }
-    }
+  })
 
-    const onSearch = async () => {
+  async function onClearSearch(e: any) {
+    const fieldName = e.target.name;
+
+    if (e.target.value === '') {
+      if (fieldName === 'search') {
+        if (setStateFilter.filter?.search !== undefined) {
+            setStateFilter.filter.search = ''
+        }
+      }
       await getAll();
     }
+  }
 
-    const isCurrentRoute = (routeName: string) => {
-        return route.name === routeName;
-    }
+  const onSearch = async () => {
+    await getAll();
+  }
+
+  const isCurrentRoute = (routeName: string) => {
+      return route.name === routeName;
+  }
 </script>
 
 <style scoped lang="scss">
@@ -262,6 +263,9 @@
       .input-search {
         width: 250px !important;
         margin-left: 0px !important;
+        .w-full {
+          max-width: 160px !important;
+        }
       }
       .navbar {
         padding: 0;
@@ -269,9 +273,15 @@
     }
 
     .input-search {
-      margin-top: 5px;
+      margin-top: 0px;
       width: 500px;
       margin-left: 50px;
+      display: flex;
+      align-items: center;
+      .w-full {
+        font-family: NotoSansLao, Montserrat; 
+        width: 400px !important;
+      }
     }
 
     .home-layout-view {
