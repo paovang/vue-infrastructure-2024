@@ -37,12 +37,11 @@
                         <label>
                             {{ $t('messages.payment_date')}}
                         </label>
-                        <Calendar 
+                        <InputText 
                             v-model="paymentDate" 
-                            showIcon
-                            style="width: 100%;" 
-                            @date-select="onSearch"
-                            @input="onSearch"
+                            type="date" 
+                            style="width: 100% !important" 
+                            @change="onSearch"
                         />
                     </div>
                     <div class="col-12 md:col-3">
@@ -167,7 +166,7 @@
     import Divider from 'primevue/divider';
     import Button from 'primevue/button';
     import Dropdown from 'primevue/dropdown';
-    import Calendar from 'primevue/calendar';
+    import InputText from 'primevue/inputtext';
     import PaymentServiceComponent from '../components/PaymentService.Component.vue';
     import UpdatePaymentServiceComponent from '../components/UpdatePaymentService.Component.vue';
     import { paymentStore } from '../stores/payment.store';

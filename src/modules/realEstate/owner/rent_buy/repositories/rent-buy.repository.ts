@@ -152,26 +152,26 @@ export class RentAndBuyRepository implements IRentAndBuyRepository {
       Pick<RentAndBuyEntity, "service_model" | "from_date" | "to_date">
     >
   ): Promise<IResponse<IGPaginated<RentAndBuyEntity>>> {
-    const fromDate = args.filter?.from_date;
-    const toDate = args.filter?.to_date;
-    let startDate = "";
-    let endDate = "";
+    // const fromDate = args.filter?.from_date;
+    // const toDate = args.filter?.to_date;
+    // let startDate = "";
+    // let endDate = "";
 
-    if (fromDate instanceof Date) {
-      const year = fromDate.getFullYear();
-      const month = (fromDate.getMonth() + 1).toString().padStart(2, "0"); // Adding 1 to month as it's zero-based
-      const day = fromDate.getDate().toString().padStart(2, "0");
+    // if (fromDate instanceof Date) {
+    //   const year = fromDate.getFullYear();
+    //   const month = (fromDate.getMonth() + 1).toString().padStart(2, "0"); // Adding 1 to month as it's zero-based
+    //   const day = fromDate.getDate().toString().padStart(2, "0");
 
-      startDate = `${year}-${month}-${day}`;
-    }
+    //   startDate = `${year}-${month}-${day}`;
+    // }
 
-    if (toDate instanceof Date) {
-      const year = toDate.getFullYear();
-      const month = (toDate.getMonth() + 1).toString().padStart(2, "0"); // Adding 1 to month as it's zero-based
-      const day = toDate.getDate().toString().padStart(2, "0");
+    // if (toDate instanceof Date) {
+    //   const year = toDate.getFullYear();
+    //   const month = (toDate.getMonth() + 1).toString().padStart(2, "0"); // Adding 1 to month as it's zero-based
+    //   const day = toDate.getDate().toString().padStart(2, "0");
 
-      endDate = `${year}-${month}-${day}`;
-    }
+    //   endDate = `${year}-${month}-${day}`;
+    // }
 
     const response = await this._api.axios({
       url: "/owner/rent/buy",
@@ -179,8 +179,10 @@ export class RentAndBuyRepository implements IRentAndBuyRepository {
         page: args.page,
         per_page: args.limit,
         service_model: args.filter?.service_model,
-        start_date: startDate ? formatDate(startDate) : null,
-        end_date: endDate ? formatDate(endDate) : null,
+        start_date: args.filter?.from_date,
+        end_date: args.filter?.to_date,
+        // start_date: startDate ? formatDate(startDate) : null,
+        // end_date: endDate ? formatDate(endDate) : null,
       },
     });
 

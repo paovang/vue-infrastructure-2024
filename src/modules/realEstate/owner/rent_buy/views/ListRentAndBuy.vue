@@ -58,24 +58,22 @@
                         <label>
                             {{ $t('messages.start_date') }}
                         </label>
-                        <Calendar 
-                            v-model="form.from_date" 
-                            showIcon 
-                            style="width: 100%;" 
-                            @date-select="onSearch"
-                            @input="onSearch"
+                        <InputText 
+                            v-model="fromDate" 
+                            type="date" 
+                            style="width: 100% !important" 
+                            @change="onSearch"
                         />
                     </div>
                     <div class="col-12 md:col-3">
                         <label>
                             {{ $t('messages.end_date') }}
                         </label>
-                        <Calendar 
-                            v-model="form.to_date" 
-                            showIcon 
-                            style="width: 100%;" 
-                            @date-select="onSearch"
-                            @input="onSearch"
+                        <InputText 
+                            v-model="toDate" 
+                            type="date" 
+                            style="width: 100% !important" 
+                            @change="onSearch"
                         />
                     </div>
                     <div class="col-12 md:col-3" style="text-align: right;">
@@ -125,18 +123,37 @@
             <Column field="real_estate_list.real_estate_type.name" :header="$t('table.header.real_estate_type')" headerStyle="min-width: 10rem"></Column>
             <Column field="real_estate_list.name" :header="$t('table.header.real_estate_name')" headerStyle="min-width: 8rem"></Column>
             <Column field="service_model" :header="$t('table.header.service_model')" headerStyle="min-width: 8rem"></Column>
-            <Column field="from_date" :header="$t('table.header.from_date')" headerStyle="min-width: 8rem"></Column>
-            <Column field="to_date" :header="$t('table.header.to_date')" headerStyle="min-width: 8rem"></Column>
-            <Column :header="$t('table.header.price')" headerStyle="min-width: 15rem">
+            <!-- <Column field="from_date" :header="$t('table.header.from_date')" headerStyle="min-width: 8rem"></Column>
+            <Column field="to_date" :header="$t('table.header.to_date')" headerStyle="min-width: 8rem"></Column> -->
+            <Column :header="$t('table.header.from_date') + ' - ' + $t('table.header.to_date')" headerStyle="min-width: 15rem">
                 <template #body="{ data }">
-                    {{ formatNumber(data.price , data.currency)  }} - ( {{ data.qty }} / {{ data.unit_price }})
+                    {{ data.from_date }} 
+                    <i class="pi pi-angle-right" style="color: green"></i>
+                    {{ data.to_date }}
+                </template>
+            </Column>
+            <Column :header="$t('table.header.price')" headerStyle="min-width: 18rem">
+                <template #body="{ data }">
+                    {{ formatNumber(data.price , data.currency)  }}
+                    <i class="pi pi-angle-right" style="color: green"></i>
+                    ( 
+                        {{ data.qty }} 
+                        <i class="pi pi-angle-right" style="color: green"></i>
+                        {{ data.unit_price }}
+                    )
                 </template>
             </Column>
             <Column :header="$t('table.header.total')" headerStyle="min-width: 10rem">
                 <template #body="{ data }">
-                    {{ formatNumber(data.total , data.currency) }}
+                    <span style="color: green">
+                        {{ formatNumber(data.total , data.currency) }}
+                    </span>
                 </template>
             </Column>
+            <Column field="created_by.name" :header="$t('table.header.created_by')" headerStyle="min-width: 8rem"></Column>
+            <Column field="updated_by.name" :header="$t('table.header.updated_by')" headerStyle="min-width: 8rem"></Column>
+            <Column field="created_at" :header="$t('table.header.created_at')" headerStyle="min-width: 8rem"></Column>
+            <Column field="updated_at" :header="$t('table.header.updated_at')" headerStyle="min-width: 8rem"></Column>
         </DataTable>
 
         <add-rent-buy-from-appointment-component
@@ -164,7 +181,7 @@
     import DataTable, { type DataTablePageEvent } from 'primevue/datatable';
     import Column from 'primevue/column';
     import Button from 'primevue/button';
-    import Calendar from 'primevue/calendar';
+    import InputText from 'primevue/inputtext';
     import Dropdown from 'primevue/dropdown';
     import AddRentBuyFromAppointmentComponent from '../components/Add-From-Appointment.Component.vue';
     import AddRentBuyComponent from '../components/Add.Component.vue';
@@ -190,20 +207,27 @@
         { id: 'rent', name: t('messages.service_rent') },
         { id: 'buy', name: t('messages.service_sale') }
     ]);
+    
     const createFromAppointment = ref();
     const editRentAndBuy = ref();
     const createFrom = ref();
     const editData = ref();
+    const fromDate = ref();
+    const toDate = ref();
 
     const clearSearch = async () => {
+        fromDate.value = '';
+        toDate.value = '';
+        form.service_model = 'all';
+
         await onSearch();
     }
 
     const onSearch = async () => {
         if (setStateFilter.filter) {
             setStateFilter.filter.service_model = form.service_model === 'all' ? '' : form.service_model;
-            setStateFilter.filter.from_date = form.from_date;
-            setStateFilter.filter.to_date = form.to_date;
+            setStateFilter.filter.from_date = fromDate.value;
+            setStateFilter.filter.to_date = toDate.value;
         }
 
         await getAll();

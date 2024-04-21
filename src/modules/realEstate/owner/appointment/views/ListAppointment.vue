@@ -60,12 +60,11 @@
                         <label>
                             {{ $t('messages.date_appointment') }}
                         </label>
-                        <Calendar 
-                            v-model="form.date_appointment" 
-                            showIcon
-                            style="width: 100%;" 
-                            @date-select="onSearch"
-                            @input="onSearch"
+                        <InputText 
+                            v-model="appointmentDate" 
+                            type="date" 
+                            style="width: 100% !important" 
+                            @change="onSearch"
                         />
                     </div>
                     <div class="col-12 md:col-1" style="text-align: right;">
@@ -116,6 +115,7 @@
             <Column field="estate_list.service_model" :header="$t('table.header.service_model')" headerStyle="min-width: 8rem"></Column>
             <Column field="estate_list.room_type" :header="$t('table.header.room_type')" headerStyle="min-width: 7rem"></Column>
             <Column field="reason" :header="$t('table.header.reason')" headerStyle="min-width: 8rem"></Column>
+            <Column field="updated_by.name" :header="$t('table.header.updated_by')" headerStyle="min-width: 8rem"></Column>
             <Column field="status" :header="$t('table.header.status')" headerStyle="min-width: 8rem">
                 <template #body="rowData">
                     <span :style="{ color: getStatusColor(rowData.data.status) }">{{ rowData.data.status }}</span>
@@ -138,7 +138,6 @@
     import DataTable, { type DataTablePageEvent } from 'primevue/datatable';
     import Column from 'primevue/column';
     import Button from 'primevue/button';
-    import Calendar from 'primevue/calendar';
     import Dropdown from 'primevue/dropdown';
     import InputText from 'primevue/inputtext';
     import UpdateComponent from '../components/Update.Component.vue';
@@ -166,12 +165,17 @@
         { id: 'cancel', name: t('messages.cancel') }
     ]);
     const editForm = ref();
+    const appointmentDate = ref();
     
     const clearSearch = async () => {
-        form.status = 'all';
+        form.status = 'pending';
         form.date_appointment = '';
+        appointmentDate.value = '';
         if (setStateFilter.filter?.name !== undefined) {
             setStateFilter.filter.name = ''
+        }
+        if (setStateFilter.filter?.date_appointment !== undefined) {
+            setStateFilter.filter.date_appointment = ''
         }
         await onSearch();
     }
@@ -179,7 +183,7 @@
     const onSearch = async () => {
         if (setStateFilter.filter) {
             setStateFilter.filter.status = form.status === 'all' ? '' : form.status;
-            setStateFilter.filter.date_appointment = form.date_appointment;
+            setStateFilter.filter.date_appointment = appointmentDate.value;
         }
 
         await getAll();
@@ -192,7 +196,8 @@
     async function onClearSearch(e: any) {
         if (e.target.value === '') {
             if (setStateFilter.filter?.name !== undefined) {
-                setStateFilter.filter.name = ''
+                setStateFilter.filter.name = '',
+                setStateFilter.filter.date_appointment = ''
             }
             await getAll();
         }

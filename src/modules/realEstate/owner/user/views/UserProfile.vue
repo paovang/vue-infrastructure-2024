@@ -11,7 +11,7 @@
         <br/>
         <form @submit.prevent="onSubmit()" class="flex flex-column gap-3 h-full">
             <div class="columns is-12 is-multiline">
-                <div class="column is-4 is-mobile-12">
+                <div class="column is-3 is-mobile-12">
                     <my-input-text 
                         ref="autoFocusCursor"
                         name="name" 
@@ -21,17 +21,7 @@
                         class="h-full" 
                     />
                 </div>
-                <div class="column is-4 is-mobile-12">
-                    <my-input-text 
-                        ref="autoFocusCursor"
-                        name="owner" 
-                        :label="$t('messages.owner')"
-                        required 
-                        :placeholder="$t('placeholder.inputText')" 
-                        class="h-full" 
-                    />
-                </div>
-                <div class="column is-4 is-mobile-12">
+                <div class="column is-3 is-mobile-12">
                     <my-input-text 
                         ref="autoFocusCursor"
                         name="phone_number" 
@@ -41,21 +31,21 @@
                         class="h-full" 
                     />
                 </div>
-                <div class="column is-8 is-mobile-12" style="margin-top: -30px;">
+                <div class="column is-6 is-mobile-12">
                     <my-input-text 
                         ref="autoFocusCursor"
-                        name="address" 
-                        :label="$t('messages.address')"
+                        name="id_no" 
+                        :label="$t('messages.id_no')"
                         required 
                         :placeholder="$t('placeholder.inputText')" 
                         class="h-full" 
                     />
                 </div>
-                <div class="column is-4 is-mobile-12" style="margin-top: -30px;">
+                <div class="column is-12 is-mobile-12" style="margin-top: -30px;">
                     <my-input-text 
                         ref="autoFocusCursor"
-                        name="id_no" 
-                        :label="$t('messages.id_no')"
+                        name="address" 
+                        :label="$t('messages.address')"
                         required 
                         :placeholder="$t('placeholder.inputText')" 
                         class="h-full" 

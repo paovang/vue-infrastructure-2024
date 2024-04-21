@@ -6,7 +6,7 @@
                     {{ $t('table.title.report_rent_buy') }} 
                 </h2>
             </span>
-            <span v-if="form.customer_id !== 'all' && state.data.summary">
+            <span v-if="form.customer_id !== 'all' && state.data.summary" style="font-size: 18px; font-weight: bold; color: green">
                 {{  $t('messages.total_price') }} :
                 {{ formatNumber(state.data.summary, state.data.currency) }}
             </span>
@@ -79,24 +79,22 @@
                         <label>
                             {{ $t('messages.start_date') }}
                         </label>
-                        <Calendar 
-                            v-model="form.from_date" 
-                            showIcon 
-                            style="width: 100%;" 
-                            @date-select="onSearch"
-                            @input="onSearch"
+                        <InputText 
+                            v-model="fromDate" 
+                            type="date" 
+                            style="width: 100% !important" 
+                            @change="onSearch"
                         />
                     </div>
                     <div class="col-12 md:col-2">
                         <label>
                             {{ $t('messages.end_date') }}
                         </label>
-                        <Calendar 
-                            v-model="form.to_date" 
-                            showIcon 
-                            style="width: 100%;" 
-                            @date-select="onSearch"
-                            @input="onSearch"
+                        <InputText 
+                            v-model="toDate" 
+                            type="date" 
+                            style="width: 100% !important" 
+                            @change="onSearch"
                         />
                     </div>
                     <div class="col-12 md:col-1" style="text-align: right;">
@@ -162,7 +160,6 @@
     import Column from 'primevue/column';
     import Dropdown from 'primevue/dropdown';
     import Button from 'primevue/button';
-    import Calendar from 'primevue/calendar';
     import InputText from 'primevue/inputtext';
     import { useRouter } from 'vue-router';
     import { useI18n } from 'vue-i18n';
@@ -177,7 +174,8 @@
         { id: 'rent', name: t('messages.service_rent') },
         { id: 'buy', name: t('messages.service_sale') }
     ]);
-
+    const fromDate = ref();
+    const toDate = ref();
 
     async function onClearSearch(e: any) {
         const fieldName = e.target.name;
@@ -209,7 +207,9 @@
             setStateFilter.filter.to_date = "";
             setStateFilter.filter.search = "";
         }
-
+        form.customer_id = getCustomers.data.props.length > 0 ? getCustomers.data.props[0].id : undefined;
+        toDate.value = "";
+        fromDate.value = "";
         form.to_date = "";
         form.from_date = "";
         form.service_model = "all";
@@ -220,8 +220,8 @@
     const onSearch = async () => {
         if (setStateFilter.filter) {
             setStateFilter.filter.service_model = form.service_model === 'all' ? '' : form.service_model;
-            setStateFilter.filter.from_date = form.from_date;
-            setStateFilter.filter.to_date = form.to_date;
+            setStateFilter.filter.from_date = fromDate.value;
+            setStateFilter.filter.to_date = toDate.value;
             setStateFilter.filter.customer_id = form.customer_id;
         }
 

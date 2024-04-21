@@ -7,7 +7,7 @@ import {
 import { IResponse } from "@/common/interfaces/response.interface";
 import { IAppointmentRepository } from "../interfaces/appointment.interface";
 import { AppointmentEntity } from "../entities/appointment.entity";
-import { formatDate } from "@/common/utils/format.date";
+// import { formatDate } from "@/common/utils/format.date";
 
 @injectable()
 export class AppointmentRepository implements IAppointmentRepository {
@@ -49,16 +49,16 @@ export class AppointmentRepository implements IAppointmentRepository {
       Pick<AppointmentEntity, "status" | "date_appointment" | "name">
     >
   ): Promise<IResponse<IGPaginated<AppointmentEntity>>> {
-    const date = args.filter?.date_appointment;
-    let dateAppointment = "";
+    // const date = args.filter?.date_appointment;
+    // let dateAppointment = "";
 
-    if (date instanceof Date) {
-      const year = date.getFullYear();
-      const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Adding 1 to month as it's zero-based
-      const day = date.getDate().toString().padStart(2, "0");
+    // if (date instanceof Date) {
+    //   const year = date.getFullYear();
+    //   const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Adding 1 to month as it's zero-based
+    //   const day = date.getDate().toString().padStart(2, "0");
 
-      dateAppointment = `${year}-${month}-${day}`;
-    }
+    //   dateAppointment = `${year}-${month}-${day}`;
+    // }
 
     const response = await this._api.axios({
       url: "/owner/reserve/list",
@@ -66,7 +66,8 @@ export class AppointmentRepository implements IAppointmentRepository {
         page: args.page,
         per_page: args.limit,
         status: args.filter?.status,
-        date_appointment: dateAppointment ? formatDate(dateAppointment) : null,
+        date_appointment: args.filter?.date_appointment,
+        // date_appointment: dateAppointment ? formatDate(dateAppointment) : null,
         search: args.filter?.name,
       },
     });
