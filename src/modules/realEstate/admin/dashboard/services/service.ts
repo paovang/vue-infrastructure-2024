@@ -85,8 +85,8 @@ export class DashboardService {
     return await this._getAll.execute(input);
   }
 
-  async reportRealEstateTypes(): Promise<any> {
-    return await this._reportRealEstateType.execute();
+  async reportRealEstateTypes(filter: any): Promise<any> {
+    return await this._reportRealEstateType.execute(filter);
   }
 
   async getAllReportRentBuy(

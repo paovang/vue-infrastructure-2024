@@ -29,7 +29,7 @@ export interface IRepository {
     >
   ): Promise<IResponse<IGPaginated<HouseEntity>>>;
 
-  reportRealEstateTypes(): Promise<any>;
+  reportRealEstateTypes(filter: any): Promise<any>;
 
   getCountries(): Promise<any>;
 

@@ -121,9 +121,12 @@ export class Repository implements IRepository {
     return response.data;
   }
 
-  async reportRealEstateTypes(): Promise<any> {
+  async reportRealEstateTypes(filter: any): Promise<any> {
     const response = await this._api.axios({
       url: `/admin/dashboard`,
+      params: {
+        country_id: filter.country_id,
+      },
     });
 
     return response.data;

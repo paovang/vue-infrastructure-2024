@@ -297,7 +297,14 @@
         "sign_out": "Sign out",
         "qrcode_bank": "QR Code",
         "i_gree": "I Gree",
-        "change_password": "Change Password"
+        "change_password": "Change Password",
+        "total_qty": "Total Qty",
+        "qty_rent": "Qty Rent",
+        "qty_sale": "Qty Sale",
+        "balance": "Balance",
+        "total": "Total Price",
+        "total_sale": "Total Sale",
+        "total_rent": "Total Rent"
     },
     "uploadFile": {
         "uploading": "Uploading profile to the system please wait...",

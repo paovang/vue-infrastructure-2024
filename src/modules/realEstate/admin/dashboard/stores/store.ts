@@ -141,7 +141,9 @@ export const dashboardStore = defineStore("dashboard-store", () => {
 
   async function reportRealEstateTypes() {
     state.isLoading = true;
-    const response = await dashboardService.reportRealEstateTypes();
+    const response = await dashboardService.reportRealEstateTypes(
+      setStateFilter.filter
+    );
 
     if (response && response.data && response.message === "success") {
       getRealEstateTypes.data.props = response.data;

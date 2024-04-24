@@ -7,7 +7,7 @@ import type { IRepository } from "../interfaces/interface";
 export class ReportRealEstateTypeUseCase implements IUseCase {
   constructor(@inject(Repository) private _api: IRepository) {}
 
-  async execute(): Promise<any> {
-    return await this._api.reportRealEstateTypes();
+  async execute(filter: any): Promise<any> {
+    return await this._api.reportRealEstateTypes(filter);
   }
 }
