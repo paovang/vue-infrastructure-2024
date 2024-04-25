@@ -336,6 +336,25 @@ export const houseStore = defineStore("house-store", () => {
     state.isLoading = false;
   }
 
+  async function customerRefer(id: HouseEntity) {
+    state.isLoading = true;
+
+    try {
+      await service.customerRefer(id);
+
+      state.error = "";
+    } catch (error: any) {
+      let responseError = "";
+      if (error.response.status === 422) {
+        responseError = Object.keys(error.response.data.errors)
+          .map((key) => `${key}: ${error.response.data.errors[key].join(", ")}`)
+          .join("; ");
+      }
+      state.error = responseError;
+    }
+    state.isLoading = false;
+  }
+
   return {
     form,
     setStateFilter,
@@ -353,5 +372,6 @@ export const houseStore = defineStore("house-store", () => {
     findRealEstateService,
     paymentService,
     updateStatus,
+    customerRefer,
   };
 });

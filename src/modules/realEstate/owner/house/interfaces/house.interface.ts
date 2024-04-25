@@ -42,4 +42,6 @@ export interface IHouseRepository {
   paymentService(input: HouseEntity): Promise<any>;
 
   updateStatus(id: HouseEntity): Promise<any>;
+
+  customerRefer(id: HouseEntity): Promise<any>;
 }

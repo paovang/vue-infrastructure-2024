@@ -98,38 +98,24 @@
                         />
                     </div>
                 </div>
-                <div class="col-12 md:col-12 flex flex-row" style="margin-top: -15px">
-                    
-                    <!-- <div class="col-12 md:col-3">
-                        <label>
-                            {{ $t('messages.province') }}
-                            <span class="text-red-500"> *</span>
-                        </label>
-                        <Dropdown 
-                            v-model="form.province_id" 
-                            :options="stateProvince.data.props" 
-                            optionLabel="name" 
-                            :placeholder="$t('placeholder.dropdownSelect')" 
-                            class="w-full" 
-                            optionValue="id"
-                            :highlightOnSelect="true" 
-                            filter
-                            @change="filterDistrictByid(form.province_id)"
-                        />
-                    </div> -->
-                </div>
             </template>
 
-            <Column headerStyle="min-width: 14rem" frozen>
+            <Column headerStyle="min-width: 24rem" frozen>
                 <template #body="{ data }">
                     <div class="flex flex-wrap gap-2">
-                        <!-- <Button 
+                        <Button 
                             type="button" 
-                            :label="$t('messages.payment')" 
-                            severity="danger"   
-                            style="color: white;" 
-                            @click="paymentService(data.id)"
-                        /> -->
+                            severity="info"   
+                            rounded
+                            style="color: white; font-weight: bold" 
+                            @click="confirmRefer(data.id)"
+                            class="btn-refer"
+                        >
+                            {{ $t('messages.refer') }}
+                            <span class="p-badge p-component" style="margin-left: 5px; border-radius: 5px !important">
+                                {{ data.refer }}
+                            </span>
+                        </Button>
                         <Button 
                             type="button" 
                             :label="data.status"
@@ -172,9 +158,6 @@
             <Column field="owner_name" :header="$t('table.header.owner')" headerStyle="min-width: 8rem"></Column>
             <Column field="agent_name" :header="$t('table.header.name')" headerStyle="min-width: 8rem"></Column>
             <Column field="village" :header="$t('table.header.address')" headerStyle="min-width: 15rem"></Column>
-            <!-- <Column field="district.name" :header="$t('table.header.district')" headerStyle="min-width: 6rem"></Column>
-            <Column field="district.province.name" :header="$t('table.header.province')" headerStyle="min-width: 7rem"></Column> -->
-            <!-- <Column field="zip_code" :header="$t('table.header.zip_code')" headerStyle="min-width: 6rem"></Column> -->
             <Column field="long" :header="$t('table.header.long')" headerStyle="min-width: 7rem"></Column>
             <Column field="wide" :header="$t('table.header.wide')" headerStyle="min-width: 6rem"></Column>
             <Column field="total_bed" :header="$t('table.header.total_bed')" headerStyle="min-width: 9rem"></Column>
@@ -186,16 +169,6 @@
             <Column field="created_at" :header="$t('table.header.created_at')" headerStyle="min-width: 8rem"></Column>
             <Column field="updated_at" :header="$t('table.header.updated_at')" headerStyle="min-width: 8rem"></Column>
         </DataTable>
-
-        <!-- <payment-service-component
-            ref="createForm"
-            :id="false"
-            :on-submit="submitData"
-            :form="form"
-            :is-loading="btnLoading"
-            @on-success="clearForm"
-            :real-estate-service="findRealEstateService"
-        /> -->
     </div>
 </template>
 
@@ -214,7 +187,6 @@
     import { HouseEntity } from '../entities/house.entity';
     import { useConfirm } from "primevue/useconfirm";
     import { useToast } from "primevue/usetoast";
-    // import PaymentServiceComponent from '../components/PaymentService.component.vue';
     import { useI18n } from 'vue-i18n';
     import { GET_PERMISSIONS } from '@/common/utils/const';
     import { validationPermissions } from '@/common/utils/validation-permissions';
@@ -226,7 +198,7 @@
     const toast = useToast();
     const confirm = useConfirm();
 
-    const { form, getAll, state, setStateFilter, remove, updateStatus } = houseStore();
+    const { form, getAll, state, setStateFilter, remove, updateStatus, customerRefer } = houseStore();
     const { getOne, realestateType } = realEstateServiceStore();
     const { getAll: getAllProvince, state: stateProvince, setStateFilter: setStateProvinceFilter } = provinceStore();
     const { getAll: getAllDistrict, state: stateDistrict, setStateFilter: setStateDistrictFilter } = districtStore();
@@ -243,26 +215,6 @@
         { id: 'fan', name: t('messages.fan') },
         { id: 'no', name: t('messages.none') },
     ]);
-
-    // const createForm = ref();
-    // const btnLoading = ref(false);
-
-
-    // const paymentService = async (id: HouseEntity) => {
-    //     await findRealEstateServiceById(id);
-    //     form.id = (id as string);
-    //     form.service_charge_id = findRealEstateService.data.props ? findRealEstateService.data.props[0].id : undefined;
-    //     createForm.value.visible = true;
-    // }
-
-   
-    // async function  submitData() {
-    //     console.log('paovang: submit 2024');
-    // }
-
-    // async function clearForm() {
-    //     console.log('clear....')
-    // }
 
     const isDisabled = (status: string) => {
         return status === 'rent' || status === 'buy';
@@ -315,6 +267,16 @@
 
         await initComponent();
     })
+
+    const refer = async(id: HouseEntity) => {
+        await customerRefer(id);
+
+        if (state.error) {
+            await showWarningValidateBackend();
+        } else {
+            await initComponent();
+        }
+    }
 
     const editHouse = async (id: number) => {
         router.push({ name: 'owner.edit.house', params: { id: id } });
@@ -398,24 +360,6 @@
         }
     })
 
-    // const filterWide = computed<string>({
-    //     get: () => setStateFilter.filter!.wide || '',
-    //     set: (value) => {
-    //         if (setStateFilter.filter) {
-    //             setStateFilter.filter.wide = value;
-    //         }
-    //     }
-    // })
-
-    // const filterLong = computed<string>({
-    //     get: () => setStateFilter.filter!.long || '',
-    //     set: (value) => {
-    //         if (setStateFilter.filter) {
-    //             setStateFilter.filter.long = value;
-    //         }
-    //     }
-    // })
-
     const fetchAll = async() => {
         await getAll();
         await getOne();
@@ -444,21 +388,24 @@
         form.district_id = stateDistrict.data.props.length > 0 ? stateDistrict.data.props[0].id : undefined;
     }
 
-    // const filterDistrictByid = async (id: any) => {
-    //     if (setStateDistrictFilter.filter) {
-    //         setStateDistrictFilter.filter.province_id = id;
-    //         await getAllDistrict();
-    //         stateDistrict.data.props.unshift({ id: 'all', name: t('messages.all') });
-    //         await selectedDistrict();
+    const confirmRefer = async (id: HouseEntity) => {
+        confirm.require({
+            message: t('confirmCustomerRefer.message'),
+            header: t('confirmCustomerRefer.header'),
+            rejectLabel: t('confirmCustomerRefer.rejectLabel'),
+            acceptLabel: t('confirmCustomerRefer.acceptLabel'),
+            rejectClass: 'p-button-secondary p-button-outlined',
+            acceptClass: 'p-button-info',
+            accept: async () => {
+                await refer(id);
 
-    //         if (setStateFilter.filter) {
-    //             setStateFilter.filter.district_id = form.district_id === 'all' ? '' : form.district_id;
-    //             setStateFilter.filter.province_id = form.province_id === 'all' ? '' : form.province_id;
-    //         }
-
-    //         await getAll();
-    //     }
-    // }
+                toast.add({ severity: 'success', summary: t('toast.summary.delete'), detail: t('toast.detail.delete'), life: 3000 });
+            },
+            reject: () => {
+                toast.add({ severity: 'error', summary: t('toast.summary.cancel_delete'), detail: t('toast.detail.cancel_delete'), life: 3000 });
+            }
+        });
+    }
 
     const confirmDelete = async (id: HouseEntity) => {
         confirm.require({
@@ -491,7 +438,7 @@
             rejectLabel: t('confirmUpdateStatus.rejectLabel'),
             acceptLabel: t('confirmUpdateStatus.acceptLabel'),
             rejectClass: 'p-button-secondary p-button-outlined',
-            acceptClass: 'p-button-danger',
+            acceptClass: 'p-button-success',
             accept: async () => {
                 await updateStatusItem(id);
 

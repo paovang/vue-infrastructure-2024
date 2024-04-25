@@ -138,8 +138,14 @@
                         </template>
                         <template #subtitle>
                         <span>{{ item.name }}</span> |
-                        <span>{{ item.status }}</span> |
-                        <span>{{ item.service_model }}</span>
+                        <span style="background: green; padding: 2px; border-radius: 4px; color: white;">
+                            {{ item.status }}
+                        </span> |
+                        <span>{{ item.service_model }}</span> |
+                        <span style="background: #00b7c3; padding: 2px; border-radius: 4px; color: white;">
+                            {{ $t('messages.refer') }}: 
+                            {{ item.refer }}
+                        </span>
                         </template>
                         <template #content>
                         <p class="detail">

@@ -1,0 +1,1 @@
+import{G as e,ap as o}from"./index-EmctqlzM.js";function l(t){const r=localStorage.getItem("roles")||"",s=r?JSON.parse(r):[];if(s.includes(e.SUPER_ADMIN)||s.includes(e.ADMIN)||s.includes(e.ADMIN_OWNER))return!1;{const n=localStorage.getItem(o)||"";return!(n?JSON.parse(n):[]).includes(t)}}export{l as v};

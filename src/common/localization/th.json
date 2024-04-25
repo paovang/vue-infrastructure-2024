@@ -304,7 +304,8 @@
         "balance": "ยอดคงเหลือทั้งหมด",
         "total": "ยอดรวมทั้งหมด",
         "total_sale": "ยอดขายรวมทั้งหมด",
-        "total_rent": "ยอดเช่ารวมทั้งหมด"
+        "total_rent": "ยอดเช่ารวมทั้งหมด",
+        "refer": "เสนอ"
     },
     "uploadFile": {
         "uploading": "กำลังอัปโหลดไฟล์เข้าสู่ระบบ โปรดรอ...",
@@ -334,6 +335,12 @@
         "header": "ยืนยันการอัปเดต",
         "rejectLabel": "ปฏิเสธ",
         "acceptLabel": "อัปเดต"
+    },
+    "confirmCustomerRefer": {
+        "message": "คุณเเน่ใจ หรือ ไม่",
+        "header": "ยืนยันการเสนอราคา",
+        "rejectLabel": "ไม่",
+        "acceptLabel": "ไช่"
     },
     "toast": {
         "summary": {

@@ -227,4 +227,17 @@ export class HouseRepository implements IHouseRepository {
       status: "success",
     };
   }
+
+  async customerRefer(id: HouseEntity): Promise<IResponse<HouseEntity>> {
+    const response = await this._api.axios({
+      method: "put",
+      url: `/owner/refer-real-estate-list/${id}`,
+    });
+
+    return {
+      data: response.data,
+      message: "ສຳເລັດເເລ້ວ.",
+      status: "success",
+    };
+  }
 }

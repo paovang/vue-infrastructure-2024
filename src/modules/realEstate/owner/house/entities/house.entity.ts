@@ -11,6 +11,7 @@ export interface HouseEntity {
   district_id?: string;
   province_id?: string;
   country_id?: string;
+  refer?: string | number;
   service_charge_id?: string;
   real_estate_type?: {
     id?: string;

@@ -304,7 +304,8 @@
         "balance": "Balance",
         "total": "Total Price",
         "total_sale": "Total Sale",
-        "total_rent": "Total Rent"
+        "total_rent": "Total Rent",
+        "refer": "Refer"
     },
     "uploadFile": {
         "uploading": "Uploading profile to the system please wait...",
@@ -334,6 +335,12 @@
         "header": "Confirm Update",
         "rejectLabel": "Cancel",
         "acceptLabel": "Update"
+    },
+    "confirmCustomerRefer": {
+        "message": "Do you want to Refer?",
+        "header": "Confirm Refer",
+        "rejectLabel": "Cancel",
+        "acceptLabel": "Accepted"
     },
     "toast": {
         "summary": {

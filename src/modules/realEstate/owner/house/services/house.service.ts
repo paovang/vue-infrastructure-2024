@@ -16,6 +16,7 @@ import { AddGalleryHouseUseCase } from "../use-cases/add-gallery.use-case";
 import { FindRealEstateSeviceByHouseUseCase } from "../use-cases/find-realestate-service.use-case";
 import { PaymentServiceHouseUseCase } from "../use-cases/payment/payment.use-case";
 import { UpdateStatusHouseUseCase } from "../use-cases/update-status.use-case";
+import { CustomerReferUseCase } from "../use-cases/customer-refer.use-case";
 
 @injectable()
 export class HouseService {
@@ -36,7 +37,9 @@ export class HouseService {
     @inject(PaymentServiceHouseUseCase)
     private _payment: PaymentServiceHouseUseCase,
     @inject(UpdateStatusHouseUseCase)
-    private _updateStatus: UpdateStatusHouseUseCase
+    private _updateStatus: UpdateStatusHouseUseCase,
+    @inject(CustomerReferUseCase)
+    private _customerRefer: CustomerReferUseCase
   ) {}
 
   async register(input: HouseEntity) {
@@ -95,5 +98,9 @@ export class HouseService {
 
   async updateStatus(id: HouseEntity) {
     return await this._updateStatus.execute(id);
+  }
+
+  async customerRefer(id: HouseEntity): Promise<any> {
+    return await this._customerRefer.execute(id);
   }
 }

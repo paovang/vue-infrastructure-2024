@@ -304,7 +304,8 @@
         "balance": "ຍອດເຫຼືອທັງໝົດ",
         "total": "ຍອດທັງໝົດ",
         "total_sale": "ຍອດຂາຍທັງໝົດ",
-        "total_rent": "ຍອດເຊົ່າທັງໝົດ"
+        "total_rent": "ຍອດເຊົ່າທັງໝົດ",
+        "refer": "ສະເໜີ"
     },
     "uploadFile": {
         "uploading": "ກຳລັງອັບໂຫຼດໂປຮໄຟລເຂົ້າລະບົບ ກະລຸນາລໍຖ້າ...",
@@ -334,6 +335,12 @@
         "header": "ຢືນຢັນການອັບເດດ",
         "rejectLabel": "ຍົກເລີກ",
         "acceptLabel": "ອັບເດດ"
+    },
+    "confirmCustomerRefer": {
+        "message": "ທ່ານເເນ່ໃຈ ຫຼຶ ບໍ?",
+        "header": "ຢືນຢັນການສະເໜີລາຄາ",
+        "rejectLabel": "ຍົກເລີກ",
+        "acceptLabel": "ຕົກລົງ"
     },
     "toast": {
         "summary": {

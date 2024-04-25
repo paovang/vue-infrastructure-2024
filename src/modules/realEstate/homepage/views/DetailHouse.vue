@@ -40,11 +40,14 @@
                 </h3>
                 <Divider/>
                 <p style="margin-top: 5px;">
-                    <span>
+                    <span style="background: green; padding: 2px; border-radius: 4px; color: white;">
                         {{ realEstateGetOne.data.props.status }}
                     </span>
                     <span>
-                        | {{ $t('messages.name') }}: {{ realEstateGetOne.data.props.owner_name }}
+                        | {{ $t('messages.name') }}: {{ realEstateGetOne.data.props.owner_name }} |
+                    </span>
+                    <span style="background: #00b7c3; padding: 2px; border-radius: 4px; color: white;">
+                        {{ $t('messages.refer') }}: {{ realEstateGetOne.data.props.refer }}
                     </span>
                 </p>
                 <p style="margin-top: 5px;">
