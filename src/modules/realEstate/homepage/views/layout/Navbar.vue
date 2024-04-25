@@ -274,13 +274,13 @@
 
     .input-search {
       margin-top: 0px;
-      width: 500px;
+      width: 600px;
       margin-left: 50px;
       display: flex;
       align-items: center;
       .w-full {
         font-family: NotoSansLao, Montserrat; 
-        width: 400px !important;
+        width: 500px !important;
       }
     }
 
