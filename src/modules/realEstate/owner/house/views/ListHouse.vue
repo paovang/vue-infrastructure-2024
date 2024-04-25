@@ -100,7 +100,7 @@
                 </div>
             </template>
 
-            <Column headerStyle="min-width: 24rem" frozen>
+            <Column headerStyle="min-width: 20rem" frozen>
                 <template #body="{ data }">
                     <div class="flex flex-wrap gap-2">
                         <Button 
@@ -109,6 +109,7 @@
                             rounded
                             style="color: white; font-weight: bold" 
                             @click="confirmRefer(data.id)"
+                            :disabled="isDisabled(data.status) || validationPermissions(GET_PERMISSIONS.REAL_ESTATE.UPDATE)"
                             class="btn-refer"
                         >
                             {{ $t('messages.refer') }}
