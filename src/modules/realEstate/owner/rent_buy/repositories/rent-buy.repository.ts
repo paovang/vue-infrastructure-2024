@@ -181,6 +181,7 @@ export class RentAndBuyRepository implements IRentAndBuyRepository {
         service_model: args.filter?.service_model,
         start_date: args.filter?.from_date,
         end_date: args.filter?.to_date,
+        lang: localStorage.getItem("locale"),
         // start_date: startDate ? formatDate(startDate) : null,
         // end_date: endDate ? formatDate(endDate) : null,
       },
@@ -216,6 +217,9 @@ export class RentAndBuyRepository implements IRentAndBuyRepository {
     const response = await this._api.axios({
       method: "get",
       url: "/owner/get-real-estate-online",
+      params: {
+        lang: localStorage.getItem("locale"),
+      },
     });
 
     return response.data;

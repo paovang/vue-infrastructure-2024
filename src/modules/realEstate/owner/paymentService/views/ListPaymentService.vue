@@ -112,7 +112,7 @@
                 <template #body="{data}">
                     <span>{{ data.real_estate_list.real_esate_number }}</span>
                     <span> - 
-                        ({{ data.real_estate_list.name }} / {{ data.real_estate_list.real_estate_type.name }} / {{ data.real_estate_list.service_model }})
+                        ({{ data.real_estate_list.name }} / {{ data.real_estate_list.trans_real_estate_type.name }} / {{ data.real_estate_list.service_model }})
                     </span>
                 </template>
             </Column>

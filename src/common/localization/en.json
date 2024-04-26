@@ -70,7 +70,8 @@
             "customer": "Customer",
             "currency": "Currency",
             "owner": "Owner Name",
-            "name": "Agent Name",
+            "agent_name": "Agent Name",
+            "name": "Name",
             "full_name": "Full Name",
             "address": "Address",
             "email": "Email",
@@ -129,6 +130,7 @@
             "warning": "Warning",
             "qrcode_bank": "QR Code",
             "real_estate_name": "Real Estate Name",
+            "lang": "Language",
             "footer": {
                 "facebook": "Facebook",
                 "whatsapp": "Whatsapp",
@@ -179,7 +181,8 @@
         "form_register_customer": "Form Register Customer",
         "select": "Select",
         "owner": "Owner Name",
-        "name": "Agent Name",
+        "agent_name": "Agent Name",
+        "name": "Name",
         "full_name": "Full Name",
         "phone_number": "Phone Number",
         "email": "Email",
@@ -305,7 +308,8 @@
         "total": "Total Price",
         "total_sale": "Total Sale",
         "total_rent": "Total Rent",
-        "refer": "Refer"
+        "refer": "Refer",
+        "lang": "Language"
     },
     "uploadFile": {
         "uploading": "Uploading profile to the system please wait...",

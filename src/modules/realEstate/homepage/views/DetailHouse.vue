@@ -62,8 +62,8 @@
                     </span>
                 </p>
                 <p>
-                    <span>{{ realEstateGetOne.data.props.real_estate_type?.name }}</span>
-                    <span>| {{ realEstateGetOne.data.props.service_model }}</span>
+                    <span>{{ realEstateGetOne.data.props.trans_real_estate_type?.name }}</span>
+                    <span> | {{ realEstateGetOne.data.props.service_model }}</span>
                     <span> | {{ realEstateGetOne.data.props.room_type }}</span>
                 </p>
                 <p>

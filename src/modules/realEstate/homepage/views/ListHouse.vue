@@ -149,7 +149,7 @@
                         </template>
                         <template #content>
                         <p class="detail">
-                            {{ item.real_estate_type?.name }},
+                            {{ item.trans_real_estate_type?.name }},
                             <!-- <span>{{ item.room_type }}</span>, -->
                             <span>{{ $t('messages.wide') }}: {{ item.wide }}</span>,
                             <span>{{ $t('messages.long') }}: {{ item.long }}</span>

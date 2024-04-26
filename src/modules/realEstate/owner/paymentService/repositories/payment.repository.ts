@@ -119,6 +119,7 @@ export class PaymentServiceHouseRepository
         per_page: args.limit,
         status: args.filter?.status,
         date_payment: args.filter?.date_payment,
+        lang: localStorage.getItem("locale"),
         // date_payment: paymentDate ? formatDate(paymentDate) : null,
       },
     });

@@ -83,6 +83,7 @@ export class HomeRealEstateRepository implements IHomeRealEstateRepository {
         country_id: args.filter?.country_id,
         wide: args.filter?.wide,
         long: args.filter?.long,
+        lang: localStorage.getItem("locale"),
       },
     });
 
@@ -98,6 +99,9 @@ export class HomeRealEstateRepository implements IHomeRealEstateRepository {
     const response = await this._api.axios({
       method: "get",
       url: `/customer/realestate/list/${id}`,
+      params: {
+        lang: localStorage.getItem("locale"),
+      },
     });
 
     return response.data;
@@ -109,6 +113,7 @@ export class HomeRealEstateRepository implements IHomeRealEstateRepository {
       url: `get-all-data`,
       params: {
         province_id: filter.province_id,
+        lang: localStorage.getItem("locale"),
       },
     });
 

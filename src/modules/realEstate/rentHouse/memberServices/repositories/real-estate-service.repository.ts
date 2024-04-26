@@ -100,8 +100,13 @@ export class RealEstateServiceRepository
 
   async getById(id: string): Promise<any> {
     console.log(id);
+    const lang = localStorage.getItem("locale");
+
     const response = await this._api.axios({
       url: "/admin/realestate/type",
+      params: {
+        lang: lang,
+      },
     });
 
     const data = response.data;

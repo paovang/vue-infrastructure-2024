@@ -70,7 +70,8 @@
             "customer": "ชื่อลูกค้า",
             "currency": "สกุลเงิน",
             "owner": "ชื่อเจ้าของ",
-            "name": "ชื่อผุ้ขาย",
+            "name": "ชื่อ",
+            "agent_name": "ชื่อผุ้ขาย",
             "full_name": "ชื่อเต็ม",
             "address": "ที่อยู่",
             "email": "อีเมล",
@@ -129,6 +130,7 @@
             "warning": "คำเตือน",
             "qrcode_bank":"คิวอาร์โค้ด",
             "real_estate_name": "ขื่อทรัพย์สิน",
+            "lang": "ภาษา",
             "footer": {
                 "facebook": "Facebook",
                 "whatsapp": "Whatsapp",
@@ -179,7 +181,8 @@
         "form_register_customer": "แบบฟอร์มลงทะเบียนข้อมูลลูกค้า",
         "select": "เลือก",
         "owner": "ชื่อเจ้าของ",
-        "name": "ชื่อผุ้ขาย",
+        "agent_name": "ชื่อผุ้ขาย",
+        "name": "ชื่อ",
         "full_name": "ชื่อเต็ม",
         "phone_number": "หมายเลขโทรศัพท์",
         "email": "อีเมล",
@@ -305,7 +308,8 @@
         "total": "ยอดรวมทั้งหมด",
         "total_sale": "ยอดขายรวมทั้งหมด",
         "total_rent": "ยอดเช่ารวมทั้งหมด",
-        "refer": "เสนอ"
+        "refer": "เสนอ",
+        "lang": "ภาษา"
     },
     "uploadFile": {
         "uploading": "กำลังอัปโหลดไฟล์เข้าสู่ระบบ โปรดรอ...",

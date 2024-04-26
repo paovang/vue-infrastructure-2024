@@ -26,8 +26,6 @@ export class HouseRepository implements IHouseRepository {
         agent_name: input.agent_name,
         owner_name: input.owner_name,
         location: input.location,
-        // district_id: input.district_id,
-        // zip_code: input.zip_code,
         wide: input.wide,
         long: input.long,
         total_bath: input.total_bath,
@@ -59,9 +57,7 @@ export class HouseRepository implements IHouseRepository {
         village: input.village,
         agent_name: input.agent_name,
         owner_name: input.owner_name,
-        // district_id: input.district_id,
         location: input.location,
-        // zip_code: input.zip_code,
         wide: input.wide,
         long: input.long,
         total_bath: input.total_bath,
@@ -107,6 +103,7 @@ export class HouseRepository implements IHouseRepository {
       >
     >
   ): Promise<IResponse<IGPaginated<HouseEntity>>> {
+    const lang = localStorage.getItem("locale");
     const response = await this._api.axios({
       url: "/owner/realestate/list",
       params: {
@@ -120,6 +117,7 @@ export class HouseRepository implements IHouseRepository {
         province_id: args.filter?.province_id,
         wide: args.filter?.wide,
         long: args.filter?.long,
+        lang: lang,
       },
     });
 

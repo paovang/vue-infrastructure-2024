@@ -16,7 +16,7 @@
         <div class="columns is-multiline">
             <div class="column is-4 is-mobile-12 is-box" v-for="(item, index) in getRealEstateTypes.data.props" :key="index">
                 <div class="card">
-                    <p style="font-size: 20px; font-weight: bold; text-align: center;">{{ item.name }}</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">{{ item.trans_real_estate_type.name }}</p>
                     <Divider/>
                     <div style="margin-top: 10px; line-height: 2rem;">
                         <p>

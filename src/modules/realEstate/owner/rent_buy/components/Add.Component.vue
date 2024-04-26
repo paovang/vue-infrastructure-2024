@@ -17,7 +17,7 @@
                     <Dropdown 
                         v-model="form.real_estate_id" 
                         :options="stateGetRealEstateOnline.data.props" 
-                        :optionLabel="option => `${option.real_esate_number} - ${option.real_estate_type.name} - ${option.room_type} - ${option.service_model}`" 
+                        :optionLabel="option => `${option.real_esate_number} ( ${option.name} - ${option.trans_real_estate_type.name} - ${option.room_type} - ${option.service_model} )`" 
                         :placeholder="$t('placeholder.dropdownSelect')"  
                         class="w-full" 
                         optionValue="id"
@@ -133,8 +133,8 @@
     import MyInputNumber from '@/components/customComponents/FormInputNumber.vue';
     import { formatNumber } from '@/common/utils/format.currency';
     import myInputText from '@/components/customComponents/FormInputText.vue';
-import { GET_PERMISSIONS } from '@/common/utils/const';
-import { validationPermissions } from '@/common/utils/validation-permissions';
+    import { GET_PERMISSIONS } from '@/common/utils/const';
+    import { validationPermissions } from '@/common/utils/validation-permissions';
 
 
     const { form, create, state, getRealEstatePrices, stateGetPrice, stateGetRealEstateOnline, getRealEstateOnline } = rentAndBuyStore();

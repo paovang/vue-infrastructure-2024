@@ -13,6 +13,10 @@ export interface HouseEntity {
   country_id?: string;
   refer?: string | number;
   service_charge_id?: string;
+  trans_real_estate_type?: {
+    id?: string;
+    name?: string;
+  };
   real_estate_type?: {
     id?: string;
     name?: string;

@@ -86,6 +86,7 @@ export class Repository implements IRepository {
         district_id: args.filter?.district_id,
         province_id: args.filter?.province_id,
         country_id: args.filter?.country_id,
+        lang: localStorage.getItem("locale"),
       },
     });
 
@@ -126,6 +127,7 @@ export class Repository implements IRepository {
       url: `/admin/dashboard`,
       params: {
         country_id: filter.country_id,
+        lang: localStorage.getItem("locale"),
       },
     });
 
@@ -173,6 +175,7 @@ export class Repository implements IRepository {
         // end_date: endDate ? formatDate(endDate) : null,
         customer_id: args.filter?.customer_id,
         search: args.filter?.search,
+        lang: localStorage.getItem("locale"),
       },
     });
 

@@ -70,7 +70,8 @@
             "customer": "ຊື່ລູກຄ້າ",
             "currency": "ສະກຸນເງີນ",
             "owner": "ຊື່ເຈົ້າຂອງ",
-            "name": "ຊື່ຜູ້ຂາຍ",
+            "agent_name": "ຊື່ຜູ້ຂາຍ",
+            "name": "ຊື່",
             "full_name": "ຊື່ເຕັມ",
             "address": "ທີ່ຢູ່",
             "email": "ອີເມວ",
@@ -129,6 +130,7 @@
             "warning": "ຄຳເຕືອນ",
             "qrcode_bank":"ຄີວອາໂຄດ",
             "real_estate_name": "ຊື່ຊັບສີນ",
+            "lang": "ພາສາ",
             "footer": {
                 "facebook": "Facebook",
                 "whatsapp": "Whatsapp",
@@ -179,7 +181,8 @@
         "form_register_customer": "ຟອມລົງທະບຽນ ຂໍ້ມູນລູກຄ້າ",
         "select": "ເລືອກ",
         "owner": "ຊື່ເຈົ້າຂອງ",
-        "name": "ຊື່ຜູ້ຂາຍ",
+        "agent_name": "ຊື່ຜູ້ຂາຍ",
+        "name": "ຊື່",
         "full_name": "ຊື່ເຕັມ",
         "phone_number": "ເບີໂທລະສັບ",
         "email": "ອີເມວ",
@@ -305,7 +308,8 @@
         "total": "ຍອດທັງໝົດ",
         "total_sale": "ຍອດຂາຍທັງໝົດ",
         "total_rent": "ຍອດເຊົ່າທັງໝົດ",
-        "refer": "ສະເໜີ"
+        "refer": "ສະເໜີ",
+        "lang": "ພາສາ"
     },
     "uploadFile": {
         "uploading": "ກຳລັງອັບໂຫຼດໂປຮໄຟລເຂົ້າລະບົບ ກະລຸນາລໍຖ້າ...",

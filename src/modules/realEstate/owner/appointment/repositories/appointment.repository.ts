@@ -67,6 +67,7 @@ export class AppointmentRepository implements IAppointmentRepository {
         per_page: args.limit,
         status: args.filter?.status,
         date_appointment: args.filter?.date_appointment,
+        lang: localStorage.getItem("locale"),
         // date_appointment: dateAppointment ? formatDate(dateAppointment) : null,
         search: args.filter?.name,
       },

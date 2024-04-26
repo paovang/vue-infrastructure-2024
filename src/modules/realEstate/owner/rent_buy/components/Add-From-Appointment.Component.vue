@@ -17,7 +17,7 @@
                     <Dropdown 
                         v-model="form.appointment_id" 
                         :options="stateAppointment.data.props" 
-                        :optionLabel="option => `${option.reserve_number} ( ${option.customer_name} - ${option.customer_tel} ) - ${option.estate_list.real_esate_number} - ${option.estate_list.name} (${option.estate_list.service_model})`" 
+                        :optionLabel="option => `${option.reserve_number} ( ${option.customer_name} - ${option.customer_tel} ) - ${option.estate_list.real_esate_number} - ${option.estate_list.name} - ${option.estate_list.trans_real_estate_type.name} (${option.estate_list.service_model})`" 
                         :placeholder="$t('placeholder.dropdownSelect')"  
                         class="w-full" 
                         optionValue="id"

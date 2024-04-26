@@ -112,6 +112,7 @@
             <Column field="customer_tel" :header="$t('table.header.customer_phone')" headerStyle="min-width: 8rem"></Column>
             <Column field="estate_list.real_esate_number" :header="$t('table.header.real_esate_number')" headerStyle="min-width: 8rem"></Column>
             <Column field="estate_list.name" :header="$t('table.header.real_estate_name')" headerStyle="min-width: 8rem"></Column>
+            <Column field="estate_list.trans_real_estate_type.name" :header="$t('table.header.real_estate_type')" headerStyle="min-width: 8rem"></Column>
             <Column field="estate_list.service_model" :header="$t('table.header.service_model')" headerStyle="min-width: 8rem"></Column>
             <Column field="estate_list.room_type" :header="$t('table.header.room_type')" headerStyle="min-width: 7rem"></Column>
             <Column field="reason" :header="$t('table.header.reason')" headerStyle="min-width: 8rem"></Column>

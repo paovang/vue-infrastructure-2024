@@ -85,9 +85,23 @@
                         </template>
                     </Column>
                 <Column field="name" :header="$t('table.header.name')" style="width: 25%"></Column>
+                <Column :header="$t('table.header.lang')">
+                    <template #body="slotProps">
+                        {{ conCatString(slotProps.data.langs) }}
+                    </template>
+                </Column>
                 <Column headerStyle="width: 10rem">
                     <template #body="{ data }">
                         <div class="flex flex-wrap gap-2 btn-right">
+                            <Button 
+                                type="button" 
+                                icon="pi pi-language" 
+                                rounded 
+                                severity="info"  
+                                style="color: white;" 
+                                @click="editItem(data)"
+                                :disabled="validationPermissions(GET_PERMISSIONS.REAL_ESTATE_TYPE.UPDATE)"
+                            />
                             <Button 
                                 type="button" 
                                 icon="pi pi-pencil" 
@@ -130,6 +144,7 @@
     import { RealEstateTypeEntity } from '../entities/real-estate-type.entity';
     import { validationPermissions } from '@/common/utils/validation-permissions';
     import { GET_PERMISSIONS } from '@/common/utils/const';
+    import { conCatString } from '@/common/utils/concat';
 
     const { t } = useI18n();
     const toast = useToast();

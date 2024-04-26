@@ -20,7 +20,7 @@
                             style="margin-top: 8px;"
                             v-model="form.real_estate_list_id" 
                             :options="stateHouse.data.props" 
-                            :optionLabel="option => `${option.real_estate_type.name} - ${option.room_type} - ${option.service_model} (${formatNumber(option.price[0].price, '')})`" 
+                            :optionLabel="option => `${option.real_esate_number} - ${option.trans_real_estate_type.name} - ${option.room_type} - ${option.service_model} (${formatNumber(option.price[0].price, '')})`" 
                             :placeholder="$t('placeholder.dropdownSelect')" 
                             class="w-full" 
                             optionValue="id"
