@@ -45,7 +45,7 @@
 
         <div class="card">
             <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
-                <span class="p-input-icon-left w-full sm:w-20rem flex-order-1 sm:flex-order-0">
+                <span class="p-input-icon-left w-full sm:w-25rem flex-order-1 sm:flex-order-0">
                     <h2 class="mb-3">
                         {{ $t('table.title.trans_real_estate_type') }}
                     </h2>
