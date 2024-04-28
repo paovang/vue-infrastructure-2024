@@ -42,6 +42,8 @@ export const useAuthStore = defineStore("auth", () => {
           "permissions",
           JSON.stringify(result.data.authUser.permissions)
         );
+        localStorage.setItem("locale", "en");
+
         state.errorMessage = "";
 
         const roleUsers = result.data.authUser.roles;

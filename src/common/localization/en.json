@@ -26,7 +26,8 @@
         "policy": "Policy",
         "about": "about",
         "profile": "Profile",
-        "qrcode_bank": "QR Code Bank"
+        "qrcode_bank": "QR Code Bank",
+        "trans_real_estate_type": "Translate Real Estate Type"
     },
     "placeholder": {
         "inputText": "Please Enter...",
@@ -60,7 +61,8 @@
             "warning": "Warning",
             "policy": "Policy",
             "about": "about",
-            "qrcode_bank":"All QR Code Bank"
+            "qrcode_bank":"All QR Code Bank",
+            "trans_real_estate_type":"Translate Real Estate Type"
         },
         "header": {
             "index": "Number",

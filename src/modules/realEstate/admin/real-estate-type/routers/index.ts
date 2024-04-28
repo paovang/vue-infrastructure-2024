@@ -13,4 +13,14 @@ export const adminRealEstateTypeRoute: RouteRecordRaw[] = [
     },
     beforeEnter: roleGuard,
   },
+  {
+    path: "/admin/translate-real-estate-type/:id",
+    name: "translate.real.estate.type",
+    component: () => import("../views/TransRealEstateType.vue"),
+    meta: {
+      label: "sidebar.trans_real_estate_type",
+      requiredRoles: [GET_ROLES.SUPER_ADMIN, GET_ROLES.ADMIN, GET_ROLES.USER],
+    },
+    beforeEnter: roleGuard,
+  },
 ];

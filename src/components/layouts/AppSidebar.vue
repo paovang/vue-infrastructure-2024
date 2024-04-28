@@ -448,7 +448,8 @@
                       'admin.warning',
                       'admin.edit.warning',
                       'admin.qrcode.bank',
-                      'report.rent.buy'
+                      'report.rent.buy',
+                      'translate.real.estate.type'
                     ].includes(String(router.currentRoute.value.name)) }"
                   >
                     <li v-for="children in item.children" :key="item.key">

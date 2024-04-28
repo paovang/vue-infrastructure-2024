@@ -99,7 +99,7 @@
                                 rounded 
                                 severity="info"  
                                 style="color: white;" 
-                                @click="editItem(data)"
+                                @click="translateItem(data.id)"
                                 :disabled="validationPermissions(GET_PERMISSIONS.REAL_ESTATE_TYPE.UPDATE)"
                             />
                             <Button 
@@ -179,6 +179,10 @@
 
     const deleteItem = async (id: RealEstateTypeEntity) => {
         await remove(id);
+    }
+
+    const translateItem = async (id: string) => {
+        push({ name: 'translate.real.estate.type', params: { id: id } });
     }
 
     const editItem = async (value: RealEstateTypeEntity) => {

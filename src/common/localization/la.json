@@ -26,7 +26,8 @@
         "policy": "ນະໂຍບາຍ",
         "about": "ກ່ຽວກັບພວກເຮົາ",
         "profile": "ໂປຮໄຟລ",
-        "qrcode_bank": "ຄີວອາໂຄດ ທະນາຄານ"
+        "qrcode_bank": "ຄີວອາໂຄດ ທະນາຄານ",
+        "trans_real_estate_type": "ເເປພາສາ ປະເພດຊັບສີນ"
     },
     "placeholder": {
         "inputText": "ກະລຸນາປ້ອນກ່ອນ...",
@@ -60,7 +61,8 @@
             "warning": "ຄຳເຕືອນ",
             "policy": "ນະໂຍບາຍ ທັງໝົດ",
             "about": "ກ່ຽວກັບພວກເຮົາ",
-            "qrcode_bank": "ຄີວອາໂຄດ ທະນາຄານທັງໝົດ"
+            "qrcode_bank": "ຄີວອາໂຄດ ທະນາຄານທັງໝົດ",
+            "trans_real_estate_type":"ເເປພາສາ ປະເພດຊັບສີນ"
         },
         "header": {
             "index": "ລຳດັບ",
