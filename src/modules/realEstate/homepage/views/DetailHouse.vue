@@ -149,8 +149,9 @@ const responsiveOptions = ref([
     @import 'bulma/css/bulma.css';
 
     .gallery-image {
+        margin-top: -10px;
         width: 100%; 
-        height: 70vh; 
+        height: 80vh; 
         display: block;
         object-fit: fill;
     }
