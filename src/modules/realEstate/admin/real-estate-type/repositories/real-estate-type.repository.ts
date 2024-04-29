@@ -17,7 +17,7 @@ export class RealEstateTypeRepository implements IRealEstateTypeRepository {
   ): Promise<IResponse<RealEstateTypeEntity>> {
     const response = await this._api.axios({
       method: "post",
-      url: "/admin/create-real-state-type",
+      url: "/admin/create-real-estate-type",
       data: {
         name: input.name,
       },
@@ -35,7 +35,7 @@ export class RealEstateTypeRepository implements IRealEstateTypeRepository {
   ): Promise<IResponse<RealEstateTypeEntity>> {
     const response = await this._api.axios({
       method: "put",
-      url: "/admin/update-real-state-type/" + input.id,
+      url: "/admin/update-real-estate-type/" + input.id,
       params: {
         name: input.name,
       },
@@ -53,7 +53,7 @@ export class RealEstateTypeRepository implements IRealEstateTypeRepository {
   ): Promise<IResponse<RealEstateTypeEntity>> {
     const response = await this._api.axios({
       method: "delete",
-      url: `/admin/delete-real-state-type/${id}`,
+      url: `/admin/delete-real-estate-type/${id}`,
     });
 
     return {
@@ -67,7 +67,7 @@ export class RealEstateTypeRepository implements IRealEstateTypeRepository {
     args: IGPaginate<Pick<RealEstateTypeEntity, "name">>
   ): Promise<IResponse<IGPaginated<RealEstateTypeEntity>>> {
     const response = await this._api.axios({
-      url: "/admin/list-real-state-types",
+      url: "/admin/list-real-estate-types",
       params: {
         page: args.page,
         per_page: args.limit,
