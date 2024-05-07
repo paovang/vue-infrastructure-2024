@@ -190,7 +190,6 @@
     import { useRouter, useRoute } from 'vue-router';
     import Dropdown from 'primevue/dropdown';
     import { realEstateServiceStore } from '../../../rentHouse/memberServices/stores/real-estate-service.store';
-    import { HouseEntity } from '../../../owner/house/entities/house.entity';
     // import { useConfirm } from "primevue/useconfirm";
     // import { useToast } from "primevue/usetoast";
     import { useI18n } from 'vue-i18n';
@@ -203,7 +202,7 @@
     // const toast = useToast();
     // const confirm = useConfirm();
 
-    const { form, getAllRealEstate, state, setStateFilter, getCountries, getAllCountries, getAllProvinces, getProvinces, getAllDistricts, getDistricts } = dashboardStore();
+    const { form, getAllRealEstate, state, setStateFilter, getCountries, getAllCountries } = dashboardStore();
     const { getOne, realestateType } = realEstateServiceStore();
 
     const servicemodels = ref([

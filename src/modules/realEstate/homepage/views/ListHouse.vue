@@ -155,7 +155,6 @@
 <script setup lang='ts'>
     import { useRouter, useRoute } from 'vue-router';
     import Card from 'primevue/card';
-    import InputText from 'primevue/inputtext';
     import Divider from 'primevue/divider';
     import { homerealEstateStore } from '@/modules/realEstate/homepage/stores/home.store'
     import { onMounted, ref, computed } from 'vue';
