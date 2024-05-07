@@ -42,11 +42,14 @@
                 <p style="margin-top: 5px;">
                     <span style="background: green; padding: 2px; border-radius: 4px; color: white;">
                         {{ realEstateGetOne.data.props.status }}
+                    </span> 
+                    <span style="margin-left: 10px;">
+                        {{ realEstateGetOne.data.props.service_model }}
                     </span>
                     <span>
-                        | {{ $t('messages.name') }}: {{ realEstateGetOne.data.props.owner_name }} |
+                        , {{ $t('messages.name') }}: {{ realEstateGetOne.data.props.owner_name }},
                     </span>
-                    <span style="background: #00b7c3; padding: 2px; border-radius: 4px; color: white;">
+                    <span style="background: #00b7c3; padding: 2px; border-radius: 4px; color: white; margin-left: 5px;">
                         {{ $t('messages.refer') }}: {{ realEstateGetOne.data.props.refer }}
                     </span>
                 </p>
@@ -55,16 +58,16 @@
                         {{ $t('messages.total_bed') }}: {{ realEstateGetOne.data.props.total_bed }}
                     </span>
                     <span>
-                        | {{ $t('messages.total_bath') }}: {{ realEstateGetOne.data.props.total_bath }}
+                        , {{ $t('messages.total_bath') }}: {{ realEstateGetOne.data.props.total_bath }}
                     </span>
                     <span>
-                        | {{ $t('messages.garage') }}: {{ realEstateGetOne.data.props.garage }}
+                        , {{ $t('messages.garage') }}: {{ realEstateGetOne.data.props.garage }}
                     </span>
                 </p>
                 <p>
                     <span>{{ realEstateGetOne.data.props.trans_real_estate_type?.name }}</span>
-                    <span> | {{ realEstateGetOne.data.props.service_model }}</span>
-                    <span> | {{ realEstateGetOne.data.props.room_type }}</span>
+                    <!-- <span> | {{ realEstateGetOne.data.props.service_model }}</span> -->
+                    <span> , {{ realEstateGetOne.data.props.room_type }}</span>
                 </p>
                 <p>
                     <span>{{ realEstateGetOne.data.props.village }}</span>
@@ -86,7 +89,7 @@
                     {{ realEstateGetOne.data.props.remark }}
                 </p>
                 <div style="margin-top: 20px;">
-                    <Button class="button is-info" @click="reserve" style="font-family: 'Phetsarath OT';">
+                    <Button class="button is-info" @click="reserve" style="font-family: 'NotoSansLao','Montserrat', sans-serif">
                         {{ $t('button.appointment') }}
                     </Button>
                 </div>

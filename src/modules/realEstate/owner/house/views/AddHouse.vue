@@ -75,7 +75,7 @@
                 <div class="column is-mobile-12 is-2">
                     <my-input-text 
                         name="agent_name" 
-                        :label="$t('messages.name')" 
+                        :label="$t('messages.agent_name')" 
                         required 
                         :placeholder="$t('placeholder.inputText')"  
                         class="h-full" 
@@ -160,6 +160,14 @@
                 </div>
                 <div class="column is-mobile-12 is-2 set-margin-top">
                     <my-input-text 
+                        name="long" 
+                        :label="$t('messages.long')"  
+                        :placeholder="$t('placeholder.inputText')"  
+                        class="h-full" 
+                    />
+                </div>
+                <div class="column is-mobile-12 is-2 set-margin-top">
+                    <my-input-text 
                         name="wide" 
                         :label="$t('messages.wide')"  
                         required 
@@ -169,9 +177,10 @@
                 </div>
                 <div class="column is-mobile-12 is-2 set-margin-top">
                     <my-input-text 
-                        name="long" 
-                        :label="$t('messages.long')"  
-                        :placeholder="$t('placeholder.inputText')"  
+                        name="build_in" 
+                        :label="$t('messages.build_in')"  
+                        required 
+                        :placeholder="$t('placeholder.build_in')"  
                         class="h-full" 
                     />
                 </div>
@@ -184,7 +193,7 @@
                         class="h-full" 
                     />
                 </div>
-                <div class="column is-mobile-12 is-10 set-margin-top">
+                <div class="column is-mobile-12 is-8 set-margin-top">
                     <my-input-text 
                         name="location" 
                         :label="$t('messages.location')" 
@@ -198,7 +207,7 @@
                         name="remark" 
                         :label="$t('messages.details')" 
                         required 
-                        :placeholder="$t('placeholder.inputText')"  
+                        :placeholder="$t('placeholder.inputTextDetails')"  
                         class="h-full" 
                     />
                     <!-- <label>
@@ -271,9 +280,9 @@
                         </div>
                         <div class="column is-mobile-12 is-12">
                             <Button 
-                            @click="addInput" 
-                                class="button is-primary" 
-                                style="font-family: 'NotoSansLao','Montserrat', 'sans-serif'" 
+                                @click="addInput" 
+                                class="button is-info" 
+                                style="font-family: 'NotoSansLao','Montserrat', 'sans-serif'; margin-top: -20px; margin-left: -10px" 
                                 :disabled="!isCheckForRent"
                             >
                                 {{ $t('button.add_item') }}
@@ -604,32 +613,10 @@
     const fetchAll = async() => {
         form.room_type = 'air';
         form.service_model = 'sale';
-        
-        // setStateProvinceFilter.limit = 1000;
-        // await getAllProvince();
         await getOne();
 
         form.real_estate_type_id = realestateType.props.length > 0 ? realestateType.props[0].id : undefined;
-        // form.province_id = stateProvince.data.props.length > 0 ? stateProvince.data.props[0].id : undefined;
-
-        // if (setStateDistrictFilter.filter) {
-        //     setStateDistrictFilter.filter.province_id = form.province_id;
-        //     await getAllDistrict();
-        //     await selectedDistrict();
-        // }
     }
-
-    // const filterDistrictByid = async (id: any) => {
-    //     if (setStateDistrictFilter.filter) {
-    //         setStateDistrictFilter.filter.province_id = id;
-    //         await getAllDistrict();
-    //         await selectedDistrict();
-    //     }
-    // }
-
-    // const selectedDistrict = async () => {
-    //     form.district_id = stateDistrict.data.props.length > 0 ? stateDistrict.data.props[0].id : undefined;
-    // }
 
     const onSubmit = handleSubmit(async (value) => {
         if(!selectedImage.value) {
@@ -640,7 +627,7 @@
             form.village = value.village;
             form.agent_name = value.agent_name;
             form.owner_name = value.owner_name;
-            // form.zip_code = value.zipcode;
+            form.build_in = value.build_in;
             form.wide = value.wide;
             form.long = value.long;
             form.total_bath = value.bath;

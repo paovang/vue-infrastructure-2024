@@ -153,7 +153,6 @@
             </Column>
             <Column field="real_esate_number" :header="$t('table.header.real_esate_number')" headerStyle="min-width: 8rem"></Column>
             <Column field="name" :header="$t('table.header.real_estate_name')" headerStyle="min-width: 8rem"></Column>
-            <!-- <Column field="real_estate_type.name" :header="$t('table.header.realestate_type')" headerStyle="min-width: 8rem"></Column> -->
             <Column field="trans_real_estate_type.name" :header="$t('table.header.realestate_type')" headerStyle="min-width: 8rem"></Column>
             <Column field="service_model" :header="$t('table.header.service_model')" headerStyle="min-width: 8rem"></Column>
             <Column field="room_type" :header="$t('table.header.room_type')" headerStyle="min-width: 8rem"></Column>
@@ -164,6 +163,7 @@
             <Column field="wide" :header="$t('table.header.wide')" headerStyle="min-width: 6rem"></Column>
             <Column field="total_bed" :header="$t('table.header.total_bed')" headerStyle="min-width: 9rem"></Column>
             <Column field="total_bath" :header="$t('table.header.total_bath')" headerStyle="min-width: 8rem"></Column>
+            <Column field="build_in" :header="$t('table.header.build_in')" headerStyle="min-width: 6rem"></Column>
             <Column field="garage" :header="$t('table.header.garage')" headerStyle="min-width: 6rem"></Column>
             <Column field="status" :header="$t('table.header.status')" headerStyle="min-width: 5rem"></Column>
             <Column field="created_by.name" :header="$t('table.header.created_by')" headerStyle="min-width: 8rem"></Column>

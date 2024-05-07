@@ -28,6 +28,7 @@ export interface HouseEntity {
   owner_name?: string;
   room_type?: string;
   village?: string;
+  build_in?: string;
   district?: {
     id?: string;
     name?: string;

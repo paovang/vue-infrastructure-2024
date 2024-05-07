@@ -23,8 +23,8 @@ export interface IHomeRealEstateRepository {
         | "district_id"
         | "province_id"
         | "country_id"
-        | "wide"
-        | "long"
+        | "total_bed"
+        | "total_bath"
         | "search"
       >
     >

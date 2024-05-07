@@ -112,8 +112,8 @@
                     {{ item.index + 1 }}
                 </template>
             </Column>
-            <Column field="date" :header="$t('table.header.date_rent')" headerStyle="min-width: 7rem"></Column>
-            <Column field="number" :header="$t('table.header.rent_number')" headerStyle="min-width: 10rem"></Column>
+            <Column field="date" :header="$t('table.header.date_rent')" headerStyle="min-width: 8rem"></Column>
+            <Column field="number" :header="$t('table.header.rent_number')" headerStyle="min-width: 12rem"></Column>
             <Column field="customer_name" :header="$t('table.header.customer_name')" headerStyle="min-width: 10rem"></Column>
             <Column field="customer_tel" :header="$t('table.header.customer_phone')" headerStyle="min-width: 10rem"></Column>
             <Column :header="$t('table.header.info_account')" headerStyle="min-width: 25rem">

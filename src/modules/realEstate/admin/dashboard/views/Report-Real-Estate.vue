@@ -112,7 +112,7 @@
                             optionValue="id"
                             :highlightOnSelect="true" 
                             filter
-                            @change="filterProvinceById(form.country_id)"
+                            @change="onSearch()"
                         />
                     </div>
                     <!-- <div class="col-12 md:col-3">
@@ -172,26 +172,11 @@
             <Column field="owner_name" :header="$t('table.header.owner')" headerStyle="min-width: 6rem"></Column>
             <Column field="agent_name" :header="$t('table.header.name')" headerStyle="min-width: 6rem"></Column>
             <Column field="country.name" :header="$t('table.header.country')" headerStyle="min-width: 6rem"></Column>
-            <!-- <Column field="district.province.name" :header="$t('table.header.province')" headerStyle="min-width: 8rem"></Column> -->
-            <!-- <Column field="district.name" :header="$t('table.header.district')" headerStyle="min-width: 7rem"></Column> -->
             <Column field="village" :header="$t('table.header.address')" headerStyle="min-width: 12rem"></Column>
-            <!-- <Column field="zip_code" :header="$t('table.header.zip_code')" headerStyle="min-width: 6rem"></Column> -->
-            <Column field="wide" :header="$t('table.header.wide')" headerStyle="min-width: 6rem"></Column>
+            <Column field="build_in" :header="$t('table.header.build_in')" headerStyle="min-width: 6rem"></Column>
             <Column field="long" :header="$t('table.header.long')" headerStyle="min-width: 6rem"></Column>
+            <Column field="wide" :header="$t('table.header.wide')" headerStyle="min-width: 6rem"></Column>
             <Column field="status" :header="$t('table.header.status')" headerStyle="min-width: 6rem"></Column>
-            <!-- <Column headerStyle="min-width: 7rem">
-                <template #body="{ data }">
-                    <div class="flex flex-wrap gap-2 btn-right">
-                        <Button 
-                            type="button" 
-                            icon="pi pi-trash" 
-                            rounded 
-                            severity="danger"
-                            @click="confirmDelete(data.id)"
-                        />
-                    </div>
-                </template>
-            </Column> -->
         </DataTable>
     </div>
 </template>
@@ -254,20 +239,6 @@
         await initComponent();
     })
 
-    // const editHouse = async (id: number) => {
-    //     router.push({ name: 'owner.edit.house', params: { id: id } });
-    // }
-
-    // const deleteHouse = async (id: HouseEntity) => {
-    //     await remove(id);
-
-    //     if (state.error) {
-    //         await showWarningValidateBackend();
-    //     } else {
-    //         await initComponent();
-    //     }
-    // }
-
     async function onPageChange(event: DataTablePageEvent) {
         setStateFilter.page = event.page + 1;
         setStateFilter.limit = event.rows;
@@ -297,7 +268,7 @@
             setStateFilter.filter.real_estate_type_id = form.real_estate_type_id === 'all' ? '' : form.real_estate_type_id;
             setStateFilter.filter.service_model = form.service_model === 'all' ? '' : form.service_model;
             setStateFilter.filter.room_type = form.room_type === 'all' ? '' : form.room_type;
-            setStateFilter.filter.district_id = form.district_id === 'all' ? '' : form.district_id;
+            setStateFilter.filter.country_id = form.country_id === 'all' ? '' : form.country_id;
         }
        
         await getAllRealEstate();
@@ -338,74 +309,7 @@
         await getAllCountries();
         await getCountries.data.props.unshift({ id: 'all', name: t('messages.all') });
         form.country_id = getCountries.data.props.length > 0 ? getCountries.data.props[0].id : undefined;
-
-        await getAllProvinces(getCountries.data.props[0].id as HouseEntity);
-        getProvinces.data.props.unshift({ id: 'all', name: t('messages.all') });
-
-        form.real_estate_type_id = realestateType.props.length > 0 ? realestateType.props[0].id : undefined;
-        form.province_id = getProvinces.data.props.length > 0 ? getProvinces.data.props[0].id : undefined;
-        
-        await getAllDistricts(getProvinces.data.props[0].id);
-        await getDistricts.data.props.unshift({ id: 'all', name: t('messages.all') });
-        await selectedDistrict();
     }
-
-    const selectedDistrict = async () => {
-        form.district_id = getDistricts.data.props.length > 0 ? getDistricts.data.props[0].id : undefined;
-    }
-
-    const filterProvinceById = async (id: any) => {
-        if (setStateFilter.filter) {
-            await getAllProvinces(id);
-            getProvinces.data.props.unshift({ id: 'all', name: t('messages.all') });
-            form.province_id = getProvinces.data.props.length > 0 ? getProvinces.data.props[0].id : undefined;
-
-            if (setStateFilter.filter) {
-                setStateFilter.filter.country_id = form.country_id === 'all' ? '' : form.country_id;
-                setStateFilter.filter.district_id = form.district_id === 'all' ? '' : form.district_id;
-                setStateFilter.filter.province_id = form.province_id === 'all' ? '' : form.province_id;
-            }
-
-            await getAllRealEstate();
-        }
-    }
-
-    // const filterDistrictByid = async (id: any) => {
-    //     await getAllDistricts(id);
-    //     await getDistricts.data.props.unshift({ id: 'all', name: t('messages.all') });
-    //     await selectedDistrict();
-
-    //     if (setStateFilter.filter) {
-    //         setStateFilter.filter.country_id = form.country_id === 'all' ? '' : form.country_id;
-    //         setStateFilter.filter.district_id = form.district_id === 'all' ? '' : form.district_id;
-    //         setStateFilter.filter.province_id = form.province_id === 'all' ? '' : form.province_id;
-    //     }
-
-    //     await getAllRealEstate();
-    // }
-
-    // const confirmDelete = async (id: HouseEntity) => {
-    //     confirm.require({
-    //         message: t('confirmDelete.message'),
-    //         header: t('confirmDelete.header'),
-    //         rejectLabel: t('confirmDelete.rejectLabel'),
-    //         acceptLabel: t('confirmDelete.acceptLabel'),
-    //         rejectClass: 'p-button-secondary p-button-outlined',
-    //         acceptClass: 'p-button-danger',
-    //         accept: async () => {
-    //             await deleteHouse(id);
-
-    //             toast.add({ severity: 'success', summary: t('toast.summary.delete'), detail: t('toast.detail.delete'), life: 3000 });
-    //         },
-    //         reject: () => {
-    //             toast.add({ severity: 'error', summary: t('toast.summary.cancel_delete'), detail: t('toast.detail.cancel_delete'), life: 3000 });
-    //         }
-    //     });
-    // }
-
-    // const showWarningValidateBackend = () => {
-    //     toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: `${state.error}`, life: 3000 });
-    // }
 </script>
 
 <style>

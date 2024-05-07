@@ -40,6 +40,7 @@ export class HomeRealEstateRepository implements IHomeRealEstateRepository {
       params: {
         customer_name: input.customer_name,
         customer_tel: input.customer_tel,
+        description: input.description,
         date_appointment: formatDate(dateAppointment),
       },
     });
@@ -62,8 +63,8 @@ export class HomeRealEstateRepository implements IHomeRealEstateRepository {
         | "district_id"
         | "province_id"
         | "country_id"
-        | "wide"
-        | "long"
+        | "total_bed"
+        | "total_bath"
         | "search"
       >
     >
@@ -81,8 +82,8 @@ export class HomeRealEstateRepository implements IHomeRealEstateRepository {
         district_id: args.filter?.district_id,
         province_id: args.filter?.province_id,
         country_id: args.filter?.country_id,
-        wide: args.filter?.wide,
-        long: args.filter?.long,
+        total_bed: args.filter?.total_bed,
+        total_bath: args.filter?.total_bath,
         lang: localStorage.getItem("locale"),
       },
     });

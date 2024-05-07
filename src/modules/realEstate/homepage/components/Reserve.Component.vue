@@ -20,7 +20,7 @@
                         />
                     </div>
                 </div>
-                <div class="col-12 md:col-12" style="margin-top: -20px">
+                <div class="col-12 md:col-12" style="margin-top: -30px">
                     <div class="flex flex-column">
                         <my-input-text
                             name="phone_number"
@@ -31,10 +31,10 @@
                         />
                     </div>
                 </div>
-                <div class="col-12 md:col-12" style="margin-top: -20px">
+                <div class="col-12 md:col-12" style="margin-top: -30px">
                     <div class="flex flex-column">
                         <label>
-                            {{ $t('date') }}
+                            {{ $t('messages.date') }}
                             <span class="text-red-500"> *</span>
                         </label>
                         <Calendar 
@@ -45,7 +45,17 @@
                         />
                     </div>
                 </div>
-                <br/>
+                <div class="col-12 md:col-12" style="margin-top: -8px">
+                    <div class="flex flex-column">
+                        <my-input-text-area 
+                            name="description" 
+                            :label="$t('messages.details')" 
+                            required 
+                            :placeholder="$t('placeholder.inputTextDetails')"  
+                            class="h-full" 
+                        />
+                    </div>
+                </div>
                 <div class="col-12 md:col-12">
                     <div class="flex flex-column">
                         <Button type="submit" :label="$t('button.appointment')" />
@@ -59,6 +69,7 @@
     import { ref } from 'vue';
     import Dialog from 'primevue/dialog';
     import MyInputText from '@/components/customComponents/FormInputText.vue';
+    import MyInputTextArea from '@/components/customComponents/FormTextArea.vue';
     import Calendar from 'primevue/calendar';
     import { homerealEstateStore } from '@/modules/realEstate/homepage/stores/home.store'
     import Button from 'primevue/button';
@@ -86,6 +97,7 @@
     const onSubmit = handleSubmit(async (value) => {
         form.customer_name = value.customer;
         form.customer_tel = value.phone_number;
+        form.description = value.description;
         form.id = (route.params.id as string);
 
         await reserveRealEstate();

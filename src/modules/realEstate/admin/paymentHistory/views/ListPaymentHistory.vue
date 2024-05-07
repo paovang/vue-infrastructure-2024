@@ -33,11 +33,12 @@
                             name="status"
                             v-model="form.customer_id" 
                             :options="getCustomers.data.props" 
-                            :optionLabel="option => `${option.customer_number} > ${option.name} > ${option.owner} > ${option.tel}`" 
+                            :optionLabel="option => `${option.customer_number} > ${option.name} > ${option.tel}`" 
                             :placeholder="$t('placeholder.dropdownSelect')" 
                             class="w-full" 
                             optionValue="id"
                             :highlightOnSelect="true" 
+                            filter
                             @change="onSearch"
                         />
                     </div>
@@ -106,11 +107,18 @@
                     </div>
                 </template>
             </Column>
-            <Column field="date_payment" :header="$t('table.header.date_payment')" headerStyle="min-width: 8rem"></Column>
-            <Column field="bill_no" :header="$t('table.header.bill_number')" headerStyle="min-width: 6rem"></Column>
-            <Column field="real_estate_list.real_esate_number" :header="$t('table.header.real_esate_number')" headerStyle="min-width: 6rem"></Column>
-            <Column field="real_estate_list.name" :header="$t('table.header.real_estate_name')" headerStyle="min-width: 6rem"></Column>
-            <Column :header="$t('table.header.name') +  ' / ' + $t('table.header.owner')" headerStyle="min-width: 12rem">
+            <Column field="date_payment" :header="$t('table.header.date_payment')" headerStyle="min-width: 10rem"></Column>
+            <Column field="bill_no" :header="$t('table.header.bill_number')" headerStyle="min-width: 10rem"></Column>
+            <Column :header="$t('table.header.info_account')" headerStyle="min-width: 18rem">
+                <template #body="{data}">
+                    <span>{{ data.real_estate_list.account.customer_number }}</span>
+                    <span> <i class="pi pi-angle-right" style="color: green"></i> {{ data.real_estate_list.account.name }}</span>
+                    <span> <i class="pi pi-angle-right" style="color: green"></i>  {{ data.real_estate_list.account.tel }}</span>
+                </template>
+            </Column>
+            <Column field="real_estate_list.real_esate_number" :header="$t('table.header.real_esate_number')" headerStyle="min-width: 8rem"></Column>
+            <Column field="real_estate_list.name" :header="$t('table.header.real_estate_name')" headerStyle="min-width: 10rem"></Column>
+            <Column :header="$t('table.header.agent_name') + ' / ' + $t('table.header.owner')" headerStyle="min-width: 18rem">
                 <template #body="{data}">
                     <span>{{ data.real_estate_list.agent_name }}</span>
                     <span> - {{ data.real_estate_list.owner_name }}</span>

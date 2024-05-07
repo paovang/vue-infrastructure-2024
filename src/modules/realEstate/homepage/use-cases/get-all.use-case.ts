@@ -29,8 +29,8 @@ export class GetAllHomeRealEstateUseCase
         | "district_id"
         | "province_id"
         | "country_id"
-        | "wide"
-        | "long"
+        | "total_bed"
+        | "total_bath"
         | "search"
       >
     >

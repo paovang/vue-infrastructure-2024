@@ -5,7 +5,7 @@
           <a class="navbar-item" @click="goToHome">UK LAO</a>
           <div class="input-search">
               <input-text
-                v-model="filterEverything"
+                  v-model="filterEverything"
                   :placeholder="$t('placeholder.textSearch')" 
                   class="w-full"
                   name="search"

@@ -115,6 +115,7 @@
             <Column field="estate_list.trans_real_estate_type.name" :header="$t('table.header.real_estate_type')" headerStyle="min-width: 8rem"></Column>
             <Column field="estate_list.service_model" :header="$t('table.header.service_model')" headerStyle="min-width: 8rem"></Column>
             <Column field="estate_list.room_type" :header="$t('table.header.room_type')" headerStyle="min-width: 7rem"></Column>
+            <Column field="description" :header="$t('table.header.desciption')" headerStyle="min-width: 8rem"></Column>
             <Column field="reason" :header="$t('table.header.reason')" headerStyle="min-width: 8rem"></Column>
             <Column field="updated_by.name" :header="$t('table.header.updated_by')" headerStyle="min-width: 8rem"></Column>
             <Column field="status" :header="$t('table.header.status')" headerStyle="min-width: 8rem">

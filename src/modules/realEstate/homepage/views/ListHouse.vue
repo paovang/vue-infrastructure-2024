@@ -2,10 +2,9 @@
     <div>
         <div class="card">
             <div class="columns is-12 is-multiline" style="margin-top: -30px;">
-                <div class="column is-3 is-mobile-12">
+                <div class="column is-2 is-mobile-12">
                     <label>
                         {{ $t('messages.realestate_type') }}
-                        <span class="text-red-500"> *</span>
                     </label>
                     <Dropdown 
                         name="real_estate_type"
@@ -19,10 +18,9 @@
                         @change="onSearch"
                     />
                 </div>
-                <div class="column is-3 is-mobile-12">
+                <div class="column is-2 is-mobile-12">
                     <label>
                         {{ $t('messages.service_model') }}
-                        <span class="text-red-500"> *</span>
                     </label>
                     <Dropdown 
                         v-model="form.service_model" 
@@ -35,10 +33,9 @@
                         @change="onSearch"
                     />
                 </div>
-                <div class="column is-3 is-mobile-12">
+                <div class="column is-2 is-mobile-12">
                     <label>
                         {{ $t('messages.room_type') }}
-                        <span class="text-red-500"> *</span>
                     </label>
                     <Dropdown 
                         v-model="form.room_type" 
@@ -51,10 +48,9 @@
                         @change="onSearch"
                     />
                 </div>
-                <div class="column is-3 is-mobile-12">
+                <div class="column is-2 is-mobile-12">
                     <label>
                         {{ $t('messages.country') }}
-                    <span class="text-red-500"> *</span>
                     </label>
                     <Dropdown 
                         v-model="form.country_id" 
@@ -68,55 +64,36 @@
                         @change="filterProvinceById(form.country_id)"
                     />
                 </div>
-                <!-- <div class="column is-3 is-mobile-12">
+                <div class="column is-2 is-mobile-12">
                     <label>
-                        {{ $t('messages.province') }}
-                    <span class="text-red-500"> *</span>
+                        {{ $t('messages.total_bed') }}
                     </label>
-                    <Dropdown 
-                        v-model="form.province_id" 
-                        :options="getProvinces.data.props" 
-                        optionLabel="name" 
-                        placeholder="ກະລຸນາເລືອກກ່ອນ..." 
-                        class="w-full" 
-                        optionValue="id"
-                        :highlightOnSelect="true" 
-                        filter
-                        @change="filterDistrictByid(form.province_id)"
-                    />
-                </div>
-                <div class="column is-3 is-mobile-12">
-                    <label>
-                        {{ $t('messages.district') }}
-                        <span class="text-red-500"> *</span>
-                    </label>
-                    <Dropdown 
-                        v-model="form.district_id" 
-                        :options="getDistricts.data.props" 
-                        optionLabel="name" 
-                        placeholder="Select a City" 
-                        class="w-full" 
-                        optionValue="id"
-                        :highlightOnSelect="true" 
-                        filter
-                        @change="onSearch"
-                    />
-                </div>
-                <div class="column is-3 is-mobile-12">
-                    <label>
-                        {{ $t('messages.village') }}
-                        <span class="text-red-500"> *</span>
-                    </label>
-                    <input-text
-                        v-model="filterVillage"
-                        :placeholder="$t('placeholder.inputText')" 
-                        style="font-family: NotoSansLao, Montserrat"
-                        class="w-full"
-                        name="village"
+                    <input 
+                        class="input"
+                        type="text" 
+                        name="total_bed"
+                        v-model="form.total_bed" 
+                        :placeholder="$t('placeholder.textSearch')"
+                        style="font-family: 'NotoSansLao','Montserrat', sans-serif"
                         @keyup.enter="onSearch"
                         @input="onClearSearch"
                     />
-                </div> -->
+                </div>
+                <div class="column is-2 is-mobile-12">
+                    <label>
+                        {{ $t('messages.total_bath') }}
+                    </label>
+                    <input 
+                        class="input is-"
+                        type="text" 
+                        name="total_bath"
+                        v-model="form.total_bath" 
+                        style="font-family: 'NotoSansLao','Montserrat', sans-serif"
+                        :placeholder="$t('placeholder.textSearch')"
+                        @keyup.enter="onSearch"
+                        @input="onClearSearch"
+                    />
+                </div>
             </div>
         </div>
         <Divider style="margin-top: -20px;" />
@@ -137,11 +114,11 @@
                         </span>
                         </template>
                         <template #subtitle>
-                        <span>{{ item.name }}</span> |
+                        <span>{{ item.name }}</span> ,
                         <span style="background: green; padding: 2px; border-radius: 4px; color: white;">
                             {{ item.status }}
-                        </span> |
-                        <span>{{ item.service_model }}</span> |
+                        </span> ,
+                        <span>{{ item.service_model }}</span> ,
                         <span style="background: #00b7c3; padding: 2px; border-radius: 4px; color: white;">
                             {{ $t('messages.refer') }}: 
                             {{ item.refer }}
@@ -151,8 +128,8 @@
                         <p class="detail">
                             {{ item.trans_real_estate_type?.name }},
                             <!-- <span>{{ item.room_type }}</span>, -->
-                            <span>{{ $t('messages.wide') }}: {{ item.wide }}</span>,
-                            <span>{{ $t('messages.long') }}: {{ item.long }}</span>
+                            <span>{{ $t('messages.long') }}: {{ item.long }}</span>,
+                            <span>{{ $t('messages.wide') }}: {{ item.wide }}</span>
                         </p>
                         <p class="detail">
                             {{  item.village }}
@@ -178,7 +155,7 @@
 <script setup lang='ts'>
     import { useRouter, useRoute } from 'vue-router';
     import Card from 'primevue/card';
-    // import InputText from 'primevue/inputtext';
+    import InputText from 'primevue/inputtext';
     import Divider from 'primevue/divider';
     import { homerealEstateStore } from '@/modules/realEstate/homepage/stores/home.store'
     import { onMounted, ref, computed } from 'vue';
@@ -209,41 +186,31 @@
         { id: 'no', name: t('messages.none') },
     ]);
 
-    // const filterVillage = computed<string>({
-    //     get: () => setStateFilter.filter!.village || '',
-    //     set: (value) => {
-    //         if (setStateFilter.filter) {
-    //             setStateFilter.filter.village = value;
-    //         }
-    //     }
-    // })
-
-    // async function onClearSearch(e: any) {
-    //     const fieldName = e.target.name;
-
-    //     if (e.target.value === '') {
-    //         if (fieldName === 'village') {
-    //             if (setStateFilter.filter?.village !== undefined) {
-    //                 setStateFilter.filter.village = ''
-    //             }
-    //         }
-    //         await getAll();
-    //     }
-    // }
-
-    // const filterDistrictByid = async (id: any) => {
-    //     await getAllDistricts(id);
-    //     getDistricts.data.props.unshift({ id: 'all', name: t('messages.all') });
-    //     form.district_id = getDistricts.data.props.length > 0 ? getDistricts.data.props[0].id : undefined;
-
-    //     await onSearch();
-    // }
-
     const filterProvinceById = async (id: any) => {
         await getAllProvinces(id);
         getProvinces.data.props.unshift({ id: 'all', name: t('messages.all') });
 
         await onSearch();
+    }
+
+    async function onClearSearch(e: any) {
+        const fieldName = e.target.name;
+
+        if (e.target.value === '') {
+            if (fieldName === 'total_bed') {
+                if (setStateFilter.filter?.total_bed !== undefined) {
+                    setStateFilter.filter.total_bed = ''
+                }
+            }
+
+            if (fieldName === 'total_bath') {
+                if (setStateFilter.filter?.total_bath !== undefined) {
+                    setStateFilter.filter.total_bath = ''
+                }
+            }
+
+            await onSearch();
+        }
     }
     
     onMounted(async() => {
@@ -251,14 +218,6 @@
         await getAllCountries();
         getCountries.data.props.unshift({ id: 'all', name: t('messages.all') });
         form.country_id = getCountries.data.props.length > 0 ? getCountries.data.props[0].id : undefined;
-        
-        // await getAllProvinces( getCountries.data.props[0].id);
-        // getProvinces.data.props.unshift({ id: 'all', name: t('messages.all') });
-        // form.province_id = getProvinces.data.props.length > 0 ? getProvinces.data.props[0].id : undefined;
-
-        // await getAllDistricts(form.province_id as any);
-        // getDistricts.data.props.unshift({ id: 'all', name: t('messages.all') });
-        // form.district_id = getDistricts.data.props.length > 0 ? getDistricts.data.props[0].id : undefined;
        
         realEstateTypes.data.props.unshift({ id: 'all', name: t('messages.all') });
         form.real_estate_type_id = realEstateTypes.data.props.length > 0 ? realEstateTypes.data.props[0].id : undefined;
@@ -269,8 +228,8 @@
             setStateFilter.filter.real_estate_type_id = form.real_estate_type_id === 'all' ? '' : form.real_estate_type_id;
             setStateFilter.filter.service_model = form.service_model === 'all' ? '' : form.service_model;
             setStateFilter.filter.room_type = form.room_type === 'all' ? '' : form.room_type;
-            // setStateFilter.filter.district_id = form.district_id === 'all' ? '' : form.district_id;
-            // setStateFilter.filter.province_id = form.province_id === 'all' ? '' : form.province_id;
+            setStateFilter.filter.total_bed = form.district_id === 'all' ? '' : form.total_bed;
+            setStateFilter.filter.total_bath = form.province_id === 'all' ? '' : form.total_bath;
             setStateFilter.filter.country_id = form.country_id === 'all' ? '' : form.country_id;
         }
 
@@ -281,8 +240,8 @@
                 real_estate_type_id: form.real_estate_type_id,
                 service_model: form.service_model,
                 room_type: form.room_type,
-                // district_id: form.district_id,
-                // province_id: form.province_id,
+                total_bed: form.total_bed,
+                total_bath: form.total_bath,
                 country_id: form.country_id,
             }
         })
@@ -297,16 +256,16 @@
             const realEstateTypeId = query.real_estate_type_id !== undefined ? String(query.real_estate_type_id) : undefined;
             const serviceModel = query.service_model !== undefined ? String(query.service_model) : undefined;
             const roomType = query.room_type !== undefined ? String(query.room_type) : undefined;
-            // const districtId = query.district_id !== undefined ? String(query.district_id) : undefined;
-            // const provinceId = query.province_id !== undefined ? String(query.province_id) : undefined;
+            const totalBed = query.total_bed !== undefined ? String(query.total_bed) : undefined;
+            const totalBath = query.total_bath !== undefined ? String(query.total_bath) : undefined;
             const countryId = query.country_id !== undefined ? String(query.country_id) : undefined;
            
             if (setStateFilter.filter) {
                 setStateFilter.filter.real_estate_type_id = realEstateTypeId !== 'all' ? realEstateTypeId : "";
                 setStateFilter.filter.service_model = serviceModel !== 'all' ? serviceModel : "";
                 setStateFilter.filter.room_type = roomType !== 'all' ? roomType : "";
-                // setStateFilter.filter.district_id = districtId !== 'all' ? districtId : "";
-                // setStateFilter.filter.province_id = provinceId !== 'all' ? provinceId : "";
+                setStateFilter.filter.total_bed = totalBed !== 'all' ? totalBed : "";
+                setStateFilter.filter.total_bath = totalBath !== 'all' ? totalBath : "";
                 setStateFilter.filter.country_id = countryId !== 'all' ? countryId : "";
             }
 
@@ -317,8 +276,8 @@
                     real_estate_type_id: realEstateTypeId,
                     service_model: serviceModel,
                     room_type: roomType,
-                    // district_id: districtId,
-                    // province_id: provinceId,
+                    total_bed: totalBed,
+                    total_bath: totalBath,
                     country_id: countryId
                 }
             })
