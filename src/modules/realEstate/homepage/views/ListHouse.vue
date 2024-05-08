@@ -73,7 +73,7 @@
                         type="text" 
                         name="total_bed"
                         v-model="form.total_bed" 
-                        :placeholder="$t('placeholder.textSearch')"
+                        :placeholder="$t('placeholder.inputText')"
                         style="font-family: 'NotoSansLao','Montserrat', sans-serif"
                         @keyup.enter="onSearch"
                         @input="onClearSearch"
@@ -89,7 +89,7 @@
                         name="total_bath"
                         v-model="form.total_bath" 
                         style="font-family: 'NotoSansLao','Montserrat', sans-serif"
-                        :placeholder="$t('placeholder.textSearch')"
+                        :placeholder="$t('placeholder.inputText')"
                         @keyup.enter="onSearch"
                         @input="onClearSearch"
                     />

@@ -87,6 +87,7 @@ export class RealEstateServiceRepository
         country_id: args.filter?.country_id,
         real_estate_type_id: args.filter?.real_estate_type_id,
         unit_price: args.filter?.unit_price,
+        lang: localStorage.getItem("locale"),
       },
     });
 

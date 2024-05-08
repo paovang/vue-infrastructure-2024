@@ -46,7 +46,7 @@
                         {{ item.index + 1 }}
                     </template>
                 </Column>
-                <Column field="real_estate_type.name" :header="$t('table.header.realestate_type')"></Column>
+                <Column field="trans_real_estate_type.name" :header="$t('table.header.realestate_type')"></Column>
                 <Column field="service_charges" :header="$t('table.header.service')">
                     <template #body="{ data }">
                         {{ conCatServiceChargePrices(data.service_charges) }}

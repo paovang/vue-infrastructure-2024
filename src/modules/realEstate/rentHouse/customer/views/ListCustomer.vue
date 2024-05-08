@@ -618,6 +618,7 @@
         await initComponent();
         await fetchData();
         stateCountry.data.props.unshift({ id: 'all', name: t('messages.all') });
+        form.country_id = stateCountry.data.props.length > 0 ? stateCountry.data.props[0].id : undefined;
     })
 
     const fetchData = async () => {

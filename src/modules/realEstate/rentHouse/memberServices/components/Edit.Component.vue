@@ -23,6 +23,7 @@
                         :highlightOnSelect="true" 
                         :placeholder="$t('placeholder.dropdownSelect')" 
                         class="w-full md:w-14rem" 
+                        :disabled="true"
                     />
                 </div>
                 <div class="column is-12" style="margin-top: -10px;">
@@ -33,12 +34,13 @@
                     <Dropdown 
                         style="margin-top: 8px; width: 100% !important"
                         v-model="form.unit_price" 
-                        :options="unitPrices" 
+                        :options="props.unitPrices" 
                         optionLabel="name" 
                         optionValue="id"
                         :highlightOnSelect="true" 
                         :placeholder="$t('placeholder.dropdownSelect')"  
                         class="w-full md:w-14rem" 
+                        :disabled="true"
                     />
                 </div>
                 <div class="column is-12">
@@ -77,7 +79,7 @@
                             <Button icon="pi pi-plus-circle" severity="info" @click="addInput" />
                         </div>
                         <div class="column is-1" style="margin-top: 20px" v-if="index > 0">
-                            <Button icon="pi pi-times-circle" severity="danger" @click="removeInput" />
+                            <Button icon="pi pi-times-circle" severity="danger" @click="removeInput(index)" />
                         </div>
                     </div>
                 </div>
@@ -169,7 +171,7 @@
 
     watch(visible, (newValue, oldValue) => {
         if (newValue === true) {
-            form.unit_price = 'day';
+            form.unit_price = props.data.unit_price;
             form.real_estate_type_id = props.data.real_estate_type.id
         }
         if (oldValue) {

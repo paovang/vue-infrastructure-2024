@@ -21,6 +21,7 @@
                         optionValue="id"
                         :highlightOnSelect="true" 
                         :placeholder="$t('placeholder.dropdownSelect')" 
+                        filter
                         class="w-full md:w-14rem" 
                     />
                 </div>
@@ -156,6 +157,8 @@
         if (state.error) {
             await showWarningValidateBackend();
         } else {
+            createInputs.value = ([{ service_charge: '', currency_id: '' }]);
+            form.unit_price = 'day';
             await showToastSuccess();
             
             emit('onSuccess');
