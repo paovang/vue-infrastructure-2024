@@ -67,7 +67,7 @@
             <Divider/>
             <div class="columns is-12 is-multiline" v-for="(item, index) in allPermission.data.props" :key="index">
                 <div class="column is-12 is-mobile-12" style="font-size: 18px; font-weight: bold;">
-                    <i class="pi pi-check-circle" style="color: green"></i> {{ item.name }}
+                    <i class="pi pi-check-circle" style="color: green"></i> {{ item.display_name }}
                 </div>
 
                 <div class="column is-4 is-mobile-12" v-for="(per, idx) in item.permissions" :key="idx">

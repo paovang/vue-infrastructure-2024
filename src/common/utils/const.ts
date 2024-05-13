@@ -8,17 +8,17 @@ export const GET_ROLES = {
 
 export const GET_PERMISSIONS = {
   REAL_ESTATE: {
-    VIEW: "view-real-estate",
-    CREATE: "create-real-estate",
-    UPDATE: "edit-real-estate",
-    DELETE: "delete-real-estate",
+    VIEW: "view-house-land",
+    CREATE: "create-house-land",
+    UPDATE: "edit-house-land",
+    DELETE: "delete-house-land",
   },
 
   PAYMENT_REAL_ESTATE: {
-    VIEW: "view-payment-real-estate",
-    CREATE: "create-payment-real-estate",
-    UPDATE: "edit-payment-real-estate",
-    DELETE: "delete-payment-real-estate",
+    VIEW: "view-payment-house-land",
+    CREATE: "create-payment-house-land",
+    UPDATE: "edit-payment-house-land",
+    DELETE: "delete-payment-house-land",
   },
 
   CUSTOMER: {
@@ -91,10 +91,10 @@ export const GET_PERMISSIONS = {
   },
 
   REAL_ESTATE_TYPE: {
-    VIEW: "view-real-estate-type",
-    CREATE: "create-real-estate-type",
-    UPDATE: "edit-real-estate-type",
-    DELETE: "delete-real-estate-type",
+    VIEW: "view-house-land-type",
+    CREATE: "create-house-land-type",
+    UPDATE: "edit-house-land-type",
+    DELETE: "delete-house-land-type",
   },
 
   FOOTER: {
@@ -133,7 +133,7 @@ export const GET_PERMISSIONS = {
   },
 
   REPORT_REAL_ESTATE: {
-    VIEW: "view-report-real-estate",
+    VIEW: "view-report-house-land",
   },
 
   REPORT_RENT_Buy: {

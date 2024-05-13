@@ -10,6 +10,7 @@ import { IResponse } from "@/common/interfaces/response.interface";
 import { GetOnePaymentServiceHouseUseCase } from "../use-cases/get-one.use-case";
 import { UpdatePaymentServiceHouseUseCase } from "../use-cases/update.use-case";
 import { DeletePaymentServiceHouseUseCase } from "../use-cases/delete.use-case";
+import { GetAllQrcodePaymentUseCase } from "../use-cases/get-all-qrcode.use-case";
 
 @injectable()
 export class PaymentHouseService {
@@ -23,7 +24,9 @@ export class PaymentHouseService {
     @inject(UpdatePaymentServiceHouseUseCase)
     private _update: UpdatePaymentServiceHouseUseCase,
     @inject(DeletePaymentServiceHouseUseCase)
-    private _delete: DeletePaymentServiceHouseUseCase
+    private _delete: DeletePaymentServiceHouseUseCase,
+    @inject(GetAllQrcodePaymentUseCase)
+    private _getAllQrcode: GetAllQrcodePaymentUseCase
   ) {}
 
   async paymentService(input: PaymentEntity) {
@@ -46,5 +49,11 @@ export class PaymentHouseService {
 
   async getOne(id: number): Promise<any> {
     return await this._getOne.execute(id);
+  }
+
+  async getAllQrcode(
+    input: IGPaginate<Pick<PaymentEntity, "filename">>
+  ): Promise<void | IResponse<IGPaginated<PaymentEntity>>> {
+    return await this._getAllQrcode.execute(input);
   }
 }

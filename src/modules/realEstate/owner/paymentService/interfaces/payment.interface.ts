@@ -17,4 +17,8 @@ export interface IPaymentServiceHouseRepository {
   ): Promise<IResponse<IGPaginated<PaymentEntity>>>;
 
   getOne(id: number): Promise<any>;
+
+  getAllQrcode(
+    args: IGPaginate<Pick<PaymentEntity, "filename">>
+  ): Promise<IResponse<IGPaginated<PaymentEntity>>>;
 }

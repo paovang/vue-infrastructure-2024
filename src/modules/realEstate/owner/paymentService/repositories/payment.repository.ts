@@ -140,4 +140,24 @@ export class PaymentServiceHouseRepository
 
     return response.data;
   }
+
+  async getAllQrcode(
+    args: IGPaginate<Pick<PaymentEntity, "filename">>
+  ): Promise<IResponse<IGPaginated<PaymentEntity>>> {
+    const response = await this._api.axios({
+      url: "/owner/qrcode-banks",
+      params: {
+        page: args.page,
+        per_page: args.limit,
+        filter: args.filter?.filename,
+      },
+    });
+
+    const { data, pagination } = response.data.data;
+
+    return {
+      data: { props: data, total: pagination.total },
+      status: "success",
+    };
+  }
 }

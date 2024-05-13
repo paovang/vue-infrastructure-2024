@@ -158,6 +158,24 @@ export const paymentStore = defineStore("payment-house-store", () => {
     state.isLoading = false;
   }
 
+  const stateQrcode = reactive<any>({
+    data: {
+      props: [],
+    },
+  });
+
+  async function getAllQrcode() {
+    const results = await service.getAllQrcode({
+      page: 1,
+      limit: 100,
+    });
+
+    if (results && results.data && results?.status == "success") {
+      stateQrcode.data.props = results.data.props;
+      stateQrcode.data.total = results.data.total;
+    }
+  }
+
   return {
     form,
     state,
@@ -167,5 +185,7 @@ export const paymentStore = defineStore("payment-house-store", () => {
     remove,
     getOne,
     update,
+    getAllQrcode,
+    stateQrcode,
   };
 });

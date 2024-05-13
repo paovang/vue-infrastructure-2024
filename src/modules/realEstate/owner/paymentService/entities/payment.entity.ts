@@ -14,6 +14,7 @@ export interface PaymentEntity {
   status?: string;
   to_date?: Date;
   unit_price?: string;
+  filename?: string;
   created_at?: string;
   updated_at?: string;
 }

@@ -33,7 +33,7 @@
         >
             <template #header>
                 <div class="col-12 md:col-12 flex flex-row" style="margin-top: -15px">
-                    <div class="col-12 md:col-6">
+                    <div class="col-12 md:col-5">
                         <label>
                             {{ $t('messages.search') }}
                             <span class="text-red-500"> *</span>
@@ -48,7 +48,7 @@
                             @input="onClearSearch"
                         />
                     </div>
-                    <div class="col-12 md:col-2">
+                    <div class="col-12 md:col-3">
                         <label>
                             {{ $t('messages.realestate_type') }}
                             <span class="text-red-500"> *</span>

@@ -1,5 +1,10 @@
 <template>
     <div>
+        <div style="margin-top: -20px;" class="btn-back" @click="goBack">
+            <i class="pi pi-arrow-left" style="color: green"></i>
+            ກັບຄືນ
+        </div>
+        <p style="margin-top: 15px;"></p>
         <Galleria 
             :value="realEstateGetOne.data.props.gallery" 
             :responsiveOptions="responsiveOptions" 
@@ -120,11 +125,12 @@ import { homerealEstateStore } from '@/modules/realEstate/homepage/stores/home.s
 import { useRoute } from 'vue-router';
 import { formatNumber } from '@/common/utils/format.currency';
 import Divider from 'primevue/divider';
-
+import { useRouter } from 'vue-router';
 
 const { getOne, realEstateGetOne } = homerealEstateStore();
 
 const route = useRoute();
+const router = useRouter();
 
 const createForm = ref();
 
@@ -146,6 +152,10 @@ const responsiveOptions = ref([
         numVisible: 1
     }
 ]);
+
+const goBack = async () => {
+    router.push({ name: 'home'});
+}
 </script>
 
 <style scoped>
@@ -157,6 +167,10 @@ const responsiveOptions = ref([
         height: 80vh; 
         display: block;
         object-fit: fill;
+    }
+
+    .btn-back:hover {
+        cursor: pointer;
     }
 
     @media screen and (max-width: 768px) {

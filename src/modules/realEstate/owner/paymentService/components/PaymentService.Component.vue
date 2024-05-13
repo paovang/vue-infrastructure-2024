@@ -104,6 +104,13 @@
                     </div>
                 </div>
                 <br/>
+                <label style="text-align: left; font-size: 18px; font-weight: bold;">{{ $t('messages.qrcode_bank') }}</label>
+                <Divider/>
+                <div class="columns is-12 is-multiline">
+                    <div class="column is-3" v-for="(item, index) in stateQrcode.data.props" :key="index">
+                        <img :src="item.filename"/>
+                    </div>
+                </div>
                 <Divider/>
                 <br/>
                 <div class="col-12 md:col-12">
@@ -121,7 +128,6 @@
     import { ref, onMounted, watch } from 'vue';
     import { houseStore } from '@/modules/realEstate/owner/house/stores/house.store'
     import Dropdown from 'primevue/dropdown';
-    // import { HouseEntity } from '../../house/entities/house.entity';
     import { paymentStore } from '../stores/payment.store';
     import MyInputNumber from '@/components/customComponents/FormInputNumber.vue';
     import Calendar from 'primevue/calendar';
@@ -160,7 +166,7 @@
     })
 
     const { getAll, state: stateHouse, findRealEstateServiceById, findRealEstateService, setStateFilter } = houseStore();
-    const { form, state, paymentService } = paymentStore();
+    const { form, state, paymentService, getAllQrcode, stateQrcode } = paymentStore();
 
     const onSubmit = handleSubmit(async (value) => {
         form.quantity = value.quantity;
@@ -236,6 +242,7 @@
 
     onMounted(async() => {
         await fetchAll();
+        await getAllQrcode();
     });
 
     const fetchAll = async() => {
@@ -261,6 +268,8 @@
 </script>
 
 <style scoped>
+    @import 'bulma/css/bulma.css';
+
     .upload-box {
         position: relative;
         display: block;

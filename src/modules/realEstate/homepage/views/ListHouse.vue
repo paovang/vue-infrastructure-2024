@@ -4,6 +4,22 @@
             <div class="columns is-12 is-multiline" style="margin-top: -30px;">
                 <div class="column is-2 is-mobile-12">
                     <label>
+                        {{ $t('messages.country') }}
+                    </label>
+                    <Dropdown 
+                        v-model="form.country_id" 
+                        :options="getCountries.data.props" 
+                        optionLabel="name" 
+                        placeholder="ກະລຸນາເລືອກກ່ອນ..." 
+                        class="w-full" 
+                        optionValue="id"
+                        :highlightOnSelect="true" 
+                        filter
+                        @change="filterProvinceById(form.country_id)"
+                    />
+                </div>
+                <div class="column is-2 is-mobile-12">
+                    <label>
                         {{ $t('messages.realestate_type') }}
                     </label>
                     <Dropdown 
@@ -46,22 +62,6 @@
                         optionValue="id"
                         :highlightOnSelect="true" 
                         @change="onSearch"
-                    />
-                </div>
-                <div class="column is-2 is-mobile-12">
-                    <label>
-                        {{ $t('messages.country') }}
-                    </label>
-                    <Dropdown 
-                        v-model="form.country_id" 
-                        :options="getCountries.data.props" 
-                        optionLabel="name" 
-                        placeholder="ກະລຸນາເລືອກກ່ອນ..." 
-                        class="w-full" 
-                        optionValue="id"
-                        :highlightOnSelect="true" 
-                        filter
-                        @change="filterProvinceById(form.country_id)"
                     />
                 </div>
                 <div class="column is-2 is-mobile-12">
