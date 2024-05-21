@@ -44,6 +44,7 @@ export const houseStore = defineStore("house-store", () => {
     | "province_id"
     | "wide"
     | "long"
+    | "status"
   >;
   const setStateFilter = reactive<IGPaginate<FilterType>>({
     page: 1,
@@ -57,6 +58,7 @@ export const houseStore = defineStore("house-store", () => {
       province_id: "",
       wide: "",
       long: "",
+      status: "",
     },
   });
 

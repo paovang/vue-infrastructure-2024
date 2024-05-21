@@ -265,6 +265,7 @@
             setStateFilter.filter.long = '';
             setStateFilter.limit = 10;
             setStateFilter.page = 1;
+            setStateFilter.filter.status = '';
         }
 
         await initComponent();

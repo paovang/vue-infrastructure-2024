@@ -24,6 +24,7 @@ export interface IHouseRepository {
         | "province_id"
         | "wide"
         | "long"
+        | "status"
       >
     >
   ): Promise<IResponse<IGPaginated<HouseEntity>>>;

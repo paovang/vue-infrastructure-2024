@@ -299,6 +299,7 @@
                 <Column field="email" :header="$t('table.header.email')"></Column>
                 <Column field="status" :header="$t('table.header.status')" headerStyle="min-width: 5rem"></Column>
                 <Column field="created" :header="$t('table.header.created_at')" headerStyle="min-width: 8rem"></Column>
+                <Column field="updated" :header="$t('table.header.updated_at')" headerStyle="min-width: 8rem"></Column>
             </DataTable>
         </div>
 

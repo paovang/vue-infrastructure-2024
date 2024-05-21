@@ -28,6 +28,7 @@ export class GetAllHouseUseCase
         | "province_id"
         | "wide"
         | "long"
+        | "status"
       >
     >
   ): Promise<void | IResponse<IGPaginated<HouseEntity>>> {

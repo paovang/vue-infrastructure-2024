@@ -7,7 +7,7 @@ import {
   IGPaginate,
   IGPaginated,
 } from "@/common/interfaces/pagination.interface";
-import { formatDate } from "@/common/utils/format.date";
+// import { formatDate } from "@/common/utils/format.date";
 
 @injectable()
 export class PaymentServiceHouseRepository
@@ -19,18 +19,18 @@ export class PaymentServiceHouseRepository
   async paymentService(
     input: PaymentEntity
   ): Promise<IResponse<PaymentEntity>> {
-    let fromDate: string = "";
-    if (typeof input.fromDate !== "undefined") {
-      if (input.fromDate instanceof Date) {
-        const year = input.fromDate.getFullYear();
-        const month = (input.fromDate.getMonth() + 1)
-          .toString()
-          .padStart(2, "0");
-        const day = input.fromDate.getDate().toString().padStart(2, "0");
+    // let fromDate: string = "";
+    // if (typeof input.fromDate !== "undefined") {
+    //   if (input.fromDate instanceof Date) {
+    //     const year = input.fromDate.getFullYear();
+    //     const month = (input.fromDate.getMonth() + 1)
+    //       .toString()
+    //       .padStart(2, "0");
+    //     const day = input.fromDate.getDate().toString().padStart(2, "0");
 
-        fromDate = `${year}-${month}-${day}`;
-      }
-    }
+    //     fromDate = `${year}-${month}-${day}`;
+    //   }
+    // }
 
     const response = await this._api.axios({
       method: "post",
@@ -39,7 +39,6 @@ export class PaymentServiceHouseRepository
         real_estate_list_id: input.id,
         service_charge_id: input.service_charge_id,
         qty: input.quantity,
-        from_date: formatDate(fromDate),
         slip_payment: input.paySlip,
       },
     });
@@ -52,20 +51,20 @@ export class PaymentServiceHouseRepository
   }
 
   async update(input: PaymentEntity): Promise<IResponse<PaymentEntity>> {
-    let fromDate: string = "";
-    if (typeof input.fromDate !== "undefined") {
-      if (input.fromDate instanceof Date) {
-        const year = input.fromDate.getFullYear();
-        const month = (input.fromDate.getMonth() + 1)
-          .toString()
-          .padStart(2, "0");
-        const day = input.fromDate.getDate().toString().padStart(2, "0");
+    // let fromDate: string = "";
+    // if (typeof input.fromDate !== "undefined") {
+    //   if (input.fromDate instanceof Date) {
+    //     const year = input.fromDate.getFullYear();
+    //     const month = (input.fromDate.getMonth() + 1)
+    //       .toString()
+    //       .padStart(2, "0");
+    //     const day = input.fromDate.getDate().toString().padStart(2, "0");
 
-        fromDate = `${year}-${month}-${day}`;
-      } else {
-        fromDate = input.fromDate as string;
-      }
-    }
+    //     fromDate = `${year}-${month}-${day}`;
+    //   } else {
+    //     fromDate = input.fromDate as string;
+    //   }
+    // }
 
     const response = await this._api.axios({
       method: "put",
@@ -74,7 +73,7 @@ export class PaymentServiceHouseRepository
         real_estate_list_id: input.real_estate_list_id,
         service_charge_id: input.service_charge_id,
         qty: input.quantity,
-        from_date: formatDate(fromDate),
+        // from_date: formatDate(fromDate),
         slip_payment: input.paySlip,
       },
     });

@@ -102,6 +102,7 @@ export class HouseRepository implements IHouseRepository {
         | "province_id"
         | "wide"
         | "long"
+        | "status"
       >
     >
   ): Promise<IResponse<IGPaginated<HouseEntity>>> {
@@ -119,6 +120,7 @@ export class HouseRepository implements IHouseRepository {
         province_id: args.filter?.province_id,
         wide: args.filter?.wide,
         long: args.filter?.long,
+        status: args.filter?.status,
         lang: lang,
       },
     });

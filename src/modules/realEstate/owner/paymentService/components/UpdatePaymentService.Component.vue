@@ -25,7 +25,7 @@
                             class="w-full" 
                             optionValue="id"
                             :highlightOnSelect="true" 
-                            @change="filterRealEstateService(form.id)"
+                            @change="filterRealEstateService(form.real_estate_list_id)"
                         />
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                             style="margin-top: 8px;"
                             v-model="form.service_charge_id" 
                             :options="findRealEstateService.data.props" 
-                            :optionLabel="option => `${option.unit_price} - ${formatNumber(option.service_charge, option.currency)}`" 
+                            :optionLabel="option => `${option.unit_price} - ${conCatServiceChargePrices(option.service_charges)}`"  
                             :placeholder="$t('placeholder.dropdownSelect')" 
                             class="w-full" 
                             optionValue="id"
@@ -58,7 +58,7 @@
                         />
                     </div>
                 </div>
-                <div class="col-12 md:col-12" style="margin-top: -20px;">
+                <!-- <div class="col-12 md:col-12" style="margin-top: -20px;">
                     <div class="flex flex-column">
                         <label>
                             {{ $t('messages.date') }}
@@ -71,7 +71,7 @@
                             style="width: 100%;" 
                         />
                     </div>
-                </div>
+                </div> -->
                 <div class="col-12 md:col-12">
                     <div class="flex flex-column">
                         <label>
@@ -114,7 +114,7 @@
     // import { HouseEntity } from '../../house/entities/house.entity';
     import { paymentStore } from '../stores/payment.store';
     import MyInputNumber from '@/components/customComponents/FormInputNumber.vue';
-    import Calendar from 'primevue/calendar';
+    // import Calendar from 'primevue/calendar';
     import Button from 'primevue/button';
     import axios from 'axios';
     import Divider from 'primevue/divider';
@@ -123,6 +123,7 @@
     import { useToast } from 'primevue/usetoast';
     import { useI18n } from 'vue-i18n';
     import { formatNumber } from '@/common/utils/format.currency';
+    import { conCatServiceChargePrices } from '@/common/utils/concat';
 
 
     const { t } = useI18n();
@@ -156,7 +157,7 @@
         validationSchema: paymentSchema
     })
 
-    const { getAll, state: stateHouse, findRealEstateServiceById, findRealEstateService } = houseStore();
+    const { getAll, state: stateHouse, findRealEstateServiceById, findRealEstateService, setStateFilter } = houseStore();
     const { form, state, update } = paymentStore();
 
     const onSubmit = handleSubmit(async (value) => {
@@ -228,6 +229,12 @@
     }
 
     const fetchAll = async() => {
+        setStateFilter.limit = 1000;
+        setStateFilter.page = 1;
+        if (setStateFilter.filter) {
+            setStateFilter.filter.status = 'open';
+        }
+        
         await getAll();
         form.id = props.data.id;
         form.real_estate_list_id = props.data.real_estate_list.id;

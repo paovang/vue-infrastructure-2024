@@ -86,9 +86,9 @@
                             icon="pi pi-pencil" 
                             rounded 
                             severity="warning"  
-                            style="color: white;" 
+                            style="color: white;"
                             @click="editItem(data)"
-                            :disabled="validationPermissions(GET_PERMISSIONS.PAYMENT_REAL_ESTATE.UPDATE)"
+                            :disabled="isButtonDisabled(data)"
                         />
                         <Button 
                             type="button" 
@@ -96,7 +96,7 @@
                             rounded 
                             severity="danger"
                             @click="confirmDelete(data.id)"
-                            :disabled="validationPermissions(GET_PERMISSIONS.PAYMENT_REAL_ESTATE.DELETE)"
+                            :disabled="validationPermissions(GET_PERMISSIONS.PAYMENT_REAL_ESTATE.DELETE) || data.status !== 'pending'"
                         />
                     </div>
                 </template>
@@ -255,6 +255,13 @@
     const deleteItem = async (id: PaymentEntity) => {
         await remove(id);
         await getAll();
+    }
+
+    const isButtonDisabled = (data: any) => {
+        const hasPermission = validationPermissions(GET_PERMISSIONS.PAYMENT_REAL_ESTATE.UPDATE);
+        const isPending = data.status !== 'pending';
+
+        return hasPermission || isPending;
     }
 
     const confirmDelete = async (id: PaymentEntity) => {

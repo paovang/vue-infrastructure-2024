@@ -176,7 +176,7 @@
 
   function getBreadcrumbItems(to: RouteLocationNormalizedLoaded) {
     breadcrumbItems.value = []
-
+    
     to.matched.forEach((matched, idx) => {
       if (idx !== 0) {
         breadcrumbItems.value.push(matched.meta['label'] as string)

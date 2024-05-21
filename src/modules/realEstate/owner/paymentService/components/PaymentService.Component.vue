@@ -67,7 +67,7 @@
                         </p>
                     </div>
                 </div> -->
-                <div class="col-12 md:col-12" style="margin-top: -20px">
+                <!-- <div class="col-12 md:col-12" style="margin-top: -20px">
                     <div class="flex flex-column">
                         <label>
                             {{ $t('messages.date') }}
@@ -81,8 +81,8 @@
                             style="width: 100%;" 
                         />
                     </div>
-                </div>
-                <div class="col-12 md:col-12">
+                </div> -->
+                <div class="col-12 md:col-12" style="margin-top: -20px;" >
                     <div class="flex flex-column">
                         <label>
                             {{ $t('messages.file_reference') }}
@@ -130,7 +130,7 @@
     import Dropdown from 'primevue/dropdown';
     import { paymentStore } from '../stores/payment.store';
     import MyInputNumber from '@/components/customComponents/FormInputNumber.vue';
-    import Calendar from 'primevue/calendar';
+    // import Calendar from 'primevue/calendar';
     import Button from 'primevue/button';
     import axios from 'axios';
     import Divider from 'primevue/divider';
@@ -248,6 +248,10 @@
     const fetchAll = async() => {
         setStateFilter.limit = 1000;
         setStateFilter.page = 1;
+        if (setStateFilter.filter) {
+            setStateFilter.filter.status = 'open';
+        }
+
         await getAll();
         form.id = stateHouse.data.props ? stateHouse.data.props[0].id : undefined;
         await findRealEstateServiceById(form.id as any);
