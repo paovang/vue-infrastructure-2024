@@ -154,7 +154,8 @@ const responsiveOptions = ref([
 ]);
 
 const goBack = async () => {
-    router.push({ name: 'home'});
+    await router.push({ name: 'home'});
+    // window.location.reload();
 }
 </script>
 

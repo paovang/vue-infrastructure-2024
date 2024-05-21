@@ -23,7 +23,6 @@
                         {{ $t('messages.realestate_type') }}
                     </label>
                     <Dropdown 
-                        name="real_estate_type"
                         v-model="form.real_estate_type_id" 
                         :options="realEstateTypes.data.props" 
                         optionLabel="name" 
@@ -166,7 +165,7 @@
     import { useI18n } from 'vue-i18n';
 
     const { getAllCountries, getCountries, getAllProvinces, getProvinces } = dashboardStore();
-    const { form, getAll, state, setStateFilter, realEstateTypes, isProgressBar } = homerealEstateStore();
+    const { form, getAll, state, setStateFilter, realEstateTypes, isProgressBar, getAllData } = homerealEstateStore();
 
     const router = useRouter();
     const { query } = useRoute();
@@ -215,6 +214,8 @@
     onMounted(async() => {
         await initComponent();
         await getAllCountries();
+        await getAllData();
+
         getCountries.data.props.unshift({ id: 'all', name: t('messages.all') });
         form.country_id = getCountries.data.props.length > 0 ? getCountries.data.props[0].id : undefined;
        
@@ -286,8 +287,7 @@
 
     const fetchAll = async() => {
         await getAll();
-        
-        form.real_estate_type_id = realEstateTypes.data.props.length > 0 ? realEstateTypes.data.props[0].id : undefined;
+        // form.real_estate_type_id = realEstateTypes.data.props.length > 0 ? realEstateTypes.data.props[0].id : undefined;
     }
 
     const viewDetail = async (id: string) => {

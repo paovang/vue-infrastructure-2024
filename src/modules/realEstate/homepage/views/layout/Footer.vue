@@ -37,14 +37,14 @@
     import { onMounted } from 'vue';
     import { homerealEstateStore } from '../../stores/home.store';
 
-    const {  getAllData, footer } = homerealEstateStore();
+    const { footer } = homerealEstateStore();
 
     const goToFacebook = (value: string) => {
         window.open(value, '_blank');
     }
 
     onMounted(async() => {
-        await getAllData();
+        // await getAllData();
     })
 </script>
 
