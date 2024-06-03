@@ -187,8 +187,8 @@
     { name: 'English', code: 'en' },
     { name: 'ລາວ', code: 'la' },
     { name: 'ไทย', code: 'th' },
-    { name: 'Tiếng Việt', code: 'vi' },
-    { name: '中国人', code: 'lk' },
+    { name: 'Tiếng Việt', code: 'vn' },
+    { name: '中国人', code: 'cn' },
   ]);
 
   const setLocale = async (locale: string) => {
@@ -204,9 +204,9 @@
         return 'ລາວ';
       case 'th':
         return 'ไทย';
-      case 'vi':
+      case 'vn':
         return 'Tiếng Việt';
-      case 'lk':
+      case 'cn':
         return '中国人';
       default:
         return 'English';
@@ -261,10 +261,10 @@
 
     @media only screen and (max-width: 767px) {
       .input-search {
-        width: 250px !important;
+        width: 260px !important;
         margin-left: 0px !important;
         .w-full {
-          max-width: 160px !important;
+          max-width: 130px !important;
         }
       }
       .navbar {
@@ -274,7 +274,7 @@
 
     .input-search {
       margin-top: 0px;
-      width: 600px;
+      width: 650px;
       margin-left: 50px;
       display: flex;
       align-items: center;

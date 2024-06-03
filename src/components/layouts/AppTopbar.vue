@@ -136,8 +136,8 @@
       { name: 'English', code: 'en' },
       { name: 'ລາວ', code: 'la' },
       { name: 'ไทย', code: 'th' },
-      { name: 'Tiếng Việt', code: 'vi' },
-      { name: 'China', code: 'lk' },
+      { name: 'Tiếng Việt', code: 'vn' },
+      { name: 'China', code: 'cn' },
   ]);
 
   const editForm = ref();

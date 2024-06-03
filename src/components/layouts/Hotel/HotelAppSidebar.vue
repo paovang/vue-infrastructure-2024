@@ -6,8 +6,8 @@
   import { useI18n } from 'vue-i18n';
   import { countryStore } from '@/modules/realEstate/address/stores/country.store';
   import { GET_ROLES } from '@/common/utils/const';
-  import { GET_PERMISSIONS } from '../../common/utils/const';
-  import { reportRentBuyStore } from '../../modules/realEstate/admin/dashboard/stores/rent-store';
+  import { GET_PERMISSIONS } from '../../../common/utils/const';
+  import { reportRentBuyStore } from '../../../modules/realEstate/admin/dashboard/stores/rent-store';
   import { onMounted, ref } from 'vue';
   import Button from 'primevue/button';
 
@@ -20,7 +20,8 @@
   const { setStateFilter: setStateRealEstateServiceFilter } = realEstateServiceStore();
 
   const appointment = ref<Number>(0);
-  const emit = defineEmits<{ (e: 'showHotelSidebar'): void }>();
+  const emit = defineEmits<{ (e: 'showSidebar'): void }>();
+  
 
   onMounted(async() => {
     if (currentRoles.includes(GET_ROLES.ADMIN_OWNER) || currentRoles.includes(GET_ROLES.USER_OWNER)) {
@@ -46,7 +47,7 @@
     {
       key: '1',
       label: t('sidebar.settings'),
-      icon: 'pi pi-cog',
+      icon: 'pi pi-pencil',
       color: 'text-black-500',
       to: 'settings',
       children: [
@@ -310,52 +311,7 @@
           return false;
         }
       }
-
-      // /** Owner Real-Estate */
-      // if (name === 'owner-real-estate') {
-      //   if (currentPermissions.includes(permission) && currentRoles.includes(GET_ROLES.USER_OWNER)) {
-      //     return true;
-      //   } else {
-      //     return false;
-      //   }
-      // }
-
-      // /** Owner Appointment */
-      // if (name === 'owner-appointment') {
-      //   if (currentPermissions.includes(permission) && currentRoles.includes(GET_ROLES.USER_OWNER)) {
-      //     return true;
-      //   } else {
-      //     return false;
-      //   }
-      // }
-
-      // /** Owner Rent-Buy */
-      // if (name === 'owner-rent-buy') {
-      //   if (currentPermissions.includes(permission) && currentRoles.includes(GET_ROLES.USER_OWNER)) {
-      //     return true;
-      //   } else {
-      //     return false;
-      //   }
-      // }
-
-      // /** Admin Report Rent & Buy */
-      // if (name === 'admin-report-rent-buy') {
-      //   if (currentPermissions.includes(permission) && currentRoles.includes(GET_ROLES.USER)) {
-      //     return true;
-      //   } else {
-      //     return false;
-      //   }
-      // }
-
-      // /** Admin Report Real-Estate */
-      // if (name === 'admin-report-real-estate') {
-      //   if (currentPermissions.includes(permission) && currentRoles.includes(GET_ROLES.USER)) {
-      //     return true;
-      //   } else {
-      //     return false;
-      //   }
-      // }
-
+      
       return currentPermissions.includes(permission);
     }
   }
@@ -476,8 +432,8 @@
             </ul>
         </div>
         <div class="mt-auto">
-          <hr class="mb-3 mx-3 border-top-1 border-none surface-border"/>
-          <Button label="Show Hotel Sidebar" style="width: 100% !important" @click="emit('showHotelSidebar')" />
+            <hr class="mb-3 mx-3 border-top-1 border-none surface-border"/>
+            <Button label="Show Sidebar" style="width: 100% !important" @click="emit('showSidebar')" />
         </div>
       </div>
     <!-- </div> -->
