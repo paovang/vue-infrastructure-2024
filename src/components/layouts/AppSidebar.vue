@@ -9,7 +9,7 @@
   import { GET_PERMISSIONS } from '../../common/utils/const';
   import { reportRentBuyStore } from '../../modules/realEstate/admin/dashboard/stores/rent-store';
   import { onMounted, ref } from 'vue';
-  import Button from 'primevue/button';
+  // import Button from 'primevue/button';
 
   const { t } = useI18n();
   const { getAllAppointmentPending, appointmentPending } = reportRentBuyStore();
@@ -475,10 +475,10 @@
                 </li>
             </ul>
         </div>
-        <div class="mt-auto">
+        <!-- <div class="mt-auto">
           <hr class="mb-3 mx-3 border-top-1 border-none surface-border"/>
           <Button label="Show Hotel Sidebar" style="width: 100% !important" @click="emit('showHotelSidebar')" />
-        </div>
+        </div> -->
       </div>
     <!-- </div> -->
   </aside>
