@@ -175,7 +175,7 @@ const goBack = async () => {
         width: 100%; 
         height: 80vh; 
         display: block;
-        object-fit: fill;
+        object-fit: cover;
     }
 
     .btn-back:hover {

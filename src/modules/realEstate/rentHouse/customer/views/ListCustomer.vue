@@ -233,7 +233,7 @@
                         {{ item.index + 1 }}
                     </template>
                 </Column>
-                <Column headerStyle="min-width: 17rem" frozen>
+                <Column headerStyle="min-width: 18rem" frozen>
                     <template #body="{ data }">
                         <div class="flex flex-wrap gap-2 btn-right">
                             <Button 
@@ -244,14 +244,14 @@
                                 @click="confirmUpdateStatus(data.id)" 
                                 :disabled="validationPermissions(GET_PERMISSIONS.CUSTOMER.UPDATE)"
                             />
-                            <!-- <Button 
+                            <Button 
                                 type="button" 
                                 icon="pi pi-eye" 
                                 rounded 
                                 severity="info"  
                                 style="color: white;" 
-                                @click="editItem(data)"
-                            /> -->
+                                @click="viewItem(data)"
+                            />
                             <Button 
                                 type="button" 
                                 icon="pi pi-lock" 
@@ -311,6 +311,12 @@
             :state="state"
             @on-success="onSuccess"
         />
+
+        <view-customer
+            ref="createForm" 
+            :data="dataEdit"
+            @on-success="onSuccess"
+        />
     </div>
   </template>
   
@@ -342,6 +348,7 @@
     import { validationPermissions } from '@/common/utils/validation-permissions';
     import { GET_PERMISSIONS } from '@/common/utils/const';
     import ChangeUserPassword from '../components/Change-User-Password.Component.vue';
+    import ViewCustomer from '../components/ViewCustomer.vue';
 
 
     const { t } = useI18n();
@@ -352,6 +359,7 @@
     const autoFocusCursor = ref();
     const isCardVisible = ref(false);
     const isValidate = ref<boolean>(true); 
+    const createForm = ref();
 
     const { push } = useRouter()
     const { query } = useRoute()
@@ -372,6 +380,13 @@
 
     const editForm = ref();
     const userId = ref();
+    const dataEdit = ref();
+
+    const viewItem = async (data: CustomerEntity) => {
+        dataEdit.value = data;
+        createForm.value.visible = true;
+    }
+
     const changePassword = async (id: any) => {
         userId.value = id;
         editForm.value.visible = true;
