@@ -2,7 +2,7 @@
     <div>
         <div style="margin-top: -20px;" class="btn-back" @click="goBack">
             <i class="pi pi-arrow-left" style="color: green"></i>
-            ກັບຄືນ
+            {{ $t('back') }}
         </div>
         <p style="margin-top: 15px;"></p>
         <Galleria 
@@ -66,7 +66,7 @@
                         , {{ $t('messages.total_bath') }}: {{ realEstateGetOne.data.props.total_bath }}
                     </span>
                     <span>
-                        , {{ $t('messages.garage') }}: {{ realEstateGetOne.data.props.garage }}
+                        , {{ $t('messages.garage') }}: {{ realEstateGetOne.data.props.garage }} / {{ $t('car_amount') }}
                     </span>
                 </p>
                 <p>
@@ -83,8 +83,14 @@
                     <span v-if="realEstateGetOne.data.props.zip_code">
                         {{ $t('messages.zip_code') }}: {{ realEstateGetOne.data.props.zip_code }},
                     </span>
-                    <span>{{ $t('messages.long') }}: {{ realEstateGetOne.data.props.long }} m</span>
-                    <span>, {{ $t('messages.wide') }}: {{ realEstateGetOne.data.props.wide }} m</span>
+                    <span>{{ $t('messages.long') }}: {{ realEstateGetOne.data.props.long }} {{ locale !== 'en' ? 'm' : ''}}</span>
+                    <span>, {{ $t('messages.wide') }}: {{ realEstateGetOne.data.props.wide }} {{ locale !== 'en' ? 'm' : ''}}</span>
+                </p>
+                <p>
+                    <a :href="realEstateGetOne.data.props.location" target="_blank">
+                        <i class="pi pi-map-marker"></i>
+                        {{ $t('viewLocation') }}
+                    </a>
                 </p>
                 <Divider/>
                 <p v-if="realEstateGetOne.data.props.remark" style="font-size: 18px; font-weight: bold; margin-top: 5px;">
@@ -99,7 +105,7 @@
                     </Button>
                 </div>
             </div>
-            <div class="column is-mobile-12 is-desktop-6" style="text-align: center;">
+            <!-- <div class="column is-mobile-12 is-desktop-6" style="text-align: center;">
                 <iframe 
                     :src="realEstateGetOne.data.props.location" 
                     width="100%" 
@@ -109,7 +115,7 @@
                     referrerpolicy="no-referrer-when-downgrade"
                 >
                 </iframe>
-            </div>
+            </div> -->
         </div>
         
         <reserve-component ref="createForm" />
@@ -126,8 +132,10 @@ import { useRoute } from 'vue-router';
 import { formatNumber } from '@/common/utils/format.currency';
 import Divider from 'primevue/divider';
 import { useRouter } from 'vue-router';
+import { useI18n } from "vue-i18n";
 
 const { getOne, realEstateGetOne } = homerealEstateStore();
+const { locale } = useI18n();
 
 const route = useRoute();
 const router = useRouter();

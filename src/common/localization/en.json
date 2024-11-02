@@ -1,4 +1,7 @@
 {
+    "viewLocation": "View Location",
+    "back": "Back",
+    "car_amount": "Car",
     "sidebar": {
         "settings": "Setting",
         "customer": "Customer Account",
@@ -253,8 +256,8 @@
         "air": "Air",
         "fan": "Fan",
         "none": "Other",
-        "service_sale": "Sale",
-        "service_rent": "Rent",
+        "service_sale": "For Sale",
+        "service_rent": "For Rent",
         "id_no": "ID NO",
         "id_image": "ID Image",
         "footer": "Footer",
