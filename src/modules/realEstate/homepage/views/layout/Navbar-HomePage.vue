@@ -6,12 +6,11 @@
                     {{ $t('messages.home')}}
                 </a>
 
-                <a class="navbar-item" @click="goToHome" :class="{ 'is-active-tab': isCurrentRoute('home') }">
-                    {{ $t('messages.real_estate')}}
-                </a>
-
                 <a class="navbar-item" @click="goToAbout" :class="{ 'is-active-tab': isCurrentRoute('about.us') }">
                     {{ $t('messages.about')}}
+                </a>
+                <a class="navbar-item" @click="goToHome" :class="{ 'is-active-tab': isCurrentRoute('home') }">
+                    {{ $t('messages.real_estate')}}
                 </a>
             </div>
 

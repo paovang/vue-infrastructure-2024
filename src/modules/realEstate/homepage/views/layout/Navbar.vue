@@ -2,7 +2,7 @@
     <div class="home-layout-view">
       <nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-          <a class="navbar-item" @click="goToHome">UK LAO</a>
+          <a class="navbar-item" @click="goToHome">hello newyears</a>
           <div class="input-search">
               <input-text
                   v-model="filterEverything"
