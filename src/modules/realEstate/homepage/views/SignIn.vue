@@ -32,7 +32,7 @@
             <button>{{ $t('messages.sign_in') }}</button>
             <div class="bottom-text">
                 <p>{{ $t('messages.not_account') }}? <a @click="goToSignUp">{{ $t('messages.sign_up') }}</a></p>
-                <p><a>{{ $t('messages.forgot_password') }}?</a></p>
+                <!-- <p><a>{{ $t('messages.forgot_password') }}?</a></p> -->
             </div>
         </form>
     </div>
