@@ -409,7 +409,7 @@
                       <span class="inline-flex align-items-center justify-content-center ml-auto bg-primary border-circle" 
                         style="min-width: 1.5rem; height: 1.5rem; font-size: 14px !important; background-color: #d13438 !important;"
                       >
-                        1    
+                        0    
                       </span>
                   </a>
               </li>
