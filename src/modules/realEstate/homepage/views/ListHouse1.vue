@@ -143,7 +143,7 @@
 .column {
     flex: 1 1 calc(25% - 20px); /* Four columns on wide screens */
     box-sizing: border-box;
-    max-width: 296px; /* Set a max width to prevent full width for single items */
+    max-width: 300px; /* Set a max width to prevent full width for single items */
     background-color: #f8f7f7;
     border-radius: 5px;
 }
