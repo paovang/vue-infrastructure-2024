@@ -126,7 +126,7 @@
                             <span>{{ $t('messages.long') }}: {{ item.long }}</span>,
                             <span>{{ $t('messages.wide') }}: {{ item.wide }}</span>
                         </p>
-                        <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                        <p style="width: 230px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                             {{  item.village }}
                         </p>
                     </div>
@@ -155,7 +155,7 @@
                             <span>{{ $t('messages.long') }}: {{ item.long }}</span>,
                             <span>{{ $t('messages.wide') }}: {{ item.wide }}</span>
                         </p>
-                        <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                        <p style="width: 230px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                             {{  item.village }}
                         </p>
                     </div>
@@ -344,31 +344,6 @@
 <style scoped lang="scss">
     @import 'bulma/css/bulma.css';
 
-    /* Adjust these media queries as needed for your specific design */
-    // @media screen and (max-width: 1200px) {
-    //     .detail {
-    //         width: 260px;
-    //     }
-    // }
-
-    // @media screen and (max-width: 992px) {
-    //     .detail {
-    //         width: 250px; 
-    //     }
-    // }
-
-    // @media screen and (max-width: 768px) {
-    //     .detail {
-    //         width: 260px;
-    //     }
-    // }
-
-    // @media screen and (max-width: 576px) {
-    //     .detail {
-    //         width: 250px;
-    //     }
-    // }
-
     .profile-container {
         display: flex;
         flex-wrap: wrap;
@@ -377,10 +352,7 @@
 
     .profile-box {
         box-shadow: #0002 0 1.6px 3.6px,#0000001c 0 .3px .9px;
-        flex: 1 1 calc(25% - 20px);
-        box-sizing: border-box;
-        max-width: 300px;
-        max-height: 400px;
+        flex-basis: calc(25% - 20px);
         cursor: pointer;
         .img {
             width: 100%;
