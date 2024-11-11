@@ -353,9 +353,12 @@
     .profile-box {
         box-shadow: #0002 0 1.6px 3.6px,#0000001c 0 .3px .9px;
         flex-basis: calc(25% - 20px);
+        border-radius: 5px;
         cursor: pointer;
         .img {
             width: 100%;
+            border-top-right-radius: 5px;
+            border-top-left-radius: 5px;
         }
         .box-detail {
             padding: 15px;
