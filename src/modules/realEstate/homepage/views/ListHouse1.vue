@@ -17,6 +17,22 @@
                     </div>
                 </div>
             </div>
+            <div class="column" v-for="i in state.data.props" :key="i.id">
+                <div class="card" @click="router.push({ path: '/detail', query: { id: i.id } })">
+                    <div class="card-header">
+                        <img :src="i.image" alt="Not found image" class="card-image" v-if="i.image" />
+                    </div>
+                    <div class="card-body">
+                        <p style="font-size: 24px; font-weight: bold;">
+                            {{ formatNumber(i.price?.[0]?.price, i.country?.currency) }}
+                        </p>
+                        <p>
+                            {{ i.name }}
+                        </p>
+                        <br />
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
