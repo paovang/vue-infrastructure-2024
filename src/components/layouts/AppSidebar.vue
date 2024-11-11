@@ -9,7 +9,6 @@
   import { GET_PERMISSIONS } from '../../common/utils/const';
   import { reportRentBuyStore } from '../../modules/realEstate/admin/dashboard/stores/rent-store';
   import { onMounted, ref } from 'vue';
-  // import Button from 'primevue/button';
 
   const { t } = useI18n();
   const { getAllAppointmentPending, appointmentPending } = reportRentBuyStore();
@@ -117,6 +116,7 @@
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'owner.payment.service',
+          qty: 0,
           roles: [GET_ROLES.ADMIN_OWNER, GET_ROLES.USER_OWNER],
           permission: GET_PERMISSIONS.PAYMENT_REAL_ESTATE.VIEW
         },
@@ -404,6 +404,11 @@
                   >
                       <i class="pi pi-chart-line mr-2"></i>
                       <span class="font-medium">{{ $t('sidebar.payment_service')}}</span>
+                      <span class="inline-flex align-items-center justify-content-center ml-auto bg-primary border-circle" 
+                        style="min-width: 1.5rem; height: 1.5rem; font-size: 14px !important; background-color: #d13438 !important;"
+                      >
+                        0    
+                      </span>
                   </a>
               </li>
             </ul>

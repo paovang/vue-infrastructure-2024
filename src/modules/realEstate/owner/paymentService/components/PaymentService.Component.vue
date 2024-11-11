@@ -46,6 +46,7 @@
                             class="w-full" 
                             optionValue="id"
                             :highlightOnSelect="true" 
+                            @change="filterItem(form.service_charge_id)"
                         />
                     </div>
                 </div>
@@ -53,7 +54,7 @@
                     <div class="flex flex-column">
                         <my-input-number
                             name="quantity"
-                            :label="$t('messages.qty')"
+                            :label="$t('messages.qty') + ' (' + transalteQuatity + ')'"
                             required
                             :placeholder="$t('placeholder.inputText')" 
                         />
@@ -205,6 +206,18 @@
         form.service_charge_id = findRealEstateService.data.props ? findRealEstateService.data.props[0].id : undefined;
     }
 
+    const transalteQuatity = ref();
+    const filterItem = async (id: any) => {
+        const result = findRealEstateService.data.props.filter((item: any) => item.id === id)[0];
+        if (result.unit_price === 'day') {
+            transalteQuatity.value = t('messages.day');
+        } else if (result.unit_price === 'month') {
+            transalteQuatity.value = t('messages.month');
+        } else {
+            transalteQuatity.value = t('messages.year');
+        }
+    }
+
     const handleClick = () => {
         const input = document.getElementById('fileInput') as HTMLInputElement;
         input.click();
@@ -256,7 +269,10 @@
         form.id = stateHouse.data.props ? stateHouse.data.props[0].id : undefined;
         await findRealEstateServiceById(form.id as any);
         form.service_charge_id = findRealEstateService.data.props ? findRealEstateService.data.props[0].id : undefined;
+        await filterItem(form.service_charge_id);
     }
+
+
 
     const showWarningValidate = () => {
         toast.add({ severity: 'error', summary: t('toast.summary.error'), detail: t('placeholder.dropdownSelect'), life: 3000 });

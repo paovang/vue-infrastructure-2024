@@ -101,42 +101,35 @@
             <ProgressSpinner v-if="isProgressBar.isShow"/>
         </div>
         <div style="min-height: 50vh;">
-            <div class="columns is-12 is-multiline" v-if="!isProgressBar.isShow">
-                <div class="column is-3 is-mobile-12" v-for="(item, index) in state.data.props" :key="index">
-                    <Card class="is-card" @click="viewDetail(item.id as string)">
-                        <template #header>
-                            <img :src="item.image" alt="user header" style="width: 100%; height: 200px;" />
-                        </template>
-                        <template #title>
-                        <span>
+            <div class="profile-container">
+                <div class="profile-box" v-for="(item, index) in state.data.props" :key="index" @click="viewDetail(item.id)">
+                    <img :src="item.image" alt="user header" class="img" />
+                    <div class="box-detail">
+                        <p style="font-size: 24px; font-weight: bold;">
                             {{ formatNumber(item.price?.[0]?.price, item.country?.currency) }}
-                        </span>
-                        </template>
-                        <template #subtitle>
-                        <span>{{ item.name }}</span> ,
-                        <span style="background: green; padding: 2px; border-radius: 4px; color: white;">
-                            {{ item.status }}
-                        </span> ,
-                        <span>{{ item.service_model }}</span> ,
-                        <span style="background: #00b7c3; padding: 2px; border-radius: 4px; color: white;">
-                            {{ $t('messages.refer') }}: 
-                            {{ item.refer }}
-                        </span>
-                        </template>
-                        <template #content>
-                        <p class="detail">
+                        </p>
+                        <p>
+                            {{ item.name }}
+                        </p>
+                        <p>
+                            <span style="background: green; padding: 2px; border-radius: 4px; color: white;">
+                                {{ item.status }}
+                            </span>
+                            <span style="margin-left: 5px;">, {{ item.service_model }}</span> ,
+                            <span style="background: #00b7c3; padding: 2px; border-radius: 4px; color: white;">
+                                {{ $t('messages.refer') }}: 
+                                {{ item.refer }}
+                            </span>
+                        </p>
+                        <p>
                             {{ item.trans_real_estate_type?.name }},
-                            <!-- <span>{{ item.room_type }}</span>, -->
                             <span>{{ $t('messages.long') }}: {{ item.long }}</span>,
                             <span>{{ $t('messages.wide') }}: {{ item.wide }}</span>
                         </p>
-                        <p class="detail">
+                        <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                             {{  item.village }}
-                            <!-- {{  item.district?.name }},
-                            {{  item.province?.name }} -->
                         </p>
-                        </template>
-                    </Card>
+                    </div>
                 </div>
             </div>
         </div>
@@ -153,7 +146,6 @@
 </template>
 <script setup lang='ts'>
     import { useRouter, useRoute } from 'vue-router';
-    import Card from 'primevue/card';
     import Divider from 'primevue/divider';
     import { homerealEstateStore } from '@/modules/realEstate/homepage/stores/home.store'
     import { onMounted, ref, computed } from 'vue';
@@ -290,7 +282,7 @@
         // form.real_estate_type_id = realEstateTypes.data.props.length > 0 ? realEstateTypes.data.props[0].id : undefined;
     }
 
-    const viewDetail = async (id: string) => {
+    const viewDetail = async (id: any) => {
       router.push({ name: 'detail.house', params: { id: id }});
     }
 
@@ -320,46 +312,58 @@
     
 </script>
 
-<style scoped>
+<style scoped lang="scss">
     @import 'bulma/css/bulma.css';
 
-    .custom-columns {
+    /* Adjust these media queries as needed for your specific design */
+    // @media screen and (max-width: 1200px) {
+    //     .detail {
+    //         width: 260px;
+    //     }
+    // }
+
+    // @media screen and (max-width: 992px) {
+    //     .detail {
+    //         width: 250px; 
+    //     }
+    // }
+
+    // @media screen and (max-width: 768px) {
+    //     .detail {
+    //         width: 260px;
+    //     }
+    // }
+
+    // @media screen and (max-width: 576px) {
+    //     .detail {
+    //         width: 250px;
+    //     }
+    // }
+
+    .profile-container {
         display: flex;
         flex-wrap: wrap;
+        gap: 20px;
     }
-    .is-card:hover {
+
+    .profile-box {
+        box-shadow: #0002 0 1.6px 3.6px,#0000001c 0 .3px .9px;
+        flex: 1 1 calc(25% - 20px);
+        box-sizing: border-box;
+        max-width: 300px;
+        max-height: 400px;
         cursor: pointer;
-    }
-
-    .detail {
-        width: 270px; 
-        overflow: hidden; 
-        text-overflow: ellipsis; 
-        white-space: nowrap;
-    }
-    
-    /* Adjust these media queries as needed for your specific design */
-    @media screen and (max-width: 1200px) {
-        .detail {
-            width: 260px;
+        .img {
+            width: 100%;
         }
-    }
-
-    @media screen and (max-width: 992px) {
-        .detail {
-            width: 250px; 
+        .box-detail {
+            padding: 15px;
         }
     }
 
     @media screen and (max-width: 768px) {
-        .detail {
-            width: 260px;
-        }
-    }
-
-    @media screen and (max-width: 576px) {
-        .detail {
-            width: 250px;
+        .profile-box {
+            flex: 1 1 100%;
         }
     }
 </style>

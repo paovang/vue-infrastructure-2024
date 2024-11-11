@@ -145,7 +145,13 @@
                     <span style="color: red"> / {{ data.to_date }}</span>
                 </template>
             </Column>
-            <Column field="status" :header="$t('table.header.status')"></Column>
+            <Column field="status" :header="$t('table.header.status')">
+                <template #body="{data}">
+                    <span style="color: goldenrod" v-if="data.status === 'pending'"> {{ data.status }}</span>
+                    <span style="color: green" v-if="data.status === 'confirm'"> {{ data.status }}</span>
+                    <span style="color: red" v-if="data.status === 'reject'"> {{ data.status }}</span>
+                </template>
+            </Column>
             <Column field="updated_by.name" :header="$t('table.header.updated_by')" headerStyle="min-width: 8rem"></Column>
         </DataTable>
 

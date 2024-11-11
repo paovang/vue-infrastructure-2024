@@ -86,7 +86,7 @@
                     <span>{{ $t('messages.long') }}: {{ realEstateGetOne.data.props.long }} {{ locale !== 'en' ? 'm' : ''}}</span>
                     <span>, {{ $t('messages.wide') }}: {{ realEstateGetOne.data.props.wide }} {{ locale !== 'en' ? 'm' : ''}}</span>
                 </p>
-                <p>
+                <p style="font-weight: bold; font-size: 18px;">
                     <a :href="realEstateGetOne.data.props.location" target="_blank">
                         <i class="pi pi-map-marker"></i>
                         {{ $t('viewLocation') }}
