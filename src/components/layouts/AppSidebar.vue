@@ -19,12 +19,14 @@
   const { setStateFilter: setStateRealEstateServiceFilter } = realEstateServiceStore();
 
   const appointment = ref<Number>(0);
+  const paymentService = ref<Number>(0);
   const emit = defineEmits<{ (e: 'showHotelSidebar'): void }>();
 
   onMounted(async() => {
     if (currentRoles.includes(GET_ROLES.ADMIN_OWNER) || currentRoles.includes(GET_ROLES.USER_OWNER)) {
       await getAllAppointmentPending();
-      appointment.value = appointmentPending.data.props ? appointmentPending.data.props : 0;
+      appointment.value = appointmentPending.data.props ? appointmentPending.data.props.appointment : 0;
+      paymentService.value = appointmentPending.data.props ? appointmentPending.data.props.owner_payment_service : 0;
     }
   })
 
@@ -116,7 +118,7 @@
           icon: 'pi pi-chart-line',
           color: 'text-red-500',
           to: 'owner.payment.service',
-          qty: 0,
+          qty: paymentService,
           roles: [GET_ROLES.ADMIN_OWNER, GET_ROLES.USER_OWNER],
           permission: GET_PERMISSIONS.PAYMENT_REAL_ESTATE.VIEW
         },
@@ -407,7 +409,7 @@
                       <span class="inline-flex align-items-center justify-content-center ml-auto bg-primary border-circle" 
                         style="min-width: 1.5rem; height: 1.5rem; font-size: 14px !important; background-color: #d13438 !important;"
                       >
-                        0    
+                        1    
                       </span>
                   </a>
               </li>
