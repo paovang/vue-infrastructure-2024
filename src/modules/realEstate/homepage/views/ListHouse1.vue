@@ -20,14 +20,14 @@
                             {{ item.refer }}
                         </span>
                     </p>
-                    <!-- <p>
+                    <p>
                         {{ item.trans_real_estate_type?.name }},
                         <span>{{ $t('messages.long') }}: {{ item.long }}</span>,
                         <span>{{ $t('messages.wide') }}: {{ item.wide }}</span>
-                    </p> -->
-                    <!-- <p style="width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                    </p>
+                    <p style="width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                         {{  item.village }}
-                    </p> -->
+                    </p>
                 </div>
             </div>
             <div class="column" v-for="item in state.data.props" :key="item.id">
@@ -49,14 +49,43 @@
                             {{ item.refer }}
                         </span>
                     </p>
-                    <!-- <p>
+                    <p>
                         {{ item.trans_real_estate_type?.name }},
                         <span>{{ $t('messages.long') }}: {{ item.long }}</span>,
                         <span>{{ $t('messages.wide') }}: {{ item.wide }}</span>
-                    </p> -->
-                    <!-- <p style="width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                    </p>
+                    <p style="width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                         {{  item.village }}
-                    </p> -->
+                    </p>
+                </div>
+            </div>
+            <div class="column" v-for="item in state.data.props" :key="item.id">
+                <img :src="item.image" alt="Not found image" class="card-image" v-if="item.image" />
+                <div class="card-detail">
+                    <p style="font-size: 24px; font-weight: bold;">
+                        {{ formatNumber(item.price?.[0]?.price, item.country?.currency) }}
+                    </p>
+                    <p>
+                        {{ item.name }}
+                    </p>
+                    <p>
+                        <span style="background: green; padding: 2px; border-radius: 4px; color: white;">
+                            {{ item.status }}
+                        </span>
+                        <span style="margin-left: 5px;">, {{ item.service_model }}</span> ,
+                        <span style="background: #00b7c3; padding: 2px; border-radius: 4px; color: white;">
+                            {{ $t('messages.refer') }}: 
+                            {{ item.refer }}
+                        </span>
+                    </p>
+                    <p>
+                        {{ item.trans_real_estate_type?.name }},
+                        <span>{{ $t('messages.long') }}: {{ item.long }}</span>,
+                        <span>{{ $t('messages.wide') }}: {{ item.wide }}</span>
+                    </p>
+                    <p style="width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                        {{  item.village }}
+                    </p>
                 </div>
             </div>
         </div>
@@ -144,6 +173,13 @@
     flex-basis: calc(25% - 20px); /* Four columns on wide screens */
     background-color: #f8f7f7;
     border-radius: 5px;
+}
+
+/* สำหรับหน้าจอ Desktop ขนาดใหญ่กว่า 1440px ให้แสดงเป็น 5 คอลัมน์ */
+@media screen and (min-width: 1440px) {
+    .column {
+        flex-basis: calc(20% - 20px); /* Five columns on larger screens */
+    }
 }
 
 @media screen and (max-width: 768px) {
