@@ -2,35 +2,27 @@
     <div style="padding: 20px">
         <div class="row">
             <div class="column" v-for="i in state.data.props" :key="i.id">
-                <div class="card" @click="router.push({ path: '/detail', query: { id: i.id } })">
-                    <div class="card-header">
-                        <img :src="i.image" alt="Not found image" class="card-image" v-if="i.image" />
-                    </div>
+                <img :src="i.image" alt="Not found image" class="card-image" v-if="i.image" />
                     <div class="card-body">
-                        <p style="font-size: 24px; font-weight: bold;">
-                            {{ formatNumber(i.price?.[0]?.price, i.country?.currency) }}
-                        </p>
-                        <p>
-                            {{ i.name }}
-                        </p>
-                        <br />
-                    </div>
+                    <p style="font-size: 24px; font-weight: bold;">
+                        {{ formatNumber(i.price?.[0]?.price, i.country?.currency) }}
+                    </p>
+                    <p>
+                        {{ i.name }}
+                    </p>
+                    <br />
                 </div>
             </div>
             <div class="column" v-for="i in state.data.props" :key="i.id">
-                <div class="card" @click="router.push({ path: '/detail', query: { id: i.id } })">
-                    <div class="card-header">
-                        <img :src="i.image" alt="Not found image" class="card-image" v-if="i.image" />
-                    </div>
+                <img :src="i.image" alt="Not found image" class="card-image" v-if="i.image" />
                     <div class="card-body">
-                        <p style="font-size: 24px; font-weight: bold;">
-                            {{ formatNumber(i.price?.[0]?.price, i.country?.currency) }}
-                        </p>
-                        <p>
-                            {{ i.name }}
-                        </p>
-                        <br />
-                    </div>
+                    <p style="font-size: 24px; font-weight: bold;">
+                        {{ formatNumber(i.price?.[0]?.price, i.country?.currency) }}
+                    </p>
+                    <p>
+                        {{ i.name }}
+                    </p>
+                    <br />
                 </div>
             </div>
         </div>
@@ -120,6 +112,7 @@
     flex: 1 1 calc(25% - 20px); /* Four columns on wide screens */
     box-sizing: border-box;
     max-width: 300px; /* Set a max width to prevent full width for single items */
+    background-color: #f8f7f7;
 }
 
 @media screen and (max-width: 768px) {
@@ -136,12 +129,13 @@
     border-radius: 5%;
 }
 
-.card-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
+// .card-header {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     flex-direction: column;
+//     background-color: red;
+// }
 
 .card-image {
     width: 100%;
