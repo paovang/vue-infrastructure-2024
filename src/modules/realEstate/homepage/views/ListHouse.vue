@@ -366,16 +366,16 @@
     }
 
     /* สำหรับจอ Desktop ขนาดใหญ่ (1440px ขึ้นไป) ให้แสดงเป็น 5 คอลัมน์ */
-    @media screen and (min-width: 1440px) {
-        .profile-box {
-            flex-basis: calc(20% - 20px); /* Five columns */
-        }
-    }
+    // @media screen and (min-width: 1440px) {
+    //     .profile-box {
+    //         flex-basis: calc(20% - 20px); /* Five columns */
+    //     }
+    // }
 
     /* สำหรับจอขนาดใหญ่มาก (1920px ขึ้นไป) ให้แสดงเป็น 6 คอลัมน์ */
     @media screen and (min-width: 1920px) {
         .profile-box {
-            flex-basis: calc(16.66% - 20px); /* Six columns */
+            flex-basis: calc(20% - 20px); /* Six columns */
         }
     }
 
