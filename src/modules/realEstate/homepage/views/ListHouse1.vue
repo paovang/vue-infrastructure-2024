@@ -176,14 +176,14 @@
 }
 
 /* สำหรับหน้าจอ Desktop ขนาดใหญ่กว่า 1440px ให้แสดงเป็น 5 คอลัมน์ */
-@media screen and (min-width: 1440px) {
-    .column {
-        flex-basis: calc(20% - 20px); /* Five columns on larger screens */
-    }
-}
+// @media screen and (min-width: 1440px) {
+//     .column {
+//         flex-basis: calc(20% - 20px); /* Five columns on larger screens */
+//     }
+// }
 
-/* สำหรับจอขนาดใหญ่มาก (1920px ขึ้นไป) ให้แสดงเป็น 6 คอลัมน์ */
-@media screen and (min-width: 1920px) {
+// /* สำหรับจอขนาดใหญ่มาก (1920px ขึ้นไป) ให้แสดงเป็น 6 คอลัมน์ */
+@media screen and (max-width: 1920px) {
     .column {
         flex-basis: calc(20% - 20px); /* Six columns */
     }
