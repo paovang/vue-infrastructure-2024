@@ -131,35 +131,6 @@
                         </p>
                     </div>
                 </div>
-                <div class="profile-box" v-for="(item, index) in state.data.props" :key="index" @click="viewDetail(item.id)">
-                    <img :src="item.image" alt="user header" class="img" />
-                    <div class="box-detail">
-                        <p style="font-size: 24px; font-weight: bold;">
-                            {{ formatNumber(item.price?.[0]?.price, item.country?.currency) }}
-                        </p>
-                        <p>
-                            {{ item.name }}
-                        </p>
-                        <p>
-                            <span style="background: green; padding: 2px; border-radius: 4px; color: white;">
-                                {{ item.status }}
-                            </span>
-                            <span style="margin-left: 5px;">, {{ item.service_model }}</span> ,
-                            <span style="background: #00b7c3; padding: 2px; border-radius: 4px; color: white;">
-                                {{ $t('messages.refer') }}: 
-                                {{ item.refer }}
-                            </span>
-                        </p>
-                        <p>
-                            {{ item.trans_real_estate_type?.name }},
-                            <span>{{ $t('messages.long') }}: {{ item.long }}</span>,
-                            <span>{{ $t('messages.wide') }}: {{ item.wide }}</span>
-                        </p>
-                        <p style="width: 230px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                            {{  item.village }}
-                        </p>
-                    </div>
-                </div>
             </div>
         </div>
         <br/>
