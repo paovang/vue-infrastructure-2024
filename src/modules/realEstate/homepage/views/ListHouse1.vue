@@ -1,28 +1,62 @@
 <template>
     <div style="padding: 20px">
         <div class="row">
-            <div class="column" v-for="i in state.data.props" :key="i.id">
-                <img :src="i.image" alt="Not found image" class="card-image" v-if="i.image" />
-                    <div class="card-body">
+            <div class="column" v-for="item in state.data.props" :key="item.id">
+                <img :src="item.image" alt="Not found image" class="card-image" v-if="item.image" />
+                <div class="card-detail">
                     <p style="font-size: 24px; font-weight: bold;">
-                        {{ formatNumber(i.price?.[0]?.price, i.country?.currency) }}
+                        {{ formatNumber(item.price?.[0]?.price, item.country?.currency) }}
                     </p>
                     <p>
-                        {{ i.name }}
+                        {{ item.name }}
                     </p>
-                    <br />
+                    <p>
+                        <span style="background: green; padding: 2px; border-radius: 4px; color: white;">
+                            {{ item.status }}
+                        </span>
+                        <span style="margin-left: 5px;">, {{ item.service_model }}</span> ,
+                        <span style="background: #00b7c3; padding: 2px; border-radius: 4px; color: white;">
+                            {{ $t('messages.refer') }}: 
+                            {{ item.refer }}
+                        </span>
+                    </p>
+                    <p>
+                        {{ item.trans_real_estate_type?.name }},
+                        <span>{{ $t('messages.long') }}: {{ item.long }}</span>,
+                        <span>{{ $t('messages.wide') }}: {{ item.wide }}</span>
+                    </p>
+                    <p style="width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                        {{  item.village }}
+                    </p>
                 </div>
             </div>
-            <div class="column" v-for="i in state.data.props" :key="i.id">
-                <img :src="i.image" alt="Not found image" class="card-image" v-if="i.image" />
-                    <div class="card-body">
+            <div class="column" v-for="item in state.data.props" :key="item.id">
+                <img :src="item.image" alt="Not found image" class="card-image" v-if="item.image" />
+                <div class="card-detail">
                     <p style="font-size: 24px; font-weight: bold;">
-                        {{ formatNumber(i.price?.[0]?.price, i.country?.currency) }}
+                        {{ formatNumber(item.price?.[0]?.price, item.country?.currency) }}
                     </p>
                     <p>
-                        {{ i.name }}
+                        {{ item.name }}
                     </p>
-                    <br />
+                    <p>
+                        <span style="background: green; padding: 2px; border-radius: 4px; color: white;">
+                            {{ item.status }}
+                        </span>
+                        <span style="margin-left: 5px;">, {{ item.service_model }}</span> ,
+                        <span style="background: #00b7c3; padding: 2px; border-radius: 4px; color: white;">
+                            {{ $t('messages.refer') }}: 
+                            {{ item.refer }}
+                        </span>
+                    </p>
+                    <p>
+                        {{ item.trans_real_estate_type?.name }},
+                        <span>{{ $t('messages.long') }}: {{ item.long }}</span>,
+                        <span>{{ $t('messages.wide') }}: {{ item.wide }}</span>
+                    </p>
+                    <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                        {{  item.village }}
+                    </p>
                 </div>
             </div>
         </div>
@@ -99,20 +133,19 @@
 </script>
 
 <style scoped lang="scss">
-    // @import 'bulma/css/bulma.css';
 
-   .row {
+.row {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    // justify-content: center;
 }
 
 .column {
     flex: 1 1 calc(25% - 20px); /* Four columns on wide screens */
     box-sizing: border-box;
-    max-width: 300px; /* Set a max width to prevent full width for single items */
+    max-width: 296px; /* Set a max width to prevent full width for single items */
     background-color: #f8f7f7;
+    border-radius: 5px;
 }
 
 @media screen and (max-width: 768px) {
@@ -121,30 +154,16 @@
     }
 }
 
-.card {
-    cursor: pointer;
-    text-align: center;
-    background-color: #f8f7f7;
-    margin-bottom: 20px;
-    border-radius: 5%;
-}
-
-// .card-header {
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     flex-direction: column;
-//     background-color: red;
-// }
-
 .card-image {
     width: 100%;
-    height: 210px;
+    height: 200px;
     margin-bottom: 10px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
 }
 
-.card-body {
-    text-align: center;
+.card-detail {
+    padding: 0 20px 20px 20px;
 }
 </style>
   
