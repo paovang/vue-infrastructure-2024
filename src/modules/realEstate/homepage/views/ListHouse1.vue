@@ -25,9 +25,9 @@
                         <span>{{ $t('messages.long') }}: {{ item.long }}</span>,
                         <span>{{ $t('messages.wide') }}: {{ item.wide }}</span>
                     </p>
-                    <!-- <p style="width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                    <p style="width: 230px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                         {{  item.village }}
-                    </p> -->
+                    </p>
                 </div>
             </div>
             <div class="column" v-for="item in state.data.props" :key="item.id">
@@ -54,9 +54,9 @@
                         <span>{{ $t('messages.long') }}: {{ item.long }}</span>,
                         <span>{{ $t('messages.wide') }}: {{ item.wide }}</span>
                     </p>
-                    <!-- <p style="width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                    <p style="width: 230px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                         {{  item.village }}
-                    </p> -->
+                    </p>
                 </div>
             </div>
         </div>
