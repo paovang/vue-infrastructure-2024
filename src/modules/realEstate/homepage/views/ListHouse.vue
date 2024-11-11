@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="card">
+        <!-- <div class="card">
             <div class="columns is-12 is-multiline" style="margin-top: -30px;">
                 <div class="column is-2 is-mobile-12">
                     <label>
@@ -96,7 +96,7 @@
             </div>
         </div>
         <Divider style="margin-top: -20px;" />
-        <br/>
+        <br/> -->
         <div class="flex justify-content-center">
             <ProgressSpinner v-if="isProgressBar.isShow"/>
         </div>
@@ -177,60 +177,60 @@
     import { useRouter, useRoute } from 'vue-router';
     import Divider from 'primevue/divider';
     import { homerealEstateStore } from '@/modules/realEstate/homepage/stores/home.store'
-    import { onMounted, ref, computed } from 'vue';
-    import Dropdown from 'primevue/dropdown';
+    import { onMounted, computed } from 'vue';
+    // import Dropdown from 'primevue/dropdown';
     import { formatNumber } from '@/common/utils/format.currency';
     import Paginator from 'primevue/paginator';
     import ProgressSpinner from 'primevue/progressspinner';
     import { dashboardStore } from '@/modules/realEstate/admin/dashboard/stores/store';
     import { useI18n } from 'vue-i18n';
 
-    const { getAllCountries, getCountries, getAllProvinces, getProvinces } = dashboardStore();
+    const { getAllCountries, getCountries } = dashboardStore();
     const { form, getAll, state, setStateFilter, realEstateTypes, isProgressBar, getAllData } = homerealEstateStore();
 
     const router = useRouter();
     const { query } = useRoute();
     const { t } = useI18n();
 
-    const servicemodels = ref([
-        { id: 'all', name: t('messages.all') },
-        { id: 'sale', name: t('messages.service_sale') },
-        { id: 'rent', name: t('messages.service_rent') }
-    ]);
+    // const servicemodels = ref([
+    //     { id: 'all', name: t('messages.all') },
+    //     { id: 'sale', name: t('messages.service_sale') },
+    //     { id: 'rent', name: t('messages.service_rent') }
+    // ]);
 
-    const roomTypes = ref([
-        { id: 'all', name: t('messages.all') },
-        { id: 'air', name: t('messages.air') },
-        { id: 'fan', name: t('messages.fan') },
-        { id: 'no', name: t('messages.none') },
-    ]);
+    // const roomTypes = ref([
+    //     { id: 'all', name: t('messages.all') },
+    //     { id: 'air', name: t('messages.air') },
+    //     { id: 'fan', name: t('messages.fan') },
+    //     { id: 'no', name: t('messages.none') },
+    // ]);
 
-    const filterProvinceById = async (id: any) => {
-        await getAllProvinces(id);
-        getProvinces.data.props.unshift({ id: 'all', name: t('messages.all') });
+    // const filterProvinceById = async (id: any) => {
+    //     await getAllProvinces(id);
+    //     getProvinces.data.props.unshift({ id: 'all', name: t('messages.all') });
 
-        await onSearch();
-    }
+    //     await onSearch();
+    // }
 
-    async function onClearSearch(e: any) {
-        const fieldName = e.target.name;
+    // async function onClearSearch(e: any) {
+    //     const fieldName = e.target.name;
 
-        if (e.target.value === '') {
-            if (fieldName === 'total_bed') {
-                if (setStateFilter.filter?.total_bed !== undefined) {
-                    setStateFilter.filter.total_bed = ''
-                }
-            }
+    //     if (e.target.value === '') {
+    //         if (fieldName === 'total_bed') {
+    //             if (setStateFilter.filter?.total_bed !== undefined) {
+    //                 setStateFilter.filter.total_bed = ''
+    //             }
+    //         }
 
-            if (fieldName === 'total_bath') {
-                if (setStateFilter.filter?.total_bath !== undefined) {
-                    setStateFilter.filter.total_bath = ''
-                }
-            }
+    //         if (fieldName === 'total_bath') {
+    //             if (setStateFilter.filter?.total_bath !== undefined) {
+    //                 setStateFilter.filter.total_bath = ''
+    //             }
+    //         }
 
-            await onSearch();
-        }
-    }
+    //         await onSearch();
+    //     }
+    // }
     
     onMounted(async() => {
         await initComponent();
@@ -244,31 +244,31 @@
         form.real_estate_type_id = realEstateTypes.data.props.length > 0 ? realEstateTypes.data.props[0].id : undefined;
     })
 
-    const onSearch = async () => {
-        if (setStateFilter.filter) {
-            setStateFilter.filter.real_estate_type_id = form.real_estate_type_id === 'all' ? '' : form.real_estate_type_id;
-            setStateFilter.filter.service_model = form.service_model === 'all' ? '' : form.service_model;
-            setStateFilter.filter.room_type = form.room_type === 'all' ? '' : form.room_type;
-            setStateFilter.filter.total_bed = form.district_id === 'all' ? '' : form.total_bed;
-            setStateFilter.filter.total_bath = form.province_id === 'all' ? '' : form.total_bath;
-            setStateFilter.filter.country_id = form.country_id === 'all' ? '' : form.country_id;
-        }
+    // const onSearch = async () => {
+    //     if (setStateFilter.filter) {
+    //         setStateFilter.filter.real_estate_type_id = form.real_estate_type_id === 'all' ? '' : form.real_estate_type_id;
+    //         setStateFilter.filter.service_model = form.service_model === 'all' ? '' : form.service_model;
+    //         setStateFilter.filter.room_type = form.room_type === 'all' ? '' : form.room_type;
+    //         setStateFilter.filter.total_bed = form.district_id === 'all' ? '' : form.total_bed;
+    //         setStateFilter.filter.total_bath = form.province_id === 'all' ? '' : form.total_bath;
+    //         setStateFilter.filter.country_id = form.country_id === 'all' ? '' : form.country_id;
+    //     }
 
-        router.push({
-            query: {
-                page: setStateFilter.page,
-                limit: setStateFilter.limit,
-                real_estate_type_id: form.real_estate_type_id,
-                service_model: form.service_model,
-                room_type: form.room_type,
-                total_bed: form.total_bed,
-                total_bath: form.total_bath,
-                country_id: form.country_id,
-            }
-        })
+    //     router.push({
+    //         query: {
+    //             page: setStateFilter.page,
+    //             limit: setStateFilter.limit,
+    //             real_estate_type_id: form.real_estate_type_id,
+    //             service_model: form.service_model,
+    //             room_type: form.room_type,
+    //             total_bed: form.total_bed,
+    //             total_bath: form.total_bath,
+    //             country_id: form.country_id,
+    //         }
+    //     })
         
-        await getAll();
-    }
+    //     await getAll();
+    // }
 
     async function initComponent() {
         if (Object.keys(query).length !== 0) {
@@ -342,7 +342,7 @@
 </script>
 
 <style scoped lang="scss">
-    @import 'bulma/css/bulma.css';
+    // @import 'bulma/css/bulma.css';
 
     /* Adjust these media queries as needed for your specific design */
     // @media screen and (max-width: 1200px) {
