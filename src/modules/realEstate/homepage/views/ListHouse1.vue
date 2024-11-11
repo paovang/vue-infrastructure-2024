@@ -182,6 +182,13 @@
     }
 }
 
+/* สำหรับจอขนาดใหญ่มาก (1920px ขึ้นไป) ให้แสดงเป็น 6 คอลัมน์ */
+@media screen and (min-width: 1920px) {
+    .column {
+        flex-basis: calc(14.28% - 20px); /* Six columns */
+    }
+}
+
 @media screen and (max-width: 768px) {
     .column {
         flex: 1 1 100%; /* Full-width on mobile screens */
