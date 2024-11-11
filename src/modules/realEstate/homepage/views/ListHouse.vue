@@ -377,7 +377,7 @@
 
     .profile-box {
         box-shadow: #0002 0 1.6px 3.6px,#0000001c 0 .3px .9px;
-        // flex: 1 1 calc(25% - 20px);
+        flex: 1 1 calc(25% - 20px);
         box-sizing: border-box;
         max-width: 300px;
         max-height: 400px;
