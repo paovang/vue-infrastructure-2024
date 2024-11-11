@@ -107,7 +107,7 @@
 </script>
 
 <style scoped lang="scss">
-    @import 'bulma/css/bulma.css';
+    // @import 'bulma/css/bulma.css';
 
    .row {
     display: flex;
