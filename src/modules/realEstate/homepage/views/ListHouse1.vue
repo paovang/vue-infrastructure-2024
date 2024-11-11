@@ -20,11 +20,11 @@
                             {{ item.refer }}
                         </span>
                     </p>
-                    <p>
+                    <!-- <p>
                         {{ item.trans_real_estate_type?.name }},
                         <span>{{ $t('messages.long') }}: {{ item.long }}</span>,
                         <span>{{ $t('messages.wide') }}: {{ item.wide }}</span>
-                    </p>
+                    </p> -->
                     <!-- <p style="width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                         {{  item.village }}
                     </p> -->
@@ -49,11 +49,11 @@
                             {{ item.refer }}
                         </span>
                     </p>
-                    <p>
+                    <!-- <p>
                         {{ item.trans_real_estate_type?.name }},
                         <span>{{ $t('messages.long') }}: {{ item.long }}</span>,
                         <span>{{ $t('messages.wide') }}: {{ item.wide }}</span>
-                    </p>
+                    </p> -->
                     <!-- <p style="width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                         {{  item.village }}
                     </p> -->
