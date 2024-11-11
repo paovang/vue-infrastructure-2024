@@ -42,7 +42,7 @@
     import { onMounted } from 'vue';
     import { dashboardStore } from '@/modules/realEstate/admin/dashboard/stores/store';
     import { useI18n } from 'vue-i18n';
-import { formatNumber } from '@/common/utils/format.currency';
+    import { formatNumber } from '@/common/utils/format.currency';
 
     const { getAllCountries, getCountries } = dashboardStore();
     const { form, getAll, state, setStateFilter, realEstateTypes, getAllData } = homerealEstateStore();
@@ -107,6 +107,8 @@ import { formatNumber } from '@/common/utils/format.currency';
 </script>
 
 <style scoped lang="scss">
+    @import 'bulma/css/bulma.css';
+
    .row {
     display: flex;
     flex-wrap: wrap;
