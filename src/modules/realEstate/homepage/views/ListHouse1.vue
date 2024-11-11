@@ -185,7 +185,7 @@
 /* สำหรับจอขนาดใหญ่มาก (1920px ขึ้นไป) ให้แสดงเป็น 6 คอลัมน์ */
 @media screen and (min-width: 1920px) {
     .column {
-        flex-basis: calc(14.28% - 20px); /* Six columns */
+        flex-basis: calc(20% - 20px); /* Six columns */
     }
 }
 
