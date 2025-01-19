@@ -318,7 +318,8 @@
         "total_rent": "Total Rent",
         "refer": "Refer",
         "lang": "Language",
-        "build_in": "build In"
+        "build_in": "build In",
+        "hotel": "Hotel"
     },
     "uploadFile": {
         "uploading": "Uploading profile to the system please wait...",

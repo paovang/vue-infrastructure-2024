@@ -12,6 +12,9 @@
                 <a class="navbar-item" @click="goToHome" :class="{ 'is-active-tab': isCurrentRoute('home') }">
                     {{ $t('messages.real_estate')}}
                 </a>
+                <a class="navbar-item" @click="goToHotel" :class="{ 'is-active-tab': isCurrentRoute('hotel') }">
+                    {{ $t('messages.hotel')}}
+                </a>
             </div>
 
             <!-- <div class="navbar-end">
@@ -40,6 +43,13 @@
     const goToHome = async () => {
         await router.push({ name: 'home'});
         window.location.reload();
+    }
+
+    const goToHotel = async () => {
+        // สร้าง URL โดยการต่อข้อความ
+        const url = `https://hotel.hellonewyears.com`;
+        // Redirect to the URL
+        window.open(url, '_blank');
     }
 
     const goToAbout = async () => {

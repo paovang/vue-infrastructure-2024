@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div style="margin-top: -20px;" class="btn-back" @click="goBack">
-            <i class="pi pi-arrow-left" style="color: green"></i>
+        <div style="margin-top: -20px; color: red" class="btn-back" @click="goBack">
+            <i class="pi pi-arrow-left"></i>
             {{ $t('back') }}
         </div>
         <p style="margin-top: 15px;"></p>

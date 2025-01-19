@@ -9,7 +9,9 @@
   import { GET_PERMISSIONS } from '../../common/utils/const';
   import { reportRentBuyStore } from '../../modules/realEstate/admin/dashboard/stores/rent-store';
   import { onMounted, ref } from 'vue';
-
+  import Divider from 'primevue/divider';
+  import Button from 'primevue/button';
+  
   const { t } = useI18n();
   const { getAllAppointmentPending, appointmentPending } = reportRentBuyStore();
   
@@ -277,7 +279,8 @@
   const currentPermissions = rolesString ? JSON.parse(permissionsString) : [];
 
 
-  const hasRoleAdmin = () => {
+  const 
+  hasRoleAdmin = () => {
    if (currentRoles.includes(GET_ROLES.SUPER_ADMIN) || currentRoles.includes(GET_ROLES.ADMIN)) {
     return true;
    } else {
@@ -361,6 +364,19 @@
       return currentPermissions.includes(permission);
     }
   }
+
+  const goToHotel = async () => { 
+    const token = `"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5oZWxsb25ld3llYXJzLmNvbS9hcGkvYXV0aC9sb2dpbiIsImlhdCI6MTczNzE3MDAyNiwibmJmIjoxNzM3MTcwMDI2LCJqdGkiOiJOTzFYQjh4TUV4MUVrSFdKIiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.ZtVdmKlIBSZuL91RT1VpEaPDAcf9jw-y4Un-kLfgC6c"`;
+    const roles = `["super-admin"]`;
+    const permissions = `[]`;
+
+    // สร้าง URL โดยการต่อข้อความ
+    const url = `https://hotel.hellonewyears.com?token=${token}&roles=${roles}&permissions=${permissions}`;
+
+    console.log('url: ', url);
+    // Redirect to the URL
+    window.open(url, '_blank');
+  }
 </script>
 
 <template>
@@ -373,6 +389,10 @@
         <span class="font-bold text-3xl" style="margin-left: 10px" @click="router.push({ name: 'home' })">UK LAO</span>
       </div>
       <br/>
+      <div class="btn-go-hotel" style="text-align: center;">
+        <Button label="Go To Hotel" @click="goToHotel" v-if="hasRoleAdmin()" />
+      </div>
+      <Divider style="margin-top: 20px;"/>
         <div class="overflow-y-auto">
             <ul class="list-none p-0 m-0 overflow-hidden">
               <li v-if="hasRoleAdmin()">

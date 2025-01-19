@@ -314,7 +314,9 @@
         "total_sale": "tổng giá bán", 
         "total_rent": "tổng giá thuê",
         "refer": "đề nghị", 
-        "lang": "ngôn ngữ" 
+        "lang": "ngôn ngữ",
+        "build_in": "Được xây dựng",
+        "hotel": "khách sạn"
     },
     "uploadFile": {
         "uploading": "đang tải hồ sơ lên hệ thống vui long chờ...", 
