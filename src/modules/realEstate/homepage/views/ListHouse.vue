@@ -113,9 +113,9 @@
                         </p>
                         <p>
                             <span style="background: green; padding: 2px; border-radius: 4px; color: white;">
-                                {{ item.status }}
+                                {{ item.status === 'open' ? $t('messages.open') : $t('messages.close') }}
                             </span>
-                            <span style="margin-left: 5px;">, {{ item.service_model }}</span> ,
+                            <span style="margin-left: 5px;">, {{ item.service_model === 'sale' ? $t('messages.service_sale') : $t('messages.service_rent') }}</span> ,
                             <span style="background: #00b7c3; padding: 2px; border-radius: 4px; color: white;">
                                 {{ $t('messages.refer') }}: 
                                 {{ item.refer }}
@@ -328,6 +328,8 @@
         cursor: pointer;
         .img {
             width: 100%;
+            height: 220px;
+            object-fit: cover;
             border-top-right-radius: 5px;
             border-top-left-radius: 5px;
         }

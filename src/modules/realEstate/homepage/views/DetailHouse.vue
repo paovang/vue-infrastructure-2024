@@ -36,10 +36,10 @@
                 <Divider/>
                 <p style="margin-top: 5px;">
                     <span style="background: green; padding: 2px; border-radius: 4px; color: white;">
-                        {{ realEstateGetOne.data.props.status }}
+                        {{ realEstateGetOne.data.props.status === 'open' ? $t('messages.open') : $t('messages.close') }}
                     </span> 
                     <span style="margin-left: 10px;">
-                        {{ realEstateGetOne.data.props.service_model }}
+                        {{ realEstateGetOne.data.props.service_model === 'sale' ? $t('messages.service_sale') : $t('messages.service_rent') }}
                     </span>
                     <span>
                         , {{ $t('messages.name') }}: {{ realEstateGetOne.data.props.owner_name }},
