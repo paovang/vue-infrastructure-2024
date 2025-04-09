@@ -47,7 +47,7 @@
 
     const goToHotel = async () => {
         // สร้าง URL โดยการต่อข้อความ
-        const url = `https://hotel.hellonewyears.com`;
+        const url = `https://hotel.100100year.com`;
         // Redirect to the URL
         window.open(url, '_blank');
     }
